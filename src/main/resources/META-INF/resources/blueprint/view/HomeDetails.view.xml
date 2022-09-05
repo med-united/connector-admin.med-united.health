@@ -1,0 +1,11 @@
+<mvc:View
+   xmlns="sap.m"
+   xmlns:mvc="sap.ui.core.mvc">
+   <Page title="Home">
+   		<ObjectHeader title="{i18n>appTitle}" />
+   		<Panel>
+   			<Text text="{i18n>appDescription}"></Text>
+   			<Image width="100%" src="https://editor.signavio.com/p/model/13c1f64109a541719fba650d0f717d78/png?inline&amp;authkey=61a20c359cd2ba789477181175b5b22f47788194596d3a96392e6dea9eacd" />
+   		</Panel>
+   </Page>
+</mvc:View>

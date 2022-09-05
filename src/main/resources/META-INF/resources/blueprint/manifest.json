@@ -1,0 +1,130 @@
+ {
+	"_version": "1.1.0",
+	"sap.app": {
+		"_version": "1.1.0",
+		"id": "blueprint",
+		"type": "application",
+		"title": "{{appTitle}}",
+		"description": "{{appDescription}}",
+		"applicationVersion": {
+			"version": "1.0.0"
+		},
+		"dataSources": {
+			"Data.svc": {
+				"uri": "../Data.svc?sap-context-token=1",
+				"type": "OData",
+				"settings": {
+					"odataVersion": "2.0"
+				}
+			}
+		}
+	},
+	"sap.ui": {
+		"_version": "1.1.0",
+		"technology": "UI5",
+		"deviceTypes": {
+			"desktop": true,
+			"tablet": true,
+			"phone": true
+		},
+		"supportedThemes": [
+			"sap_fiori_3"
+		]
+	},
+	"sap.ui5": {
+		"_version": "1.1.0",
+		"rootView": {
+			"viewName": "blueprint.view.App",
+			"type": "XML"
+		},
+		"dependencies": {
+			"minUI5Version": "1.68.1",
+			"libs": {
+				"sap.m": {
+					
+				},
+				"sap.ui.layout": {
+					
+				}
+			}
+		},
+		"models": {
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleName": "blueprint.i18n.i18n"
+				}
+			},
+			"": {
+				"dataSource": "Data.svc",
+				"type": "blueprint.model.ETagCacheControlODataModel",
+				"preload": true,
+				"settings": {
+					"defaultBindingMode": "TwoWay"
+				}
+			}
+		},
+		"routing": {
+			"config": {
+				"routerClass": "sap.m.routing.Router",
+				"viewType": "XML",
+				"viewPath": "blueprint.view",
+				"controlId": "splitApp",
+				"controlAggregation": "detailPages",
+				"clearTarget": false,
+				"transition": "slide",
+				"bypassed": {
+					"target": "notFound"
+				}
+			},
+			"routes": [
+				{
+					"pattern": "",
+					"name": "Home",
+					"target": [
+						"todoList",
+						"homeDetails"
+					]
+				},
+				{
+					"pattern": "Todos(':id:')",
+					"name": "Todos",
+					"target": [
+						"todoList",
+						"todoDetails"
+					]
+				},
+				{
+					"pattern": "addTodo",
+					"name": "addTodo",
+					"target": [
+						"todoList",
+						"todoDetails"
+					]
+				}
+			],
+			"targets": {
+				"homeDetails": {
+					"viewName": "HomeDetails",
+					"controlId": "splitApp",
+					"controlAggregation": "detailPages"
+				},
+				"todoList": {
+					"viewName": "TodoList",
+					"controlId": "splitApp",
+					"controlAggregation": "masterPages",
+					"clearControlAggregation": true
+				},
+				"todoDetails": {
+					"viewName": "TodoDetails",
+					"controlId": "splitApp",
+					"controlAggregation": "detailPages"
+				},
+				"notFound": {
+					"viewName": "NotFound",
+					"transition": "show"
+				}
+			}
+		}
+	}
+}
