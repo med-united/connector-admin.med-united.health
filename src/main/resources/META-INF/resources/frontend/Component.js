@@ -1,7 +1,7 @@
 sap.ui.define([ "sap/ui/core/UIComponent", "sap/ui/model/odata/v2/ODataModel"],
 function(UIComponent, ODataModel) {
 	"use strict";
-	return UIComponent.extend("blueprint.Component", {
+	return UIComponent.extend("frontend.Component", {
 
 		metadata : {
 			manifest: "json"

@@ -9,14 +9,14 @@
             data-sap-ui-compatVersion='edge' data-sap-ui-preload='async'
             data-sap-ui-bindingSyntax='complex'
             data-sap-ui-resourceroots='{
-	 	"blueprint" : "./blueprint"
+	 	"frontend" : "./frontend"
 	 }'>
     </script>
 
     <script>
 		sap.ui.getCore().attachInit(function() {
 			new sap.ui.core.ComponentContainer({
-					name: "blueprint"
+					name: "frontend"
 			}).placeAt("content");
 		});
 
