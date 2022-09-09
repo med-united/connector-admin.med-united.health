@@ -15,6 +15,7 @@
     <quarkus.platform.version>2.12.0.Final</quarkus.platform.version>
     <skipITs>true</skipITs>
     <surefire-plugin.version>3.0.0-M7</surefire-plugin.version>
+    <olingo.version>2.0.11</olingo.version>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -62,6 +63,31 @@
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-rest-client</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.olingo</groupId>
+      <artifactId>olingo-odata2-core</artifactId>
+      <version>${olingo.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.olingo</groupId>
+      <artifactId>olingo-odata2-api</artifactId>
+      <version>${olingo.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.olingo</groupId>
+      <artifactId>olingo-odata2-jpa-processor-api</artifactId>
+      <version>${olingo.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.olingo</groupId>
+      <artifactId>olingo-odata2-jpa-processor-core</artifactId>
+      <version>${olingo.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.olingo</groupId>
+      <artifactId>olingo-odata2-api-annotation</artifactId>
+      <version>${olingo.version}</version>
     </dependency>
     <dependency>
       <groupId>io.rest-assured</groupId>
