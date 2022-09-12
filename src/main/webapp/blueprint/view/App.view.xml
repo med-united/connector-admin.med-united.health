@@ -1,6 +1,6 @@
 <mvc:View
    xmlns="sap.m"
    xmlns:mvc="sap.ui.core.mvc"
-   controllerName="frontend.controller.App">
+   controllerName="blueprint.controller.App">
    <SplitApp id="splitApp"/>
 </mvc:View>

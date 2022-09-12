@@ -1,6 +1,6 @@
 sap.ui.define([ "sap/ui/core/mvc/Controller" ], function(Controller) {
 	"use strict";
-	return Controller.extend("frontend.controller.TodoDetails", {
+	return Controller.extend("blueprint.controller.TodoDetails", {
 		onInit : function() {
 			var me = this;
 			this.getOwnerComponent().getRouter().attachRouteMatched(function (oEvent) {

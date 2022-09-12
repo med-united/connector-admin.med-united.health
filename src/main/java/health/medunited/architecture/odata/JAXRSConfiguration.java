@@ -1,5 +1,4 @@
 package health.medunited.architecture.odata;
-
 import health.medunited.architecture.odata.etag.ETagResponseFilter;
 import org.apache.olingo.odata2.api.ODataServiceFactory;
 import org.apache.olingo.odata2.core.rest.ODataExceptionMapperImpl;
