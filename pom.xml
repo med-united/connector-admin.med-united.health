@@ -70,7 +70,7 @@
       <plugin>
         <groupId>org.wildfly.plugins</groupId>
         <artifactId>wildfly-maven-plugin</artifactId>
-        <version>2.1.0.Beta1</version>
+        <version>3.0.2.Final</version>
         <configuration>
           <java-opts>
             <java-opt>--add-opens=java.base/java.lang=ALL-UNNAMED</java-opt>
