@@ -10,14 +10,14 @@
   <properties>
     <maven.compiler.source>18</maven.compiler.source>
     <maven.compiler.target>18</maven.compiler.target>
-    <olingo.version>2.0.11</olingo.version>
+    <olingo.version>2.0.12</olingo.version>
     <failOnMissingWebXml>false</failOnMissingWebXml>
   </properties>
   <dependencies>
     <dependency>
       <groupId>javax</groupId>
       <artifactId>javaee-api</artifactId>
-      <version>7.0</version>
+      <version>8.0.1</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
@@ -44,6 +44,11 @@
       <groupId>org.apache.olingo</groupId>
       <artifactId>olingo-odata2-api-annotation</artifactId>
       <version>${olingo.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+      <version>42.5.0</version>
     </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
@@ -82,6 +87,44 @@
             <java-opt>--add-opens=java.naming/javax.naming=ALL-UNNAMED</java-opt>
           </java-opts>
         </configuration>
+        <executions>
+          <execution>
+            <id>deploy-postgresql</id>
+            <phase>package</phase>
+            <goals>
+              <goal>deploy-artifact</goal>
+            </goals>
+            <configuration>
+              <groupId>org.postgresql</groupId>
+              <artifactId>postgresql</artifactId>
+              <name>postgresql.jar</name>
+            </configuration>
+          </execution>
+          <execution>
+            <id>add-datasource</id>
+            <phase>package</phase>
+            <goals>
+              <goal>add-resource</goal>
+            </goals>
+            <configuration>
+              <address>subsystem=datasources,data-source=java:jboss/datasources/Postgres</address>
+              <resources>
+                <resource>
+                  <properties>
+                    <jndi-name>java:jboss/datasources/Postgres</jndi-name>
+                    <enabled>true</enabled>
+                    <connection-url>jdbc:postgresql://localhost:5432/connector</connection-url>
+                    <driver-class>org.postgresql.Driver</driver-class>
+                    <driver-name>postgresql.jar</driver-name>
+                    <!-- For local use -->
+                    <user-name>user</user-name>
+                    <password>password</password>
+                  </properties>
+                </resource>
+              </resources>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
