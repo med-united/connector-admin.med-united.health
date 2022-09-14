@@ -1,6 +1,6 @@
 package health.medunited.architecture;
 
-import health.medunited.architecture.entities.Todo;
+import health.medunited.architecture.entities.RuntimeConfig;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
@@ -17,10 +17,10 @@ public class Bootstrap {
 
 	@PostConstruct
 	public void generateDemoData() {
-		for(int i=0;i<1000;i++) {
-			Todo todo = new Todo();
-			todo.setNote(todo.getId());
-			em.persist(todo);
+		for(int i=0;i<5;i++) {
+			RuntimeConfig runtimeConfig = new RuntimeConfig();
+			runtimeConfig.setUrl("testUrl");
+			em.persist(runtimeConfig);
 		}
 	}
 }
