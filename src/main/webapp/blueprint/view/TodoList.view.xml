@@ -1,14 +1,14 @@
 <mvc:View xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc"
 	controllerName="blueprint.controller.TodoList">
-	<Page title="Todo">
+	<Page title="Connector">
 		<subHeader>
 			<OverflowToolbar>
 				<SearchField liveChange="onSearch" width="100%" />
 			</OverflowToolbar>
 		</subHeader>
-		<List items="{/Todos}" itemPress="onItemPress" mode="MultiSelect"
+		<List items="{/RuntimeConfigs}" itemPress="onItemPress" mode="MultiSelect"
 			growing="true" growingScrollToLoad="true" id="list">
-			<StandardListItem title="{Note}" description="{Id}"
+			<StandardListItem title="{Url}" description="{Id}"
 				type="Navigation" />
 		</List>
 		<footer>
