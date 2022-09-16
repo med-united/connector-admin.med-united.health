@@ -2,7 +2,7 @@
 	"_version": "1.1.0",
 	"sap.app": {
 		"_version": "1.1.0",
-		"id": "blueprint",
+		"id": "frontend",
 		"type": "application",
 		"title": "{{appTitle}}",
 		"description": "{{appDescription}}",
@@ -34,7 +34,7 @@
 	"sap.ui5": {
 		"_version": "1.1.0",
 		"rootView": {
-			"viewName": "blueprint.view.App",
+			"viewName": "frontend.view.App",
 			"type": "XML"
 		},
 		"dependencies": {
@@ -52,12 +52,12 @@
 			"i18n": {
 				"type": "sap.ui.model.resource.ResourceModel",
 				"settings": {
-					"bundleName": "blueprint.i18n.i18n"
+					"bundleName": "frontend.i18n.i18n"
 				}
 			},
 			"": {
 				"dataSource": "Data.svc",
-				"type": "blueprint.model.ETagCacheControlODataModel",
+				"type": "frontend.model.ETagCacheControlODataModel",
 				"preload": true,
 				"settings": {
 					"defaultBindingMode": "TwoWay"
@@ -68,7 +68,7 @@
 			"config": {
 				"routerClass": "sap.m.routing.Router",
 				"viewType": "XML",
-				"viewPath": "blueprint.view",
+				"viewPath": "frontend.view",
 				"controlId": "splitApp",
 				"controlAggregation": "detailPages",
 				"clearTarget": false,

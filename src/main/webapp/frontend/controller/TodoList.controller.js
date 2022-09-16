@@ -4,7 +4,7 @@ sap.ui.define([
    "sap/ui/model/FilterOperator"
 ], function (Controller, Filter, FilterOperator) {
    "use strict";
-   return Controller.extend("blueprint.controller.TodoList", {
+   return Controller.extend("frontend.controller.TodoList", {
 	   onItemPress : function (oEvent) {
 		   this.getOwnerComponent().getRouter().navTo("Todos", {
 			    "id" : oEvent.getParameter("listItem").getBindingContext().getProperty("Id")

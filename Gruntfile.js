@@ -4,12 +4,12 @@ module.exports = function(grunt) {
             component: {
                 options: {
                     resources: {
-                        cwd: 'src/main/webapp/blueprint',
-                        prefix: 'blueprint'
+                        cwd: 'src/main/webapp/frontend',
+                        prefix: 'frontend'
                     },
-                    dest: 'src/main/webapp/blueprint'
+                    dest: 'src/main/webapp/frontend'
                 },
-            components: 'blueprint'
+            components: 'frontend'
             }
         }
     });
