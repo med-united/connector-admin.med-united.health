@@ -11,5 +11,11 @@ Prerequisites:
 3. Git running on your machine (https://git-scm.com/downloads)
 
 ```
-mvn wildfly:run
+mvn wildfly:start
+mvn wildfly:deploy
+```
+# How to stop the application?
+```
+mvn wildfly:undeploy
+mvn wildfly:shutdown
 ```
