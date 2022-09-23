@@ -82,24 +82,24 @@
 					"pattern": "",
 					"name": "Home",
 					"target": [
-						"todoList",
+						"runtimeConfigList",
 						"homeDetails"
 					]
 				},
 				{
-					"pattern": "Todos(':id:')",
-					"name": "Todos",
+					"pattern": "RuntimeConfigs(':id:')",
+					"name": "RuntimeConfigs",
 					"target": [
-						"todoList",
-						"todoDetails"
+						"runtimeConfigList",
+						"runtimeConfigDetails"
 					]
 				},
 				{
-					"pattern": "addTodo",
-					"name": "addTodo",
+					"pattern": "addRuntimeConfig",
+					"name": "addRuntimeConfig",
 					"target": [
-						"todoList",
-						"todoDetails"
+						"runtimeConfigList",
+						"runtimeConfigDetails"
 					]
 				}
 			],
@@ -109,14 +109,14 @@
 					"controlId": "splitApp",
 					"controlAggregation": "detailPages"
 				},
-				"todoList": {
-					"viewName": "TodoList",
+				"runtimeConfigList": {
+					"viewName": "RuntimeConfigList",
 					"controlId": "splitApp",
 					"controlAggregation": "masterPages",
 					"clearControlAggregation": true
 				},
-				"todoDetails": {
-					"viewName": "TodoDetails",
+				"runtimeConfigDetails": {
+					"viewName": "RuntimeConfigDetails",
 					"controlId": "splitApp",
 					"controlAggregation": "detailPages"
 				},

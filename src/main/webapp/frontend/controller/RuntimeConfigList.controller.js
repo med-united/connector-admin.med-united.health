@@ -4,9 +4,9 @@ sap.ui.define([
    "sap/ui/model/FilterOperator"
 ], function (Controller, Filter, FilterOperator) {
    "use strict";
-   return Controller.extend("frontend.controller.TodoList", {
+   return Controller.extend("frontend.controller.RuntimeConfigList", {
 	   onItemPress : function (oEvent) {
-		   this.getOwnerComponent().getRouter().navTo("Todos", {
+		   this.getOwnerComponent().getRouter().navTo("RuntimeConfigs", {
 			    "id" : oEvent.getParameter("listItem").getBindingContext().getProperty("Id")
 		   });
 	   },
@@ -14,11 +14,11 @@ sap.ui.define([
 		   var list = this.byId("list");
 		   var dataModel = this.getView().getModel();
 		   list.getSelectedContexts().forEach(function (c) {
-			   dataModel.remove("/Todos('"+c.getProperty("Id")+"')");
+			   dataModel.remove("/RuntimeConfigs('"+c.getProperty("Id")+"')");
 		   });
 	   },
 	   onAdd : function (oEvent) {
-		   this.getOwnerComponent().getRouter().navTo("addTodo");
+		   this.getOwnerComponent().getRouter().navTo("addRuntimeConfig");
 	   },
 	   onRefresh: function () {
 		   this.byId("list").getBinding("items").refresh();
