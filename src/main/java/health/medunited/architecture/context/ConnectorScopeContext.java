@@ -1,20 +1,14 @@
-package health.medunited.architecture.service;
+package health.medunited.architecture.context;
 
-import javax.enterprise.inject.Alternative;
-
-@Alternative
-public class CardService {
+public class ConnectorScopeContext {
 
     private String url;
 
     private String terminalId;
 
-    public CardService(String url, String terminalId) {
+    public ConnectorScopeContext(String url, String terminalId) {
         this.url = url;
         this.terminalId = terminalId;
-    }
-
-    public CardService() {
     }
 
     public String getUrl() {
@@ -32,5 +26,4 @@ public class CardService {
     public void setTerminalId(String terminalId) {
         this.terminalId = terminalId;
     }
-
 }
