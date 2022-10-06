@@ -55,6 +55,11 @@
       <artifactId>jakarta.enterprise.cdi-api</artifactId>
       <version>4.0.1</version>
     </dependency>
+    <dependency>
+      <groupId>health.ere</groupId>
+      <artifactId>api-telematik-service</artifactId>
+      <version>OPD4-20220115</version>
+    </dependency>
 
     <dependency>
       <groupId>org.jboss.weld.se</groupId>
@@ -155,4 +160,17 @@
       </plugin>
     </plugins>
   </build>
+  <repositories>
+    <repository>
+      <!-- git clone https://github.com/ere-health/api-telematik -->
+      <!-- cd api-telematik && mvn install -->
+      <!-- cd <some-local-path>/ere-ps-app/project-repo -->
+      <!-- cp -r ~/.m2/repository/health/  -->
+      <id>project-repo</id>
+      <releases>
+        <checksumPolicy>ignore</checksumPolicy>
+      </releases>
+      <url>file://${project.basedir}/project-repo</url>
+    </repository>
+  </repositories>
 </project>
