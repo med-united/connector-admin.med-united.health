@@ -31,7 +31,12 @@ public class ConnectorScope implements Callable<Void> {
     @Produces
     @RequestScoped
     public CardService createCardService() {
-        return new CardService(connectorScopeContext.getUrl(), connectorScopeContext.getTerminalId());
+        return new CardService(
+                connectorScopeContext.getUrl(),
+                connectorScopeContext.getMandantId(),
+                connectorScopeContext.getClientSystemId(),
+                connectorScopeContext.getWorkplaceId(),
+                connectorScopeContext.getUserId());
     }
 }
 
