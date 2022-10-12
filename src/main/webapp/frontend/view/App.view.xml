@@ -1,6 +1,104 @@
 <mvc:View
    xmlns="sap.m"
    xmlns:mvc="sap.ui.core.mvc"
+   xmlns:f="sap.f"
+   xmlns:fb="sap.ui.comp.filterbar"
+   xmlns:core="sap.ui.core"
+   xmlns:svm="sap.ui.comp.smartvariants"
    controllerName="frontend.controller.App">
+   <f:DynamicPage headerExpanded="{/headerExpanded}">
+      <f:title>
+         <f:DynamicPageTitle>
+            <f:heading>
+               <svm:SmartVariantManagement id="svm" showExecuteOnSelection="true" />
+            </f:heading>
+            <f:expandedContent>
+               <Label id="expandedLabel" text="No filters active" />
+            </f:expandedContent>
+            <f:snappedContent>
+               <Label id="snappedLabel" text="No filters active" />
+            </f:snappedContent>
+         </f:DynamicPageTitle>
+      </f:title>
+      <f:header>
+         <f:DynamicPageHeader>
+            <f:content>
+               <fb:FilterBar id="filterbar" persistencyKey="myPersKey" useToolbar="false" search=".onSearch" filterChange=".onFilterChange" afterVariantLoad=".onAfterVariantLoad">
+                  <fb:filterItems>
+                     <fb:FilterItem name="Name" label="Name">
+                        <fb:control>
+                           <MultiComboBox
+                                   name="Name"
+                                   selectionChange=".onSelectionChange"
+                                   items="{
+												path: '/ProductNames',
+												templateShareable: true
+											}"
+                           >
+                              <core:Item key="{key}" text="{name}"/>
+                           </MultiComboBox>
+                        </fb:control>
+                     </fb:FilterItem>
+                     <fb:FilterItem name="Category" label="Category">
+                        <fb:control>
+                           <MultiComboBox
+                                   name="Category"
+                                   selectionChange=".onSelectionChange"
+                                   items="{
+												path: '/ProductCategories',
+												templateShareable: true
+											}"
+                           >
+                              <core:Item key="{key}" text="{name}"/>
+                           </MultiComboBox>
+                        </fb:control>
+                     </fb:FilterItem>
+                     <fb:FilterItem name="SupplierName" label="SupplierName">
+                        <fb:control>
+                           <MultiComboBox
+                                   name="SupplierName"
+                                   selectionChange=".onSelectionChange"
+                                   items="{
+												path: '/ProductSuppliers',
+												templateShareable: true
+											}"
+                           >
+                              <core:Item key="{key}" text="{name}"/>
+                           </MultiComboBox>
+                        </fb:control>
+                     </fb:FilterItem>
+                  </fb:filterItems>
+               </fb:FilterBar>
+            </f:content>
+         </f:DynamicPageHeader>
+      </f:header>
+      <f:content>
+         <Table
+                 id="table"
+                 inset="false"
+                 items="{
+						path: '/RuntimeConfigs'
+					}"
+         >
+            <columns>
+               <Column minScreenWidth="Tablet" demandPopin="true">
+                  <Text text="Id"/>
+               </Column>
+               <Column minScreenWidth="Tablet" demandPopin="true">
+                  <Text text="Url"/>
+               </Column>
+            </columns>
+
+            <items>
+               <ColumnListItem vAlign="Middle">
+                  <cells>
+                     <ObjectIdentifier text="{Id}" />
+                     <Text text="{Url}" />
+                  </cells>
+               </ColumnListItem>
+            </items>
+         </Table>
+      </f:content>
+   </f:DynamicPage>
    <SplitApp id="splitApp"/>
 </mvc:View>
