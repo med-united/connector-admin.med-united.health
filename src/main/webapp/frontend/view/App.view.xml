@@ -90,7 +90,7 @@
             </columns>
 
             <items>
-               <ColumnListItem vAlign="Middle">
+               <ColumnListItem type="Navigation" vAlign="Middle" press="onListItemPress">
                   <cells>
                      <ObjectIdentifier text="{Id}" />
                      <Text text="{Url}" />
