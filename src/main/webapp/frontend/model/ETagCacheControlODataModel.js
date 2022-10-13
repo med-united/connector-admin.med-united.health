@@ -1,7 +1,7 @@
 sap.ui.define(["sap/ui/model/odata/v2/ODataModel", "sap/ui/core/cache/CacheManager"],
 function(ODataModel, CacheManager) {
 	"use strict";
-	return ODataModel.extend("frontend.model.ETagCacheControlODataModel", {
+	return ODataModel.extend("sap.f.ShellBarWithFlexibleColumnLayout.model.ETagCacheControlODataModel", {
 
 		constructor: function () {
 			ODataModel.apply(this, arguments);

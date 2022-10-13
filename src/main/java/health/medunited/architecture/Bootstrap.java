@@ -1,5 +1,6 @@
 package health.medunited.architecture;
 
+import health.medunited.architecture.entities.ProductCollection;
 import health.medunited.architecture.entities.RuntimeConfig;
 
 import javax.annotation.PostConstruct;
@@ -21,6 +22,10 @@ public class Bootstrap {
 			RuntimeConfig runtimeConfig = new RuntimeConfig();
 			runtimeConfig.setUrl("testUrl");
 			em.persist(runtimeConfig);
+		}
+		for(int i=0;i<5;i++) {
+			ProductCollection productCollection = new ProductCollection();
+			em.persist(productCollection);
 		}
 	}
 }
