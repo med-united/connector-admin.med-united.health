@@ -115,6 +115,9 @@
             <java-opt>--add-opens=java.naming/javax.naming=ALL-UNNAMED</java-opt>
             <java-opt>-agentlib:jdwp=transport=dt_socket,address=8787,server=y,suspend=n</java-opt>
           </java-opts>
+          <server-args>
+            <server-arg>-Djboss.https.port=8444</server-arg>
+          </server-args>
         </configuration>
         <executions>
           <execution>
