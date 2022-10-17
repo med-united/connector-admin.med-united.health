@@ -37,11 +37,31 @@
                     <Column width="12em">
                         <Text text="Id" />
                     </Column>
+                    <Column width="12em">
+                        <Text text="Url" />
+                    </Column>
+                    <Column width="12em">
+                        <Text text="Mandant Id" />
+                    </Column>
+                    <Column width="12em">
+                        <Text text="Client System Id" />
+                    </Column>
+                    <Column width="12em">
+                        <Text text="Workplace Id" />
+                    </Column>
+                    <Column width="12em">
+                        <Text text="User Id" />
+                    </Column>
                 </columns>
                 <items>
                     <ColumnListItem type="Navigation" vAlign="Middle">
                         <cells>
                             <ObjectIdentifier text="{Id}" />
+                            <ObjectIdentifier text="{Url}" />
+                            <ObjectIdentifier text="{MandantId}" />
+                            <ObjectIdentifier text="{ClientSystemId}" />
+                            <ObjectIdentifier text="{WorkplaceId}" />
+                            <ObjectIdentifier text="{UserId}" />
                         </cells>
                     </ColumnListItem>
                 </items>
