@@ -8,7 +8,6 @@ import de.gematik.ws.conn.eventservice.wsdl.v7.EventServicePortType;
 import de.gematik.ws.conn.eventservice.wsdl.v7.FaultMessage;
 import health.medunited.architecture.service.endpoint.SSLUtilities;
 import health.medunited.architecture.z.DefaultConnectorServicesProvider;
-import health.medunited.architecture.z.RuntimeConfig;
 import health.medunited.architecture.z.SecretsManagerService;
 import health.medunited.architecture.z.UserConfig;
 
@@ -17,7 +16,6 @@ import javax.net.ssl.KeyManager;
 import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.X509KeyManager;
-import javax.servlet.http.HttpServletRequest;
 import javax.xml.ws.BindingProvider;
 import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
@@ -55,16 +53,15 @@ public class StatusService {
     public StatusService() {
     }
 
-    public String getStatus(HttpServletRequest httpServletRequest) throws CertificateException, URISyntaxException, KeyStoreException, NoSuchAlgorithmException, IOException, FaultMessage, UnrecoverableKeyException, KeyManagementException {
-        RuntimeConfig runtimeConfig = new RuntimeConfig();
+    public void getStatus() throws CertificateException, URISyntaxException, KeyStoreException, NoSuchAlgorithmException, IOException, FaultMessage, UnrecoverableKeyException, KeyManagementException {
+
         GetCards parameter = new GetCards();
-        parameter.setContext(getContextType(runtimeConfig));
+        parameter.setContext(getContextType());
 
         secretsManagerService.setUpSSLContext(getKeyFromKeyStoreUri(getSslCertificate(), getSslCertificatePassword()));
 
         EventServicePortType service = initializeEventServicePortType();
         GetCardsResponse r = service.getCards(parameter);
-        return "OK";
     }
 
     private ContextType getContextType(UserConfig userConfig) {

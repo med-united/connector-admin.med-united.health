@@ -46,8 +46,6 @@ public class StatusResource {
 
         connectorScope.setConnectorScopeContext(connectorScopeContext);
 
-
-
         return cardService.getCardStatus();
     }
 }
