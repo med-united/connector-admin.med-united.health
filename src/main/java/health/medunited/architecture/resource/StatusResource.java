@@ -44,18 +44,10 @@ public class StatusResource {
                            @HeaderParam("ClientCertificatePassword") String clientCertificatePassword) throws FaultMessage, CertificateException, URISyntaxException, KeyStoreException, NoSuchAlgorithmException, IOException, UnrecoverableKeyException, KeyManagementException {
 
         ConnectorScope connectorScope = connectorScopeProvider.get();
-
-        ContextType contextType = new ContextType();
-        contextType.setClientSystemId(clientSystemId);
-        contextType.setMandantId(mandantId);
-        contextType.setWorkplaceId(workplaceId);
-        contextType.setUserId(userId);
-
-        ConnectorScopeContext connectorScopeContext = new ConnectorScopeContext(url, contextType, clientCertificate, clientCertificatePassword);
-
-        connectorScope.setConnectorScopeContext(connectorScopeContext);
+        connectorScope.setHttpServletRequest(httpServletRequest);
 
         statusService.getStatus();
+
         return Response.ok().build();
     }
 
