@@ -10,7 +10,6 @@ import de.gematik.ws.conn.eventservice.wsdl.v7.FaultMessage;
 import health.medunited.architecture.context.ConnectorScopeContext;
 import health.medunited.architecture.exception.connector.ConnectorCardsException;
 import health.medunited.architecture.model.CardHandleType;
-import health.medunited.architecture.provider.MultiConnectorServicesProvider;
 import org.apache.commons.collections4.CollectionUtils;
 
 import javax.enterprise.inject.Alternative;
@@ -31,8 +30,6 @@ public class CardService {
 
     private String userId;
 
-    private MultiConnectorServicesProvider connectorServicesProvider;
-
     public CardService(String url, String mandantId, String clientSystemId, String workplaceId, String userId) {
         this.url = url;
         this.mandantId = mandantId;
@@ -44,70 +41,10 @@ public class CardService {
     public CardService() {
     }
 
-    public void setConnectorServicesProvider (MultiConnectorServicesProvider connectorServicesProvider) {
-        this.connectorServicesProvider = connectorServicesProvider;
-    }
-
     public String getCardStatus() {
         return "OK" + url + mandantId + clientSystemId + workplaceId + userId;
     }
 
-    public String getConnectorCardHandle(CardHandleType cardHandleType, ConnectorScopeContext connectorScopeContext)
-            throws ConnectorCardsException {
-        return getConnectorCardHandle(ch ->
-                ch.getCardType().value().equalsIgnoreCase(
-                        cardHandleType.getCardHandleType()), connectorScopeContext);
-    }
-
-    private String  getConnectorCardHandle(Predicate<? super CardInfoType> filter, ConnectorScopeContext connectorScopeContext)
-            throws ConnectorCardsException {
-        Optional<List<CardInfoType>> cardsInfoList = getConnectorCardsInfo(connectorScopeContext);
-        String cardHandle = null;
-
-        if (cardsInfoList.isPresent()) {
-            Optional<CardInfoType> cardHndl =
-                    cardsInfoList.get().stream().filter(filter).findFirst();
-            if (cardHndl.isPresent()) {
-                cardHandle = cardHndl.get().getCardHandle();
-            } else {
-                throw new ConnectorCardsException(String.format("No card handle found for card."));
-            }
-        }
-
-        return cardHandle;
-    }
-
-    private Optional<List<CardInfoType>> getConnectorCardsInfo(ConnectorScopeContext connectorScopeContext) throws ConnectorCardsException {
-        GetCardsResponse response = getConnectorCards(connectorScopeContext);
-        List<CardInfoType> cardHandleTypeList = null;
-
-        if (response != null) {
-            Cards cards = response.getCards();
-            cardHandleTypeList = cards.getCard();
-
-            if (CollectionUtils.isEmpty(cardHandleTypeList)) {
-                throw new ConnectorCardsException("Error. Did not receive and card handle data.");
-            }
-        }
-
-        return Optional.ofNullable(cardHandleTypeList);
-    }
-
-    private GetCardsResponse getConnectorCards(ConnectorScopeContext connectorScopeContext) throws ConnectorCardsException {
-        GetCards parameter = new GetCards();
-        ContextType contextType = new ContextType();
-        contextType.setMandantId(connectorScopeContext.getMandantId());
-        contextType.setClientSystemId(connectorScopeContext.getClientSystemId());
-        contextType.setWorkplaceId(connectorScopeContext.getWorkplaceId());
-        contextType.setUserId(connectorScopeContext.getUserId());
-        parameter.setContext(contextType);
-        try {
-            EventServicePortType eventServicePortType = connectorServicesProvider.getEventServicePortType(connectorScopeContext);
-            return eventServicePortType.getCards(parameter);
-        } catch (FaultMessage e) {
-            throw new ConnectorCardsException("Error getting connector card handles.", e);
-        }
-    }
 
 }
 

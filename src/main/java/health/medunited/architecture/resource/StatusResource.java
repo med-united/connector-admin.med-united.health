@@ -4,7 +4,6 @@ import health.medunited.architecture.context.ConnectorScopeContext;
 import health.medunited.architecture.exception.connector.ConnectorCardsException;
 import health.medunited.architecture.model.CardHandleType;
 import health.medunited.architecture.provider.ConnectorScope;
-import health.medunited.architecture.provider.MultiConnectorServicesProvider;
 import health.medunited.architecture.service.CardService;
 
 import javax.inject.Inject;
@@ -25,9 +24,6 @@ public class StatusResource {
 
     @Inject
     Provider<ConnectorScope> connectorScopeProvider;
-
-    @Inject
-    MultiConnectorServicesProvider multiConnectorServicesProvider;
 
     @GET
     public String getStatus(@HeaderParam("Url") String url,
@@ -51,10 +47,6 @@ public class StatusResource {
         //EndpointDiscoveryService endpointDiscoveryService = new EndpointDiscoveryService(connectorScopeContext, secretsManagerService);
 
         //endpointDiscoveryService.obtainConfiguration(false);
-
-        cardService.setConnectorServicesProvider(multiConnectorServicesProvider);
-
-        String smcbHandle = cardService.getConnectorCardHandle(CardHandleType.SMC_B, connectorScopeContext);
 
         return cardService.getCardStatus();
     }
