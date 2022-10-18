@@ -1,6 +1,7 @@
 package health.medunited.architecture.odata;
 import health.medunited.architecture.odata.etag.ETagResponseFilter;
 import health.medunited.architecture.resource.StatusResource;
+import health.medunited.architecture.resource.TestResource;
 import org.apache.olingo.odata2.api.ODataServiceFactory;
 import org.apache.olingo.odata2.core.rest.ODataExceptionMapperImpl;
 import org.apache.olingo.odata2.core.rest.ODataRootLocator;
@@ -24,6 +25,7 @@ public class JAXRSConfiguration extends AbstractODataApplication {
 		set.add(ODataExceptionMapperImpl.class);
 		set.add(ETagResponseFilter.class);
 		set.add(StatusResource.class);
+		set.add(TestResource.class);
 		return set;
 	}
 
