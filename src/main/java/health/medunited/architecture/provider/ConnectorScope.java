@@ -2,6 +2,9 @@ package health.medunited.architecture.provider;
 
 import health.medunited.architecture.context.ConnectorScopeContext;
 import health.medunited.architecture.service.CardService;
+import health.medunited.architecture.service.StatusService;
+import health.medunited.architecture.z.DefaultConnectorServicesProvider;
+import health.medunited.architecture.z.SecretsManagerService;
 
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Produces;
@@ -15,10 +18,6 @@ public class ConnectorScope implements Callable<Void> {
 
     private ConnectorScopeContext connectorScopeContext;
 
-    public ConnectorScopeContext getConnectorScopeContext() {
-        return connectorScopeContext;
-    }
-
     public void setConnectorScopeContext(ConnectorScopeContext connectorScopeContext) {
         this.connectorScopeContext = connectorScopeContext;
     }
@@ -30,13 +29,15 @@ public class ConnectorScope implements Callable<Void> {
 
     @Produces
     @RequestScoped
-    public CardService createCardService() {
-        return new CardService(
+    public StatusService createStatusService(SecretsManagerService secretsManagerService,
+                                             DefaultConnectorServicesProvider defaultConnectorServicesProvider) {
+        return new StatusService(
+                connectorScopeContext.getContextType(),
                 connectorScopeContext.getUrl(),
-                connectorScopeContext.getMandantId(),
-                connectorScopeContext.getClientSystemId(),
-                connectorScopeContext.getWorkplaceId(),
-                connectorScopeContext.getUserId());
+                connectorScopeContext.getSslCertificate(),
+                connectorScopeContext.getSslCertificatePassword(),
+                secretsManagerService,
+                defaultConnectorServicesProvider);
     }
 }
 
