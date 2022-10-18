@@ -64,18 +64,6 @@ public class StatusService {
         GetCardsResponse r = service.getCards(parameter);
     }
 
-    private ContextType getContextType(UserConfig userConfig) {
-        if(userConfig == null) {
-            return defaultConnectorServicesProvider.getContextType();
-        }
-        ContextType contextType = new ContextType();
-        contextType.setMandantId("Incentergy");
-        contextType.setClientSystemId("Incentergy");
-        contextType.setWorkplaceId("1786_A1");
-        contextType.setUserId("42401d57-15fc-458f-9079-79f6052abad9");
-        return contextType;
-    }
-
     private EventServicePortType initializeEventServicePortType() {
         EventServicePortType service = new EventService(getClass().getResource("/EventService.wsdl"))
                 .getEventServicePort();
