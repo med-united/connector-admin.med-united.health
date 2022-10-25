@@ -1,10 +1,7 @@
 package health.medunited.architecture.provider;
 
 import de.gematik.ws.conn.connectorcontext.v2.ContextType;
-import health.medunited.architecture.context.ConnectorScopeContext;
-import health.medunited.architecture.service.CardService;
 import health.medunited.architecture.service.StatusService;
-import health.medunited.architecture.z.DefaultConnectorServicesProvider;
 import health.medunited.architecture.z.SecretsManagerService;
 
 import javax.enterprise.context.RequestScoped;
@@ -23,7 +20,7 @@ public class ConnectorScope implements Callable<Void> {
     HttpServletRequest httpServletRequest;
 
     @Override
-    public Void call() throws Exception {
+    public Void call() {
         return null;
     }
 
@@ -34,8 +31,8 @@ public class ConnectorScope implements Callable<Void> {
 
     @Produces
     @RequestScoped
-    public StatusService createStatusService(SecretsManagerService secretsManagerService,
-                                             DefaultConnectorServicesProvider defaultConnectorServicesProvider) {
+    public StatusService createStatusService(SecretsManagerService secretsManagerService
+                                             ) {
         ContextType contextType = new ContextType();
         contextType.setClientSystemId(httpServletRequest.getHeader("ClientSystemId"));
         contextType.setMandantId(httpServletRequest.getHeader("MandantId"));
@@ -47,8 +44,7 @@ public class ConnectorScope implements Callable<Void> {
                 httpServletRequest.getHeader("Url"),
                 httpServletRequest.getHeader("ClientCertificate"),
                 httpServletRequest.getHeader("ClientCertificatePassword"),
-                secretsManagerService,
-                defaultConnectorServicesProvider);
+                secretsManagerService);
     }
 }
 

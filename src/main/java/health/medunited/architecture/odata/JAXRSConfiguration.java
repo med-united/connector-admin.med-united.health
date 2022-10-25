@@ -18,6 +18,7 @@ import java.util.Set;
  */
 @ApplicationPath("Data.svc")
 public class JAXRSConfiguration extends AbstractODataApplication {
+	@Override
 	public Set<Class<?>> getClasses() {
 		Set<Class<?>> set = new HashSet<>();
 		set.add(ODataRootLocator.class);

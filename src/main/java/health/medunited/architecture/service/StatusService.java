@@ -7,9 +7,7 @@ import de.gematik.ws.conn.eventservice.wsdl.v7.EventService;
 import de.gematik.ws.conn.eventservice.wsdl.v7.EventServicePortType;
 import de.gematik.ws.conn.eventservice.wsdl.v7.FaultMessage;
 import health.medunited.architecture.service.endpoint.SSLUtilities;
-import health.medunited.architecture.z.DefaultConnectorServicesProvider;
 import health.medunited.architecture.z.SecretsManagerService;
-import health.medunited.architecture.z.UserConfig;
 
 import javax.enterprise.inject.Alternative;
 import javax.net.ssl.KeyManager;
@@ -37,17 +35,14 @@ public class StatusService {
     private String sslCertificate;
     private String sslCertificatePassword;
     private SecretsManagerService secretsManagerService;
-    private DefaultConnectorServicesProvider defaultConnectorServicesProvider;
 
     public StatusService(ContextType contextType, String url, String sslCertificate, String sslCertificatePassword,
-                         SecretsManagerService secretsManagerService,
-                         DefaultConnectorServicesProvider defaultConnectorServicesProvider) {
+                         SecretsManagerService secretsManagerService) {
         this.contextType = contextType;
         this.url = url;
         this.sslCertificate = sslCertificate;
         this.sslCertificatePassword = sslCertificatePassword;
         this.secretsManagerService = secretsManagerService;
-        this.defaultConnectorServicesProvider = defaultConnectorServicesProvider;
     }
 
     public StatusService() {
