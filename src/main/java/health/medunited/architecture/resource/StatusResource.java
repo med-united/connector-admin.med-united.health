@@ -1,10 +1,7 @@
 package health.medunited.architecture.resource;
 
-import de.gematik.ws.conn.connectorcontext.v2.ContextType;
 import de.gematik.ws.conn.eventservice.wsdl.v7.FaultMessage;
-import health.medunited.architecture.context.ConnectorScopeContext;
 import health.medunited.architecture.model.RuntimeConfig;
-import health.medunited.architecture.provider.ConnectorScope;
 import health.medunited.architecture.service.StatusService;
 
 import javax.inject.Inject;
@@ -37,8 +34,8 @@ public class StatusResource {
     }
 
     private RuntimeConfig extractRuntimeConfigFromHeaders() {
-        for(Object name : Collections.list(httpServletRequest.getHeaderNames())) {
-            if(name.toString().startsWith("X-")) {
+        for (Object name : Collections.list(httpServletRequest.getHeaderNames())) {
+            if (name.toString().startsWith("X-")) {
                 return new RuntimeConfig(httpServletRequest);
             }
         }
