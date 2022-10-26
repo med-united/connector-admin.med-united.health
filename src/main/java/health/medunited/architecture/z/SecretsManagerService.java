@@ -3,11 +3,10 @@ package health.medunited.architecture.z;
 import health.medunited.architecture.service.endpoint.SSLUtilities;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.net.ssl.*;
 import javax.servlet.http.HttpServletRequest;
-import javax.ws.rs.core.Context;
 import java.io.*;
 import java.net.Socket;
 import java.net.URI;
@@ -26,11 +25,14 @@ public class SecretsManagerService {
 
     private SSLContext sslContext;
 
+    @Inject
+    HttpServletRequest request;
+
     @PostConstruct
     void createSSLContext() {
         try {
-            String keystore = System.getProperty("javax.net.ssl.keyStore");
-            String keystorePassword = System.getProperty("javax.net.ssl.keyStorePassword");
+            String keystore = request.getHeader("X-ClientCertificate");
+            String keystorePassword = request.getHeader("X-ClientCertificatePassword");
             setUpSSLContext(getKeyFromKeyStoreUri(keystore, keystorePassword));
         } catch (KeyStoreException | NoSuchAlgorithmException | CertificateException | URISyntaxException | IOException | KeyManagementException e) {
             log.severe("There was a problem when unpacking key from ClientCertificateKeyStore:");

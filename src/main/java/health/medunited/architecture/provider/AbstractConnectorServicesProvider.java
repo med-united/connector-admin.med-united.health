@@ -4,6 +4,7 @@ import health.medunited.architecture.service.endpoint.SSLUtilities;
 import health.medunited.architecture.z.SecretsManagerService;
 import javax.inject.Inject;
 import javax.net.ssl.SSLContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.xml.ws.BindingProvider;
 import java.util.logging.Logger;
 
@@ -13,6 +14,9 @@ public abstract class AbstractConnectorServicesProvider {
 
     @Inject
     SecretsManagerService secretsManagerService;
+
+    @Inject
+    HttpServletRequest httpServletRequest;
 
     private de.gematik.ws.conn.vsds.vsdservice.v5.VSDServicePortType vSDServicePortType;
     private de.gematik.ws.conn.cardservice.wsdl.v8.CardServicePortType cardServicePortType;
@@ -33,12 +37,14 @@ public abstract class AbstractConnectorServicesProvider {
     }
 
     private void initializeEventServicePortType() {
-        de.gematik.ws.conn.eventservice.wsdl.v7.EventServicePortType service = new de.gematik.ws.conn.eventservice.wsdl.v7.EventService(getClass().getResource("/EventService.wsdl"))
-                .getEventServicePort();
+        de.gematik.ws.conn.eventservice.wsdl.v7.EventServicePortType service =
+                new de.gematik.ws.conn.eventservice.wsdl.v7.EventService(
+                        getClass().getResource("/EventService.wsdl")).getEventServicePort();
 
         BindingProvider bp = (BindingProvider) service;
+        String connectorUrl = httpServletRequest.getHeader("X-Url");
         bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY,
-                "https://192.168.178.42:443/ws/EventService");
+                "https://" + connectorUrl + ":443/ws/EventService");
 //        if(endpointDiscoveryService.getEventServiceEndpointAddress() != null) {
 //            bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY,
 //                    endpointDiscoveryService.getEventServiceEndpointAddress());

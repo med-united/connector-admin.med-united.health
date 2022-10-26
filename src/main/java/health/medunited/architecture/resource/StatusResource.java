@@ -28,23 +28,9 @@ public class StatusResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response status() throws FaultMessage {
 
-        setClientCertificateSystemProperties();
-
         statusService.getStatus(Objects.requireNonNull(extractRuntimeConfigFromHeaders()));
 
         return Response.ok().build();
-    }
-
-    private void setClientCertificateSystemProperties() {
-        String clientCertificate = httpServletRequest.getHeader("X-ClientCertificate");
-        if (Objects.nonNull(clientCertificate)) {
-            System.setProperty("javax.net.ssl.keyStore", clientCertificate);
-        }
-
-        String clientCertificatePassword = httpServletRequest.getHeader("X-ClientCertificatePassword");
-        if (Objects.nonNull(clientCertificatePassword)) {
-            System.setProperty("javax.net.ssl.keyStorePassword", clientCertificatePassword);
-        }
     }
 
     private RuntimeConfig extractRuntimeConfigFromHeaders() {
