@@ -1,9 +1,7 @@
 package health.medunited.architecture.provider;
 
 import health.medunited.architecture.service.endpoint.SSLUtilities;
-import health.medunited.architecture.z.EndpointDiscoveryService;
 import health.medunited.architecture.z.SecretsManagerService;
-
 import javax.inject.Inject;
 import javax.net.ssl.SSLContext;
 import javax.xml.ws.BindingProvider;
@@ -35,7 +33,7 @@ public abstract class AbstractConnectorServicesProvider {
     }
 
     public void setSslCredentials(String certificate, String password) {
-        secretsManagerService.createSSLContext(certificate + "__" + password);
+        //secretsManagerService.createSSLContext(certificate + "__" + password);
     }
 
     private void initializeEventServicePortType() {

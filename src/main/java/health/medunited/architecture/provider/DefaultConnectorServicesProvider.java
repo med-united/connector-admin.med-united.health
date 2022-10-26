@@ -1,9 +1,9 @@
 package health.medunited.architecture.provider;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.RequestScoped;
 
-@ApplicationScoped
+@RequestScoped
 public class DefaultConnectorServicesProvider extends AbstractConnectorServicesProvider {
 
     @PostConstruct

@@ -27,7 +27,7 @@ public class ConnectorScope implements Callable<Void> {
         this.httpServletRequest = httpServletRequest;
     }
 
-    @Produces
+    /*@Produces
     @RequestScoped
     public StatusService createStatusService(DefaultConnectorServicesProvider defaultConnectorServicesProvider) {
         ContextType contextType = new ContextType();
@@ -42,7 +42,7 @@ public class ConnectorScope implements Callable<Void> {
                 httpServletRequest.getHeader("ClientCertificate"),
                 httpServletRequest.getHeader("ClientCertificatePassword"),
                 defaultConnectorServicesProvider);
-    }
+    }*/
 }
 
 
