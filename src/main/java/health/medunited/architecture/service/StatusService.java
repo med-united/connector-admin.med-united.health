@@ -19,20 +19,21 @@ public class StatusService {
 
     public void getStatus(RuntimeConfig runtimeConfig) throws FaultMessage {
 
-        ContextType test = new ContextType();
-        test.setClientSystemId(runtimeConfig.getClientSystemId());
-        test.setMandantId(runtimeConfig.getMandantId());
-        test.setWorkplaceId(runtimeConfig.getWorkplaceId());
-        test.setUserId(runtimeConfig.getUserId());
-
-        connectorServicesProvider.setSslCredentials(runtimeConfig.getClientCertificate(), runtimeConfig.getClientCertificatePassword());
-
         GetCards parameter = new GetCards();
-        parameter.setContext(test);
+        parameter.setContext(createContextType(runtimeConfig));
 
         EventServicePortType service = connectorServicesProvider.getEventServicePortType();
 
         GetCardsResponse r = service.getCards(parameter);
+    }
+
+    private ContextType createContextType(RuntimeConfig runtimeConfig) {
+        ContextType contextType = new ContextType();
+        contextType.setClientSystemId(runtimeConfig.getClientSystemId());
+        contextType.setMandantId(runtimeConfig.getMandantId());
+        contextType.setWorkplaceId(runtimeConfig.getWorkplaceId());
+        contextType.setUserId(runtimeConfig.getUserId());
+        return contextType;
     }
 
 

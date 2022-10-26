@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 
 public abstract class AbstractConnectorServicesProvider {
 
-    private final static Logger log = Logger.getLogger(AbstractConnectorServicesProvider.class.getName());
+    private static final Logger log = Logger.getLogger(AbstractConnectorServicesProvider.class.getName());
 
     @Inject
     SecretsManagerService secretsManagerService;
@@ -30,10 +30,6 @@ public abstract class AbstractConnectorServicesProvider {
     private void initializeServices(boolean throwEndpointException) {
         //endpointDiscoveryService.obtainConfiguration(throwEndpointException);
         initializeEventServicePortType();
-    }
-
-    public void setSslCredentials(String certificate, String password) {
-        //secretsManagerService.createSSLContext(certificate + "__" + password);
     }
 
     private void initializeEventServicePortType() {

@@ -10,8 +10,4 @@ public class DefaultConnectorServicesProvider extends AbstractConnectorServicesP
     void init() {
         initializeServices();
     }
-
-    public void setSslCertificate(String sslCertificate, String sslCertificatePassword) {
-        super.setSslCredentials(sslCertificate, sslCertificatePassword);
-    }
 }
