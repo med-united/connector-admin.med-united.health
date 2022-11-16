@@ -163,12 +163,12 @@
                   <properties>
                     <jndi-name>java:jboss/datasources/Postgres</jndi-name>
                     <enabled>true</enabled>
-                    <connection-url>jdbc:postgresql://host.docker.internal:5432/connector</connection-url>
+                    <connection-url>jdbc:postgresql://postgres.cfayfrqrsmtj.eu-central-1.rds.amazonaws.com:5432/connector</connection-url>
                     <driver-class>org.postgresql.Driver</driver-class>
                     <driver-name>postgresql.jar</driver-name>
                     <!-- For local use -->
-                    <user-name>user</user-name>
-                    <password>password</password>
+                    <user-name>connector</user-name>
+                    <password>y)m.0YE}v4Jv</password>
                   </properties>
                 </resource>
               </resources>
