@@ -29,10 +29,7 @@ jobs:
           ECR_REPOSITORY: connector-admin
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          mvn wildfly:provision
-          ./target/server/bin/standalone.sh
           mvn package
-          cp target/frontend.war target/server/standalone/deployments/
           docker build -f Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
