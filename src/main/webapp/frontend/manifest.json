@@ -32,19 +32,24 @@
 		]
 	},
 	"sap.ui5": {
-		"_version": "1.1.0",
 		"rootView": {
-			"viewName": "frontend.view.App",
-			"type": "XML"
+			"viewName": "sap.f.ShellBarWithFlexibleColumnLayout.view.FlexibleColumnLayout",
+			"type": "XML",
+			"id": "fcl",
+			"async": true
 		},
 		"dependencies": {
-			"minUI5Version": "1.68.1",
+			"minUI5Version": "1.98.0",
 			"libs": {
+				"sap.ui.core": {
+				},
 				"sap.m": {
-					
+				},
+				"sap.f": {
 				},
 				"sap.ui.layout": {
-					
+				},
+				"sap.uxap": {
 				}
 			}
 		},
@@ -52,12 +57,12 @@
 			"i18n": {
 				"type": "sap.ui.model.resource.ResourceModel",
 				"settings": {
-					"bundleName": "frontend.i18n.i18n"
+					"bundleName": "sap.f.ShellBarWithFlexibleColumnLayout.i18n.i18n"
 				}
 			},
 			"": {
 				"dataSource": "Data.svc",
-				"type": "frontend.model.ETagCacheControlODataModel",
+				"type": "sap.f.ShellBarWithFlexibleColumnLayout.model.ETagCacheControlODataModel",
 				"preload": true,
 				"settings": {
 					"defaultBindingMode": "TwoWay"
@@ -67,62 +72,40 @@
 		"routing": {
 			"config": {
 				"routerClass": "sap.m.routing.Router",
+				"type": "View",
 				"viewType": "XML",
-				"viewPath": "frontend.view",
-				"controlId": "splitApp",
-				"controlAggregation": "detailPages",
-				"clearTarget": false,
+				"path": "sap.f.ShellBarWithFlexibleColumnLayout.view",
 				"transition": "slide",
-				"bypassed": {
-					"target": "notFound"
-				}
+				"controlId": "fcl",
+				"async": true
 			},
 			"routes": [
 				{
-					"pattern": "",
-					"name": "Home",
+					"pattern": ":layout:",
+					"name": "master",
 					"target": [
-						"runtimeConfigList",
-						"homeDetails"
+						"master"
 					]
 				},
 				{
-					"pattern": "RuntimeConfigs(':id:')",
-					"name": "RuntimeConfigs",
+					"pattern": "detail/RuntimeConfigs(':id:')/{layout}",
+					"name": "detail",
 					"target": [
-						"runtimeConfigList",
-						"runtimeConfigDetails"
-					]
-				},
-				{
-					"pattern": "addRuntimeConfig",
-					"name": "addRuntimeConfig",
-					"target": [
-						"runtimeConfigList",
-						"runtimeConfigDetails"
+						"master",
+						"detail"
 					]
 				}
 			],
 			"targets": {
-				"homeDetails": {
-					"viewName": "HomeDetails",
-					"controlId": "splitApp",
-					"controlAggregation": "detailPages"
-				},
-				"runtimeConfigList": {
-					"viewName": "RuntimeConfigList",
-					"controlId": "splitApp",
-					"controlAggregation": "masterPages",
+				"master": {
+					"name": "Master",
+					"controlAggregation": "beginColumnPages",
 					"clearControlAggregation": true
 				},
-				"runtimeConfigDetails": {
-					"viewName": "RuntimeConfigDetails",
-					"controlId": "splitApp",
-					"controlAggregation": "detailPages"
-				},
-				"notFound": {
-					"viewName": "NotFound",
-					"transition": "show"
+				"detail": {
+					"name": "Detail",
+					"controlAggregation": "midColumnPages",
+					"clearControlAggregation": true
 				}
 			}
 		}

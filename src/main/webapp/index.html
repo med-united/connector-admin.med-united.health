@@ -1,28 +1,40 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-
+<!DOCTYPE html>
+<html style="height: 100%;">
 <head>
-    <script data-sap-ui-language='en' id='sap-ui-bootstrap'
-            src="https://sapui5.netweaver.ondemand.com/resources/sap-ui-core.js"
-            data-sap-ui-theme='sap_fiori_3'
-            data-sap-ui-compatVersion='edge' data-sap-ui-preload='async'
-            data-sap-ui-bindingSyntax='complex'
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SAPUI5 Navigation</title>
+    <script
+            id="sap-ui-bootstrap"
+            src="https://sdk.openui5.org/resources/sap-ui-core.js"
+            data-sap-ui-theme="sap_belize"
+            data-sap-ui-libs="sap.m"
+            data-sap-ui-bindingSyntax="complex"
+            data-sap-ui-compatVersion="edge"
+            data-sap-ui-oninit="module:sap/ui/core/ComponentSupport"
             data-sap-ui-resourceroots='{
-	 	"frontend" : "./frontend"
-	 }'>
+					"sap.f.ShellBarWithFlexibleColumnLayout": "./frontend"
+				}'>
     </script>
 
     <script>
-		sap.ui.getCore().attachInit(function() {
-			new sap.ui.core.ComponentContainer({
-					name: "frontend"
-			}).placeAt("content");
-		});
+			sap.ui.getCore().attachInit(function () {
+				sap.ui.require([
+					"sap/ui/core/ComponentContainer"
+				], function (ComponentContainer) {
 
-    </script>
+					new ComponentContainer({
+						name : 'sap.f.ShellBarWithFlexibleColumnLayout',
+						height : "100%",
+						settings : {
+							id : "sap.f.ShellBarWithFlexibleColumnLayout"
+						}
+					}).placeAt('content');
+				});
+			});
+		</script>
+
 </head>
-<body class='sapUiBody'>
-<div id='content'></div>
+<body class="sapUiBody sapUiSizeCompact" id="content">
 </body>
 </html>

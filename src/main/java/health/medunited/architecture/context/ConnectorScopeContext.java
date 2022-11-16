@@ -1,14 +1,22 @@
 package health.medunited.architecture.context;
 
+import de.gematik.ws.conn.connectorcontext.v2.ContextType;
+
 public class ConnectorScopeContext {
 
     private String url;
 
-    private String terminalId;
+    private ContextType contextType;
 
-    public ConnectorScopeContext(String url, String terminalId) {
+    private String sslCertificate;
+
+    private String sslCertificatePassword;
+
+    public ConnectorScopeContext(String url, ContextType contextType, String sslCertificate, String sslCertificatePassword) {
         this.url = url;
-        this.terminalId = terminalId;
+        this.contextType = contextType;
+        this.sslCertificate = sslCertificate;
+        this.sslCertificatePassword = sslCertificatePassword;
     }
 
     public String getUrl() {
@@ -19,11 +27,27 @@ public class ConnectorScopeContext {
         this.url = url;
     }
 
-    public String getTerminalId() {
-        return terminalId;
+    public ContextType getContextType() {
+        return contextType;
     }
 
-    public void setTerminalId(String terminalId) {
-        this.terminalId = terminalId;
+    public void setContextType(ContextType contextType) {
+        this.contextType = contextType;
+    }
+
+    public String getSslCertificate() {
+        return sslCertificate;
+    }
+
+    public void setSslCertificate(String sslCertificate) {
+        this.sslCertificate = sslCertificate;
+    }
+
+    public String getSslCertificatePassword() {
+        return sslCertificatePassword;
+    }
+
+    public void setSslCertificatePassword(String sslCertificatePassword) {
+        this.sslCertificatePassword = sslCertificatePassword;
     }
 }

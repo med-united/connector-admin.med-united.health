@@ -56,10 +56,22 @@
       <version>4.0.1</version>
     </dependency>
     <dependency>
+      <groupId>com.sun.xml.ws</groupId>
+      <artifactId>jaxws-rt</artifactId>
+      <version>2.3.4</version>
+    </dependency>
+    <dependency>
       <groupId>health.ere</groupId>
       <artifactId>api-telematik-service</artifactId>
       <version>OPD4-20220115</version>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/javax.json.bind/javax.json.bind-api -->
+    <dependency>
+      <groupId>javax.json.bind</groupId>
+      <artifactId>javax.json.bind-api</artifactId>
+      <version>1.0</version>
+    </dependency>
+
 
     <dependency>
       <groupId>org.jboss.weld.se</groupId>
@@ -72,6 +84,11 @@
       <artifactId>weld-junit5</artifactId>
       <version>4.0.0.Final</version>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-collections4</artifactId>
+      <version>4.4</version>
     </dependency>
 
     <!-- https://mvnrepository.com/artifact/org.mockito/mockito-all -->
@@ -88,8 +105,13 @@
       <plugin>
         <groupId>org.wildfly.plugins</groupId>
         <artifactId>wildfly-maven-plugin</artifactId>
-        <version>3.0.2.Final</version>
+        <version>4.0.0.Beta2</version>
         <configuration>
+          <feature-packs>
+            <feature-pack>
+              <location>org.wildfly:wildfly-galleon-pack:26.1.1.Final</location>
+            </feature-pack>
+          </feature-packs>
           <java-opts>
             <java-opt>--add-opens=java.base/java.lang=ALL-UNNAMED</java-opt>
             <java-opt>--add-exports=java.desktop/sun.awt=ALL-UNNAMED</java-opt>
@@ -103,9 +125,19 @@
             <java-opt>--add-opens=java.base/java.util.concurrent=ALL-UNNAMED</java-opt>
             <java-opt>--add-opens=java.management/javax.management=ALL-UNNAMED</java-opt>
             <java-opt>--add-opens=java.naming/javax.naming=ALL-UNNAMED</java-opt>
+            <java-opt>-agentlib:jdwp=transport=dt_socket,address=8787,server=y,suspend=n</java-opt>
           </java-opts>
+          <server-args>
+            <server-arg>-Djboss.https.port=8444</server-arg>
+            <server-arg>-Djboss.server.base.dir=/target/server/standalone/</server-arg>
+          </server-args>
         </configuration>
         <executions>
+          <execution>
+            <goals>
+              <goal>package</goal>
+            </goals>
+          </execution>
           <execution>
             <id>deploy-postgresql</id>
             <phase>package</phase>
@@ -131,7 +163,7 @@
                   <properties>
                     <jndi-name>java:jboss/datasources/Postgres</jndi-name>
                     <enabled>true</enabled>
-                    <connection-url>jdbc:postgresql://localhost:5432/connector</connection-url>
+                    <connection-url>jdbc:postgresql://host.docker.internal:5432/connector</connection-url>
                     <driver-class>org.postgresql.Driver</driver-class>
                     <driver-name>postgresql.jar</driver-name>
                     <!-- For local use -->

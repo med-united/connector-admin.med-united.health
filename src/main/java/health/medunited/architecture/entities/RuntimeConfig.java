@@ -15,6 +15,14 @@ public class RuntimeConfig {
 
     private String url;
 
+    private String mandantId;
+
+    private String clientSystemId;
+
+    private String workplaceId;
+
+    private String userId;
+
     public String getId() {
         return id;
     }
@@ -29,5 +37,37 @@ public class RuntimeConfig {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public String getMandantId() {
+        return mandantId;
+    }
+
+    public void setMandantId(String mandantId) {
+        this.mandantId = mandantId;
+    }
+
+    public String getClientSystemId() {
+        return clientSystemId;
+    }
+
+    public void setClientSystemId(String clientSystemId) {
+        this.clientSystemId = clientSystemId;
+    }
+
+    public String getWorkplaceId() {
+        return workplaceId;
+    }
+
+    public void setWorkplaceId(String workplaceId) {
+        this.workplaceId = workplaceId;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

@@ -1,36 +1,36 @@
 package health.medunited.architecture.service;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Alternative;
 
-@Alternative
+@ApplicationScoped
 public class CardService {
 
     private String url;
 
-    private String terminalId;
+    private String mandantId;
 
-    public CardService(String url, String terminalId) {
+    private String clientSystemId;
+
+    private String workplaceId;
+
+    private String userId;
+
+    public CardService(String url, String mandantId, String clientSystemId, String workplaceId, String userId) {
         this.url = url;
-        this.terminalId = terminalId;
+        this.mandantId = mandantId;
+        this.clientSystemId = clientSystemId;
+        this.workplaceId = workplaceId;
+        this.userId = userId;
     }
 
     public CardService() {
     }
 
-    public String getUrl() {
-        return url;
+    public String getCardStatus() {
+        return "OK" + url + mandantId + clientSystemId + workplaceId + userId;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public String getTerminalId() {
-        return terminalId;
-    }
-
-    public void setTerminalId(String terminalId) {
-        this.terminalId = terminalId;
-    }
 
 }
+
