@@ -1,6 +1,7 @@
 
-FROM quay.io/wildfly/wildfly-runtime-jdk17
+FROM jboss/wildfly
 
-COPY --chown=jboss:root target/server $JBOSS_HOME
+COPY wildfly/modules/ /opt/jboss/wildfly/modules/
+COPY wildfly/standalone.xml /opt/jboss/wildfly/standalone/configuration/
 
-RUN chmod -R ug+rwX $JBOSS_HOME
+ADD target/frontend.war /opt/jboss/wildfly/standalone/deployments/
