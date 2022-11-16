@@ -140,7 +140,7 @@
           </execution>
           <execution>
             <id>deploy-postgresql</id>
-            <phase>package</phase>
+<!--            <phase>package</phase>-->
             <goals>
               <goal>deploy-artifact</goal>
             </goals>
@@ -152,7 +152,7 @@
           </execution>
           <execution>
             <id>add-datasource</id>
-            <phase>package</phase>
+<!--            <phase>package</phase>-->
             <goals>
               <goal>add-resource</goal>
             </goals>
