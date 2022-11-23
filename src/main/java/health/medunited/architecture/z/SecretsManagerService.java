@@ -29,27 +29,28 @@ public class SecretsManagerService {
     HttpServletRequest request;
 
     @PostConstruct
-    void createSSLContext() {
+    public void createSSLContext() {
         try {
             String keystore = request.getHeader("X-ClientCertificate");
             String keystorePassword = request.getHeader("X-ClientCertificatePassword");
             setUpSSLContext(getKeyFromKeyStoreUri(keystore, keystorePassword));
-        } catch (KeyStoreException | NoSuchAlgorithmException | CertificateException | URISyntaxException | IOException | KeyManagementException e) {
+        } catch (KeyStoreException | NoSuchAlgorithmException | CertificateException | URISyntaxException | IOException
+                | KeyManagementException e) {
             log.severe("There was a problem when unpacking key from ClientCertificateKeyStore:");
             e.printStackTrace();
         }
     }
 
-    public void setUpSSLContext(KeyManager km)
+    public SSLContext getSslContext() {
+        return sslContext;
+    }
+
+    private void setUpSSLContext(KeyManager km)
             throws NoSuchAlgorithmException, KeyManagementException {
         sslContext = SSLContext.getInstance(SslContextType.TLS.getSslContextType());
 
         sslContext.init(new KeyManager[]{km}, new TrustManager[]{new SSLUtilities.FakeX509TrustManager()},
                 null);
-    }
-
-    public SSLContext getSslContext() {
-        return sslContext;
     }
 
     private KeyManager getKeyFromKeyStoreUri(String keystoreUri, String keystorePassword)
@@ -141,7 +142,6 @@ public class SecretsManagerService {
         }
     }
 
-
     public enum SslContextType {
         SSL("SSL"), TLS("TLS");
 
@@ -168,5 +168,9 @@ public class SecretsManagerService {
         public String getKeyStoreType() {
             return keyStoreType;
         }
+    }
+
+    public void setRequest(HttpServletRequest request) {
+        this.request = request;
     }
 }
