@@ -8,9 +8,9 @@
 		<jta-data-source>java:jboss/datasources/Postgres</jta-data-source>
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" /> <!-- DB Driver -->
-			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/connector" /> <!-- BD Mane -->
-			<property name="javax.persistence.jdbc.user" value="postgres" /> <!-- DB User -->
-			<property name="javax.persistence.jdbc.password" value="password" /> <!-- DB Password -->
+			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://postgres.cfayfrqrsmtj.eu-central-1.rds.amazonaws.com:5432/connector" /> <!-- BD Mane -->
+			<property name="javax.persistence.jdbc.user" value="connector" /> <!-- DB User -->
+			<property name="javax.persistence.jdbc.password" value="y)m.0YE}v4Jv" /> <!-- DB Password -->
 			<property name="javax.persistence.schema-generation.database.action" value="create"/>
 
 			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL95Dialect"/> <!-- DB Dialect -->
