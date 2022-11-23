@@ -31,7 +31,7 @@ jobs:
         run: |
           mvn package
           docker build -f Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:test
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
       - name: Deployment
         uses: Pablommr/kubernetes-eks@v1.0.0
