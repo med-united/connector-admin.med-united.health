@@ -1,4 +1,4 @@
-package health.medunited.architecture.z;
+package health.medunited.architecture.service.common.security;
 
 import health.medunited.architecture.service.endpoint.SSLUtilities;
 
