@@ -1,5 +1,6 @@
 package health.medunited.architecture.resource;
 
+import de.gematik.ws.conn.eventservice.v7.GetCardsResponse;
 import de.gematik.ws.conn.eventservice.wsdl.v7.FaultMessage;
 import health.medunited.architecture.model.RuntimeConfig;
 import health.medunited.architecture.service.StatusService;
@@ -28,9 +29,9 @@ public class StatusResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response status() throws FaultMessage {
 
-        statusService.getStatus(Objects.requireNonNull(extractRuntimeConfigFromHeaders()));
+        GetCardsResponse response = statusService.getStatus(Objects.requireNonNull(extractRuntimeConfigFromHeaders()));
 
-        return Response.ok().build();
+        return Response.ok(response).build();
     }
 
     private RuntimeConfig extractRuntimeConfigFromHeaders() {
