@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: connector-admin
+  labels:
+    app: connector-admin
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: connector-admin
+  template:
+    metadata:
+      labels:
+        app: connector-admin
+    spec:
+      containers:
+        - name: connector-admin
+          image: 765415433338.dkr.ecr.eu-central-1.amazonaws.com/connector-admin:$IMAGE_TAG
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: connector-admin
+spec:
+  selector:
+    app: connector-admin
+  ports:
+    - port: 8080
+

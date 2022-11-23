@@ -33,12 +33,12 @@ jobs:
           docker build -f Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:test .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:test
 
-#      - name: Deployment
-#        uses: Pablommr/kubernetes-eks@v1.0.0
-#        env:
-#          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-#          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-#          KUBECONFIG: ${{ secrets.KUBE_CONFIG }}
-#          KUBE_YAML: kubernetes/deployment.yaml
-#          IMAGE_TAG: ${{ github.sha }}
-#          ENVSUBST: true
+      - name: Deployment
+        uses: Pablommr/kubernetes-eks@v1.0.0
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          KUBECONFIG: ${{ secrets.KUBE_CONFIG }}
+          KUBE_YAML: kubernetes/deployment.yaml
+          IMAGE_TAG: ${{ github.sha }}
+          ENVSUBST: true
