@@ -129,18 +129,12 @@
           </java-opts>
           <server-args>
             <server-arg>-Djboss.https.port=8444</server-arg>
-            <server-arg>-Djboss.server.base.dir=/target/server/standalone/</server-arg>
           </server-args>
         </configuration>
         <executions>
           <execution>
-            <goals>
-              <goal>package</goal>
-            </goals>
-          </execution>
-          <execution>
             <id>deploy-postgresql</id>
-<!--            <phase>package</phase>-->
+            <phase>package</phase>
             <goals>
               <goal>deploy-artifact</goal>
             </goals>
@@ -152,7 +146,7 @@
           </execution>
           <execution>
             <id>add-datasource</id>
-<!--            <phase>package</phase>-->
+            <phase>package</phase>
             <goals>
               <goal>add-resource</goal>
             </goals>
@@ -166,8 +160,7 @@
                     <connection-url>jdbc:postgresql://localhost:5432/connector</connection-url>
                     <driver-class>org.postgresql.Driver</driver-class>
                     <driver-name>postgresql.jar</driver-name>
-                    <!-- For local use -->
-                    <user-name>admin</user-name>
+                    <user-name>postgres</user-name>
                     <password>password</password>
                   </properties>
                 </resource>

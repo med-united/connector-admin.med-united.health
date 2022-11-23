@@ -4,14 +4,13 @@ import health.medunited.architecture.odata.annotations.ODataCacheControl;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import java.util.UUID;
 
 @Entity
 @ODataCacheControl(maxAge = 5) // this odata entity set should be cached for 5 seconds
 public class RuntimeConfig {
 
     @Id
-    private String id = UUID.randomUUID().toString();
+    private String id;
 
     private String url;
 
