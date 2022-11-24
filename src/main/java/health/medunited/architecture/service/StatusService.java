@@ -17,14 +17,14 @@ public class StatusService {
     @Inject
     AbstractConnectorServicesProvider connectorServicesProvider;
 
-    public void getStatus(RuntimeConfig runtimeConfig) throws FaultMessage {
+    public GetCardsResponse getStatus(RuntimeConfig runtimeConfig) throws FaultMessage {
 
         GetCards parameter = new GetCards();
         parameter.setContext(createContextType(runtimeConfig));
 
         EventServicePortType service = connectorServicesProvider.getEventServicePortType();
 
-        GetCardsResponse r = service.getCards(parameter);
+        return service.getCards(parameter);
     }
 
     private ContextType createContextType(RuntimeConfig runtimeConfig) {

@@ -1,7 +1,7 @@
 package health.medunited.architecture.provider;
 
 import health.medunited.architecture.service.endpoint.SSLUtilities;
-import health.medunited.architecture.z.SecretsManagerService;
+import health.medunited.architecture.service.common.security.SecretsManagerService;
 import javax.inject.Inject;
 import javax.net.ssl.SSLContext;
 import javax.servlet.http.HttpServletRequest;

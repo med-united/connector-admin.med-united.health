@@ -18,6 +18,7 @@ public class Bootstrap {
     @PostConstruct
     public void generateDemoData() {
         RuntimeConfig runtimeConfig = new RuntimeConfig();
+        runtimeConfig.setId("42401d57-15fc-458f-9079-79f6052abad9");
         runtimeConfig.setUrl("192.168.178.42");
         runtimeConfig.setMandantId("Incentergy");
         runtimeConfig.setClientSystemId("Incentergy");
