@@ -1,4 +1,5 @@
 package health.medunited.architecture.odata;
+import health.medunited.architecture.CORSFilter;
 import health.medunited.architecture.odata.etag.ETagResponseFilter;
 import health.medunited.architecture.resource.StatusResource;
 import org.apache.olingo.odata2.api.ODataServiceFactory;
@@ -18,6 +19,13 @@ import java.util.Set;
  */
 @ApplicationPath("Data.svc")
 public class JAXRSConfiguration extends AbstractODataApplication {
+
+	private final Set<Object> singletons = new HashSet<>();
+
+	public JAXRSConfiguration() {
+		singletons.add(new CORSFilter());
+	}
+
 	@Override
 	public Set<Class<?>> getClasses() {
 		Set<Class<?>> set = new HashSet<>();
@@ -31,5 +39,10 @@ public class JAXRSConfiguration extends AbstractODataApplication {
 	@Override
 	public Class<? extends ODataServiceFactory> getServiceFactoryClass() {
 		return JpaODataServiceFactory.class;
+	}
+
+	@Override
+	public Set<Object> getSingletons() {
+		return singletons;
 	}
 }
