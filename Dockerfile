@@ -1,6 +1,8 @@
 
 FROM jboss/wildfly
 
+RUN wildfly/bin/add-user.sh -a -u 'adminuser1' -p 'password1!' -g 'user'
+
 COPY wildfly/modules/ /opt/jboss/wildfly/modules/
 COPY wildfly/standalone.xml /opt/jboss/wildfly/standalone/configuration/
 
