@@ -1,3 +1,18 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: connector-admin-certificate
+  namespace: default
+spec:
+  dnsNames:
+    - connector-admin.med-united.health
+  secretName: connector-admin-tls
+  issuerRef:
+    name: letsencrypt-cluster-issuer
+    kind: ClusterIssuer
+
+---
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -32,4 +47,33 @@ spec:
     app: connector-admin
   ports:
     - port: 8080
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: connector-admin
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/cors-allow-methods: POST, GET, OPTIONS, DELETE, PUT
+    nginx.ingress.kubernetes.io/cors-allow-origin: https://eau.med-united.health
+    nginx.ingress.kubernetes.io/cors-expose-headers: X-Custom-Header
+spec:
+  tls:
+    - hosts:
+        - connector-admin.med-united.health
+      secretName: connector-admin-tls
+  rules:
+    - host: connector-admin.med-united.health
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: connector-admin
+                port:
+                  number: 8080
 
