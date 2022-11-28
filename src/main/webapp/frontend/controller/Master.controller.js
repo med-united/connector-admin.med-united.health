@@ -14,7 +14,7 @@ sap.ui.define([
 			this._bDescendingSort = false;
 		},
 		onListItemPress: function (oEvent) {
-			var oNextUIState = this.getOwnerComponent().getHelper().getNextUIState(1),
+			let oNextUIState = this.getOwnerComponent().getHelper().getNextUIState(1),
 				productPath = oEvent.getSource().getSelectedItem().getBindingContext().getPath(),
 				product = productPath.split("/").slice(-1).pop();
 
@@ -22,7 +22,7 @@ sap.ui.define([
 
 		},
 		onSearch: function (oEvent) {
-			var oTableSearchState = [],
+			let oTableSearchState = [],
 				sQuery = oEvent.getParameter("query");
 
 			if (sQuery && sQuery.length > 0) {
@@ -42,7 +42,7 @@ sap.ui.define([
 
 		onSort: function (oEvent) {
 			this._bDescendingSort = !this._bDescendingSort;
-			var oView = this.getView(),
+			let oView = this.getView(),
 				oTable = oView.byId("runtimeConfigTable"),
 				oBinding = oTable.getBinding("items"),
 				oSorter = new Sorter("Name", this._bDescendingSort);

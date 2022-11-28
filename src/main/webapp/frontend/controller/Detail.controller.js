@@ -6,16 +6,16 @@ sap.ui.define([
 
 	return Controller.extend("sap.f.ShellBarWithFlexibleColumnLayout.controller.Detail", {
 		onInit: function () {
-			var oExitButton = this.getView().byId("exitFullScreenBtn"),
+			let oExitButton = this.getView().byId("exitFullScreenBtn"),
 				oEnterButton = this.getView().byId("enterFullScreenBtn");
 
 			this.oRouter = this.getOwnerComponent().getRouter();
 			this.oModel = this.getOwnerComponent().getModel();
 
-			var me = this;
+			let me = this;
 
 			this.oRouter.attachRouteMatched(function (oEvent) {
-            				var name = oEvent.getParameter("name");
+            				let name = oEvent.getParameter("name");
             				if(name == "detail") {
             					me.getView().bindElement("/"+name+"('"+oEvent.getParameter("arguments").id+"')");
             				}
@@ -34,16 +34,16 @@ sap.ui.define([
 		},
 		handleFullScreen: function () {
 			this.bFocusFullScreenButton = true;
-			var sNextLayout = this.oModel.getProperty("/actionButtonsInfo/midColumn/fullScreen");
+			let sNextLayout = this.oModel.getProperty("/actionButtonsInfo/midColumn/fullScreen");
 			this.oRouter.navTo("detail", {layout: sNextLayout, product: this._product});
 		},
 		handleExitFullScreen: function () {
 			this.bFocusFullScreenButton = true;
-			var sNextLayout = this.oModel.getProperty("/actionButtonsInfo/midColumn/exitFullScreen");
+			let sNextLayout = this.oModel.getProperty("/actionButtonsInfo/midColumn/exitFullScreen");
 			this.oRouter.navTo("detail", {layout: sNextLayout, product: this._product});
 		},
 		handleClose: function () {
-			var sNextLayout = this.oModel.getProperty("/actionButtonsInfo/midColumn/closeColumn");
+			let sNextLayout = this.oModel.getProperty("/actionButtonsInfo/midColumn/closeColumn");
 			this.oRouter.navTo("master", {layout: sNextLayout});
 		}
 	});

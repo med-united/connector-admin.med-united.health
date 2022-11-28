@@ -7,9 +7,9 @@ sap.ui.define([
 ], function (UriParameters, UIComponent, JSONModel, library, FlexibleColumnLayoutSemanticHelper) {
 	"use strict";
 
-	var LayoutType = library.LayoutType;
+	let LayoutType = library.LayoutType;
 
-	var Component = UIComponent.extend("sap.f.ShellBarWithFlexibleColumnLayout.Component", {
+	let Component = UIComponent.extend("sap.f.ShellBarWithFlexibleColumnLayout.Component", {
 		metadata: {
 			manifest: "json"
 		},
