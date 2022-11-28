@@ -118,7 +118,7 @@ public class ETagCacheControlODataJPAProcessor extends ODataJPADefaultProcessor 
 			oDataJPAContext.setODataContext(getContext());
 
 			ODataResponse batchResponse;
-			List<BatchResponsePart> batchResponseParts = new ArrayList<BatchResponsePart>();
+			List<BatchResponsePart> batchResponseParts = new ArrayList<>();
 			PathInfo pathInfo = getContext().getPathInfo();
 			EntityProviderBatchProperties batchProperties = EntityProviderBatchProperties.init().pathInfo(pathInfo)
 					.build();
