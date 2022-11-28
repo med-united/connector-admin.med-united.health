@@ -35,10 +35,16 @@
                 </headerToolbar>
                 <columns>
                     <Column width="12em">
-                        <Text text="Id" />
+                        <Text text="User Id" />
                     </Column>
                     <Column width="12em">
                         <Text text="Url" />
+                    </Column>
+                    <Column width="12em">
+                        <Text text="Sign port" />
+                    </Column>
+                    <Column width="12em">
+                        <Text text="Vzd port" />
                     </Column>
                     <Column width="12em">
                         <Text text="Mandant Id" />
@@ -50,18 +56,20 @@
                         <Text text="Workplace Id" />
                     </Column>
                     <Column width="12em">
-                        <Text text="User Id" />
+                        <Text text="Domain Id" />
                     </Column>
                 </columns>
                 <items>
                     <ColumnListItem type="Navigation" vAlign="Middle">
                         <cells>
-                            <ObjectIdentifier text="{Id}" />
+                            <ObjectIdentifier text="{UserId}" />
                             <ObjectIdentifier text="{Url}" />
+                            <ObjectIdentifier text="{SignPort}" />
+                            <ObjectIdentifier text="{VzdPort}" />
                             <ObjectIdentifier text="{MandantId}" />
                             <ObjectIdentifier text="{ClientSystemId}" />
                             <ObjectIdentifier text="{WorkplaceId}" />
-                            <ObjectIdentifier text="{UserId}" />
+                            <ObjectIdentifier text="{VzdDomainId}" />
                         </cells>
                     </ColumnListItem>
                 </items>

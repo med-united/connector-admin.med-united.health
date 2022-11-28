@@ -2,17 +2,20 @@ package health.medunited.architecture.entities;
 
 import health.medunited.architecture.odata.annotations.ODataCacheControl;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @ODataCacheControl(maxAge = 5) // this odata entity set should be cached for 5 seconds
 public class RuntimeConfig {
 
     @Id
-    private String id;
+    private String userId;
 
     private String url;
+
+    private String signPort;
+
+    private String vzdPort;
 
     private String mandantId;
 
@@ -20,14 +23,19 @@ public class RuntimeConfig {
 
     private String workplaceId;
 
-    private String userId;
+    @Column(columnDefinition = "TEXT", length = 65535)
+    private String clientCertificate;
 
-    public String getId() {
-        return id;
+    private String clientCertificatePassword;
+
+    private String vzdDomainId;
+
+    public String getUserId() {
+        return userId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getUrl() {
@@ -36,6 +44,22 @@ public class RuntimeConfig {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public String getSignPort() {
+        return signPort;
+    }
+
+    public void setSignPort(String signPort) {
+        this.signPort = signPort;
+    }
+
+    public String getVzdPort() {
+        return vzdPort;
+    }
+
+    public void setVzdPort(String vzdPort) {
+        this.vzdPort = vzdPort;
     }
 
     public String getMandantId() {
@@ -62,11 +86,27 @@ public class RuntimeConfig {
         this.workplaceId = workplaceId;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getClientCertificate() {
+        return clientCertificate;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setClientCertificate(String clientCertificate) {
+        this.clientCertificate = clientCertificate;
+    }
+
+    public String getClientCertificatePassword() {
+        return clientCertificatePassword;
+    }
+
+    public void setClientCertificatePassword(String clientCertificatePassword) {
+        this.clientCertificatePassword = clientCertificatePassword;
+    }
+
+    public String getVzdDomainId() {
+        return vzdDomainId;
+    }
+
+    public void setVzdDomainId(String vzdDomainId) {
+        this.vzdDomainId = vzdDomainId;
     }
 }
