@@ -14,12 +14,11 @@ sap.ui.define([
 			this._bDescendingSort = false;
 		},
 		onListItemPress: function (oEvent) {
-			let oNextUIState = this.getOwnerComponent().getHelper().getNextUIState(1),
-				productPath = oEvent.getSource().getSelectedItem().getBindingContext().getPath(),
-				product = productPath.split("/").slice(-1).pop();
-
-			this.oRouter.navTo("detail", {layout: oNextUIState.layout, "id" : oEvent.getParameter("listItem").getBindingContext().getProperty("Id")});
-
+            MessageBox.show("This functionality is not ready yet.", {
+				icon: MessageBox.Icon.INFORMATION,
+				title: "Aw, Snap!",
+				actions: [MessageBox.Action.OK]
+			});
 		},
 		onSearch: function (oEvent) {
 			let oTableSearchState = [],
