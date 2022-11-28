@@ -38,6 +38,8 @@ public class ETagCacheControlODataJPAProcessor extends ODataJPADefaultProcessor 
 
 	private static final Logger log = Logger.getLogger(ETagCacheControlODataJPAProcessor.class.getName());
 
+	private static final String CACHE_CONTROL_HEADER = "Cache-Control";
+
 	public ETagCacheControlODataJPAProcessor(ODataJPAContext oDataJPAContext) {
 		super(oDataJPAContext);
 	}
@@ -102,7 +104,7 @@ public class ETagCacheControlODataJPAProcessor extends ODataJPADefaultProcessor 
 				ODataCacheControl oDataCacheControl = jpaClass.getAnnotation(ODataCacheControl.class);
 				if (oDataCacheControl != null) {
 					oDataResponse = ODataResponse.fromResponse(oDataResponse)
-							.header("Cache-Control", "max-age=" + oDataCacheControl.maxAge()).build();
+							.header(CACHE_CONTROL_HEADER, "max-age=" + oDataCacheControl.maxAge()).build();
 				}
 			}
 		}
@@ -142,9 +144,9 @@ public class ETagCacheControlODataJPAProcessor extends ODataJPADefaultProcessor 
 
 							if ((ifNoneMatchHeader != null) && (ifNoneMatchHeader.equals(etag))) {
 								oDataResponseBuilder.status(HttpStatusCodes.NOT_MODIFIED);
-								if(firstBatchResponseODataResponse.containsHeader("Cache-Control")) {
-									oDataResponseBuilder.header("Cache-Control",
-											firstBatchResponseODataResponse.getHeader("Cache-Control"));
+								if(firstBatchResponseODataResponse.containsHeader(CACHE_CONTROL_HEADER)) {
+									oDataResponseBuilder.header(CACHE_CONTROL_HEADER,
+											firstBatchResponseODataResponse.getHeader(CACHE_CONTROL_HEADER));
 								}
 								oDataResponseBuilder.header("Last-Modified",
 										oDataRequest.getRequestHeaderValue("If-Modified-Since"));
