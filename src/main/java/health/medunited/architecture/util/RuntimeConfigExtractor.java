@@ -1,7 +1,7 @@
 package health.medunited.architecture.util;
 
 
-import health.medunited.architecture.model.RuntimeConfig;
+import health.medunited.architecture.entities.RuntimeConfig;
 
 public class RuntimeConfigExtractor {
 

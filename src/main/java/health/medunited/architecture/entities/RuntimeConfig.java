@@ -30,6 +30,22 @@ public class RuntimeConfig {
 
     private String vzdDomainId;
 
+    public RuntimeConfig() {
+    }
+
+    public RuntimeConfig(String host, String signPort, String vzdPort, String mandantId, String clientSystemId, String workplaceId, String userId,
+                         String clientCertificate, String clientCertificatePassword) {
+        this.url = host;
+        this.signPort = signPort;
+        this.vzdPort = vzdPort;
+        this.mandantId = mandantId;
+        this.clientSystemId = clientSystemId;
+        this.workplaceId = workplaceId;
+        this.userId = userId;
+        this.clientCertificate = clientCertificate;
+        this.clientCertificatePassword = clientCertificatePassword;
+    }
+
     public String getUserId() {
         return userId;
     }

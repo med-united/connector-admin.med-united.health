@@ -2,7 +2,7 @@ package health.medunited.architecture.resource;
 
 import de.gematik.ws.conn.eventservice.v7.GetCardsResponse;
 import de.gematik.ws.conn.eventservice.wsdl.v7.FaultMessage;
-import health.medunited.architecture.model.RuntimeConfig;
+import health.medunited.architecture.entities.RuntimeConfig;
 import health.medunited.architecture.service.StatusService;
 import health.medunited.architecture.util.RuntimeConfigExtractor;
 
