@@ -31,13 +31,12 @@ public class SecretsManagerService {
     @PostConstruct
     public void createSSLContext() {
         try {
-            String keystore = request.getHeader("X-ClientCertificate");
-            String keystorePassword = request.getHeader("X-ClientCertificatePassword");
+            String keystore = request.getHeader("x-client-certificate");
+            String keystorePassword = request.getHeader("x-client-certificate-password");
             setUpSSLContext(getKeyFromKeyStoreUri(keystore, keystorePassword));
         } catch (KeyStoreException | NoSuchAlgorithmException | CertificateException | URISyntaxException | IOException
                 | KeyManagementException e) {
-            log.severe("There was a problem when unpacking key from ClientCertificateKeyStore:");
-            e.printStackTrace();
+            log.severe("There was a problem when unpacking key from ClientCertificateKeyStore: " + e.getMessage());
         }
     }
 

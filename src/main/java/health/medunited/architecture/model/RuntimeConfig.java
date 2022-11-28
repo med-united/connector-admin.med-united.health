@@ -1,10 +1,12 @@
 package health.medunited.architecture.model;
 
-import javax.servlet.http.HttpServletRequest;
-
 public class RuntimeConfig {
 
     private String url;
+
+    private String signPort;
+
+    private String vzdPort;
 
     private String mandantId;
 
@@ -18,21 +20,17 @@ public class RuntimeConfig {
 
     private String clientCertificatePassword;
 
-    public RuntimeConfig(HttpServletRequest httpServletRequest) {
-        updateConfigurationsWithHttpServletRequest(httpServletRequest);
-    }
-
-    private void updateConfigurationsWithHttpServletRequest(HttpServletRequest httpServletRequest) {
-        if(httpServletRequest == null) {
-            return;
-        }
-        this.url = httpServletRequest.getHeader("X-Url");
-        this.mandantId = httpServletRequest.getHeader("X-MandantId");
-        this.clientSystemId = httpServletRequest.getHeader("X-ClientSystemId");
-        this.workplaceId = httpServletRequest.getHeader("X-WorkplaceId");
-        this.userId = httpServletRequest.getHeader("X-UserId");
-        this.clientCertificate = httpServletRequest.getHeader("X-ClientCertificate");
-        this.clientCertificatePassword = httpServletRequest.getHeader("X-ClientCertificatePassword");
+    public RuntimeConfig(String host, String signPort, String vzdPort, String mandantId, String clientSystemId, String workplaceId, String userId,
+                         String clientCertificate, String clientCertificatePassword) {
+        this.url = host;
+        this.signPort = signPort;
+        this.vzdPort = vzdPort;
+        this.mandantId = mandantId;
+        this.clientSystemId = clientSystemId;
+        this.workplaceId = workplaceId;
+        this.userId = userId;
+        this.clientCertificate = clientCertificate;
+        this.clientCertificatePassword = clientCertificatePassword;
     }
 
     public String getUrl() {
@@ -41,6 +39,22 @@ public class RuntimeConfig {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public String getSignPort() {
+        return signPort;
+    }
+
+    public void setSignPort(String signPort) {
+        this.signPort = signPort;
+    }
+
+    public String getVzdPort() {
+        return vzdPort;
+    }
+
+    public void setVzdPort(String vzdPort) {
+        this.vzdPort = vzdPort;
     }
 
     public String getMandantId() {

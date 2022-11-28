@@ -42,7 +42,7 @@ public abstract class AbstractConnectorServicesProvider {
                         getClass().getResource("/EventService.wsdl")).getEventServicePort();
 
         BindingProvider bp = (BindingProvider) service;
-        String connectorUrl = httpServletRequest.getHeader("X-Url");
+        String connectorUrl = httpServletRequest.getHeader("x-host");
         bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY,
                 "https://" + connectorUrl + ":443/ws/EventService");
 //        if(endpointDiscoveryService.getEventServiceEndpointAddress() != null) {
