@@ -14,7 +14,7 @@ sap.ui.define([
 			this._bDescendingSort = false;
 		},
 		onListItemPress: function (oEvent) {
-            MessageBox.show("This functionality is not ready yet.", {
+			MessageBox.show("This functionality is not ready yet.", {
 				icon: MessageBox.Icon.INFORMATION,
 				title: "Aw, Snap!",
 				actions: [MessageBox.Action.OK]
@@ -25,18 +25,21 @@ sap.ui.define([
 				sQuery = oEvent.getParameter("query");
 
 			if (sQuery && sQuery.length > 0) {
-				oTableSearchState = [new Filter("Name", FilterOperator.Contains, sQuery)];
+				oTableSearchState = [new Filter("UserId", FilterOperator.Contains, sQuery)];
 			}
 
 			this.getView().byId("runtimeConfigTable").getBinding("items").filter(oTableSearchState, "Application");
 		},
 
 		onAdd: function (oEvent) {
-			MessageBox.show("This functionality is not ready yet.", {
-				icon: MessageBox.Icon.INFORMATION,
-				title: "Aw, Snap!",
-				actions: [MessageBox.Action.OK]
-			});
+			let context = this.getView().getModel().createEntry("/RuntimeConfigs", { properties: { UserId: "test" } });
+			this.getView().setBindingContext(context);
+			this.getView().getModel().submitChanges();
+		},
+
+		remove: function (oEvent) {
+			var oTable = this.getView().byId("runtimeConfigTable");
+			oTable.removeItem(oEvent.getSource().getParent());
 		},
 
 		onSort: function (oEvent) {
