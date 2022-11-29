@@ -1,4 +1,4 @@
- {
+{
 	"_version": "1.1.0",
 	"sap.app": {
 		"_version": "1.1.0",
@@ -41,16 +41,11 @@
 		"dependencies": {
 			"minUI5Version": "1.98.0",
 			"libs": {
-				"sap.ui.core": {
-				},
-				"sap.m": {
-				},
-				"sap.f": {
-				},
-				"sap.ui.layout": {
-				},
-				"sap.uxap": {
-				}
+				"sap.ui.core": {},
+				"sap.m": {},
+				"sap.f": {},
+				"sap.ui.layout": {},
+				"sap.uxap": {}
 			}
 		},
 		"models": {
@@ -90,6 +85,14 @@
 				{
 					"pattern": "detail/RuntimeConfigs(':id:')/{layout}",
 					"name": "detail",
+					"target": [
+						"master",
+						"detail"
+					]
+				},
+				{
+					"pattern": "RuntimeConfig/action/add",
+					"name": "runtime-add",
 					"target": [
 						"master",
 						"detail"
