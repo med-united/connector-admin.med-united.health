@@ -17,9 +17,22 @@ sap.ui.define([
 		init: function () {
 			UIComponent.prototype.init.apply(this, arguments);
 
-            // create the views based on the url/hash
-            this.getRouter().initialize();
+			// create the views based on the url/hash
+			this.getRouter().initialize();
 		},
+
+		getHelper: function () {
+			let oFCL = this.getRootControl().byId("fcl"),
+				oParams = UriParameters.fromQuery(location.search),
+				oSettings = {
+					defaultTwoColumnLayoutType: LayoutType.TwoColumnsMidExpanded,
+					defaultThreeColumnLayoutType: LayoutType.ThreeColumnsMidExpanded,
+					mode: oParams.get("mode"),
+					maxColumnsCount: oParams.get("max")
+				};
+
+			return FlexibleColumnLayoutSemanticHelper.getInstanceFor(oFCL, oSettings);
+		}
 	});
 	return Component;
 });
