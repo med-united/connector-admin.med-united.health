@@ -93,7 +93,7 @@ sap.ui.define([
 
         _createContextPathFromModel: function (sEntityName) {
             const oModel = this.getView().getModel();
-            const sEntityId = oModel.createEntry("/RuntimeConfigs", { properties: { UserId: "test" } });
+            const sEntityId = oModel.createEntry("/RuntimeConfigs", { properties: {} });
             return sEntityId;
         },
 

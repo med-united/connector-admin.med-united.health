@@ -2,8 +2,26 @@
     <Dialog id="createDialog" title="{i18n>dialogTitleCreate}" contentWidth="40rem">
         <form:SimpleForm editable="false" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="true">
             <form:content>
-                <Label text="{UserId}" />
+                <Label text="User Id" />
                 <Input type="Text" value="{UserId}" />
+                <Label text="Url" />
+                <Input type="Text" value="{Url}" />
+                <Label text="Sign port" />
+                <Input type="Text" value="{SignPort}" />
+                <Label text="Vzd port" />
+                <Input type="Text" value="{VzdPort}" />
+                <Label text="Mandant id" />
+                <Input type="Text" value="{MandantId}" />
+                <Label text="Client System id" />
+                <Input type="Text" value="{ClientSystemId}" />
+                <Label text="Workplace id" />
+                <Input type="Text" value="{WorkplaceId}" />
+                <Label text="Vzd Domain id" />
+                <Input type="Text" value="{VzdDomainId}" />
+                <Label text="Client certificate" />
+                <Input type="Text" value="{ClientCertificate}" />
+                <Label text="Client certificate password" />
+                <Input type="Text" value="{ClientCertificatePassword}" />
             </form:content>
         </form:SimpleForm>
         <beginButton>
