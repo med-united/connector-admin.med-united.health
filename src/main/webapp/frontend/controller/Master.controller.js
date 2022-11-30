@@ -45,7 +45,7 @@ sap.ui.define([
 		},
 
 		getEntityName: function () {
-			return "runtime";
+			return "RuntimeConfigs";
 		},
 
 		onSort: function (oEvent) {

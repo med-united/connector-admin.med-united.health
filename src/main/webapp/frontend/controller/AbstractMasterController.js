@@ -58,22 +58,22 @@ sap.ui.define([
             this.oRouter.navTo(this.getEntityName().toLowerCase() + "-master");
         },
 
-        onRouteAddMatched: function (oEvent) {
-            let oView = this.getView();
-            const me = this;
+        // onRouteAddMatched: function (oEvent) {
+        //     let oView = this.getView();
+        //     const me = this;
 
-            Fragment.load({
-                id: oView.getId(),
-                name: "medunited.care.view." + this.getEntityName().toLowerCase() + ".CreateDialog",
-                controller: this
-            }).then(function (oDialog) {
-                me.onAfterCreateOpenDialog({ "dialog": oDialog });
-                // connect dialog to the root view of this component (models, lifecycle)
-                oView.addDependent(oDialog);
-                this._openCreateDialog(oDialog);
-            }.bind(this));
+        //     Fragment.load({
+        //         id: oView.getId(),
+        //         name: "medunited.care.view." + this.getEntityName().toLowerCase() + ".CreateDialog",
+        //         controller: this
+        //     }).then(function (oDialog) {
+        //         me.onAfterCreateOpenDialog({ "dialog": oDialog });
+        //         // connect dialog to the root view of this component (models, lifecycle)
+        //         oView.addDependent(oDialog);
+        //         this._openCreateDialog(oDialog);
+        //     }.bind(this));
 
-        },
+        // },
 
         onAfterCreateOpenDialog: function () {
 
@@ -87,11 +87,32 @@ sap.ui.define([
                 sEntityName = sEntityName[0].toUpperCase() + sEntityName.slice(1);
             }
 
-            const sContextPath = this._createContextPathFromModel(sEntityName);
-            oDialog.bindElement(sContextPath);
+            const sContextPath = this._createContextPathFromModel("/" + sEntityName);
+            oDialog.bindElement(sContextPath.sPath);
         },
 
+        _createContextPathFromModel: function (sEntityName) {
+            const oModel = this.getView().getModel();
+            const sEntityId = oModel.createEntry("/RuntimeConfigs", { properties: { UserId: "test" } });
+            return sEntityId;
+        },
 
+        onSave: function () {
+            this._save();
+            this.byId("createDialog").close();
+        },
+
+        _save: function () {
+            // const fnSuccess = (oData) => {
+            //     MessageToast.show(this.translate(this.getEntityName()) + ' ' + this.translate("msgSaveResourceSuccessful"));
+            // };
+
+            // const fnError = (oError) => {
+            //     MessageBox.show(this.translate(this.getEntityName()) + ' ' + this.translate("msgSaveResouceFailed", [oError.statusCode, oError.statusText]));
+            // };
+
+            this.getView().getModel().submitChanges();
+        },
 
     });
 }, true);
