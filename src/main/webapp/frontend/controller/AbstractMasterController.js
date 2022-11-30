@@ -33,16 +33,29 @@ sap.ui.define([
         onAdd: function () {
             let oView = this.getView();
             const me = this;
-            Fragment.load({
-                id: oView.getId(),
-                name: "sap.f.ShellBarWithFlexibleColumnLayout.view.CreateDialog",
-                controller: this
-            }).then(function (oDialog) {
-                me.onAfterCreateOpenDialog({ "dialog": oDialog });
-                // connect dialog to the root view of this component (models, lifecycle)
-                oView.addDependent(oDialog);
-                me._openCreateDialog(oDialog);
-            })
+
+            if (!this.byId("createDialog")) {
+                // load asynchronous XML fragment
+                Fragment.load({
+                    id: oView.getId(),
+                    name: "sap.f.ShellBarWithFlexibleColumnLayout.view.CreateDialog",
+                    controller: this
+                }).then(function (oDialog) {
+                    me.onAfterCreateOpenDialog({ "dialog": oDialog });
+                    // connect dialog to the root view of this component (models, lifecycle)
+                    oView.addDependent(oDialog);
+                    me._openCreateDialog(oDialog);
+                })
+            } else {
+                this._openCreateDialog(this.byId("createDialog"));
+            }
+        },
+
+        onCancel: function (oEvent) {
+            this.getOwnerComponent().getModel().resetChanges();
+            oEvent.getSource().getParent().close();
+            this.oRouter = this.getOwnerComponent().getRouter();
+            this.oRouter.navTo(this.getEntityName().toLowerCase() + "-master");
         },
 
         onRouteAddMatched: function (oEvent) {
@@ -77,6 +90,8 @@ sap.ui.define([
             const sContextPath = this._createContextPathFromModel(sEntityName);
             oDialog.bindElement(sContextPath);
         },
+
+
 
     });
 }, true);
