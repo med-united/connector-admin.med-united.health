@@ -5,7 +5,7 @@ import de.gematik.ws.conn.eventservice.v7.GetCards;
 import de.gematik.ws.conn.eventservice.v7.GetCardsResponse;
 import de.gematik.ws.conn.eventservice.wsdl.v7.EventServicePortType;
 import de.gematik.ws.conn.eventservice.wsdl.v7.FaultMessage;
-import health.medunited.architecture.model.RuntimeConfig;
+import health.medunited.architecture.entities.RuntimeConfig;
 import health.medunited.architecture.provider.AbstractConnectorServicesProvider;
 
 import javax.enterprise.context.RequestScoped;

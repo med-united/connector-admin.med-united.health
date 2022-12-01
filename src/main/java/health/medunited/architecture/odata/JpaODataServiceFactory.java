@@ -84,7 +84,8 @@ public class JpaODataServiceFactory extends ODataJPAServiceFactory {
 			throw ODataJPARuntimeException.throwException(ODataJPARuntimeException.ENTITY_MANAGER_NOT_INITIALIZED, e);
 		}
 	}
-	
+
+	@Override
 	public ODataSingleProcessor createCustomODataProcessor(ODataJPAContext oDataJPAContext) {
 	    return (ODataSingleProcessor) oDataJPAContext.getODataProcessor();
 	  }

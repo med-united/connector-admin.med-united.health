@@ -13,13 +13,13 @@ public enum CardHandleType {
     HBA_X("HBAx"),
     SM_B("SM-B");
 
-    private final String cardHandleType;
+    private final String cardType;
 
-    CardHandleType(String cardHandleType) {
-        this.cardHandleType = cardHandleType;
+    CardHandleType(String cardType) {
+        this.cardType = cardType;
     }
 
     public String getCardHandleType() {
-        return cardHandleType;
+        return cardType;
     }
 }

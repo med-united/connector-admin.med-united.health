@@ -13,13 +13,13 @@ sap.ui.define([
 
 		onBeforeRouteMatched: function(oEvent) {
 
-			var oModel = this.getOwnerComponent().getModel();
+			let oModel = this.getOwnerComponent().getModel();
 
-			var sLayout = oEvent.getParameters().arguments.layout;
+			let sLayout = oEvent.getParameters().arguments.layout;
 
 			// If there is no layout parameter, query for the default level 0 layout (normally OneColumn)
 			if (!sLayout) {
-				var oNextUIState = this.getOwnerComponent().getHelper().getNextUIState(0);
+				let oNextUIState = this.getOwnerComponent().getHelper().getNextUIState(0);
 				sLayout = oNextUIState.layout;
 			}
 
@@ -30,7 +30,7 @@ sap.ui.define([
 		},
 
 		onRouteMatched: function (oEvent) {
-			var sRouteName = oEvent.getParameter("name"),
+			let sRouteName = oEvent.getParameter("name"),
 				oArguments = oEvent.getParameter("arguments");
 
 			this._updateUIElements();
@@ -41,7 +41,7 @@ sap.ui.define([
 		},
 
 		onStateChanged: function (oEvent) {
-			var bIsNavigationArrow = oEvent.getParameter("isNavigationArrow"),
+			let bIsNavigationArrow = oEvent.getParameter("isNavigationArrow"),
 				sLayout = oEvent.getParameter("layout");
 
 			this._updateUIElements();
@@ -54,8 +54,8 @@ sap.ui.define([
 
 		// Update the close/fullscreen buttons visibility
 		_updateUIElements: function () {
-			var oModel = this.getOwnerComponent().getModel();
-			var oUIState = this.getOwnerComponent().getHelper().getCurrentUIState();
+			let oModel = this.getOwnerComponent().getModel();
+			let oUIState = this.getOwnerComponent().getHelper().getCurrentUIState();
 		    //oModel.setData(oUIState);
 		},
 
