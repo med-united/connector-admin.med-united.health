@@ -15,12 +15,12 @@ sap.ui.define([
 			this._bDescendingSort = false;
 		},
 		onListItemPress: function (oEvent) {
-
-			MessageBox.show("This functionality is not ready yet.", {
+			this.oRouter.navTo("detail");
+			/*MessageBox.show("This functionality is not ready yet.", {
 				icon: MessageBox.Icon.INFORMATION,
 				title: "Aw, Snap!",
 				actions: [MessageBox.Action.OK]
-			});
+			});*/
 		},
 		onSearch: function (oEvent) {
 			let oTableSearchState = [],

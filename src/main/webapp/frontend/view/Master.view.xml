@@ -55,9 +55,6 @@
                     <Column width="12em">
                         <Text text="Workplace Id" />
                     </Column>
-                    <Column width="12em">
-                        <Text text="Domain Id" />
-                    </Column>
                 </columns>
                 <items>
                     <ColumnListItem type="Navigation" vAlign="Middle">
@@ -69,7 +66,6 @@
                             <ObjectIdentifier text="{MandantId}" />
                             <ObjectIdentifier text="{ClientSystemId}" />
                             <ObjectIdentifier text="{WorkplaceId}" />
-                            <ObjectIdentifier text="{VzdDomainId}" />
                         </cells>
                     </ColumnListItem>
                 </items>
