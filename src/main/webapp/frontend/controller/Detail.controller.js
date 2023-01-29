@@ -1,11 +1,51 @@
 sap.ui.define([
-	"./AbstractDetailController"
-], function (AbstractDetailControlle) {
+	"./AbstractDetailController",
+    "sap/ui/model/json/JSONModel"
+], function (AbstractDetailController, JSONModel) {
 	"use strict";
 
 	return AbstractDetailController.extend("ap.f.ShellBarWithFlexibleColumnLayout.controller.Detail", {
-		formatter: Formatter,
-		getEntityName: function () {
+		onInit: function() {
+            AbstractDetailController.prototype.onInit.apply(this, arguments);
+            const oCardsModel = new JSONModel();
+            this.getView().setModel(oCardsModel, "Cards");
+            const oCardTerminalsModel = new JSONModel();
+            this.getView().setModel(oCardTerminalsModel, "CardTerminals");
+            
+        },
+        _onMatched: function (oEvent) {
+            AbstractDetailController.prototype._onMatched.apply(this, arguments);
+            const sPath = "/RuntimeConfigs('"+this._entity+"')";
+            const oRuntimeConfig = this.getView().getModel().getProperty(sPath);
+            if(!oRuntimeConfig) {
+                this.getView().getModel().read(sPath, {
+                    success: (oResult) => {
+                        this.reloadModels(oResult);
+                    }
+                });
+            } else {
+                this.reloadModels(oRuntimeConfig);
+            }
+            
+        },
+        reloadModels: function(oRuntimeConfig) {
+            const mHeaders = {
+                "x-client-system-id": oRuntimeConfig.ClientSystemId,
+                "x-client-certificate": oRuntimeConfig.ClientCertificate,
+                "x-client-certificate-password": oRuntimeConfig.ClientCertificatePassword,
+                "x-sign-port": oRuntimeConfig.SignPort,
+                "x-vzd-port": oRuntimeConfig.VzdPort,
+                "x-mandant-id": oRuntimeConfig.MandantId,
+                "x-workplace-id": oRuntimeConfig.WorkplaceId,
+                "x-user-id": oRuntimeConfig.UserId,
+                "x-host": oRuntimeConfig.Url
+            };
+
+            this.getView().getModel("Cards").loadData("connector/event/get-cards", {}, "true", "GET", false, true, mHeaders);
+
+            this.getView().getModel("CardTerminals").loadData("connector/event/get-card-terminals", {}, "true", "GET", false, true, mHeaders);
+        },
+        getEntityName: function () {
 			return "RuntimeConfig";
 		}
 	});

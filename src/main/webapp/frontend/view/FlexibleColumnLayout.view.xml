@@ -3,6 +3,6 @@
         <m:customHeader>
             <ShellBar title="Connector admin tool" homeIcon="./../../../../../../../resources/sap/ui/documentation/sdk/images/logo_ui5.png" showNavButton="{= ${/layout} === 'EndColumnFullScreen'}" navButtonPressed="handleBackButtonPressed" />
         </m:customHeader>
-        <FlexibleColumnLayout id="fcl" stateChange="onStateChanged" layout="{/layout}" backgroundDesign="Solid" />
+        <FlexibleColumnLayout id="fcl" stateChange="onStateChanged" layout="{Layout>/layout}" backgroundDesign="Solid" />
     </m:Page>
 </mvc:View>

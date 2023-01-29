@@ -16,8 +16,6 @@
                 <Input type="Text" value="{ClientSystemId}" />
                 <Label text="Workplace id" />
                 <Input type="Text" value="{WorkplaceId}" />
-                <Label text="Vzd Domain id" />
-                <Input type="Text" value="{VzdDomainId}" />
                 <Label text="Client certificate" />
                 <Input type="Text" value="{ClientCertificate}" />
                 <Label text="Client certificate password" />

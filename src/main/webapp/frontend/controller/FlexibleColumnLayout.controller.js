@@ -8,28 +8,23 @@ sap.ui.define([
 		onInit: function () {
 			this.oRouter = this.getOwnerComponent().getRouter();
 			this.oRouter.attachRouteMatched(this.onRouteMatched, this);
-			this.oRouter.attachBeforeRouteMatched(this.onBeforeRouteMatched, this);
 		},
-
-		onBeforeRouteMatched: function(oEvent) {
-
-			let oModel = this.getOwnerComponent().getModel();
-
+		
+		onRouteMatched: function (oEvent) {
+			let oModel = this.getOwnerComponent().getModel("Layout");
+	
 			let sLayout = oEvent.getParameters().arguments.layout;
-
+	
 			// If there is no layout parameter, query for the default level 0 layout (normally OneColumn)
 			if (!sLayout) {
 				let oNextUIState = this.getOwnerComponent().getHelper().getNextUIState(0);
 				sLayout = oNextUIState.layout;
 			}
-
+	
 			// Update the layout of the FlexibleColumnLayout
 			if (sLayout) {
 				oModel.setProperty("/layout", sLayout);
 			}
-		},
-
-		onRouteMatched: function (oEvent) {
 			let sRouteName = oEvent.getParameter("name"),
 				oArguments = oEvent.getParameter("arguments");
 
@@ -54,9 +49,9 @@ sap.ui.define([
 
 		// Update the close/fullscreen buttons visibility
 		_updateUIElements: function () {
-			let oModel = this.getOwnerComponent().getModel();
+			let oModel = this.getOwnerComponent().getModel("Layout");
 			let oUIState = this.getOwnerComponent().getHelper().getCurrentUIState();
-		    //oModel.setData(oUIState);
+		    oModel.setData(oUIState);
 		},
 
 		handleBackButtonPressed: function () {

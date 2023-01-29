@@ -1,22 +1,35 @@
 package health.medunited.architecture.service.common.security;
 
-import health.medunited.architecture.service.endpoint.SSLUtilities;
-
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
-import javax.net.ssl.*;
-import javax.servlet.http.HttpServletRequest;
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.net.Socket;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.security.*;
+import java.security.KeyManagementException;
+import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.Principal;
+import java.security.PrivateKey;
+import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.Base64;
 import java.util.logging.Logger;
 import java.util.regex.PatternSyntaxException;
+
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
+import javax.net.ssl.KeyManager;
+import javax.net.ssl.KeyManagerFactory;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509KeyManager;
+import javax.servlet.http.HttpServletRequest;
+
+import health.medunited.architecture.service.endpoint.SSLUtilities;
 
 @RequestScoped
 public class SecretsManagerService {
@@ -44,7 +57,7 @@ public class SecretsManagerService {
         return sslContext;
     }
 
-    private void setUpSSLContext(KeyManager km)
+    public void setUpSSLContext(KeyManager km)
             throws NoSuchAlgorithmException, KeyManagementException {
         sslContext = SSLContext.getInstance(SslContextType.TLS.getSslContextType());
 
@@ -52,7 +65,7 @@ public class SecretsManagerService {
                 null);
     }
 
-    private KeyManager getKeyFromKeyStoreUri(String keystoreUri, String keystorePassword)
+    public KeyManager getKeyFromKeyStoreUri(String keystoreUri, String keystorePassword)
             throws URISyntaxException, KeyStoreException, NoSuchAlgorithmException, CertificateException, IOException {
         if (keystorePassword == null) {
             keystorePassword = "";

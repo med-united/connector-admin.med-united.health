@@ -1,9 +1,9 @@
-<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:uxap="sap.uxap" xmlns:medunited="medunited.base.control" xmlns:name="medunited.care.SharedBlocks.name" xmlns:address="medunited.care.SharedBlocks.address" xmlns:biological="medunited.care.SharedBlocks.biological" xmlns:generalPractitioner="medunited.care.SharedBlocks.generalPractitioner" xmlns:defaultOrganization="medunited.care.SharedBlocks.defaultOrganization" xmlns:insurance="medunited.care.SharedBlocks.insurance" xmlns:medication="medunited.care.SharedBlocks.medication" controllerName="ap.f.ShellBarWithFlexibleColumnLayout.controller.Detail" xmlns:html="http://www.w3.org/1999/xhtml">
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:uxap="sap.uxap" xmlns:medunited="medunited.base.control" xmlns:name="medunited.care.SharedBlocks.name" xmlns:address="medunited.care.SharedBlocks.address" xmlns:biological="medunited.care.SharedBlocks.biological" xmlns:generalPractitioner="medunited.care.SharedBlocks.generalPractitioner" xmlns:defaultOrganization="medunited.care.SharedBlocks.defaultOrganization" xmlns:insurance="medunited.care.SharedBlocks.insurance" xmlns:medication="medunited.care.SharedBlocks.medication" controllerName="sap.f.ShellBarWithFlexibleColumnLayout.controller.Detail" xmlns:html="http://www.w3.org/1999/xhtml">
     <Page showHeader="false">
         <content>
             <uxap:ObjectPageLayout id="objectPageLayout" showTitleInHeaderContent="true">
                 <uxap:headerTitle>
-                    <uxap:ObjectPageHeader objectImageURI="{path: 'photo/0', formatter: '.formatter.formatPatientPhoto'}" objectImageShape="Circle" objectImageAlt="Profile picture of patient" objectTitle="{name/[use=official]/family}, {name/[use=official]/given/0}" objectSubtitle="{path: 'birthDate', formatter: '.formatter.formatBirthDateAndAge'}" isObjectIconAlwaysVisible="false" isObjectTitleAlwaysVisible="false" isObjectSubtitleAlwaysVisible="false">
+                    <uxap:ObjectPageHeader objectImageShape="Circle" objectImageAlt="Profile" objectTitle="{Url}" isObjectIconAlwaysVisible="false" isObjectTitleAlwaysVisible="false" isObjectSubtitleAlwaysVisible="false">
                         <uxap:actions>
                             <uxap:ObjectPageHeaderActionButton type="Transparent" icon="sap-icon://full-screen" press="handleFullScreen" tooltip="Enter Full Screen Mode" visible="{= ${Layout>/actionButtonsInfo/midColumn/fullScreen} !== null }" />
                             <uxap:ObjectPageHeaderActionButton type="Transparent" icon="sap-icon://exit-full-screen" press="handleExitFullScreen" tooltip="Exit Full Screen Mode" visible="{= ${Layout>/actionButtonsInfo/midColumn/exitFullScreen} !== null }" />
@@ -12,7 +12,7 @@
                     </uxap:ObjectPageHeader>
                 </uxap:headerTitle>
                 <uxap:sections>
-                    <uxap:ObjectPageSection id="personalSection" title="{i18n>titleSectionPersonal}">
+                    <!-- <uxap:ObjectPageSection id="personalSection" title="{i18n>titleSectionPersonal}">
                         <uxap:subSections>
                             <uxap:ObjectPageSubSection id="nameSubSection" title="{i18n>titleSubSectionName}">
                                 <uxap:blocks>
@@ -20,28 +20,54 @@
                                 </uxap:blocks>
                             </uxap:ObjectPageSubSection>
                         </uxap:subSections>
-                    </uxap:ObjectPageSection>
-                    <uxap:ObjectPageSection id="cardTerminalSection" title="{i18n>titleSectionCardTerminal}">
+                    </uxap:ObjectPageSection> -->
+                    <uxap:ObjectPageSection id="cardSection" title="Gestecke Karten">
                         <uxap:subSections>
-                            <uxap:ObjectPageSubSection id="cardTerminalSubSection" title="{i18n>titleSectionCardTerminal}">
+                            <uxap:ObjectPageSubSection id="cardSubSection" title="Gestecke Karten">
                                 <uxap:blocks>
-                                    <Table>
+                                    <Table items="{Cards>/cards/card}">
                                         <columns>
-                                            <Column>
-                                                <Text text="Typ" />
-                                            </Column>
                                             <Column>
                                                 <Text text="Handle" />
                                             </Column>
                                             <Column>
-                                                <Text text="Kartenhalte" />
+                                                <Text text="Kartenhalter" />
+                                            </Column>
+                                            <Column>
+                                                <Text text="Typ" />
+                                            </Column>
+                                            <Column>
+                                                <Text text="Zertifikatsauslaufdatum" />
+                                            </Column>
+                                            <Column>
+                                                <Text text="Iccsn" />
+                                            </Column>
+                                            <Column>
+                                                <Text text="insertTime" />
+                                            </Column>
+                                            <Column>
+                                                <Text text="slotId" />
+                                            </Column>
+                                            <Column>
+
                                             </Column>
                                         </columns>
                                         <items>
                                             <ColumnListItem>
-                                                <Text text="{Typ}" />
-                                                <Text text="{Handle}" />
-                                                <Text text="{CardHolder}" />
+                                                <Text text="{Cards>cardHandle}" />
+                                                <Text text="{Cards>cardHolderName}" />
+                                                <Text text="{Cards>cardType}" />
+                                                <Text text="{Cards>certificateExpirationDate}" />
+                                                <Text text="{Cards>iccsn}" />
+                                                <Text text="{Cards>insertTime}" />
+                                                <Text text="{Cards>slotId}" />
+                                                <MenuButton text="Aktion ...">
+                                                    <Menu>
+                                                        <MenuItem text="Verify PIN" press="onVerifyPin" />
+                                                        <MenuItem text="Change PIN.QES" press="onChangePinQes" />
+                                                        <MenuItem text="Change PIN.CH" press="onChangePinCh" />
+                                                    </Menu>
+                                                </MenuButton>
                                             </ColumnListItem>
                                         </items>
                                     </Table>
@@ -49,12 +75,15 @@
                             </uxap:ObjectPageSubSection>
                         </uxap:subSections>
                     </uxap:ObjectPageSection>
-                    <uxap:ObjectPageSection id="cardSection" title="{i18n>titleSectionCard}">
+                    <uxap:ObjectPageSection id="cardTerminalSection" title="Angeschlossene Kartenterminals">
                         <uxap:subSections>
-                            <uxap:ObjectPageSubSection id="cardSubSection" title="{i18n>titleSectionCard}">
+                            <uxap:ObjectPageSubSection id="cardTerminalSubSection" title="Angeschlossene Kartenterminals">
                                 <uxap:blocks>
-                                    <Table>
+                                    <Table items="{CardTerminals>/cardTerminals/cardTerminal}">
                                         <columns>
+                                            <Column>
+                                                <Text text="Connected" />
+                                            </Column>
                                             <Column>
                                                 <Text text="Name" />
                                             </Column>
@@ -62,14 +91,15 @@
                                                 <Text text="IP" />
                                             </Column>
                                             <Column>
-                                                <Text text="Status" />
+                                                <Text text="Product" />
                                             </Column>
                                         </columns>
                                         <items>
                                             <ColumnListItem>
-                                                <Text text="{Name}" />
-                                                <Text text="{IP}" />
-                                                <Text text="{Status}" />
+                                                <Text text="{CardTerminals>connected}" />
+                                                <Text text="{CardTerminals>name}" />
+                                                <Text text="{CardTerminals>IPAddress/IPV4Address}" />
+                                                <Text text="{CardTerminals>productInformation/productIdentification/productCode} {CardTerminals>productInformation/productIdentification/productVendorID} {CardTerminals>productInformation/productIdentification/productVersion/local/FWVersion}" />
                                             </ColumnListItem>
                                         </items>
                                     </Table>

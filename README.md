@@ -2,6 +2,10 @@
 
 A tool where you can maintain all the runtime configurations for all the doctors and their connectors
 
+# Screenshot
+
+![Detail Screen](docs/Detail-Screen.png?raw=true "This is how the tool looks like")
+
 # How to run this application?
 
 Prerequisites:

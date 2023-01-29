@@ -17,14 +17,11 @@
         <f:content>
             <Table
                     id="runtimeConfigTable"
-                    mode="SingleSelectMaster"
-                    itemPress="onListItemPress"
                     inset="false"
                     items="{
 						path: '/RuntimeConfigs'
 					}"
-                    class="sapFDynamicPageAlignContent"
-                    width="auto">
+                    growing="true" growingScrollToLoad="true" growingThreshold="25" autoPopinMode="true" mode="MultiSelect">
                 <headerToolbar>
                     <OverflowToolbar>
                         <ToolbarSpacer/>
@@ -57,7 +54,7 @@
                     </Column>
                 </columns>
                 <items>
-                    <ColumnListItem type="Navigation" vAlign="Middle">
+                    <ColumnListItem type="Navigation" vAlign="Middle" press="onListItemPress">
                         <cells>
                             <ObjectIdentifier text="{UserId}" />
                             <ObjectIdentifier text="{Url}" />

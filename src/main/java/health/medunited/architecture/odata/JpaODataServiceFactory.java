@@ -1,18 +1,25 @@
 package health.medunited.architecture.odata;
 
-import org.apache.olingo.odata2.api.processor.ODataSingleProcessor;
-import org.apache.olingo.odata2.jpa.processor.api.ODataJPAContext;
-import org.apache.olingo.odata2.jpa.processor.api.ODataJPAServiceFactory;
-import org.apache.olingo.odata2.jpa.processor.api.ODataJPATransaction;
-import org.apache.olingo.odata2.jpa.processor.api.exception.ODataJPARuntimeException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.transaction.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.transaction.HeuristicMixedException;
+import javax.transaction.HeuristicRollbackException;
+import javax.transaction.NotSupportedException;
+import javax.transaction.RollbackException;
+import javax.transaction.Status;
+import javax.transaction.SystemException;
+import javax.transaction.UserTransaction;
+
+import org.apache.olingo.odata2.api.processor.ODataSingleProcessor;
+import org.apache.olingo.odata2.jpa.processor.api.ODataJPAContext;
+import org.apache.olingo.odata2.jpa.processor.api.ODataJPAServiceFactory;
+import org.apache.olingo.odata2.jpa.processor.api.ODataJPATransaction;
+import org.apache.olingo.odata2.jpa.processor.api.exception.ODataJPARuntimeException;
 
 public class JpaODataServiceFactory extends ODataJPAServiceFactory {
 

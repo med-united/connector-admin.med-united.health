@@ -1,17 +1,23 @@
 package health.medunited.architecture.odata;
 
-import org.apache.olingo.odata2.api.edm.EdmConcurrencyMode;
-import org.apache.olingo.odata2.api.edm.EdmFacets;
-import org.apache.olingo.odata2.api.edm.provider.*;
-import org.apache.olingo.odata2.jpa.processor.api.model.JPAEdmExtension;
-import org.apache.olingo.odata2.jpa.processor.api.model.JPAEdmSchemaView;
-import org.apache.olingo.odata2.jpa.processor.core.model.JPAEdmMappingImpl;
-
-import javax.persistence.Version;
 import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.persistence.Version;
+
+import org.apache.olingo.odata2.api.edm.EdmConcurrencyMode;
+import org.apache.olingo.odata2.api.edm.EdmFacets;
+import org.apache.olingo.odata2.api.edm.provider.EntityType;
+import org.apache.olingo.odata2.api.edm.provider.Facets;
+import org.apache.olingo.odata2.api.edm.provider.Mapping;
+import org.apache.olingo.odata2.api.edm.provider.Property;
+import org.apache.olingo.odata2.api.edm.provider.Schema;
+import org.apache.olingo.odata2.api.edm.provider.SimpleProperty;
+import org.apache.olingo.odata2.jpa.processor.api.model.JPAEdmExtension;
+import org.apache.olingo.odata2.jpa.processor.api.model.JPAEdmSchemaView;
+import org.apache.olingo.odata2.jpa.processor.core.model.JPAEdmMappingImpl;
 
 public class ETagJPAEDMExtension implements JPAEdmExtension {
 	

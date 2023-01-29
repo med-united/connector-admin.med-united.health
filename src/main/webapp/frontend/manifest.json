@@ -83,7 +83,7 @@
 					]
 				},
 				{
-					"pattern": "detail/RuntimeConfigs(':id:')/{layout}",
+					"pattern": "detail/RuntimeConfigs('{id}')/{layout}",
 					"name": "detail",
 					"target": [
 						"master",
@@ -101,12 +101,12 @@
 			],
 			"targets": {
 				"master": {
-					"name": "Master",
+					"viewName": "Master",
 					"controlAggregation": "beginColumnPages",
 					"clearControlAggregation": true
 				},
 				"detail": {
-					"name": "Detail",
+					"viewName": "Detail",
 					"controlAggregation": "midColumnPages",
 					"clearControlAggregation": true
 				}

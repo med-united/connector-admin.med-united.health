@@ -21,6 +21,12 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
+      <groupId>org.eclipse.microprofile.metrics</groupId>
+      <artifactId>microprofile-metrics-api</artifactId>
+      <version>3.0</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
       <groupId>org.apache.olingo</groupId>
       <artifactId>olingo-odata2-core</artifactId>
       <version>${olingo.version}</version>
@@ -160,8 +166,8 @@
                     <connection-url>jdbc:postgresql://localhost:5432/connector</connection-url>
                     <driver-class>org.postgresql.Driver</driver-class>
                     <driver-name>postgresql.jar</driver-name>
-                    <user-name>postgres</user-name>
-                    <password>password</password>
+                    <user-name>connector</user-name>
+                    <password>y)m.0YE}v4Jv</password>
                   </properties>
                 </resource>
               </resources>

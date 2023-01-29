@@ -15,7 +15,13 @@ sap.ui.define([
 			this._bDescendingSort = false;
 		},
 		onListItemPress: function (oEvent) {
-			this.oRouter.navTo("detail");
+
+			let oNextUIState = this.getOwnerComponent().getHelper().getNextUIState(1),
+			oParams = { layout: oNextUIState.layout };
+			oParams["id"] = oEvent.getSource().getBindingContext().getProperty("Id")
+			;
+
+			this.oRouter.navTo("detail", oParams);
 			/*MessageBox.show("This functionality is not ready yet.", {
 				icon: MessageBox.Icon.INFORMATION,
 				title: "Aw, Snap!",

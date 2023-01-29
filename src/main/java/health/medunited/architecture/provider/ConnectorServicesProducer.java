@@ -1,22 +1,36 @@
 package health.medunited.architecture.provider;
 
-import health.medunited.architecture.service.endpoint.SSLUtilities;
-import health.medunited.architecture.service.common.security.SecretsManagerService;
+import java.util.logging.Logger;
+
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.RequestScoped;
+import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.net.ssl.SSLContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.ws.BindingProvider;
-import java.util.logging.Logger;
 
-public abstract class AbstractConnectorServicesProvider {
+import health.medunited.architecture.service.common.security.SecretsManagerService;
+import health.medunited.architecture.service.endpoint.SSLUtilities;
 
-    private static final Logger log = Logger.getLogger(AbstractConnectorServicesProvider.class.getName());
+@RequestScoped
+public class ConnectorServicesProducer {
+
+    private static final Logger log = Logger.getLogger(ConnectorServicesProducer.class.getName());
 
     @Inject
     SecretsManagerService secretsManagerService;
 
     @Inject
     HttpServletRequest httpServletRequest;
+
+    static {
+        System.setProperty("com.sun.xml.ws.transport.http.client.HttpTransportPipe.dump", "true");
+        System.setProperty("com.sun.xml.internal.ws.transport.http.client.HttpTransportPipe.dump", "true");
+        System.setProperty("com.sun.xml.ws.transport.http.HttpAdapter.dump", "true");
+        System.setProperty("com.sun.xml.internal.ws.transport.http.HttpAdapter.dump", "true");
+        System.setProperty("com.sun.xml.ws.transport.http.HttpAdapter.dumpTreshold", "999999");
+    }
 
     private de.gematik.ws.conn.vsds.vsdservice.v5.VSDServicePortType vSDServicePortType;
     private de.gematik.ws.conn.cardservice.wsdl.v8.CardServicePortType cardServicePortType;
@@ -27,22 +41,27 @@ public abstract class AbstractConnectorServicesProvider {
     private de.gematik.ws.conn.signatureservice.wsdl.v7.SignatureServicePortTypeV755 signatureServicePortTypeV755;
     private de.gematik.ws.conn.connectorcontext.v2.ContextType contextType;
 
+    public void setSecretsManagerService(SecretsManagerService secretsManagerService) {
+        this.secretsManagerService = secretsManagerService;
+    }
+
+    @PostConstruct
     public void initializeServices() {
         initializeServices(false);
     }
 
     private void initializeServices(boolean throwEndpointException) {
         //endpointDiscoveryService.obtainConfiguration(throwEndpointException);
-        initializeEventServicePortType();
+        initializeEventServicePortType(httpServletRequest.getHeader("x-host"));
     }
 
-    private void initializeEventServicePortType() {
+    public void initializeEventServicePortType(String host) {
         de.gematik.ws.conn.eventservice.wsdl.v7.EventServicePortType service =
                 new de.gematik.ws.conn.eventservice.wsdl.v7.EventService(
                         getClass().getResource("/EventService.wsdl")).getEventServicePort();
 
         BindingProvider bp = (BindingProvider) service;
-        String connectorUrl = httpServletRequest.getHeader("x-host");
+        String connectorUrl = host;
         bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY,
                 "https://" + connectorUrl + ":443/ws/EventService");
 //        if(endpointDiscoveryService.getEventServiceEndpointAddress() != null) {
@@ -66,6 +85,7 @@ public abstract class AbstractConnectorServicesProvider {
                 new SSLUtilities.FakeHostnameVerifier());
     }
 
+    @Produces
     public de.gematik.ws.conn.eventservice.wsdl.v7.EventServicePortType getEventServicePortType() {
         return this.eventServicePortType;
     }

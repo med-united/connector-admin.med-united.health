@@ -1,7 +1,15 @@
 package health.medunited.architecture.odata;
 
-import health.medunited.architecture.io.Util;
-import health.medunited.architecture.odata.annotations.ODataCacheControl;
+import java.io.IOException;
+import java.io.InputStream;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.apache.olingo.odata2.api.batch.BatchHandler;
 import org.apache.olingo.odata2.api.batch.BatchRequestPart;
 import org.apache.olingo.odata2.api.batch.BatchResponsePart;
@@ -24,15 +32,8 @@ import org.apache.olingo.odata2.jpa.processor.api.ODataJPAContext;
 import org.apache.olingo.odata2.jpa.processor.api.ODataJPADefaultProcessor;
 import org.apache.olingo.odata2.jpa.processor.api.model.JPAEdmMapping;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.time.ZoneOffset;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import health.medunited.architecture.io.Util;
+import health.medunited.architecture.odata.annotations.ODataCacheControl;
 
 public class ETagCacheControlODataJPAProcessor extends ODataJPADefaultProcessor {
 

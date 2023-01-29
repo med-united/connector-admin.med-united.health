@@ -1,14 +1,22 @@
 package health.medunited.architecture.entities;
 
+import java.util.UUID;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+
 import health.medunited.architecture.odata.annotations.ODataCacheControl;
 
-import javax.persistence.*;
-
 @Entity
+@NamedQuery(name="RuntimeConfig.findAll", query="SELECT r FROM RuntimeConfig r") 
 @ODataCacheControl(maxAge = 5) // this odata entity set should be cached for 5 seconds
 public class RuntimeConfig {
 
     @Id
+    private String id = UUID.randomUUID().toString();
+
     private String userId;
 
     private String url;
@@ -28,8 +36,6 @@ public class RuntimeConfig {
 
     private String clientCertificatePassword;
 
-    private String vzdDomainId;
-
     public RuntimeConfig() {
     }
 
@@ -44,6 +50,14 @@ public class RuntimeConfig {
         this.userId = userId;
         this.clientCertificate = clientCertificate;
         this.clientCertificatePassword = clientCertificatePassword;
+    }
+
+    public String getId() {
+        return this.id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getUserId() {
@@ -116,13 +130,5 @@ public class RuntimeConfig {
 
     public void setClientCertificatePassword(String clientCertificatePassword) {
         this.clientCertificatePassword = clientCertificatePassword;
-    }
-
-    public String getVzdDomainId() {
-        return vzdDomainId;
-    }
-
-    public void setVzdDomainId(String vzdDomainId) {
-        this.vzdDomainId = vzdDomainId;
     }
 }

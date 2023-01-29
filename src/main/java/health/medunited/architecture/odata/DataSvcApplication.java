@@ -1,15 +1,16 @@
 package health.medunited.architecture.odata;
-import health.medunited.architecture.CORSFilter;
-import health.medunited.architecture.odata.etag.ETagResponseFilter;
-import health.medunited.architecture.resource.StatusResource;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.ws.rs.ApplicationPath;
+
 import org.apache.olingo.odata2.api.ODataServiceFactory;
 import org.apache.olingo.odata2.core.rest.ODataExceptionMapperImpl;
 import org.apache.olingo.odata2.core.rest.ODataRootLocator;
 import org.apache.olingo.odata2.core.rest.app.AbstractODataApplication;
 
-import javax.ws.rs.ApplicationPath;
-import java.util.HashSet;
-import java.util.Set;
+import health.medunited.architecture.CORSFilter;
+import health.medunited.architecture.odata.etag.ETagResponseFilter;
 
 /**
  * Configures a JAX-RS endpoint. Delete this class, if you are not exposing
@@ -18,11 +19,11 @@ import java.util.Set;
  * @author airhacks.com
  */
 @ApplicationPath("Data.svc")
-public class JAXRSConfiguration extends AbstractODataApplication {
+public class DataSvcApplication extends AbstractODataApplication {
 
 	private final Set<Object> singletons = new HashSet<>();
 
-	public JAXRSConfiguration() {
+	public DataSvcApplication() {
 		singletons.add(new CORSFilter());
 	}
 
@@ -32,7 +33,6 @@ public class JAXRSConfiguration extends AbstractODataApplication {
 		set.add(ODataRootLocator.class);
 		set.add(ODataExceptionMapperImpl.class);
 		set.add(ETagResponseFilter.class);
-		set.add(StatusResource.class);
 		return set;
 	}
 
