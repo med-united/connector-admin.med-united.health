@@ -29,7 +29,7 @@ Make sure to tweak the following configuration:
 
 Now you can start the application:
 ```
-mvn wildlfy:provision
+mvn wildfly:provision
 mvn wildfly:start
 mvn package
 mvn wildfly:deploy
