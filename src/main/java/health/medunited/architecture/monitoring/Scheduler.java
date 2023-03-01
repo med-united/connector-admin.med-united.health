@@ -94,7 +94,7 @@ public class Scheduler {
             try {
                 currentlyConnectedCardsInt = connectorResponseTime.time(callable);
                 Gauge<Integer> currentlyConnectedCards  = applicationRegistry.gauge(Metadata.builder()
-                    .withName("currentlyConnectedCards"+runtimeConfig.getUrl())
+                    .withName("currentlyConnectedCards_"+runtimeConfig.getUrl())
                     .withDescription("Currently connected cards for "+runtimeConfig.getUrl())
                     .build(), () -> {
                         return currentlyConnectedCardsInt;

@@ -107,6 +107,54 @@
                             </uxap:ObjectPageSubSection>
                         </uxap:subSections>
                     </uxap:ObjectPageSection>
+                    <uxap:ObjectPageSection id="metricsSection" title="Metrics für diesen Konnector">
+                        <uxap:subSections>
+                            <uxap:ObjectPageSubSection id="metricsSubSection" title="Aktuelle Daten">
+                                <uxap:blocks>
+                                    <Table>
+                                        <columns>
+                                            <Column>
+                                                <Text text="Metric" />
+                                            </Column>
+                                            <Column>
+                                                <Text text="Value" />
+                                            </Column>
+                                            <Column>
+                                                <Text text="Count" />
+                                            </Column>
+                                            <Column>
+                                                <Text text="Min" />
+                                            </Column>
+                                            <Column>
+                                                <Text text="Max" />
+                                            </Column>
+                                            <Column>
+                                                <Text text="Mean" />
+                                            </Column>
+                                        </columns>
+                                        <items>
+                                            <ColumnListItem>
+                                                <Text text="Connector Response Times" />
+                                                <Text text="" />
+                                                <Text text="{Metrics>/connectorResponseTime/count}" />
+                                                <Text text="{Metrics>/connectorResponseTime/min}" />
+                                                <Text text="{Metrics>/connectorResponseTime/max}" />
+                                                <Text text="{Metrics>/connectorResponseTime/mean}" />
+                                            </ColumnListItem>
+                                            <ColumnListItem>
+                                                <Text text="Currently ConnectedCards" />
+                                                <Text text="{Metrics>/currentlyConnectedCards}" />
+                                                <Text text="" />
+                                                <Text text="" />
+                                                <Text text="" />
+                                                <Text text="" />
+                                            </ColumnListItem>
+                                        </items>
+                                    </Table>
+                                </uxap:blocks>
+                            </uxap:ObjectPageSubSection>
+                        </uxap:subSections>
+                    </uxap:ObjectPageSection>
                 </uxap:sections>
             </uxap:ObjectPageLayout>
         </content>

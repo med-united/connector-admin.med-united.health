@@ -11,6 +11,9 @@ sap.ui.define([
             this.getView().setModel(oCardsModel, "Cards");
             const oCardTerminalsModel = new JSONModel();
             this.getView().setModel(oCardTerminalsModel, "CardTerminals");
+
+            const oMetricsModel = new JSONModel();
+            this.getView().setModel(oMetricsModel, "Metrics");
             
         },
         _onMatched: function (oEvent) {
@@ -41,9 +44,32 @@ sap.ui.define([
                 "x-host": oRuntimeConfig.Url
             };
 
+            
+
             this.getView().getModel("Cards").loadData("connector/event/get-cards", {}, "true", "GET", false, true, mHeaders);
 
             this.getView().getModel("CardTerminals").loadData("connector/event/get-card-terminals", {}, "true", "GET", false, true, mHeaders);
+            let m;
+            let ip;
+            if(m = oRuntimeConfig.Url.match("\/\/([^\/:]+)(:\\d+)?\/")) {
+                ip = m.group(1);
+            } else {
+                ip = oRuntimeConfig.Url;
+            }
+            fetch("connector/metrics/application", {
+                headers: {"Accept": "application/json"}
+            }).then((r) => r.json()).then((o) => {
+                this.getView().getModel("Metrics").setData({
+                    "connectorResponseTime": {
+                        "count": o["connectorResponseTime_"+ip]["count"],
+                        "min": o["connectorResponseTime_"+ip]["min"],
+                        "max": o["connectorResponseTime_"+ip]["max"],
+                        "mean": o["connectorResponseTime_"+ip]["mean"]
+                    },
+                    "currentlyConnectedCards": o["currentlyConnectedCards_"+ip]
+                });
+            });
+            
         },
         getEntityName: function () {
 			return "RuntimeConfig";
