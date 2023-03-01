@@ -111,13 +111,14 @@
       <plugin>
         <groupId>org.wildfly.plugins</groupId>
         <artifactId>wildfly-maven-plugin</artifactId>
-        <version>4.0.0.Beta2</version>
+        <version>4.0.0.Final</version>
         <configuration>
-          <feature-packs>
-            <feature-pack>
-              <location>org.wildfly:wildfly-galleon-pack:26.1.1.Final</location>
-            </feature-pack>
-          </feature-packs>
+          <fork>true</fork>
+          <feature-pack-location>wildfly@maven(org.jboss.universe:community-universe):current/beta#26.1.3.Final</feature-pack-location>
+          <serverConfig>../../../../wildfly-configuration/standalone.xml</serverConfig>
+          <!--
+             <command>/extension=org.wildfly.extension.microprofile.metrics-smallrye:add</command>
+          -->
           <java-opts>
             <java-opt>--add-opens=java.base/java.lang=ALL-UNNAMED</java-opt>
             <java-opt>--add-exports=java.desktop/sun.awt=ALL-UNNAMED</java-opt>
@@ -136,11 +137,19 @@
           <server-args>
             <server-arg>-Djboss.https.port=8444</server-arg>
           </server-args>
+          <add-user>
+            <users>
+              <user>
+                  <username>admin</username>
+                  <password>admin</password>
+              </user>
+            </users>
+          </add-user>
         </configuration>
         <executions>
           <execution>
             <id>deploy-postgresql</id>
-<!--            <phase>package</phase>-->
+            <phase>package</phase>
             <goals>
               <goal>deploy-artifact</goal>
             </goals>
@@ -152,7 +161,7 @@
           </execution>
           <execution>
             <id>add-datasource</id>
-<!--            <phase>package</phase>-->
+            <phase>package</phase>
             <goals>
               <goal>add-resource</goal>
             </goals>
