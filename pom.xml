@@ -51,11 +51,13 @@
       <artifactId>olingo-odata2-api-annotation</artifactId>
       <version>${olingo.version}</version>
     </dependency>
+    <!--
     <dependency>
       <groupId>org.postgresql</groupId>
       <artifactId>postgresql</artifactId>
       <version>42.5.0</version>
     </dependency>
+    -->
     <dependency>
       <groupId>jakarta.enterprise</groupId>
       <artifactId>jakarta.enterprise.cdi-api</artifactId>
@@ -147,7 +149,7 @@
           </add-user>
         </configuration>
         <executions>
-          <execution>
+          <!-- <execution>
             <id>deploy-postgresql</id>
             <phase>package</phase>
             <goals>
@@ -181,7 +183,7 @@
                 </resource>
               </resources>
             </configuration>
-          </execution>
+          </execution> -->
         </executions>
       </plugin>
       <plugin>
