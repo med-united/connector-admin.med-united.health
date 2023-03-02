@@ -20,7 +20,7 @@ public class Bootstrap {
         RuntimeConfig runtimeConfig = new RuntimeConfig();
         runtimeConfig.setId("a2f8d25b-a239-4b9f-945c-1e693c81e4ec");
         runtimeConfig.setUserId("42401d57-15fc-458f-9079-79f6052abad9");
-        runtimeConfig.setUrl("192.168.178.42");
+        runtimeConfig.setUrl("https://192.168.178.42");
         runtimeConfig.setSignPort("443");
         runtimeConfig.setVzdPort("636");
         runtimeConfig.setMandantId("Incentergy");
