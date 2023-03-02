@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 
-@Disabled("Tests require a connector/simulator setup")
+@Disabled("Integration test with Kops")
 class EndpointDiscoveryServiceTest {
 
     private static SecretsManagerService secretsManagerService;
@@ -30,7 +30,6 @@ class EndpointDiscoveryServiceTest {
     void testObtainConfiguration() throws IOException, ParserConfigurationException {
         EndpointDiscoveryService endpointDiscoveryService = new EndpointDiscoveryService();
         endpointDiscoveryService.secretsManagerService = secretsManagerService;
-        //TODO fix this in order to make it work
         endpointDiscoveryService.obtainConfiguration("https://127.0.0.1");
         Assertions.assertFalse(endpointDiscoveryService.getEventServiceEndpointAddress().isEmpty());
     }
