@@ -18,6 +18,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
+import de.gematik.ws.conn.cardservice.wsdl.v8.CardServicePortType;
 import health.medunited.architecture.service.endpoint.EndpointDiscoveryService;
 import org.eclipse.microprofile.metrics.Gauge;
 import org.eclipse.microprofile.metrics.Metadata;
@@ -77,8 +78,10 @@ public class Scheduler {
                 connectorServicesProducer.setEndpointDiscoveryService(endpointDiscoveryService);
 
                 connectorServicesProducer.initializeEventServicePortType();
+                connectorServicesProducer.initializeCardServicePortType();
 
                 EventServicePortType eventServicePortType = connectorServicesProducer.getEventServicePortType();
+                CardServicePortType cardServicePortType = connectorServicesProducer.getCardServicePortType();
 
                 // register a new application scoped metric
                 Timer connectorResponseTime = applicationRegistry.timer(Metadata.builder()
