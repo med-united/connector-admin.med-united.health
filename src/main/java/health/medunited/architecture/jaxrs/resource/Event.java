@@ -21,7 +21,7 @@ import de.gematik.ws.conn.eventservice.wsdl.v7.EventServicePortType;
 @Path("event")
 public class Event {
 
-    private static Logger log = Logger.getLogger(Event.class.getName());
+    private static final Logger log = Logger.getLogger(Event.class.getName());
 
     @Context
     HttpServletRequest httpServletRequest;
@@ -34,12 +34,11 @@ public class Event {
 
     @GET
     @Path("/get-cards")
-    public GetCardsResponse GetCards() throws Throwable {
+    public GetCardsResponse getCards() throws Throwable {
         try {
             GetCards getCards = new GetCards();
             getCards.setContext(copyValuesFromProxyIntoContextType(contextType));
-            GetCardsResponse response = eventServicePortType.getCards(getCards);
-            return response;
+            return eventServicePortType.getCards(getCards);
         } catch(Throwable t) {
             log.log(Level.WARNING, "Could not get cards", t);
             throw t;
@@ -57,12 +56,11 @@ public class Event {
 
     @GET
     @Path("/get-card-terminals")
-    public GetCardTerminalsResponse GetCardTerminals() throws Throwable {
+    public GetCardTerminalsResponse getCardTerminals() throws Throwable {
         try {   
             GetCardTerminals getCardTerminals = new GetCardTerminals();
             getCardTerminals.setContext(copyValuesFromProxyIntoContextType(contextType));
-            GetCardTerminalsResponse response = eventServicePortType.getCardTerminals(getCardTerminals);
-            return response;
+            return eventServicePortType.getCardTerminals(getCardTerminals);
         } catch(Throwable t) {
             log.log(Level.WARNING, "Could not get card terminals", t);
             throw t;

@@ -32,6 +32,7 @@ import de.gematik.ws.conn.eventservice.wsdl.v7.EventServicePortType;
 import health.medunited.architecture.entities.RuntimeConfig;
 import health.medunited.architecture.provider.ConnectorServicesProducer;
 import health.medunited.architecture.service.common.security.SecretsManagerService;
+
 @Singleton
 public class Scheduler {
     

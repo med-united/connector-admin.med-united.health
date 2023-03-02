@@ -76,7 +76,7 @@ public class EndpointDiscoveryService {
 
                 switch (node.getAttributes().getNamedItem("Name").getTextContent()) {
                     case "EventService": {
-                        eventServiceEndpointAddress = getEndpoint(node, connectorBaseUrl, false);
+                        eventServiceEndpointAddress = getEndpoint(node);
                         break;
                     }
                 }
@@ -87,7 +87,7 @@ public class EndpointDiscoveryService {
         }
     }
 
-    private String getEndpoint(Node serviceNode, String connectorBaseUrl, boolean isSignatureEndpoint) {
+    private String getEndpoint(Node serviceNode) {
         Node versionsNode = getNodeWithTag(serviceNode, "Versions");
 
         if (versionsNode == null) {
@@ -95,14 +95,8 @@ public class EndpointDiscoveryService {
         }
         NodeList versionNodes = versionsNode.getChildNodes();
         String location = "";
-        List<String> versionNumbers = new ArrayList<>();
         for (int i = 0, n = versionNodes.getLength(); i < n; ++i) {
             Node versionNode = versionNodes.item(i);
-
-            if (isSignatureEndpoint) {
-                String signatureVersion = assignSignatureVersion(versionNode);
-                versionNumbers.add(signatureVersion);
-            }
 
             Node endpointNode = getNodeWithTag(versionNode, "EndpointTLS");
 
@@ -130,11 +124,6 @@ public class EndpointDiscoveryService {
             }
         }
         return null;
-    }
-
-    private String assignSignatureVersion(Node versionNode) {
-        String signatureVersion = versionNode.getAttributes().getNamedItem("Version").getTextContent();
-        return signatureVersion;
     }
 
     public String getEventServiceEndpointAddress() {
