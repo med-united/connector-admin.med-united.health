@@ -6,7 +6,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.ProcessingException;
 import javax.ws.rs.client.ClientBuilder;
@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-@ApplicationScoped
+@RequestScoped
 public class EndpointDiscoveryService {
 
     private static final Logger log = Logger.getLogger(EndpointDiscoveryService.class.getName());
@@ -29,6 +29,10 @@ public class EndpointDiscoveryService {
     SecretsManagerService secretsManagerService;
 
     private String eventServiceEndpointAddress;
+
+    public void setSecretsManagerService(SecretsManagerService secretsManagerService) {
+        this.secretsManagerService = secretsManagerService;
+    }
 
     public void obtainConfiguration(String connectorBaseUrl) throws IOException, ParserConfigurationException {
         ClientBuilder clientBuilder = ClientBuilder.newBuilder();
@@ -44,7 +48,8 @@ public class EndpointDiscoveryService {
         Invocation invocation = builder
                 .buildGet();
 
-        try (InputStream inputStream = invocation.invoke(InputStream.class)) {
+        try {
+            InputStream inputStream = invocation.invoke(InputStream.class);
             Document document = DocumentBuilderFactory.newDefaultInstance()
                     .newDocumentBuilder()
                     .parse(inputStream);
@@ -106,11 +111,8 @@ public class EndpointDiscoveryService {
                 continue;
             }
 
-            String tempLocation = endpointNode.getAttributes().getNamedItem("Location").getTextContent();;
+            location = endpointNode.getAttributes().getNamedItem("Location").getTextContent();;
 
-            if (tempLocation.startsWith(connectorBaseUrl)) {
-                location = tempLocation;
-            }
         }
 
         return location;
