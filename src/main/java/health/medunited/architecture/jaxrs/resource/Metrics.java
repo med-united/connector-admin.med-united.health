@@ -13,8 +13,6 @@ public class Metrics {
 
     @GET
     public String metrics() {
-        String s = client.target("http://localhost:9990/metrics/application").request(MediaType.APPLICATION_JSON).get(String.class);
-        System.out.println(s);
-        return s;
+        return client.target("http://localhost:9990/metrics/application").request(MediaType.APPLICATION_JSON).get(String.class);
     }
 }
