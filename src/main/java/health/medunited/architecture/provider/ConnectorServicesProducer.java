@@ -38,6 +38,7 @@ public class ConnectorServicesProducer {
     }
 
     private de.gematik.ws.conn.eventservice.wsdl.v7.EventServicePortType eventServicePortType;
+    private de.gematik.ws.conn.cardservice.wsdl.v8.CardServicePortType cardServicePortType;
 
     public void setSecretsManagerService(SecretsManagerService secretsManagerService) {
         this.secretsManagerService = secretsManagerService;
@@ -59,6 +60,7 @@ public class ConnectorServicesProducer {
             log.log(Level.SEVERE, e.getMessage());
         }
         initializeEventServicePortType();
+        initializeCardServicePortType();
     }
 
     public void initializeEventServicePortType() {
@@ -71,6 +73,18 @@ public class ConnectorServicesProducer {
         configureBindingProvider(bp);
 
         eventServicePortType = service;
+    }
+
+    public void initializeCardServicePortType() {
+        de.gematik.ws.conn.cardservice.wsdl.v8.CardServicePortType service =
+                new de.gematik.ws.conn.cardservice.wsdl.v8.CardService(
+                        getClass().getResource("/CardService.wsdl")).getCardServicePort();
+        BindingProvider bp = (BindingProvider) service;
+        bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY,
+                endpointDiscoveryService.getCardServiceEndpointAddress());
+        configureBindingProvider(bp);
+
+        cardServicePortType = service;
     }
 
     private void configureBindingProvider(BindingProvider bindingProvider) {
@@ -86,6 +100,11 @@ public class ConnectorServicesProducer {
     @Produces
     public de.gematik.ws.conn.eventservice.wsdl.v7.EventServicePortType getEventServicePortType() {
         return this.eventServicePortType;
+    }
+
+    @Produces
+    public de.gematik.ws.conn.cardservice.wsdl.v8.CardServicePortType getCardServicePortType() {
+        return this.cardServicePortType;
     }
 
 }
