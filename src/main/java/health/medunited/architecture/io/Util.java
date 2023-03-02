@@ -8,6 +8,10 @@ import java.security.MessageDigest;
 
 public class Util {
 
+	private Util() {
+		throw new IllegalStateException("Utility class");
+	}
+
 	public static byte[] getBytesFromInputStream(InputStream is) throws IOException {
 	    ByteArrayOutputStream os = new ByteArrayOutputStream(); 
 	    byte[] buffer = new byte[0xFFFF];
@@ -26,9 +30,7 @@ public class Util {
 		}
 		byte[] arrayOfByte = localMessageDigest.digest(paramArrayOfByte);
 		BigInteger localBigInteger = new BigInteger(1, arrayOfByte);
-		StringBuilder localStringBuilder = new StringBuilder(48);
-		localStringBuilder.append(localBigInteger.toString(16));
-		return localStringBuilder.toString();
+		return localBigInteger.toString(16);
 	}
 
 }
