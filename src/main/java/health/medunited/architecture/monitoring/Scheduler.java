@@ -53,59 +53,59 @@ public class Scheduler {
 
         List<RuntimeConfig> runtimeConfigs = query.getResultList();
         for(RuntimeConfig runtimeConfig : runtimeConfigs) {
-        
-            SecretsManagerService secretsManagerService = new SecretsManagerService();
-            if(runtimeConfig.getClientCertificate() != null) {
-                String keystore = runtimeConfig.getClientCertificate();
-                String keystorePassword = runtimeConfig.getClientCertificatePassword();
-                try {
-                    secretsManagerService.setUpSSLContext(secretsManagerService.getKeyFromKeyStoreUri(keystore, keystorePassword));
-                } catch (KeyManagementException | NoSuchAlgorithmException | KeyStoreException | CertificateException
-                        | URISyntaxException | IOException e) {
-                    log.log(Level.WARNING, "Could not create ssl context", e);
-                }
-            }
-
-            ConnectorServicesProducer connectorServicesProducer = new ConnectorServicesProducer();
-            connectorServicesProducer.setSecretsManagerService(secretsManagerService);
-            connectorServicesProducer.initializeEventServicePortType(runtimeConfig.getUrl());
-
-            EventServicePortType eventServicePortType = connectorServicesProducer.getEventServicePortType();
-
-            // register a new application scoped metric
-            Timer connectorResponseTime = applicationRegistry.timer(Metadata.builder()
-                .withName("connectorResponseTime_"+runtimeConfig.getUrl())
-                .withDescription("Timer for measuring response times for "+runtimeConfig.getUrl())
-                .build());
-
-            Callable<Integer> callable = () -> {
-                GetCards getCards = new GetCards();
-                ContextType contextType = new ContextType();
-                contextType.setMandantId(runtimeConfig.getMandantId());
-                contextType.setClientSystemId(runtimeConfig.getClientSystemId());
-                contextType.setWorkplaceId(runtimeConfig.getWorkplaceId());
-                contextType.setUserId(runtimeConfig.getUserId());
-                getCards.setContext(contextType);
-                GetCardsResponse getCardsResponse = eventServicePortType.getCards(getCards);
-                return getCardsResponse.getCards().getCard().size();
-            };
-            
-            Integer currentlyConnectedCardsInt;
             try {
-                currentlyConnectedCardsInt = connectorResponseTime.time(callable);
-                Gauge<Integer> currentlyConnectedCards  = applicationRegistry.gauge(Metadata.builder()
-                    .withName("currentlyConnectedCards_"+runtimeConfig.getUrl())
-                    .withDescription("Currently connected cards for "+runtimeConfig.getUrl())
-                    .build(), () -> {
-                        return currentlyConnectedCardsInt;
-                    });
-                log.info("Currently connected cards: "+currentlyConnectedCards.getValue()+" "+runtimeConfig.getUrl());
-            } catch (Exception e) {
-                log.log(Level.WARNING, "Can't measure connector", e);
+                SecretsManagerService secretsManagerService = new SecretsManagerService();
+                if(runtimeConfig.getClientCertificate() != null) {
+                    String keystore = runtimeConfig.getClientCertificate();
+                    String keystorePassword = runtimeConfig.getClientCertificatePassword();
+                    try {
+                        secretsManagerService.setUpSSLContext(secretsManagerService.getKeyFromKeyStoreUri(keystore, keystorePassword));
+                    } catch (KeyManagementException | NoSuchAlgorithmException | KeyStoreException | CertificateException
+                            | URISyntaxException | IOException e) {
+                        log.log(Level.WARNING, "Could not create ssl context", e);
+                    }
+                }
+
+                ConnectorServicesProducer connectorServicesProducer = new ConnectorServicesProducer();
+                connectorServicesProducer.setSecretsManagerService(secretsManagerService);
+                connectorServicesProducer.initializeEventServicePortType(runtimeConfig.getUrl());
+
+                EventServicePortType eventServicePortType = connectorServicesProducer.getEventServicePortType();
+
+                // register a new application scoped metric
+                Timer connectorResponseTime = applicationRegistry.timer(Metadata.builder()
+                    .withName("connectorResponseTime_"+runtimeConfig.getUrl())
+                    .withDescription("Timer for measuring response times for "+runtimeConfig.getUrl())
+                    .build());
+
+                Callable<Integer> callable = () -> {
+                    GetCards getCards = new GetCards();
+                    ContextType contextType = new ContextType();
+                    contextType.setMandantId(runtimeConfig.getMandantId());
+                    contextType.setClientSystemId(runtimeConfig.getClientSystemId());
+                    contextType.setWorkplaceId(runtimeConfig.getWorkplaceId());
+                    contextType.setUserId(runtimeConfig.getUserId());
+                    getCards.setContext(contextType);
+                    GetCardsResponse getCardsResponse = eventServicePortType.getCards(getCards);
+                    return getCardsResponse.getCards().getCard().size();
+                };
+                
+                Integer currentlyConnectedCardsInt;
+                try {
+                    currentlyConnectedCardsInt = connectorResponseTime.time(callable);
+                    Gauge<Integer> currentlyConnectedCards  = applicationRegistry.gauge(Metadata.builder()
+                        .withName("currentlyConnectedCards_"+runtimeConfig.getUrl())
+                        .withDescription("Currently connected cards for "+runtimeConfig.getUrl())
+                        .build(), () -> {
+                            return currentlyConnectedCardsInt;
+                        });
+                    log.info("Currently connected cards: "+currentlyConnectedCards.getValue()+" "+runtimeConfig.getUrl());
+                } catch (Exception e) {
+                    log.log(Level.WARNING, "Can't measure connector", e);
+                }
+            } catch(Throwable t) {
+                log.log(Level.INFO, "Error while contacting connector", t);
             }
         }
-    
-
-
     }
 }
