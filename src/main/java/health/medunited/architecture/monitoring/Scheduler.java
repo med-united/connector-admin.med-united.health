@@ -18,6 +18,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
+import health.medunited.architecture.service.endpoint.EndpointDiscoveryService;
 import org.eclipse.microprofile.metrics.Gauge;
 import org.eclipse.microprofile.metrics.Metadata;
 import org.eclipse.microprofile.metrics.MetricRegistry;
@@ -45,7 +46,7 @@ public class Scheduler {
 
     @Schedule(second = "*/15", minute = "*", hour = "*", persistent = false)
     public void monitorConnectors() {
-        log.info("Scaning Connectors");
+        log.info("Scanning Connectors");
 
         TypedQuery<RuntimeConfig> query =
             entityManager.createNamedQuery("RuntimeConfig.findAll",
@@ -66,9 +67,15 @@ public class Scheduler {
                     }
                 }
 
+                EndpointDiscoveryService endpointDiscoveryService = new EndpointDiscoveryService();
+                endpointDiscoveryService.setSecretsManagerService(secretsManagerService);
+                endpointDiscoveryService.obtainConfiguration(runtimeConfig.getUrl());
+
                 ConnectorServicesProducer connectorServicesProducer = new ConnectorServicesProducer();
                 connectorServicesProducer.setSecretsManagerService(secretsManagerService);
-                connectorServicesProducer.initializeEventServicePortType(runtimeConfig.getUrl());
+                connectorServicesProducer.setEndpointDiscoveryService(endpointDiscoveryService);
+
+                connectorServicesProducer.initializeEventServicePortType();
 
                 EventServicePortType eventServicePortType = connectorServicesProducer.getEventServicePortType();
 
