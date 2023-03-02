@@ -15,8 +15,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -29,6 +27,8 @@ public class EndpointDiscoveryService {
     SecretsManagerService secretsManagerService;
 
     private String eventServiceEndpointAddress;
+
+    private String cardServiceEndpointAddress;
 
     public void setSecretsManagerService(SecretsManagerService secretsManagerService) {
         this.secretsManagerService = secretsManagerService;
@@ -79,6 +79,10 @@ public class EndpointDiscoveryService {
                         eventServiceEndpointAddress = getEndpoint(node);
                         break;
                     }
+                    case "CardService":{
+                        cardServiceEndpointAddress = getEndpoint(node);
+                        break;
+                    }
                 }
             }
 
@@ -105,7 +109,7 @@ public class EndpointDiscoveryService {
                 continue;
             }
 
-            location = endpointNode.getAttributes().getNamedItem("Location").getTextContent();;
+            location = endpointNode.getAttributes().getNamedItem("Location").getTextContent();
 
         }
 
@@ -128,6 +132,10 @@ public class EndpointDiscoveryService {
 
     public String getEventServiceEndpointAddress() {
         return eventServiceEndpointAddress;
+    }
+
+    public String getCardServiceEndpointAddress() {
+        return cardServiceEndpointAddress;
     }
 
 }
