@@ -30,6 +30,8 @@ public class EndpointDiscoveryService {
 
     private String cardServiceEndpointAddress;
 
+    private String certificateServiceEndpointAddress;
+
     public void setSecretsManagerService(SecretsManagerService secretsManagerService) {
         this.secretsManagerService = secretsManagerService;
     }
@@ -81,6 +83,10 @@ public class EndpointDiscoveryService {
                     }
                     case "CardService":{
                         cardServiceEndpointAddress = getEndpoint(node);
+                        break;
+                    }
+                    case "CertificateService":{
+                        certificateServiceEndpointAddress = getEndpoint(node);
                         break;
                     }
                 }
@@ -138,4 +144,7 @@ public class EndpointDiscoveryService {
         return cardServiceEndpointAddress;
     }
 
+    public String getCertificateServiceEndpointAddress() {
+        return certificateServiceEndpointAddress;
+    }
 }
