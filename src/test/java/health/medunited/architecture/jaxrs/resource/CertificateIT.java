@@ -1,17 +1,14 @@
-package health.medunited.architecture.certificate;
+package health.medunited.architecture.jaxrs.resource;
 
 import de.gematik.ws.conn.connectorcontext.v2.ContextType;
-import health.medunited.architecture.jaxrs.resource.Certificate;
 import health.medunited.architecture.service.common.security.SecretsManagerService;
 import org.junit.jupiter.api.*;
 import org.mockito.Mockito;
 
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.TrustManager;
 import javax.servlet.http.HttpServletRequest;
 
 @Disabled("Integration Tests for Certificates")
-public class CertificateEndpointTests {
+public class CertificateIT {
 
     ContextType contextType;
     String tempCardHandle = "HBA-67";
