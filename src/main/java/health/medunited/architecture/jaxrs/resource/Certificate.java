@@ -36,6 +36,28 @@ public class Certificate {
     @Inject
     ContextType contextType;
 
+
+    @GET
+    @Path("/getCardHandle")
+    public void doGetCardHandle() throws Throwable {
+        try {
+            ReadCardCertificate readCardCertificate = new ReadCardCertificate();
+            readCardCertificate.setContext(copyValuesFromProxyIntoContextType(contextType));
+            Holder<Status> status = new Holder<>();
+            Holder<X509DataInfoListType> certList = new Holder<>();
+            String cardHandle = "";
+
+            certificateServicePortType.readCardCertificate(
+                    mnCardHandle, contextType, certRefList, status, certList
+            );
+        } catch(Throwable t) {
+            log.log(Level.WARNING, "Could not read the handle", t);
+            System.out.println("Could not read the handle");
+            throw t;
+        }
+    }
+
+
     @GET
     @Path("/readCertificate")
     public void doReadCardCertificate(String mnCardHandle) throws Throwable {
