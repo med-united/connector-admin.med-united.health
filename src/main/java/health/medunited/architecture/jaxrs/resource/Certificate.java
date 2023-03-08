@@ -8,10 +8,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Context;
+import javax.xml.ws.Holder;
 
+import de.gematik.ws.conn.certificateservice.v6.ReadCardCertificate;
+import de.gematik.ws.conn.certificateservice.wsdl.v6.CertificateServicePortType;
+import de.gematik.ws.conn.certificateservicecommon.v2.X509DataInfoListType;
+import de.gematik.ws.conn.connectorcommon.v5.Status;
 import de.gematik.ws.conn.connectorcontext.v2.ContextType;
-import de.gematik.ws.conn.eventservice.v7.GetCards;
-import de.gematik.ws.conn.eventservice.v7.GetCardsResponse;
 import de.gematik.ws.conn.eventservice.wsdl.v7.EventServicePortType;
 
 @Path("certificate")
@@ -26,17 +29,29 @@ public class Certificate {
     EventServicePortType eventServicePortType;
 
     @Inject
+    CertificateServicePortType certificateServicePortType;
+
+    ReadCardCertificate.CertRefList certRefList;
+
+    @Inject
     ContextType contextType;
 
     @GET
-    @Path("/hello")
-    public GetCardsResponse getCards() throws Throwable {
+    @Path("/readCertificate")
+    public void doReadCardCertificate(String mnCardHandle) throws Throwable {
         try {
-            GetCards getCards = new GetCards();
-            getCards.setContext(copyValuesFromProxyIntoContextType(contextType));
-            return eventServicePortType.getCards(getCards);
+            ReadCardCertificate readCardCertificate = new ReadCardCertificate();
+            readCardCertificate.setContext(copyValuesFromProxyIntoContextType(contextType));
+            Holder<Status> status = new Holder<>();
+            Holder<X509DataInfoListType> certList = new Holder<>();
+            String cardHandle = "";
+
+            certificateServicePortType.readCardCertificate(
+                    mnCardHandle, contextType, certRefList, status, certList
+            );
         } catch(Throwable t) {
-            log.log(Level.WARNING, "Could not get cards", t);
+            log.log(Level.WARNING, "Could not read the Certficiate", t);
+            System.out.println("Could not read the Certficiate");
             throw t;
         }
     }
