@@ -37,7 +37,7 @@ import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 
-@Path("certificate")
+@Path("certificates")
 public class Certificate {
 
     private static final Logger log = Logger.getLogger(Event.class.getName());
