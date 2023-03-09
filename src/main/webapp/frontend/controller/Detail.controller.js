@@ -7,8 +7,10 @@ sap.ui.define([
 	return AbstractDetailController.extend("ap.f.ShellBarWithFlexibleColumnLayout.controller.Detail", {
 		onInit: function() {
             AbstractDetailController.prototype.onInit.apply(this, arguments);
+
             const oCardsModel = new JSONModel();
             this.getView().setModel(oCardsModel, "Cards");
+
             const oCardTerminalsModel = new JSONModel();
             this.getView().setModel(oCardTerminalsModel, "CardTerminals");
 
@@ -54,6 +56,7 @@ sap.ui.define([
             this.getView().getModel("Certificates").loadData("connector/certificates/readCertificate", {}, "true", "GET", false, true, mHeaders);
 
             this.getView().getModel("CardTerminals").loadData("connector/event/get-card-terminals", {}, "true", "GET", false, true, mHeaders);
+
             let m;
             let ip;
             if(m = oRuntimeConfig.Url.match("\/\/([^\/:]+)(:\\d+)?\/")) {

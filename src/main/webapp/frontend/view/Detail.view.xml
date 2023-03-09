@@ -76,31 +76,46 @@
                         </uxap:subSections>
                     </uxap:ObjectPageSection>
 
-                    <uxap:ObjectPageSection id="certificatesSection" title="Vorhandene Zertifikate">
+                    <uxap:ObjectPageSection id="certificateSection" title="Zertifikate">
                         <uxap:subSections>
-                            <uxap:ObjectPageSubSection id="certificatesSubSection" title="Vorhandene Zertifikate">
+                            <uxap:ObjectPageSubSection id="certificateSubsection" title="vorhandene Zertifikate">
                                 <uxap:blocks>
-                                    <Table items="{Certificates>/certificates/certificate}">
+                                    <Table items="{Cards>/cards/card}">
                                         <columns>
                                             <Column>
-                                                <Text text="SerialNumber" />
+                                                <Text text="Probehalber" />
                                             </Column>
                                             <Column>
-                                                <Text text="Name" />
+                                                <Text text="String2" />
                                             </Column>
                                             <Column>
-                                                <Text text="IP" />
+                                                <Text text="String3" />
                                             </Column>
                                             <Column>
-                                                <Text text="Product" />
+                                                <Text text="String4" />
+                                            </Column>
+                                            <Column>
+                                                <Text text="String5" />
+                                            </Column>
+                                            <Column>
+                                                <Text text="insertTime" />
+                                            </Column>
+                                            <Column>
+                                                <Text text="slotId" />
+                                            </Column>
+                                            <Column>
+
                                             </Column>
                                         </columns>
                                         <items>
                                             <ColumnListItem>
-                                                <Text text="{Certificates>Version}" />
-                                                <Text text="{Certificates>SerialNumber}" />
-                                                <Text text="{Certificates>IPAddress/IPV4Address}" />
-                                                <Text text="{Certificates>productInformation/productIdentification/productCode} {CardTerminals>productInformation/productIdentification/productVendorID} {CardTerminals>productInformation/productIdentification/productVersion/local/FWVersion}" />
+                                                <Text text="{Cards>cardHandle}" />
+                                                <Text text="{Cards>cardHolderName}" />
+                                                <Text text="{Cards>cardType}" />
+                                                <Text text="{Cards>certificateExpirationDate}" />
+                                                <Text text="{Cards>iccsn}" />
+                                                <Text text="{Cards>insertTime}" />
+                                                <Text text="{Cards>slotId}" />
                                             </ColumnListItem>
                                         </items>
                                     </Table>
