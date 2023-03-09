@@ -5,7 +5,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 
-public class CardIT {
+public class CardTest {
 
     private static SecretsManagerService secretsManagerService;
 
@@ -16,5 +16,6 @@ public class CardIT {
 
     @Test
     void testObtainConfiguration()  {
+        System.out.println("TEEEEEEEEEEEEEEEEEEEST");
     }
 }

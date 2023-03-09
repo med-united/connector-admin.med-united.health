@@ -3,12 +3,9 @@ package health.medunited.architecture.jaxrs.resource;
 import de.gematik.ws.conn.connectorcontext.v2.ContextType;
 import health.medunited.architecture.service.common.security.SecretsManagerService;
 import org.junit.jupiter.api.*;
-import org.mockito.Mockito;
 
-import javax.servlet.http.HttpServletRequest;
 
-@Disabled("Integration Tests for Certificates")
-public class CertificateIT {
+public class CertificateTest {
 
     ContextType contextType;
     String tempCardHandle = "HBA-67";
@@ -17,8 +14,10 @@ public class CertificateIT {
 
     private static SecretsManagerService secretsManagerService;
 
+
     @BeforeEach
     void init() {
+    /*
         contextType = new ContextType();
         contextType.setMandantId("Mandant1");
         contextType.setWorkplaceId("Workplace1");
@@ -30,8 +29,8 @@ public class CertificateIT {
         secretsManagerService = new SecretsManagerService();
         secretsManagerService.setRequest(httpServletRequest);
         secretsManagerService.createSSLContext();
+     */
     }
-
 
     @Test
     void testGetCardHandle() throws Throwable {
