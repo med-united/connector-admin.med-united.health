@@ -75,6 +75,40 @@
                             </uxap:ObjectPageSubSection>
                         </uxap:subSections>
                     </uxap:ObjectPageSection>
+
+                    <uxap:ObjectPageSection id="certificatesSection" title="Vorhandene Zertifikate">
+                        <uxap:subSections>
+                            <uxap:ObjectPageSubSection id="certificatesSubSection" title="Vorhandene Zertifikate">
+                                <uxap:blocks>
+                                    <Table items="{CardTerminals>/cardTerminals/cardTerminal}">
+                                        <columns>
+                                            <Column>
+                                                <Text text="Connected" />
+                                            </Column>
+                                            <Column>
+                                                <Text text="Name" />
+                                            </Column>
+                                            <Column>
+                                                <Text text="IP" />
+                                            </Column>
+                                            <Column>
+                                                <Text text="Product" />
+                                            </Column>
+                                        </columns>
+                                        <items>
+                                            <ColumnListItem>
+                                                <Text text="{CardTerminals>connected}" />
+                                                <Text text="{CardTerminals>name}" />
+                                                <Text text="{CardTerminals>IPAddress/IPV4Address}" />
+                                                <Text text="{CardTerminals>productInformation/productIdentification/productCode} {CardTerminals>productInformation/productIdentification/productVendorID} {CardTerminals>productInformation/productIdentification/productVersion/local/FWVersion}" />
+                                            </ColumnListItem>
+                                        </items>
+                                    </Table>
+                                </uxap:blocks>
+                            </uxap:ObjectPageSubSection>
+                        </uxap:subSections>
+                    </uxap:ObjectPageSection>
+
                     <uxap:ObjectPageSection id="cardTerminalSection" title="Angeschlossene Kartenterminals">
                         <uxap:subSections>
                             <uxap:ObjectPageSubSection id="cardTerminalSubSection" title="Angeschlossene Kartenterminals">

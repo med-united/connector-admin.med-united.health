@@ -14,7 +14,10 @@ sap.ui.define([
 
             const oMetricsModel = new JSONModel();
             this.getView().setModel(oMetricsModel, "Metrics");
-            
+
+            const oCertificatesModel = new JSONModel();
+            this.getView().setModel(oCertificatesModel, "Certificates");
+
         },
         _onMatched: function (oEvent) {
             AbstractDetailController.prototype._onMatched.apply(this, arguments);
@@ -47,6 +50,8 @@ sap.ui.define([
             
 
             this.getView().getModel("Cards").loadData("connector/event/get-cards", {}, "true", "GET", false, true, mHeaders);
+
+            this.getView().getModel("Certificates").loadData("connector/certificates/readCertificate", {}, "true", "GET", false, true, mHeaders);
 
             this.getView().getModel("CardTerminals").loadData("connector/event/get-card-terminals", {}, "true", "GET", false, true, mHeaders);
             let m;
