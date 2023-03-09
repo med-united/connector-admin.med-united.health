@@ -80,10 +80,10 @@
                         <uxap:subSections>
                             <uxap:ObjectPageSubSection id="certificatesSubSection" title="Vorhandene Zertifikate">
                                 <uxap:blocks>
-                                    <Table items="{CardTerminals>/cardTerminals/cardTerminal}">
+                                    <Table items="{Certificates>/certificates/certificate}">
                                         <columns>
                                             <Column>
-                                                <Text text="Connected" />
+                                                <Text text="SerialNumber" />
                                             </Column>
                                             <Column>
                                                 <Text text="Name" />
@@ -97,10 +97,10 @@
                                         </columns>
                                         <items>
                                             <ColumnListItem>
-                                                <Text text="{CardTerminals>connected}" />
-                                                <Text text="{CardTerminals>name}" />
-                                                <Text text="{CardTerminals>IPAddress/IPV4Address}" />
-                                                <Text text="{CardTerminals>productInformation/productIdentification/productCode} {CardTerminals>productInformation/productIdentification/productVendorID} {CardTerminals>productInformation/productIdentification/productVersion/local/FWVersion}" />
+                                                <Text text="{Certificates>Version}" />
+                                                <Text text="{Certificates>SerialNumber}" />
+                                                <Text text="{Certificates>IPAddress/IPV4Address}" />
+                                                <Text text="{Certificates>productInformation/productIdentification/productCode} {CardTerminals>productInformation/productIdentification/productVendorID} {CardTerminals>productInformation/productIdentification/productVersion/local/FWVersion}" />
                                             </ColumnListItem>
                                         </items>
                                     </Table>

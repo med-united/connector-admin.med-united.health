@@ -89,7 +89,7 @@ public class Certificate {
 
     @GET
     @Path("/readCertificate")
-    public String doReadCardCertificate(String mnCardHandle) throws Throwable {
+    public ReadCardCertificateResponse doReadCardCertificate(String mnCardHandle) throws Throwable {
         try {
             ReadCardCertificate readCardCertificate = new ReadCardCertificate();
 
@@ -145,8 +145,8 @@ public class Certificate {
             String returnMessage = "The certificate could not be extracted. See other errors in the Terminal";
             if (x509Certificate != null) {
                 returnMessage = x509Certificate.toString();
-                return "The certificate is: \n\n:"+returnMessage;
-            } else return returnMessage;
+                return readCardCertificateResponse;
+            } else return null;
 
         } catch(Throwable t) {
             log.log(Level.WARNING, "Could not read the Certficiate", t);
