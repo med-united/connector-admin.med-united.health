@@ -61,6 +61,7 @@ public class Certificate {
 
     String tempCardHandle = "HBA-67";
 
+
     @GET
     @Path("/getCardHandle")
     public String doGetCardHandle() throws Throwable {
@@ -281,4 +282,14 @@ public class Certificate {
     public X509Certificate getX509Certificate() {
         return x509Certificate;
     }
+
+    public void setContextType(ContextType contextType) {
+        this.contextType = contextType;
+    }
+
+    public void setEventServicePortType(EventServicePortType eventServicePortType) {
+        this.eventServicePortType = eventServicePortType;
+    }
+
+
 }
