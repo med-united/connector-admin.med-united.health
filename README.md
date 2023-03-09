@@ -5,6 +5,8 @@ A tool where you can maintain all the runtime configurations for all the doctors
 # Screenshot
 
 ![Detail Screen](docs/Detail-Screen.png?raw=true "This is how the tool looks like")
+![View with Grafana](docs/Connector-Admin-Tool-With-Metrics.png?raw=true "Shows view with Grafana")
+
 
 # How to run this application?
 
@@ -14,25 +16,11 @@ Prerequisites:
 2. Maven 3 running on your machine
 3. Git running on your machine
 
-Make sure to tweak the following configuration:
-
-- persistence.xml file:
-```
-  <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://{YOUR_HOST}:5432/connector" />
-  <property name="javax.persistence.jdbc.user" value="{YOUR_USER}" /> 
-  <property name="javax.persistence.jdbc.password" value="{YOUR_PASSWORD}" /> 
-```
-- Uncomment the following lines in pom.xml:
-```
-<phase>package</phase>
-```
-
 Now you can start the application:
 ```
 mvn wildfly:provision
 mvn wildfly:start
-mvn package
-mvn wildfly:deploy
+mvn package wildfly:deploy
 ```
 # How to stop the application?
 ```
