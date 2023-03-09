@@ -8,6 +8,10 @@ A tool where you can maintain all the runtime configurations for all the doctors
 ![View with Grafana](docs/Connector-Admin-Tool-With-Metrics.png?raw=true "Shows view with Grafana")
 
 
+# Video
+
+https://youtu.be/GyHE6LPloTY
+
 # How to run this application?
 
 Prerequisites:
