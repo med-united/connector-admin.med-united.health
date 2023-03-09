@@ -18,14 +18,13 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
-import de.gematik.ws.conn.cardservice.wsdl.v8.CardServicePortType;
-import health.medunited.architecture.service.endpoint.EndpointDiscoveryService;
 import org.eclipse.microprofile.metrics.Gauge;
 import org.eclipse.microprofile.metrics.Metadata;
 import org.eclipse.microprofile.metrics.MetricRegistry;
 import org.eclipse.microprofile.metrics.Timer;
 import org.eclipse.microprofile.metrics.annotation.RegistryType;
 
+import de.gematik.ws.conn.cardservice.wsdl.v8.CardServicePortType;
 import de.gematik.ws.conn.connectorcontext.v2.ContextType;
 import de.gematik.ws.conn.eventservice.v7.GetCards;
 import de.gematik.ws.conn.eventservice.v7.GetCardsResponse;
@@ -33,6 +32,7 @@ import de.gematik.ws.conn.eventservice.wsdl.v7.EventServicePortType;
 import health.medunited.architecture.entities.RuntimeConfig;
 import health.medunited.architecture.provider.ConnectorServicesProducer;
 import health.medunited.architecture.service.common.security.SecretsManagerService;
+import health.medunited.architecture.service.endpoint.EndpointDiscoveryService;
 
 @Singleton
 public class Scheduler {
@@ -101,16 +101,21 @@ public class Scheduler {
                     return getCardsResponse.getCards().getCard().size();
                 };
                 
-                Integer currentlyConnectedCardsInt;
                 try {
-                    currentlyConnectedCardsInt = connectorResponseTime.time(callable);
                     Gauge<Integer> currentlyConnectedCards  = applicationRegistry.gauge(Metadata.builder()
-                        .withName("currentlyConnectedCards_"+runtimeConfig.getUrl())
-                        .withDescription("Currently connected cards for "+runtimeConfig.getUrl())
-                        .build(), () -> {
+                    .withName("currentlyConnectedCards_"+runtimeConfig.getUrl())
+                    .withDescription("Currently connected cards for "+runtimeConfig.getUrl())
+                    .build(), () -> {
+                        Integer currentlyConnectedCardsInt;
+                        try {
+                            currentlyConnectedCardsInt = connectorResponseTime.time(callable);
+                            log.info("Currently connected cards: "+currentlyConnectedCardsInt+" "+runtimeConfig.getUrl());
                             return currentlyConnectedCardsInt;
-                        });
-                    log.info("Currently connected cards: "+currentlyConnectedCards.getValue()+" "+runtimeConfig.getUrl());
+                        } catch (Exception e) {
+                            log.log(Level.WARNING, "Can't measure connector", e);
+                        }
+                        return null;
+                    });
                 } catch (Exception e) {
                     log.log(Level.WARNING, "Can't measure connector", e);
                 }
