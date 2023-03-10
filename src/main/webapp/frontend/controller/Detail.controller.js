@@ -57,7 +57,7 @@ sap.ui.define([
 
             this.getView().getModel("CardTerminals").loadData("connector/event/get-card-terminals", {}, "true", "GET", false, true, mHeaders);
 
-            console.log(this.getView().getModel("Certificates").lo );
+            console.log(this.getView().getModel("Certificates").toString());
 
             let m;
             let ip;
