@@ -20,6 +20,17 @@ sap.ui.define([
             const oCertificatesModel = new JSONModel();
             this.getView().setModel(oCertificatesModel, "Certificates");
 
+
+            oCardsModel.attachRequestCompleted(function() {
+                    console.log(oCardsModel.getData());
+            });
+
+            oCertificatesModel.attachRequestCompleted(function() {
+                    console.log(oCertificatesModel.getData());
+            });
+
+
+
         },
         _onMatched: function (oEvent) {
             AbstractDetailController.prototype._onMatched.apply(this, arguments);
@@ -57,7 +68,7 @@ sap.ui.define([
 
             this.getView().getModel("CardTerminals").loadData("connector/event/get-card-terminals", {}, "true", "GET", false, true, mHeaders);
 
-            console.log(this.getView().getModel("Certificates").toString());
+
 
             let m;
             let ip;
