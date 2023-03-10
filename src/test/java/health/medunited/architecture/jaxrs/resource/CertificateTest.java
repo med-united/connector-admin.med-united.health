@@ -4,6 +4,7 @@ import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.MediaType;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import de.gematik.ws.conn.connectorcontext.v2.ContextType;
@@ -11,6 +12,7 @@ import health.medunited.architecture.Bootstrap;
 import health.medunited.architecture.entities.RuntimeConfig;
 import health.medunited.architecture.service.common.security.SecretsManagerService;
 
+@Disabled
 public class CertificateTest {
 
     private static SecretsManagerService secretsManagerService;

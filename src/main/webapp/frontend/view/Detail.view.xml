@@ -85,10 +85,22 @@
                                             <Column>
                                                 <Text text="CertRef" />
                                             </Column>
+                                            <Column>
+                                                <Text text="SubjectName" />
+                                            </Column>
+                                            <Column>
+                                                <Text text="Serial" />
+                                            </Column>
                                         </columns>
                                         <items>
                                             <ColumnListItem>
                                                 <Text text="{Certificates>certRef}" />
+                                            </ColumnListItem>
+                                            <ColumnListItem>
+                                                <Text text="{Certificates>x509Data/x509SubjectName}" />
+                                            </ColumnListItem>
+                                            <ColumnListItem>
+                                                <Text text="{Certificates>x509Data/x509IssuerSerial/x509SerialNumber}" />
                                             </ColumnListItem>
                                         </items>
                                     </Table>
