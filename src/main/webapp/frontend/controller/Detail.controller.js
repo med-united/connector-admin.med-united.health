@@ -57,6 +57,8 @@ sap.ui.define([
 
             this.getView().getModel("CardTerminals").loadData("connector/event/get-card-terminals", {}, "true", "GET", false, true, mHeaders);
 
+            console.log(this.getView().getModel("Certificates").lo );
+
             let m;
             let ip;
             if(m = oRuntimeConfig.Url.match("\/\/([^\/:]+)(:\\d+)?\/")) {
