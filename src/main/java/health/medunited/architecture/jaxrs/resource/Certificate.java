@@ -157,7 +157,7 @@ public class Certificate {
 
             certificateServicePortType.readCardCertificate(
                     cardHandle,
-                    contextType,
+                    copyValuesFromProxyIntoContextType(contextType),
                     certRefList,
                     status,
                     certList
