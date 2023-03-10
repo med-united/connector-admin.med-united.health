@@ -83,7 +83,7 @@
                                     <Table items="{Certificates>/x509DataInfoList/x509DataInfo}">
                                         <columns>
                                             <Column>
-                                                <Text text="CertRef" />
+                                                <Text text="CertRef " />
                                             </Column>
                                             <Column>
                                                 <Text text="SubjectName" />
