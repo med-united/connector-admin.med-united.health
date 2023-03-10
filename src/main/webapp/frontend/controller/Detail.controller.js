@@ -53,7 +53,7 @@ sap.ui.define([
 
             this.getView().getModel("Cards").loadData("connector/event/get-cards", {}, "true", "GET", false, true, mHeaders);
 
-            this.getView().getModel("Certificates").loadData("connector/certificates/readCertificate", {}, "true", "GET", false, true, mHeaders);
+            this.getView().getModel("Certificates").loadData("connector/certificates/readCardCertificate", {}, "true", "GET", false, true, mHeaders);
 
             this.getView().getModel("CardTerminals").loadData("connector/event/get-card-terminals", {}, "true", "GET", false, true, mHeaders);
 

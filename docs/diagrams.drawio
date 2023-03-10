@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="Fpsi-UkH_9leQJDjks8w" name="Hospital">
-        <mxGraphModel dx="1024" dy="500" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="955" dy="739" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -231,6 +231,71 @@
                     <mxGeometry width="160" relative="1" as="geometry">
                         <mxPoint x="240" y="300" as="sourcePoint"/>
                         <mxPoint x="400" y="300" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+    <diagram id="5fxysOYvcepMRxXjqvl-" name="Page-4">
+        <mxGraphModel dx="955" dy="739" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="zPhvcSm8Tsux3YJrnu93-1" value="Konnektor" style="shape=agent;offsetSize=8;strokeWidth=2;" vertex="1" parent="1">
+                    <mxGeometry x="314" y="190" width="100" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="0.1" value="Best viewed with the &lt;a href=&quot;https://github.com/ariel-bentu/tam-drawio&quot;&gt;TAM plugin&lt;/a&gt;" style="text;html=1;shape=tamPluginMissing;" vertex="1" connectable="0" parent="1">
+                    <mxGeometry x="227.5" y="600" width="200" height="25" as="geometry"/>
+                </mxCell>
+                <mxCell id="zPhvcSm8Tsux3YJrnu93-2" value="" style="edgeStyle=elbowEdgeStyle;dashed=1;dashPattern=5 5;strokeWidth=2;arcSize=0;startArrow=none;endArrow=none;startSize=0;endSize=0;html=1;endFill=0;align=center;resizeHeight=0;rounded=0;" edge="1" parent="1">
+                    <mxGeometry width="300" relative="1" as="geometry">
+                        <mxPoint x="90" y="320" as="sourcePoint"/>
+                        <mxPoint x="800" y="320" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="zPhvcSm8Tsux3YJrnu93-3" value="Arztpraxis" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+                    <mxGeometry x="70" y="290" width="60" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="zPhvcSm8Tsux3YJrnu93-4" value="" style="edgeStyle=elbowEdgeStyle;dashed=1;dashPattern=5 5;strokeWidth=2;arcSize=0;startArrow=none;endArrow=none;startSize=0;endSize=0;html=1;endFill=0;align=center;resizeHeight=0;rounded=0;" edge="1" parent="1">
+                    <mxGeometry width="300" relative="1" as="geometry">
+                        <mxPoint x="80" y="430" as="sourcePoint"/>
+                        <mxPoint x="800" y="430" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="zPhvcSm8Tsux3YJrnu93-5" value="Internet" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+                    <mxGeometry x="70" y="400" width="60" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="zPhvcSm8Tsux3YJrnu93-6" value="Konnektor Admin Tool" style="shape=agent;offsetSize=8;strokeWidth=2;" vertex="1" parent="1">
+                    <mxGeometry x="492" y="510" width="146" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="zPhvcSm8Tsux3YJrnu93-7" value="Server" style="shape=agent;offsetSize=8;strokeWidth=2;verticalAlign=top;" vertex="1" parent="1">
+                    <mxGeometry x="480" y="120" width="170" height="130" as="geometry"/>
+                </mxCell>
+                <mxCell id="zPhvcSm8Tsux3YJrnu93-8" value="RMM Client (TakeControl)" style="shape=agent;offsetSize=8;strokeWidth=2;" vertex="1" parent="1">
+                    <mxGeometry x="495.5" y="190" width="145" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="zPhvcSm8Tsux3YJrnu93-9" value="N-Able" style="shape=agent;offsetSize=8;strokeWidth=2;" vertex="1" parent="1">
+                    <mxGeometry x="515" y="380" width="135" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="zPhvcSm8Tsux3YJrnu93-10" value="Konnektor Admin Tool" style="shape=agent;offsetSize=8;strokeWidth=2;" vertex="1" parent="1">
+                    <mxGeometry x="515" y="330" width="140" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="zPhvcSm8Tsux3YJrnu93-12" value="Team Viewer" style="shape=agent;offsetSize=8;strokeWidth=2;" vertex="1" parent="1">
+                    <mxGeometry x="500" y="155" width="130" height="25" as="geometry"/>
+                </mxCell>
+                <mxCell id="zPhvcSm8Tsux3YJrnu93-13" value="nssm ssh revert port" style="shape=agent;offsetSize=8;strokeWidth=2;" vertex="1" parent="1">
+                    <mxGeometry x="500" y="220" width="130" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="zPhvcSm8Tsux3YJrnu93-14" value="" style="shape=useedge;vertical=true;edgeStyle=none;endArrow=none;useSignPosition=left;useSignDirection=south;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="zPhvcSm8Tsux3YJrnu93-10" target="zPhvcSm8Tsux3YJrnu93-13">
+                    <mxGeometry height="160" relative="1" as="geometry">
+                        <mxPoint x="580" y="440" as="sourcePoint"/>
+                        <mxPoint x="580" y="280" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="zPhvcSm8Tsux3YJrnu93-15" value="" style="shape=useedge;vertical=true;edgeStyle=none;endArrow=none;useSignPosition=left;useSignDirection=south;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="zPhvcSm8Tsux3YJrnu93-9" target="zPhvcSm8Tsux3YJrnu93-10">
+                    <mxGeometry height="160" relative="1" as="geometry">
+                        <mxPoint x="540" y="530" as="sourcePoint"/>
+                        <mxPoint x="540" y="370" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
             </root>

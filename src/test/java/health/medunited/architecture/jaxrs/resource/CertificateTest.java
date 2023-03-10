@@ -1,45 +1,40 @@
 package health.medunited.architecture.jaxrs.resource;
 
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.core.MediaType;
+
+import org.junit.jupiter.api.Test;
+
 import de.gematik.ws.conn.connectorcontext.v2.ContextType;
+import health.medunited.architecture.Bootstrap;
+import health.medunited.architecture.entities.RuntimeConfig;
 import health.medunited.architecture.service.common.security.SecretsManagerService;
-import org.junit.jupiter.api.*;
-import org.mockito.Incubating;
-import org.mockito.Mockito;
 
-import javax.inject.Inject;
-import javax.naming.Context;
-import javax.servlet.http.HttpServletRequest;
-
-import de.gematik.ws.conn.eventservice.wsdl.v7.EventServicePortType;
-
-@Disabled
 public class CertificateTest {
 
     private static SecretsManagerService secretsManagerService;
 
     ContextType contextType;
 
-    @Inject
-    EventServicePortType eventServicePortType;
-
-    @Inject
-    Certificate certificate;
-
-
-    @BeforeEach
-    void init() {
-        contextType = new ContextType();
-        contextType.setMandantId("Mandant1");
-        contextType.setWorkplaceId("Workplace1");
-        contextType.setClientSystemId("ClientID1");
-    }
-
     @Test
     void testGetCardHandle() throws Throwable {
-        certificate = new Certificate();
-        certificate.setContextType(contextType);
-        //certificate.setEventServicePortType(eventServicePortType);
-        String hdl = certificate.doGetCardHandle();
-        System.out.println("------------ Certificate Test -----------");
+        Client client = ClientBuilder.newClient();
+
+        RuntimeConfig runtimeConfig = Bootstrap.getRuntimeConfig();
+
+        String s = client.target("http://localhost:8080/frontend/connector/certificate/verifyAll").request()
+            .header("X-Mandant-Id", runtimeConfig.getMandantId())
+            .header("X-Client-System-Id", runtimeConfig.getClientSystemId())
+            .header("X-Workplace-Id", runtimeConfig.getWorkplaceId())
+            .header("X-User-Id", runtimeConfig.getUserId())
+            .header("X-Client-Certificate", runtimeConfig.getClientCertificate())
+            .header("X-Client-Certificate-Password", runtimeConfig.getClientCertificatePassword())
+            .header("X-Host", runtimeConfig.getUrl())
+            .accept(MediaType.APPLICATION_JSON_TYPE)
+            .get(String.class);
+        
+        System.out.println(s);
+
     }
 }
