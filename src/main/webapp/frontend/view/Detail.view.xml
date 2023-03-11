@@ -80,19 +80,15 @@
                         <uxap:subSections>
                             <uxap:ObjectPageSubSection id="certificatesSubsection" title="vorhandene Zertifikate">
                                 <uxap:blocks>
-                                    <Table items="{Certificates>/}">
+                                    <Table items="{VerifyAll>/}">
                                         <columns>
-                                            <Column>
-                                                <Text text="Result " />
-                                            </Column>
                                             <Column>
                                                 <Text text="Greeting " />
                                             </Column>
                                         </columns>
                                         <items>
                                             <ColumnListItem>
-                                                <Text text="{Certificates>/answer/status/result}" />
-                                                <Text text="{Certificates>/answer/hello}" />
+                                                <Text text="{VerifyAll>/answer/hello}" />
                                             </ColumnListItem>
                                         </items>
                                     </Table>

@@ -17,17 +17,21 @@ sap.ui.define([
             const oMetricsModel = new JSONModel();
             this.getView().setModel(oMetricsModel, "Metrics");
 
+            const oVerifyAllModel = new JSONModel();
+            this.getView().setModel(oVerifyAllModel, "VerifyAll");
+
             const oCertificatesModel = new JSONModel();
             this.getView().setModel(oCertificatesModel, "Certificates");
 
 
             oCardsModel.attachRequestCompleted(function() {
-                    console.log(oCardsModel.getData());
+                    //console.log(oCardsModel.getData());
             });
 
-            oCertificatesModel.attachRequestCompleted(function() {
-                    console.log(oCertificatesModel.getData());
-                    console.log(oMetricsModel.getData());
+            oVerifyAllModel.attachRequestCompleted(function() {
+                   // console.log(oCertificatesModel.getData());
+                   // console.log(oMetricsModel.getData());
+                   // console.log(oVerifyAllModel.getData());
             });
 
 
@@ -62,27 +66,26 @@ sap.ui.define([
             };
 
             
+            this.getView().getModel("VerifyAll").loadData("connector/certificate/verifyAll", {}, "true", "GET", false, true, mHeaders);
 
             this.getView().getModel("Cards").loadData("connector/event/get-cards", {}, "true", "GET", false, true, mHeaders);
 
-            //this.getView().getModel("Certificates").loadData("connector/certificate/readCardCertificate?CardHandle=HBA-67", {}, "true", "GET", false, true, mHeaders);
-
             this.getView().getModel("CardTerminals").loadData("connector/event/get-card-terminals", {}, "true", "GET", false, true, mHeaders);
 
-
-            fetch("connector/certificate/readCardCertificate?CardHandle=HBA-67", { headers: mHeaders })
+            fetch("connector/certificate/verifyAll", { headers: mHeaders })
             .then(response =>
                 response.json().then(data => ({
                     data: data,
                     status: response.status
                 })
             ).then(res => {
-                res.data.hello = "bye"
-                this.getView().getModel("Certificates").setData({
-                   answer: res.data
+                let myData = res.data[0];
+                myData.hello = "bye"
+                this.getView().getModel("VerifyAll").setData({
+                   answer: myData
                 });
-                console.log(this.getView().getModel("Certificates").getData());
-                console.log(res.status, res.data)
+                console.log(this.getView().getModel("VerifyAll").getData());
+                //console.log(res.status, res.data)
             }));
 
 
