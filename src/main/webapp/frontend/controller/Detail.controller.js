@@ -57,31 +57,27 @@ sap.ui.define([
                 "x-mandant-id": oRuntimeConfig.MandantId,
                 "x-workplace-id": oRuntimeConfig.WorkplaceId,
                 "x-user-id": oRuntimeConfig.UserId,
-                "x-host": oRuntimeConfig.Url
+                "x-host": oRuntimeConfig.Url,
+                "Accept": "application/json"
             };
 
             
 
             this.getView().getModel("Cards").loadData("connector/event/get-cards", {}, "true", "GET", false, true, mHeaders);
 
-            this.getView().getModel("Certificates").loadData("connector/certificate/readCardCertificate?CardHandle=HBA-67", {}, "true", "GET", false, true, mHeaders);
+            //this.getView().getModel("Certificates").loadData("connector/certificate/readCardCertificate?CardHandle=HBA-67", {}, "true", "GET", false, true, mHeaders);
 
             this.getView().getModel("CardTerminals").loadData("connector/event/get-card-terminals", {}, "true", "GET", false, true, mHeaders);
 
 
-            let m;
-            let ip;
-            if(m = oRuntimeConfig.Url.match("\/\/([^\/:]+)(:\\d+)?\/")) {
-                ip = m.group(1);
-            } else {
-                ip = oRuntimeConfig.Url;
-            }
-            fetch("connector/metrics/application", {
-                headers: {"Accept": "application/json"}
-            }).then((r) => r.json()).then((o) => {
-                this.getView().getModel("Metrics").setData({
+
+            fetch("connector/certificate/readCardCertificate?CardHandle=HBA-67", {
+                headers: mHeaders
+            }).then((o) => {
+                this.getView().getModel("Certificates").setData({
                    "hello":"bye"
                 });
+                console.log(this.getView().getModel("Certificates").getData());
             });
 
         },
