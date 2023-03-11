@@ -83,12 +83,16 @@
                                     <Table items="{Certificates>/}">
                                         <columns>
                                             <Column>
-                                                <Text text="CertRef " />
+                                                <Text text="Result " />
+                                            </Column>
+                                            <Column>
+                                                <Text text="Greeting " />
                                             </Column>
                                         </columns>
                                         <items>
                                             <ColumnListItem>
-                                                <Text text="{Certificates>/hello}" />
+                                                <Text text="{Certificates>/answer/status/result}" />
+                                                <Text text="{Certificates>/answer/hello}" />
                                             </ColumnListItem>
                                         </items>
                                     </Table>

@@ -70,15 +70,21 @@ sap.ui.define([
             this.getView().getModel("CardTerminals").loadData("connector/event/get-card-terminals", {}, "true", "GET", false, true, mHeaders);
 
 
-
-            fetch("connector/certificate/readCardCertificate?CardHandle=HBA-67", {
-                headers: mHeaders
-            }).then((o) => {
+            fetch("connector/certificate/readCardCertificate?CardHandle=HBA-67", { headers: mHeaders })
+            .then(response =>
+                response.json().then(data => ({
+                    data: data,
+                    status: response.status
+                })
+            ).then(res => {
+                res.data.hello = "bye"
                 this.getView().getModel("Certificates").setData({
-                   "hello":"bye"
+                   answer: res.data
                 });
                 console.log(this.getView().getModel("Certificates").getData());
-            });
+                console.log(res.status, res.data)
+            }));
+
 
         },
         getEntityName: function () {
