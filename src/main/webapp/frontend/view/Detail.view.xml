@@ -94,7 +94,7 @@
                                         </columns>
                                         <items>
                                             <ColumnListItem>
-                                                <Text text="{Certificates>certRef}" />
+                                                <Text text="{Certificates>/status/result}" />
                                                 <Text text="{Certificates>x509Data/x509SubjectName}" />
                                                 <Text text="{Certificates>x509Data/x509IssuerSerial/x509SerialNumber}" />
                                             </ColumnListItem>
