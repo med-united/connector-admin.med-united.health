@@ -80,15 +80,23 @@
                         <uxap:subSections>
                             <uxap:ObjectPageSubSection id="certificatesSubsection" title="vorhandene Zertifikate">
                                 <uxap:blocks>
-                                    <Table items="{VerifyAll>/theArr/ct}">
+                                    <Table items="{VerifyAll>/certificateCollection/certificates}">
                                         <columns>
                                             <Column>
-                                                <Text text="CardHandles " />
+                                                <Text text="CardHandle" />
+                                            </Column>
+                                            <Column>
+                                                <Text text="Serial" />
+                                            </Column>
+                                            <Column>
+                                                <Text text="Verified?" />
                                             </Column>
                                         </columns>
                                         <items>
                                             <ColumnListItem>
-                                                <Text text="{VerifyAll>cardHandle}" />
+                                                <Text text="{VerifyAll>handle}" />
+                                                <Text text="{VerifyAll>serial}" />
+                                                <Text text="{VerifyAll>verify}" />
                                             </ColumnListItem>
                                         </items>
                                     </Table>

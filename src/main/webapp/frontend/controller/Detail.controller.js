@@ -25,7 +25,7 @@ sap.ui.define([
 
 
             oCardsModel.attachRequestCompleted(function() {
-                    console.log(oCardsModel.getData());
+                    //console.log(oCardsModel.getData());
             });
 
             oVerifyAllModel.attachRequestCompleted(function() {
@@ -35,6 +35,15 @@ sap.ui.define([
             });
 
 
+        },
+        onVerifyPin: function (oEvent) {
+            console.log(oEvent);
+        },
+        onChangePinQes: function (oEvent) {
+            console.log(oEvent);
+        },
+        onChangePinCh: function (oEvent) {
+            console.log(oEvent);
         },
         _onMatched: function (oEvent) {
             AbstractDetailController.prototype._onMatched.apply(this, arguments);
@@ -80,19 +89,40 @@ sap.ui.define([
                 })
             ).then(res => {
                 let numberOfCards = res.data.length;
-                let contentsToShow = [];
+                let arrayData = [];
                 for(let i=0;i<numberOfCards;i++){
-                    contentsToShow.push(
+                    if(!res.data[i].readCardCertificateResponse) continue;
+                    arrayData.push(
                     {
-                    "cardHandle" : res.data[i].cardInfoType.cardHandle,
-                    "number":5
+                    "handle": res.data[i].cardInfoType.cardHandle,
+                    "certInfos" : res.data[i].readCardCertificateResponse.x509DataInfoList.x509DataInfo,
+                    "verifyResponses":res.data[i].verifyCertificateResponse
                     } );
                 };
+
+                let plainList = [];
+                for(let j=0;j<arrayData.length;j++){
+                    for(let q=0;q<arrayData[j].certInfos.length;q++){
+                        plainList.push({
+                            "handle":arrayData[j].handle,
+                            "serial":arrayData[j].certInfos[q].x509Data.x509IssuerSerial.x509SerialNumber,
+                            "verify":arrayData[j].verifyResponses[q].verificationStatus.verificationResult
+                        })
+                    }
+                }
+
                 this.getView().getModel("VerifyAll").setData({
-                   theArr: {ct:contentsToShow}
+                   certificateCollection: {certificates:plainList}
                 });
+
+                /**
+                ATTENTION: I ACCIDENTALLY REMOVED THE METRICS SECTION
+                **/
+
+                /*
                 console.log(this.getView().getModel("VerifyAll").getData());
                 console.log(res.status, res.data, res.data.length)
+                */
             }));
 
 
