@@ -27,8 +27,8 @@ sap.ui.define([
 
             oCertificatesModel.attachRequestCompleted(function() {
                     console.log(oCertificatesModel.getData());
+                    console.log(oMetricsModel.getData());
             });
-
 
 
         },
@@ -69,7 +69,6 @@ sap.ui.define([
             this.getView().getModel("CardTerminals").loadData("connector/event/get-card-terminals", {}, "true", "GET", false, true, mHeaders);
 
 
-
             let m;
             let ip;
             if(m = oRuntimeConfig.Url.match("\/\/([^\/:]+)(:\\d+)?\/")) {
@@ -81,16 +80,10 @@ sap.ui.define([
                 headers: {"Accept": "application/json"}
             }).then((r) => r.json()).then((o) => {
                 this.getView().getModel("Metrics").setData({
-                    "connectorResponseTime": {
-                        "count": o["connectorResponseTime_"+ip]["count"],
-                        "min": o["connectorResponseTime_"+ip]["min"],
-                        "max": o["connectorResponseTime_"+ip]["max"],
-                        "mean": o["connectorResponseTime_"+ip]["mean"]
-                    },
-                    "currentlyConnectedCards": o["currentlyConnectedCards_"+ip]
+                   "hello":"bye"
                 });
             });
-            
+
         },
         getEntityName: function () {
 			return "RuntimeConfig";
