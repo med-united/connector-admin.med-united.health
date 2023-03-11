@@ -25,7 +25,7 @@ sap.ui.define([
 
 
             oCardsModel.attachRequestCompleted(function() {
-                    //console.log(oCardsModel.getData());
+                    console.log(oCardsModel.getData());
             });
 
             oVerifyAllModel.attachRequestCompleted(function() {
@@ -79,13 +79,20 @@ sap.ui.define([
                     status: response.status
                 })
             ).then(res => {
-                let myData = res.data[0];
-                myData.hello = "bye"
+                let numberOfCards = res.data.length;
+                let contentsToShow = [];
+                for(let i=0;i<numberOfCards;i++){
+                    contentsToShow.push(
+                    {
+                    "cardHandle" : res.data[i].cardInfoType.cardHandle,
+                    "number":5
+                    } );
+                };
                 this.getView().getModel("VerifyAll").setData({
-                   answer: myData
+                   theArr: {ct:contentsToShow}
                 });
                 console.log(this.getView().getModel("VerifyAll").getData());
-                //console.log(res.status, res.data)
+                console.log(res.status, res.data, res.data.length)
             }));
 
 
