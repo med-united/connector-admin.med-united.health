@@ -2,7 +2,6 @@ package health.medunited.architecture.jaxrs.resource;
 
 import static health.medunited.architecture.provider.ContextTypeProducer.copyValuesFromProxyIntoContextType;
 
-import java.security.cert.X509Certificate;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.TimeZone;
@@ -42,9 +41,6 @@ import health.medunited.architecture.jaxrs.resource.model.VerifyAllEntry;
 public class Certificate {
 
     private static final Logger log = Logger.getLogger(Certificate.class.getName());
-
-
-    X509Certificate x509Certificate;
 
     @Context
     HttpServletRequest httpServletRequest;
