@@ -42,7 +42,6 @@ public class Card {
     @Path("/changePin")
     public String changePin(@QueryParam("cardHandle") String cardHandle, @QueryParam("cardHandle") String pinType)  {
 
-        // TODO: Change PIN for SMC-B and PIN.AUT
         log.info("CHANGING PIN");
         Holder<Status> status = new Holder<>();
         Holder<PinResultEnum> pinResultEnum = new Holder<>();
@@ -55,6 +54,26 @@ public class Card {
         }
 
         return "Waiting for user input on the terminal...";
+    }
+
+    @GET
+    @Path("/verifyPin")
+    public String verifyPin(@QueryParam("cardHandle") String cardHandle, @QueryParam("cardHandle") String pinType)  {
+
+        log.info("VERIFYING PIN");
+        Holder<Status> status = new Holder<>();
+        Holder<PinResultEnum> pinResultEnum = new Holder<>();
+        Holder<BigInteger> leftTries = new Holder<>();
+        try {
+            cardServicePortType.verifyPin(
+                    copyValuesFromProxyIntoContextType(contextType), cardHandle, pinType, status, pinResultEnum, leftTries
+            );
+            return "PIN verification triggered:" +status.value.toString();
+        } catch (de.gematik.ws.conn.cardservice.wsdl.v8.FaultMessage e) {
+            e.printStackTrace();
+        }
+
+        return "Waiting for user input on the terminal for verification...";
     }
 
 }

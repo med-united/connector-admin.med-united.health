@@ -36,7 +36,24 @@ sap.ui.define([
 
         },
         onVerifyPin: function (oEvent) {
-            let cardHandle = oEvent.getSource().getBindingContext("Cards").getProperty("cardHandle");
+           const sPath = "/RuntimeConfigs('"+this._entity+"')";
+                       const oRuntimeConfig = this.getView().getModel().getProperty(sPath);
+                                   const mHeaders = {
+                                       "x-client-system-id": oRuntimeConfig.ClientSystemId,
+                                       "x-client-certificate": oRuntimeConfig.ClientCertificate,
+                                       "x-client-certificate-password": oRuntimeConfig.ClientCertificatePassword,
+                                       "x-sign-port": oRuntimeConfig.SignPort,
+                                       "x-vzd-port": oRuntimeConfig.VzdPort,
+                                       "x-mandant-id": oRuntimeConfig.MandantId,
+                                       "x-workplace-id": oRuntimeConfig.WorkplaceId,
+                                       "x-user-id": oRuntimeConfig.UserId,
+                                       "x-host": oRuntimeConfig.Url,
+                                       "Accept": "application/json"
+                                   };
+
+                       let pinType = "PIN.CH"
+                       let cardHandle = oEvent.getSource().getBindingContext("Cards").getProperty("cardHandle");
+                       fetch("connector/card/verifyPin?cardHandle="+cardHandle+"&pinType="+pinType, { headers: mHeaders });
         },
         onChangePinQes: function (oEvent) {
             const sPath = "/RuntimeConfigs('"+this._entity+"')";
@@ -148,14 +165,30 @@ sap.ui.define([
                    certificateCollection: {certificates:plainList}
                 });
 
-                /**
-                ATTENTION: I ACCIDENTALLY REMOVED THE METRICS SECTION
-                **/
+             let m;
+             let ip;
+             if(m = oRuntimeConfig.Url.match("\/\/([^\/:]+)(:\\d+)?\/")) {
+                 ip = m.group(1);
+             } else {
+                 ip = oRuntimeConfig.Url;
+             }
+             fetch("connector/metrics/application", {
+                 headers: {"Accept": "application/json"}
+             }).then((r) => r.json()).then((o) => {
+                 this.getView().getModel("Metrics").setData({
+                     "connectorResponseTime": {
+                         "count": o["connectorResponseTime_"+ip]["count"],
+                         "min": o["connectorResponseTime_"+ip]["min"],
+                         "max": o["connectorResponseTime_"+ip]["max"],
+                         "mean": o["connectorResponseTime_"+ip]["mean"]
+                     },
+                     "currentlyConnectedCards": o["currentlyConnectedCards_"+ip]
+                 });
+             });
 
-                /*
-                console.log(this.getView().getModel("VerifyAll").getData());
-                console.log(res.status, res.data, res.data.length)
-                */
+
+
+
             }));
 
 
