@@ -3,6 +3,7 @@ package health.medunited.architecture.jaxrs.resource;
 import static health.medunited.architecture.provider.ContextTypeProducer.copyValuesFromProxyIntoContextType;
 
 import java.math.BigInteger;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.enterprise.context.RequestScoped;
@@ -18,7 +19,7 @@ import de.gematik.ws.conn.cardservice.wsdl.v8.CardServicePortType;
 import de.gematik.ws.conn.cardservicecommon.v2.PinResultEnum;
 import de.gematik.ws.conn.connectorcommon.v5.Status;
 import de.gematik.ws.conn.connectorcontext.v2.ContextType;
-import de.gematik.ws.conn.eventservice.wsdl.v7.EventServicePortType;
+import de.gematik.ws.conn.cardservice.wsdl.v8.FaultMessage;
 
 @RequestScoped
 @Path("card")
@@ -30,9 +31,6 @@ public class Card {
     HttpServletRequest httpServletRequest;
 
     @Inject
-    EventServicePortType eventServicePortType;
-
-    @Inject
     CardServicePortType cardServicePortType;
 
     @Inject
@@ -40,7 +38,7 @@ public class Card {
 
     @GET
     @Path("/changePin")
-    public String changePin(@QueryParam("cardHandle") String cardHandle, @QueryParam("pinType") String pinType)  {
+    public String changePin(@QueryParam("cardHandle") String cardHandle, @QueryParam("pinType") String pinType) {
 
         log.info("CHANGING PIN");
         Holder<Status> status = new Holder<>();
@@ -48,9 +46,9 @@ public class Card {
         Holder<BigInteger> leftTries = new Holder<>();
         try {
             cardServicePortType.changePin(copyValuesFromProxyIntoContextType(contextType), cardHandle, pinType, status, pinResultEnum, leftTries);
-            return "PIN Change triggered:" +status.value.toString();
-        } catch (de.gematik.ws.conn.cardservice.wsdl.v8.FaultMessage e) {
-            e.printStackTrace();
+            return "PIN Change triggered:" + status.value.toString();
+        } catch (FaultMessage e) {
+            log.log(Level.SEVERE, e.getMessage());
         }
 
         return "Waiting for user input on the terminal...";
@@ -58,7 +56,7 @@ public class Card {
 
     @GET
     @Path("/verifyPin")
-    public String verifyPin(@QueryParam("cardHandle") String cardHandle, @QueryParam("pinType") String pinType)  {
+    public String verifyPin(@QueryParam("cardHandle") String cardHandle, @QueryParam("pinType") String pinType) {
 
         log.info("VERIFYING PIN");
         Holder<Status> status = new Holder<>();
@@ -68,9 +66,9 @@ public class Card {
             cardServicePortType.verifyPin(
                     copyValuesFromProxyIntoContextType(contextType), cardHandle, pinType, status, pinResultEnum, leftTries
             );
-            return "PIN verification triggered:" +status.value.toString();
-        } catch (de.gematik.ws.conn.cardservice.wsdl.v8.FaultMessage e) {
-            e.printStackTrace();
+            return "PIN verification triggered:" + status.value.toString();
+        } catch (FaultMessage e) {
+            log.log(Level.SEVERE, e.getMessage());
         }
 
         return "Waiting for user input on the terminal for verification...";
