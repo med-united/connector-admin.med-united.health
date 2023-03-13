@@ -24,7 +24,7 @@ import de.gematik.ws.conn.eventservice.wsdl.v7.EventServicePortType;
 @Path("card")
 public class Card {
 
-    private static final Logger log = Logger.getLogger(Event.class.getName());
+    private static final Logger log = Logger.getLogger(Card.class.getName());
 
     @Context
     HttpServletRequest httpServletRequest;
@@ -40,7 +40,7 @@ public class Card {
 
     @GET
     @Path("/changePin")
-    public String changePin(@QueryParam("cardHandle") String cardHandle, @QueryParam("cardHandle") String pinType)  {
+    public String changePin(@QueryParam("cardHandle") String cardHandle, @QueryParam("pinType") String pinType)  {
 
         log.info("CHANGING PIN");
         Holder<Status> status = new Holder<>();
@@ -58,7 +58,7 @@ public class Card {
 
     @GET
     @Path("/verifyPin")
-    public String verifyPin(@QueryParam("cardHandle") String cardHandle, @QueryParam("cardHandle") String pinType)  {
+    public String verifyPin(@QueryParam("cardHandle") String cardHandle, @QueryParam("pinType") String pinType)  {
 
         log.info("VERIFYING PIN");
         Holder<Status> status = new Holder<>();
