@@ -9,6 +9,8 @@ import javax.ws.rs.core.Application;
 import health.medunited.architecture.jaxrs.resource.Event;
 import health.medunited.architecture.jaxrs.resource.Metrics;
 import health.medunited.architecture.jaxrs.resource.Scheduler;
+import health.medunited.architecture.jaxrs.resource.Certificate;
+import health.medunited.architecture.jaxrs.resource.Card;
 
 @ApplicationPath("/connector")
 public class ConnectorApplication extends Application {
@@ -18,6 +20,8 @@ public class ConnectorApplication extends Application {
 		set.add(Event.class);
 		set.add(Scheduler.class);
 		set.add(Metrics.class);
+		set.add(Certificate.class);
+		set.add(Card.class);
 		return set;
 	}
 }

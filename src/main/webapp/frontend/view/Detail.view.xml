@@ -1,4 +1,19 @@
-<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:uxap="sap.uxap" xmlns:medunited="medunited.base.control" xmlns:name="medunited.care.SharedBlocks.name" xmlns:address="medunited.care.SharedBlocks.address" xmlns:biological="medunited.care.SharedBlocks.biological" xmlns:generalPractitioner="medunited.care.SharedBlocks.generalPractitioner" xmlns:defaultOrganization="medunited.care.SharedBlocks.defaultOrganization" xmlns:insurance="medunited.care.SharedBlocks.insurance" xmlns:medication="medunited.care.SharedBlocks.medication" controllerName="sap.f.ShellBarWithFlexibleColumnLayout.controller.Detail" xmlns:html="http://www.w3.org/1999/xhtml">
+<mvc:View
+    xmlns:core="sap.ui.core"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:uxap="sap.uxap"
+    xmlns:medunited="medunited.base.control"
+    xmlns:name="medunited.care.SharedBlocks.name"
+    xmlns:address="medunited.care.SharedBlocks.address"
+    xmlns:biological="medunited.care.SharedBlocks.biological"
+    xmlns:generalPractitioner="medunited.care.SharedBlocks.generalPractitioner"
+    xmlns:defaultOrganization="medunited.care.SharedBlocks.defaultOrganization"
+    xmlns:insurance="medunited.care.SharedBlocks.insurance"
+    xmlns:medication="medunited.care.SharedBlocks.medication"
+    controllerName="sap.f.ShellBarWithFlexibleColumnLayout.controller.Detail"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+>
     <Page showHeader="false">
         <content>
             <uxap:ObjectPageLayout id="objectPageLayout" showTitleInHeaderContent="true">
@@ -48,9 +63,7 @@
                                             <Column>
                                                 <Text text="slotId" />
                                             </Column>
-                                            <Column>
-
-                                            </Column>
+                                            <Column />
                                         </columns>
                                         <items>
                                             <ColumnListItem>
@@ -63,7 +76,8 @@
                                                 <Text text="{Cards>slotId}" />
                                                 <MenuButton text="Aktion ...">
                                                     <Menu>
-                                                        <MenuItem text="Verify PIN" press="onVerifyPin" />
+                                                        <MenuItem text="Verify PIN.CH" press="onVerifyPinCh" />
+                                                        <MenuItem text="Verify PIN.SMC" press="onVerifyPinSmc" />
                                                         <MenuItem text="Change PIN.QES" press="onChangePinQes" />
                                                         <MenuItem text="Change PIN.CH" press="onChangePinCh" />
                                                     </Menu>
@@ -75,6 +89,36 @@
                             </uxap:ObjectPageSubSection>
                         </uxap:subSections>
                     </uxap:ObjectPageSection>
+
+                    <uxap:ObjectPageSection id="certificatesSection" title="Zertifikate">
+                        <uxap:subSections>
+                            <uxap:ObjectPageSubSection id="certificatesSubsection" title="Vorhandene Zertifikate">
+                                <uxap:blocks>
+                                    <Table items="{VerifyAll>/certificateCollection/certificates}">
+                                        <columns>
+                                            <Column>
+                                                <Text text="CardHandle" />
+                                            </Column>
+                                            <Column>
+                                                <Text text="Seriennummer" />
+                                            </Column>
+                                            <Column>
+                                                <Text text="Verifizierung" />
+                                            </Column>
+                                        </columns>
+                                        <items>
+                                            <ColumnListItem>
+                                                <Text text="{VerifyAll>handle}" />
+                                                <Text text="{VerifyAll>serial}" />
+                                                <Text text="{VerifyAll>verify}" />
+                                            </ColumnListItem>
+                                        </items>
+                                    </Table>
+                                </uxap:blocks>
+                            </uxap:ObjectPageSubSection>
+                        </uxap:subSections>
+                    </uxap:ObjectPageSection>
+
                     <uxap:ObjectPageSection id="cardTerminalSection" title="Angeschlossene Kartenterminals">
                         <uxap:subSections>
                             <uxap:ObjectPageSubSection id="cardTerminalSubSection" title="Angeschlossene Kartenterminals">

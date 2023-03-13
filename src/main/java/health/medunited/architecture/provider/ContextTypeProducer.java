@@ -23,5 +23,13 @@ public class ContextTypeProducer {
         contextType.setUserId(httpServletRequest.getHeader("x-user-id"));
         return contextType;
     }
+
+    public static ContextType copyValuesFromProxyIntoContextType(ContextType contextType) {
+        ContextType context = new ContextType();
+        context.setMandantId(contextType.getMandantId());
+        context.setWorkplaceId(contextType.getWorkplaceId());
+        context.setClientSystemId(contextType.getClientSystemId());
+        context.setUserId(contextType.getUserId());
+        return context;
+    }
 }
-;
