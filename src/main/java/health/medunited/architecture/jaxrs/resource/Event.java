@@ -17,6 +17,8 @@ import de.gematik.ws.conn.eventservice.v7.GetCards;
 import de.gematik.ws.conn.eventservice.v7.GetCardsResponse;
 import de.gematik.ws.conn.eventservice.wsdl.v7.EventServicePortType;
 
+import static health.medunited.architecture.provider.ContextTypeProducer.copyValuesFromProxyIntoContextType;
+
 @RequestScoped
 @Path("event")
 public class Event {
@@ -43,15 +45,6 @@ public class Event {
             log.log(Level.WARNING, "Could not get cards", t);
             throw t;
         }
-    }
-
-    private static ContextType copyValuesFromProxyIntoContextType(ContextType contextType) {
-        ContextType context = new ContextType();
-        context.setMandantId(contextType.getMandantId());
-        context.setWorkplaceId(contextType.getWorkplaceId());
-        context.setClientSystemId(contextType.getClientSystemId());
-        context.setUserId(contextType.getUserId());
-        return context;
     }
 
     @GET
