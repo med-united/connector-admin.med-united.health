@@ -78,7 +78,7 @@
 
                     <uxap:ObjectPageSection id="certificatesSection" title="Zertifikate">
                         <uxap:subSections>
-                            <uxap:ObjectPageSubSection id="certificatesSubsection" title="vorhandene Zertifikate">
+                            <uxap:ObjectPageSubSection id="certificatesSubsection" title="Vorhandene Zertifikate">
                                 <uxap:blocks>
                                     <Table items="{VerifyAll>/certificateCollection/certificates}">
                                         <columns>
