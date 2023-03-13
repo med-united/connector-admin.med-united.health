@@ -21,7 +21,7 @@ import de.gematik.ws.conn.connectorcontext.v2.ContextType;
 import de.gematik.ws.conn.eventservice.wsdl.v7.EventServicePortType;
 
 @RequestScoped
-@Path("cards")
+@Path("card")
 public class Card {
 
     private static final Logger log = Logger.getLogger(Event.class.getName());
@@ -40,7 +40,7 @@ public class Card {
 
     @GET
     @Path("/changePin")
-    public String changePin(@QueryParam("cardHandle") String cardHandle)  {
+    public String changePin(@QueryParam("cardHandle") String cardHandle, @QueryParam("cardHandle") String pinType)  {
 
         // TODO: Change PIN for SMC-B and PIN.AUT
         log.info("CHANGING PIN");
@@ -48,13 +48,13 @@ public class Card {
         Holder<PinResultEnum> pinResultEnum = new Holder<>();
         Holder<BigInteger> leftTries = new Holder<>();
         try {
-            cardServicePortType.changePin(copyValuesFromProxyIntoContextType(contextType), cardHandle, "PIN.QES", status, pinResultEnum, leftTries);
+            cardServicePortType.changePin(copyValuesFromProxyIntoContextType(contextType), cardHandle, pinType, status, pinResultEnum, leftTries);
             return "PIN Change triggered:" +status.value.toString();
         } catch (de.gematik.ws.conn.cardservice.wsdl.v8.FaultMessage e) {
             e.printStackTrace();
         }
 
-        return "changePin function";
+        return "Waiting for user input on the terminal...";
     }
 
 }

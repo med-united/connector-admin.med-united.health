@@ -86,10 +86,10 @@
                                                 <Text text="CardHandle" />
                                             </Column>
                                             <Column>
-                                                <Text text="Serial" />
+                                                <Text text="Seriennummer" />
                                             </Column>
                                             <Column>
-                                                <Text text="Verified?" />
+                                                <Text text="Verifizierung" />
                                             </Column>
                                         </columns>
                                         <items>

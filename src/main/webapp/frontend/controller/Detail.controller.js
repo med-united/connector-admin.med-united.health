@@ -23,7 +23,6 @@ sap.ui.define([
             const oCertificatesModel = new JSONModel();
             this.getView().setModel(oCertificatesModel, "Certificates");
 
-
             oCardsModel.attachRequestCompleted(function() {
                     //console.log(oCardsModel.getData());
             });
@@ -37,13 +36,47 @@ sap.ui.define([
 
         },
         onVerifyPin: function (oEvent) {
-            console.log(oEvent);
+            let cardHandle = oEvent.getSource().getBindingContext("Cards").getProperty("cardHandle");
         },
         onChangePinQes: function (oEvent) {
-            console.log(oEvent);
+            const sPath = "/RuntimeConfigs('"+this._entity+"')";
+            const oRuntimeConfig = this.getView().getModel().getProperty(sPath);
+                        const mHeaders = {
+                            "x-client-system-id": oRuntimeConfig.ClientSystemId,
+                            "x-client-certificate": oRuntimeConfig.ClientCertificate,
+                            "x-client-certificate-password": oRuntimeConfig.ClientCertificatePassword,
+                            "x-sign-port": oRuntimeConfig.SignPort,
+                            "x-vzd-port": oRuntimeConfig.VzdPort,
+                            "x-mandant-id": oRuntimeConfig.MandantId,
+                            "x-workplace-id": oRuntimeConfig.WorkplaceId,
+                            "x-user-id": oRuntimeConfig.UserId,
+                            "x-host": oRuntimeConfig.Url,
+                            "Accept": "application/json"
+                        };
+
+            let pinType = "PIN.QES"
+            let cardHandle = oEvent.getSource().getBindingContext("Cards").getProperty("cardHandle");
+            fetch("connector/card/changePin?cardHandle="+cardHandle+"&pinType="+pinType, { headers: mHeaders });
         },
         onChangePinCh: function (oEvent) {
-            console.log(oEvent);
+            const sPath = "/RuntimeConfigs('"+this._entity+"')";
+            const oRuntimeConfig = this.getView().getModel().getProperty(sPath);
+                        const mHeaders = {
+                            "x-client-system-id": oRuntimeConfig.ClientSystemId,
+                            "x-client-certificate": oRuntimeConfig.ClientCertificate,
+                            "x-client-certificate-password": oRuntimeConfig.ClientCertificatePassword,
+                            "x-sign-port": oRuntimeConfig.SignPort,
+                            "x-vzd-port": oRuntimeConfig.VzdPort,
+                            "x-mandant-id": oRuntimeConfig.MandantId,
+                            "x-workplace-id": oRuntimeConfig.WorkplaceId,
+                            "x-user-id": oRuntimeConfig.UserId,
+                            "x-host": oRuntimeConfig.Url,
+                            "Accept": "application/json"
+                        };
+
+            let pinType = "PIN.CH"
+            let cardHandle = oEvent.getSource().getBindingContext("Cards").getProperty("cardHandle");
+            fetch("connector/card/changePin?cardHandle="+cardHandle+"&pinType="+pinType, { headers: mHeaders });
         },
         _onMatched: function (oEvent) {
             AbstractDetailController.prototype._onMatched.apply(this, arguments);
