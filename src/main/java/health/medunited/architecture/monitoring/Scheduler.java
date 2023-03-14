@@ -124,7 +124,7 @@ public class Scheduler {
                             ZonedDateTime now = ZonedDateTime.now();
                             ZonedDateTime futureExpiration = expirationDate.toInstant().atZone(ZoneId.of("Europe/Berlin"));
                             Duration duration = Duration.between(now,futureExpiration);
-                            Float daysDuration = (float) duration.toDays();
+                            Float daysDuration = (float) duration.toHours()/24;
                             return daysDuration;
                         }
                     }
