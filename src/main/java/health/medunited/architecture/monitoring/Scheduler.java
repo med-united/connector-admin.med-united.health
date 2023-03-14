@@ -104,7 +104,7 @@ public class Scheduler {
 
 
 
-                Callable<Integer> callable = () -> {
+                Callable<Float> daydiffCallable = () -> {
                     GetCards getCards = new GetCards();
                     ContextType contextType = new ContextType();
                     contextType.setMandantId(runtimeConfig.getMandantId());
@@ -113,12 +113,6 @@ public class Scheduler {
                     contextType.setUserId(runtimeConfig.getUserId());
                     getCards.setContext(contextType);
                     GetCardsResponse getCardsResponse = eventServicePortType.getCards(getCards);
-                    //
-                    System.out.println("    ------------------------------------     ");
-                    System.out.println("    ------------------------------------     ");
-                    System.out.println("    ------------------------------------     ");
-
-
                     Integer numberOfCards = getCardsResponse.getCards().getCard().size();
                     String expirationString = null;
                     for(int i=0;i<numberOfCards;i++){
@@ -130,20 +124,54 @@ public class Scheduler {
                             ZonedDateTime now = ZonedDateTime.now();
                             ZonedDateTime futureExpiration = expirationDate.toInstant().atZone(ZoneId.of("Europe/Berlin"));
                             Duration duration = Duration.between(now,futureExpiration);
-                            System.out.println("Days: " + duration.toDays());
-
-                            System.out.println("---verify----");
-                            System.out.println(expirationString);
-                            System.out.println(expirationDate);
-                            System.out.println(now);
-                            break;
+                            Float daysDuration = (float) duration.toDays();
+                            return daysDuration;
                         }
                     }
+                    //unlikely to reach
+                    return null;
+                };
+
+                try {
+                    Gauge<Float> daysLefTillExpiry  = applicationRegistry.gauge(Metadata.builder()
+                            .withName("daysLeftUntilSMC_KTexpiry_"+runtimeConfig.getUrl())
+                            .withDescription("Number of days left until the SMC_KT card expires "+runtimeConfig.getUrl())
+                            .build(), () -> {
+                        Float daysLefTillExpiryFlt;
+                        try {
+                            daysLefTillExpiryFlt = connectorResponseTime.time(daydiffCallable);
+                            log.info("Currently connected cards: "+daysLefTillExpiryFlt+" "+runtimeConfig.getUrl());
+                            return daysLefTillExpiryFlt;
+                        } catch (Exception e) {
+                            log.log(Level.WARNING, "Can't measure connector", e);
+                        }
+                        return null;
+                    });
+                } catch (Exception e) {
+                    log.log(Level.WARNING, "Can't measure connector", e);
+                }
 
 
-                    //
+
+
+
+
+
+
+
+
+                Callable<Integer> callable = () -> {
+                    GetCards getCards = new GetCards();
+                    ContextType contextType = new ContextType();
+                    contextType.setMandantId(runtimeConfig.getMandantId());
+                    contextType.setClientSystemId(runtimeConfig.getClientSystemId());
+                    contextType.setWorkplaceId(runtimeConfig.getWorkplaceId());
+                    contextType.setUserId(runtimeConfig.getUserId());
+                    getCards.setContext(contextType);
+                    GetCardsResponse getCardsResponse = eventServicePortType.getCards(getCards);
                     return getCardsResponse.getCards().getCard().size();
                 };
+
 
 
                 try {
