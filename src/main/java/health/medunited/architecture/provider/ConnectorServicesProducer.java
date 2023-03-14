@@ -11,6 +11,7 @@ import javax.net.ssl.SSLContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.ws.BindingProvider;
 
+import de.gematik.ws.conn.certificateservice.wsdl.v6.CertificateServicePortType;
 import health.medunited.architecture.service.common.security.SecretsManagerService;
 import health.medunited.architecture.service.endpoint.EndpointDiscoveryService;
 import health.medunited.architecture.service.endpoint.SSLUtilities;
@@ -39,6 +40,7 @@ public class ConnectorServicesProducer {
 
     private de.gematik.ws.conn.eventservice.wsdl.v7.EventServicePortType eventServicePortType;
     private de.gematik.ws.conn.cardservice.wsdl.v8.CardServicePortType cardServicePortType;
+    private de.gematik.ws.conn.certificateservice.wsdl.v6.CertificateServicePortType certificateServicePortType;
 
     public void setSecretsManagerService(SecretsManagerService secretsManagerService) {
         this.secretsManagerService = secretsManagerService;
@@ -61,6 +63,20 @@ public class ConnectorServicesProducer {
         }
         initializeEventServicePortType();
         initializeCardServicePortType();
+        initializeCertficateServicePortType();
+    }
+
+
+    public void initializeCertficateServicePortType() {
+        de.gematik.ws.conn.certificateservice.wsdl.v6.CertificateServicePortType service =
+                new de.gematik.ws.conn.certificateservice.wsdl.v6.CertificateService(
+                        getClass().getResource("/CertificateService.wsdl")).getCertificateServicePort();
+        BindingProvider bp = (BindingProvider) service;
+        bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY,
+                endpointDiscoveryService.getCertificateServiceEndpointAddress());
+        configureBindingProvider(bp);
+
+        certificateServicePortType = service;
     }
 
     public void initializeEventServicePortType() {
@@ -100,6 +116,11 @@ public class ConnectorServicesProducer {
     @Produces
     public de.gematik.ws.conn.eventservice.wsdl.v7.EventServicePortType getEventServicePortType() {
         return this.eventServicePortType;
+    }
+
+    @Produces
+    public de.gematik.ws.conn.certificateservice.wsdl.v6.CertificateServicePortType getCertificateServicePortType() {
+        return this.certificateServicePortType;
     }
 
     @Produces
