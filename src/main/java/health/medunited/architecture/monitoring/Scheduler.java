@@ -7,7 +7,10 @@ import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -114,6 +117,8 @@ public class Scheduler {
                     System.out.println("    ------------------------------------     ");
                     System.out.println("    ------------------------------------     ");
                     System.out.println("    ------------------------------------     ");
+
+
                     Integer numberOfCards = getCardsResponse.getCards().getCard().size();
                     String expirationString = null;
                     for(int i=0;i<numberOfCards;i++){
@@ -121,10 +126,16 @@ public class Scheduler {
                         if (cardType == "SMC_KT") {
                             expirationString  = getCardsResponse.getCards().getCard().get(i).getCertificateExpirationDate().toString();
                             Date expirationDate = new SimpleDateFormat("yyyy-MM-dd").parse(expirationString);
-                            LocalDate theTimeNow = LocalDate.now();
+
+                            ZonedDateTime now = ZonedDateTime.now();
+                            ZonedDateTime futureExpiration = expirationDate.toInstant().atZone(ZoneId.of("Europe/Berlin"));
+                            Duration duration = Duration.between(now,futureExpiration);
+                            System.out.println("Days: " + duration.toDays());
+
+                            System.out.println("---verify----");
                             System.out.println(expirationString);
                             System.out.println(expirationDate);
-                            System.out.println(theTimeNow);
+                            System.out.println(now);
                             break;
                         }
                     }
