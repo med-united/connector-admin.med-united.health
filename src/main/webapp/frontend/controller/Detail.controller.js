@@ -22,6 +22,8 @@ sap.ui.define(
           this.getView().setModel(oVerifyAllModel, "VerifyAll");
         },
         onVerifyPinCh: function (oEvent) {
+                console.log(this.getView().getModel("Cards").oData);
+
           const sPath = "/RuntimeConfigs('" + this._entity + "')";
           const oRuntimeConfig = this.getView().getModel().getProperty(sPath);
           const mHeaders = {

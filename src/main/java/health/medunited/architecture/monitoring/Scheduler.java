@@ -6,6 +6,9 @@ import java.security.KeyManagementException;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.logging.Level;
@@ -33,6 +36,9 @@ import health.medunited.architecture.entities.RuntimeConfig;
 import health.medunited.architecture.provider.ConnectorServicesProducer;
 import health.medunited.architecture.service.common.security.SecretsManagerService;
 import health.medunited.architecture.service.endpoint.EndpointDiscoveryService;
+import health.medunited.architecture.jaxrs.resource.Event;
+
+import static health.medunited.architecture.provider.ContextTypeProducer.copyValuesFromProxyIntoContextType;
 
 @Singleton
 public class Scheduler {
@@ -44,10 +50,13 @@ public class Scheduler {
     @PersistenceContext
     EntityManager entityManager;
 
+    @Inject
+    Event event;
+
     private static Logger log = Logger.getLogger(Scheduler.class.getName());
 
     @Schedule(second = "*/15", minute = "*", hour = "*", persistent = false)
-    public void monitorConnectors() {
+    public void monitorConnectors() throws Throwable {
         log.info("Scanning Connectors");
 
         TypedQuery<RuntimeConfig> query =
@@ -56,6 +65,7 @@ public class Scheduler {
 
         List<RuntimeConfig> runtimeConfigs = query.getResultList();
         for(RuntimeConfig runtimeConfig : runtimeConfigs) {
+
             try {
                 SecretsManagerService secretsManagerService = new SecretsManagerService();
                 if(runtimeConfig.getClientCertificate() != null) {
@@ -89,6 +99,8 @@ public class Scheduler {
                     .withDescription("Timer for measuring response times for "+runtimeConfig.getUrl())
                     .build());
 
+
+
                 Callable<Integer> callable = () -> {
                     GetCards getCards = new GetCards();
                     ContextType contextType = new ContextType();
@@ -98,9 +110,31 @@ public class Scheduler {
                     contextType.setUserId(runtimeConfig.getUserId());
                     getCards.setContext(contextType);
                     GetCardsResponse getCardsResponse = eventServicePortType.getCards(getCards);
+                    //
+                    System.out.println("    ------------------------------------     ");
+                    System.out.println("    ------------------------------------     ");
+                    System.out.println("    ------------------------------------     ");
+                    Integer numberOfCards = getCardsResponse.getCards().getCard().size();
+                    String expirationString = null;
+                    for(int i=0;i<numberOfCards;i++){
+                        String cardType = getCardsResponse.getCards().getCard().get(i).getCardType().toString();
+                        if (cardType == "SMC_KT") {
+                            expirationString  = getCardsResponse.getCards().getCard().get(i).getCertificateExpirationDate().toString();
+                            Date expirationDate = new SimpleDateFormat("yyyy-MM-dd").parse(expirationString);
+                            LocalDate theTimeNow = LocalDate.now();
+                            System.out.println(expirationString);
+                            System.out.println(expirationDate);
+                            System.out.println(theTimeNow);
+                            break;
+                        }
+                    }
+
+
+                    //
                     return getCardsResponse.getCards().getCard().size();
                 };
-                
+
+
                 try {
                     Gauge<Integer> currentlyConnectedCards  = applicationRegistry.gauge(Metadata.builder()
                     .withName("currentlyConnectedCards_"+runtimeConfig.getUrl())

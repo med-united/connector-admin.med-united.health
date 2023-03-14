@@ -13,6 +13,10 @@ public class Scheduler {
     @GET
     @Path("/monitorConnectors")
     public void monitorConnectors() {
-        scheduler.monitorConnectors();
+        try {
+            scheduler.monitorConnectors();
+        } catch (Throwable e) {
+            throw new RuntimeException(e);
+        }
     }
 }
