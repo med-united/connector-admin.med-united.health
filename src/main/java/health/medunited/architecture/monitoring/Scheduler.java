@@ -7,10 +7,8 @@ import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
 import java.text.SimpleDateFormat;
-import java.time.Duration;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
+import java.time.*;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -104,7 +102,7 @@ public class Scheduler {
 
 
 
-                Callable<Float> daydiffCallable = () -> {
+                Callable<Long> daydiffCallable = () -> {
                     GetCards getCards = new GetCards();
                     ContextType contextType = new ContextType();
                     contextType.setMandantId(runtimeConfig.getMandantId());
@@ -125,7 +123,21 @@ public class Scheduler {
                             ZonedDateTime futureExpiration = expirationDate.toInstant().atZone(ZoneId.of("Europe/Berlin"));
                             Duration duration = Duration.between(now,futureExpiration);
                             Float daysDuration = (float) duration.toSeconds()/(24*60*60);
-                            return daysDuration;
+
+                            LocalDate today = LocalDate.now();
+                            LocalDate birthday = LocalDate.of(expirationDate.getYear(),expirationDate.getMonth(),expirationDate.getDay());
+
+                            Period p = Period.between(today,birthday);
+                            long p2 = ChronoUnit.DAYS.between(today,birthday);
+                            System.out.println("-------------------------");
+                            System.out.println("-------------------------");
+                            System.out.println("-------------------------");
+                            System.out.println(birthday);
+                            System.out.println("You are " + p.getYears() + " years, " + p.getMonths() +
+                                    " months, and " + p.getDays() +
+                                    " days old. (" + p2 + " days total)");
+
+                            return expirationDate.toInstant().toEpochMilli();
                         }
                     }
                     //unlikely to reach
@@ -133,11 +145,11 @@ public class Scheduler {
                 };
 
                 try {
-                    Gauge<Float> daysLefTillExpiry  = applicationRegistry.gauge(Metadata.builder()
+                    Gauge<Long> daysLefTillExpiry  = applicationRegistry.gauge(Metadata.builder()
                             .withName("daysLeftUntilSMC_KTexpiry_"+runtimeConfig.getUrl())
                             .withDescription("Number of days left until the SMC_KT card expires "+runtimeConfig.getUrl())
                             .build(), () -> {
-                        Float daysLefTillExpiryFlt;
+                        Long daysLefTillExpiryFlt;
                         try {
                             daysLefTillExpiryFlt = connectorResponseTime.time(daydiffCallable);
                             log.info("Currently connected cards: "+daysLefTillExpiryFlt+" "+runtimeConfig.getUrl());
