@@ -102,7 +102,8 @@ public class Scheduler {
 
 
 
-                Callable<Long> daydiffCallable = () -> {
+
+                Callable<Integer> yearsCallable = () -> {
                     GetCards getCards = new GetCards();
                     ContextType contextType = new ContextType();
                     contextType.setMandantId(runtimeConfig.getMandantId());
@@ -122,22 +123,115 @@ public class Scheduler {
                             ZonedDateTime now = ZonedDateTime.now();
                             ZonedDateTime futureExpiration = expirationDate.toInstant().atZone(ZoneId.of("Europe/Berlin"));
                             Duration duration = Duration.between(now,futureExpiration);
-                            Float daysDuration = (float) duration.toSeconds()/(24*60*60);
 
                             LocalDate today = LocalDate.now();
-                            LocalDate birthday = LocalDate.of(expirationDate.getYear(),expirationDate.getMonth(),expirationDate.getDay());
+                            LocalDate futureExpiration2 = LocalDate.of(futureExpiration.getYear(), expirationDate.getMonth(),expirationDate.getDay());
 
-                            Period p = Period.between(today,birthday);
-                            long p2 = ChronoUnit.DAYS.between(today,birthday);
-                            System.out.println("-------------------------");
-                            System.out.println("-------------------------");
-                            System.out.println("-------------------------");
-                            System.out.println(birthday);
-                            System.out.println("You are " + p.getYears() + " years, " + p.getMonths() +
-                                    " months, and " + p.getDays() +
-                                    " days old. (" + p2 + " days total)");
+                            Period p = Period.between(today,futureExpiration2);
+                            long p2 = ChronoUnit.DAYS.between(today,futureExpiration2);
 
-                            return expirationDate.toInstant().toEpochMilli();
+                            return p.getYears();
+                        }
+                    }
+                    //unlikely to reach
+                    return null;
+                };
+
+                Callable<Integer> monthsCallable = () -> {
+                    GetCards getCards = new GetCards();
+                    ContextType contextType = new ContextType();
+                    contextType.setMandantId(runtimeConfig.getMandantId());
+                    contextType.setClientSystemId(runtimeConfig.getClientSystemId());
+                    contextType.setWorkplaceId(runtimeConfig.getWorkplaceId());
+                    contextType.setUserId(runtimeConfig.getUserId());
+                    getCards.setContext(contextType);
+                    GetCardsResponse getCardsResponse = eventServicePortType.getCards(getCards);
+                    Integer numberOfCards = getCardsResponse.getCards().getCard().size();
+                    String expirationString = null;
+                    for(int i=0;i<numberOfCards;i++){
+                        String cardType = getCardsResponse.getCards().getCard().get(i).getCardType().toString();
+                        if (cardType == "SMC_KT") {
+                            expirationString  = getCardsResponse.getCards().getCard().get(i).getCertificateExpirationDate().toString();
+                            Date expirationDate = new SimpleDateFormat("yyyy-MM-dd").parse(expirationString);
+
+                            ZonedDateTime now = ZonedDateTime.now();
+                            ZonedDateTime futureExpiration = expirationDate.toInstant().atZone(ZoneId.of("Europe/Berlin"));
+                            Duration duration = Duration.between(now,futureExpiration);
+
+                            LocalDate today = LocalDate.now();
+                            LocalDate futureExpiration2 = LocalDate.of(futureExpiration.getYear(), expirationDate.getMonth(),expirationDate.getDay());
+
+                            Period p = Period.between(today,futureExpiration2);
+                            long p2 = ChronoUnit.DAYS.between(today,futureExpiration2);
+
+                            return p.getMonths();
+                        }
+                    }
+                    //unlikely to reach
+                    return null;
+                };
+
+                Callable<Integer> daysCallable = () -> {
+                    GetCards getCards = new GetCards();
+                    ContextType contextType = new ContextType();
+                    contextType.setMandantId(runtimeConfig.getMandantId());
+                    contextType.setClientSystemId(runtimeConfig.getClientSystemId());
+                    contextType.setWorkplaceId(runtimeConfig.getWorkplaceId());
+                    contextType.setUserId(runtimeConfig.getUserId());
+                    getCards.setContext(contextType);
+                    GetCardsResponse getCardsResponse = eventServicePortType.getCards(getCards);
+                    Integer numberOfCards = getCardsResponse.getCards().getCard().size();
+                    String expirationString = null;
+                    for(int i=0;i<numberOfCards;i++){
+                        String cardType = getCardsResponse.getCards().getCard().get(i).getCardType().toString();
+                        if (cardType == "SMC_KT") {
+                            expirationString  = getCardsResponse.getCards().getCard().get(i).getCertificateExpirationDate().toString();
+                            Date expirationDate = new SimpleDateFormat("yyyy-MM-dd").parse(expirationString);
+
+                            ZonedDateTime now = ZonedDateTime.now();
+                            ZonedDateTime futureExpiration = expirationDate.toInstant().atZone(ZoneId.of("Europe/Berlin"));
+                            Duration duration = Duration.between(now,futureExpiration);
+
+                            LocalDate today = LocalDate.now();
+                            LocalDate futureExpiration2 = LocalDate.of(futureExpiration.getYear(), expirationDate.getMonth(),expirationDate.getDay());
+
+                            Period p = Period.between(today,futureExpiration2);
+                            long p2 = ChronoUnit.DAYS.between(today,futureExpiration2);
+
+                            return p.getDays();
+                        }
+                    }
+                    //unlikely to reach
+                    return null;
+                };
+
+                Callable<Integer> durationCallable = () -> {
+                    GetCards getCards = new GetCards();
+                    ContextType contextType = new ContextType();
+                    contextType.setMandantId(runtimeConfig.getMandantId());
+                    contextType.setClientSystemId(runtimeConfig.getClientSystemId());
+                    contextType.setWorkplaceId(runtimeConfig.getWorkplaceId());
+                    contextType.setUserId(runtimeConfig.getUserId());
+                    getCards.setContext(contextType);
+                    GetCardsResponse getCardsResponse = eventServicePortType.getCards(getCards);
+                    Integer numberOfCards = getCardsResponse.getCards().getCard().size();
+                    String expirationString = null;
+                    for(int i=0;i<numberOfCards;i++){
+                        String cardType = getCardsResponse.getCards().getCard().get(i).getCardType().toString();
+                        if (cardType == "SMC_KT") {
+                            expirationString  = getCardsResponse.getCards().getCard().get(i).getCertificateExpirationDate().toString();
+                            Date expirationDate = new SimpleDateFormat("yyyy-MM-dd").parse(expirationString);
+
+                            ZonedDateTime now = ZonedDateTime.now();
+                            ZonedDateTime futureExpiration = expirationDate.toInstant().atZone(ZoneId.of("Europe/Berlin"));
+                            Duration duration = Duration.between(now,futureExpiration);
+
+                            LocalDate today = LocalDate.now();
+                            LocalDate futureExpiration2 = LocalDate.of(futureExpiration.getYear(), expirationDate.getMonth(),expirationDate.getDay());
+
+                            Period p = Period.between(today,futureExpiration2);
+                            long p2 = ChronoUnit.DAYS.between(today,futureExpiration2);
+                            return (int) p2;
                         }
                     }
                     //unlikely to reach
@@ -145,15 +239,53 @@ public class Scheduler {
                 };
 
                 try {
-                    Gauge<Long> daysLefTillExpiry  = applicationRegistry.gauge(Metadata.builder()
-                            .withName("daysLeftUntilSMC_KTexpiry_"+runtimeConfig.getUrl())
-                            .withDescription("Number of days left until the SMC_KT card expires "+runtimeConfig.getUrl())
+                    Gauge<Integer> someVar  = applicationRegistry.gauge(Metadata.builder()
+                            .withName("yearsPeriodLeftUntilSMC_KTexpiry_"+runtimeConfig.getUrl())
+                            .withDescription("period of left years until the SMC_KT card expires "+runtimeConfig.getUrl())
                             .build(), () -> {
-                        Long daysLefTillExpiryFlt;
+                        Integer yearsLefTillExpiryInt;
                         try {
-                            daysLefTillExpiryFlt = connectorResponseTime.time(daydiffCallable);
-                            log.info("Currently connected cards: "+daysLefTillExpiryFlt+" "+runtimeConfig.getUrl());
-                            return daysLefTillExpiryFlt;
+                            yearsLefTillExpiryInt = connectorResponseTime.time(yearsCallable);
+                            log.info("Currently connected cards: "+yearsLefTillExpiryInt+" "+runtimeConfig.getUrl());
+                            return yearsLefTillExpiryInt;
+                        } catch (Exception e) {
+                            log.log(Level.WARNING, "Can't measure connector", e);
+                        }
+                        return null;
+                    });
+                } catch (Exception e) {
+                    log.log(Level.WARNING, "Can't measure connector", e);
+                }
+
+                try {
+                    Gauge<Integer> someVar  = applicationRegistry.gauge(Metadata.builder()
+                            .withName("monthsPeriodLeftUntilSMC_KTexpiry_"+runtimeConfig.getUrl())
+                            .withDescription("period of left months until the SMC_KT card expires "+runtimeConfig.getUrl())
+                            .build(), () -> {
+                        Integer monthsLefTillExpiryInt;
+                        try {
+                            monthsLefTillExpiryInt = connectorResponseTime.time(monthsCallable);
+                            log.info("Currently connected cards: "+monthsLefTillExpiryInt+" "+runtimeConfig.getUrl());
+                            return monthsLefTillExpiryInt;
+                        } catch (Exception e) {
+                            log.log(Level.WARNING, "Can't measure connector", e);
+                        }
+                        return null;
+                    });
+                } catch (Exception e) {
+                    log.log(Level.WARNING, "Can't measure connector", e);
+                }
+
+                try {
+                    Gauge<Integer> someVar  = applicationRegistry.gauge(Metadata.builder()
+                            .withName("daysPeriodLeftUntilSMC_KTexpiry_"+runtimeConfig.getUrl())
+                            .withDescription("period of left days until the SMC_KT card expires "+runtimeConfig.getUrl())
+                            .build(), () -> {
+                        Integer daysLefTillExpiryInt;
+                        try {
+                            daysLefTillExpiryInt = connectorResponseTime.time(daysCallable);
+                            log.info("Currently connected cards: "+daysLefTillExpiryInt+" "+runtimeConfig.getUrl());
+                            return daysLefTillExpiryInt;
                         } catch (Exception e) {
                             log.log(Level.WARNING, "Can't measure connector", e);
                         }
@@ -164,9 +296,24 @@ public class Scheduler {
                 }
 
 
-
-
-
+                try {
+                    Gauge<Integer> someVar  = applicationRegistry.gauge(Metadata.builder()
+                            .withName("daysDurationLeftUntilSMC_KTexpiry_"+runtimeConfig.getUrl())
+                            .withDescription("duration of left days until the SMC_KT card expires "+runtimeConfig.getUrl())
+                            .build(), () -> {
+                        Integer daysDurationLefTillExpiryInt;
+                        try {
+                            daysDurationLefTillExpiryInt = connectorResponseTime.time(durationCallable);
+                            log.info("Currently connected cards: "+daysDurationLefTillExpiryInt+" "+runtimeConfig.getUrl());
+                            return daysDurationLefTillExpiryInt;
+                        } catch (Exception e) {
+                            log.log(Level.WARNING, "Can't measure connector", e);
+                        }
+                        return null;
+                    });
+                } catch (Exception e) {
+                    log.log(Level.WARNING, "Can't measure connector", e);
+                }
 
 
 
