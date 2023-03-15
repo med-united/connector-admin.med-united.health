@@ -205,6 +205,42 @@ public class Scheduler {
                     return null;
                 };
 
+                Callable<Long> millisecondCallable = () -> {
+                    GetCards getCards = new GetCards();
+                    ContextType contextType = new ContextType();
+                    contextType.setMandantId(runtimeConfig.getMandantId());
+                    contextType.setClientSystemId(runtimeConfig.getClientSystemId());
+                    contextType.setWorkplaceId(runtimeConfig.getWorkplaceId());
+                    contextType.setUserId(runtimeConfig.getUserId());
+                    getCards.setContext(contextType);
+                    GetCardsResponse getCardsResponse = eventServicePortType.getCards(getCards);
+                    Integer numberOfCards = getCardsResponse.getCards().getCard().size();
+                    String expirationString = null;
+                    for(int i=0;i<numberOfCards;i++){
+                        String cardType = getCardsResponse.getCards().getCard().get(i).getCardType().toString();
+                        if (cardType == "SMC_KT") {
+                            expirationString  = getCardsResponse.getCards().getCard().get(i).getCertificateExpirationDate().toString();
+                            Date expirationDate = new SimpleDateFormat("yyyy-MM-dd").parse(expirationString);
+
+                            ZonedDateTime now = ZonedDateTime.now();
+                            ZonedDateTime futureExpiration = expirationDate.toInstant().atZone(ZoneId.of("Europe/Berlin"));
+                            Duration duration = Duration.between(now,futureExpiration);
+
+                            LocalDate today = LocalDate.now();
+                            LocalDate futureExpiration2 = LocalDate.of(futureExpiration.getYear(), expirationDate.getMonth(),expirationDate.getDay());
+
+                            Period p = Period.between(today,futureExpiration2);
+                            long p2 = ChronoUnit.MILLIS.between(today,futureExpiration2);
+
+                            return p2;
+                        }
+                    }
+                    //unlikely to reach
+                    return null;
+                };
+
+
+
                 Callable<Integer> durationCallable = () -> {
                     GetCards getCards = new GetCards();
                     ContextType contextType = new ContextType();
@@ -306,6 +342,25 @@ public class Scheduler {
                             daysDurationLefTillExpiryInt = connectorResponseTime.time(durationCallable);
                             log.info("Currently connected cards: "+daysDurationLefTillExpiryInt+" "+runtimeConfig.getUrl());
                             return daysDurationLefTillExpiryInt;
+                        } catch (Exception e) {
+                            log.log(Level.WARNING, "Can't measure connector", e);
+                        }
+                        return null;
+                    });
+                } catch (Exception e) {
+                    log.log(Level.WARNING, "Can't measure connector", e);
+                }
+
+                try {
+                    Gauge<Long> someVar  = applicationRegistry.gauge(Metadata.builder()
+                            .withName("millisecondsDurationLeftUntilSMC_KTexpiry_"+runtimeConfig.getUrl())
+                            .withDescription("duration of milliseconds until the SMC_KT card expires "+runtimeConfig.getUrl())
+                            .build(), () -> {
+                        Long millisecondsDurationLefTillExpiryLng;
+                        try {
+                            millisecondsDurationLefTillExpiryLng = connectorResponseTime.time(millisecondCallable);
+                            log.info("Currently connected cards: "+millisecondsDurationLefTillExpiryLng+" "+runtimeConfig.getUrl());
+                            return millisecondsDurationLefTillExpiryLng;
                         } catch (Exception e) {
                             log.log(Level.WARNING, "Can't measure connector", e);
                         }
