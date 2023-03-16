@@ -8,7 +8,6 @@ import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
 import java.text.SimpleDateFormat;
 import java.time.*;
-import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -38,8 +37,6 @@ import health.medunited.architecture.provider.ConnectorServicesProducer;
 import health.medunited.architecture.service.common.security.SecretsManagerService;
 import health.medunited.architecture.service.endpoint.EndpointDiscoveryService;
 import health.medunited.architecture.jaxrs.resource.Event;
-
-import static health.medunited.architecture.provider.ContextTypeProducer.copyValuesFromProxyIntoContextType;
 
 @Singleton
 public class Scheduler {
