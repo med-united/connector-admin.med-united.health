@@ -225,14 +225,56 @@ public class Scheduler {
                             ZonedDateTime now = ZonedDateTime.now();
                             ZonedDateTime futureExpiration = expirationDate.toInstant().atZone(ZoneId.of("Europe/Berlin"));
                             Duration duration = Duration.between(now,futureExpiration);
+                            Float daysDuration = (float) duration.toSeconds()/(24*60*60);
+                            return expirationDate.getTime();
+                        }
+                    }
+                    //unlikely to reach
+                    return null;
+                };
+
+                Callable<Long> millisecondNowCallable = () -> {
+                    GetCards getCards = new GetCards();
+                    ContextType contextType = new ContextType();
+                    contextType.setMandantId(runtimeConfig.getMandantId());
+                    contextType.setClientSystemId(runtimeConfig.getClientSystemId());
+                    contextType.setWorkplaceId(runtimeConfig.getWorkplaceId());
+                    contextType.setUserId(runtimeConfig.getUserId());
+                    getCards.setContext(contextType);
+                    GetCardsResponse getCardsResponse = eventServicePortType.getCards(getCards);
+                    Integer numberOfCards = getCardsResponse.getCards().getCard().size();
+                    String expirationString = null;
+                    for(int i=0;i<numberOfCards;i++){
+                        String cardType = getCardsResponse.getCards().getCard().get(i).getCardType().toString();
+                        if (cardType == "SMC_KT") {
+                            expirationString  = getCardsResponse.getCards().getCard().get(i).getCertificateExpirationDate().toString();
+                            Date expirationDate = new SimpleDateFormat("yyyy-MM-dd").parse(expirationString);
+
+                            ZonedDateTime now = ZonedDateTime.now();
+                            ZonedDateTime futureExpiration = expirationDate.toInstant().atZone(ZoneId.of("Europe/Berlin"));
+                            Duration duration = Duration.between(now,futureExpiration);
+                            Float daysDuration = (float) duration.toSeconds()/(24*60*60);
+
 
                             LocalDate today = LocalDate.now();
                             LocalDate futureExpiration2 = LocalDate.of(futureExpiration.getYear(), expirationDate.getMonth(),expirationDate.getDay());
 
                             Period p = Period.between(today,futureExpiration2);
-                            long p2 = ChronoUnit.MILLIS.between(today,futureExpiration2);
+                            long p2 = ChronoUnit.DAYS.between(today,futureExpiration2);
 
-                            return p2;
+                            System.out.println("-----------------");
+                            System.out.println("-----------------");
+                            System.out.println("-----------------");
+                            System.out.println("-----------------");
+
+                            System.out.println("You are " + p.getYears() + " years, " + p.getMonths() +
+                                    " months, and " + p.getDays() +
+                                    " days old. (" + p2 + " days total)");
+
+
+                            return new Date().getTime();
+
+                            //return p2;
                         }
                     }
                     //unlikely to reach
@@ -267,12 +309,36 @@ public class Scheduler {
 
                             Period p = Period.between(today,futureExpiration2);
                             long p2 = ChronoUnit.DAYS.between(today,futureExpiration2);
+
                             return (int) p2;
                         }
                     }
                     //unlikely to reach
                     return null;
                 };
+
+
+
+
+                try {
+                    Gauge<Long> someVar  = applicationRegistry.gauge(Metadata.builder()
+                            .withName("nowInMilliseconds_"+runtimeConfig.getUrl())
+                            .withDescription("the moment of now in milliseconds "+runtimeConfig.getUrl())
+                            .build(), () -> {
+                        Long nowMilliseconds;
+                        try {
+                            nowMilliseconds = connectorResponseTime.time(millisecondNowCallable);
+                            log.info("Currently connected cards: "+nowMilliseconds+" "+runtimeConfig.getUrl());
+                            return nowMilliseconds;
+                        } catch (Exception e) {
+                            log.log(Level.WARNING, "Can't measure connector", e);
+                        }
+                        return null;
+                    });
+                } catch (Exception e) {
+                    log.log(Level.WARNING, "Can't measure connector", e);
+                }
+
 
                 try {
                     Gauge<Integer> someVar  = applicationRegistry.gauge(Metadata.builder()
