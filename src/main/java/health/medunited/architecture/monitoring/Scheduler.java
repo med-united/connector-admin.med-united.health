@@ -36,7 +36,6 @@ import health.medunited.architecture.entities.RuntimeConfig;
 import health.medunited.architecture.provider.ConnectorServicesProducer;
 import health.medunited.architecture.service.common.security.SecretsManagerService;
 import health.medunited.architecture.service.endpoint.EndpointDiscoveryService;
-import health.medunited.architecture.jaxrs.resource.Event;
 
 @Singleton
 public class Scheduler {
@@ -47,9 +46,6 @@ public class Scheduler {
 
     @PersistenceContext
     EntityManager entityManager;
-
-    @Inject
-    Event event;
 
     private static Logger log = Logger.getLogger(Scheduler.class.getName());
 
