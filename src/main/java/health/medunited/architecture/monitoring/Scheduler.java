@@ -57,7 +57,7 @@ public class Scheduler {
     private static Logger log = Logger.getLogger(Scheduler.class.getName());
 
     @Schedule(second = "*/15", minute = "*", hour = "*", persistent = false)
-    public void monitorConnectors() throws Throwable {
+    public void monitorConnectors() {
         log.info("Scanning Connectors");
 
         TypedQuery<RuntimeConfig> query =
