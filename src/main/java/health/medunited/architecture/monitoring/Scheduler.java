@@ -102,8 +102,7 @@ public class Scheduler {
 
 
 
-
-                Callable<Integer> yearsCallable = () -> {
+                Callable<Long> secondsCallable = () -> {
                     GetCards getCards = new GetCards();
                     ContextType contextType = new ContextType();
                     contextType.setMandantId(runtimeConfig.getMandantId());
@@ -113,318 +112,44 @@ public class Scheduler {
                     getCards.setContext(contextType);
                     GetCardsResponse getCardsResponse = eventServicePortType.getCards(getCards);
                     Integer numberOfCards = getCardsResponse.getCards().getCard().size();
-                    String expirationString = null;
+                    String expirationString = "2024-01-01";
                     for(int i=0;i<numberOfCards;i++){
                         String cardType = getCardsResponse.getCards().getCard().get(i).getCardType().toString();
                         if (cardType == "SMC_KT") {
                             expirationString  = getCardsResponse.getCards().getCard().get(i).getCertificateExpirationDate().toString();
-                            Date expirationDate = new SimpleDateFormat("yyyy-MM-dd").parse(expirationString);
+                            String expirationStringShorter = expirationString.substring(0,expirationString.length()-1)+"T00:00:00.00";
 
-                            ZonedDateTime now = ZonedDateTime.now();
-                            ZonedDateTime futureExpiration = expirationDate.toInstant().atZone(ZoneId.of("Europe/Berlin"));
-                            Duration duration = Duration.between(now,futureExpiration);
 
-                            LocalDate today = LocalDate.now();
-                            LocalDate futureExpiration2 = LocalDate.of(futureExpiration.getYear(), expirationDate.getMonth(),expirationDate.getDay());
+                            Duration duration7 = Duration.between(
+                                    LocalDateTime.now(),
+                                    LocalDateTime.parse(expirationStringShorter)
+                                    );
 
-                            Period p = Period.between(today,futureExpiration2);
-                            long p2 = ChronoUnit.DAYS.between(today,futureExpiration2);
+                            System.out.println(expirationStringShorter);
+                            System.out.println("SECONDS   : " + duration7.get(ChronoUnit.SECONDS));
+                            System.out.println(LocalDateTime.parse(expirationStringShorter).getYear());
+                            System.out.println(LocalDateTime.parse(expirationStringShorter).getMonth());
+                            System.out.println(LocalDateTime.parse(expirationStringShorter).getDayOfMonth()+" day");
 
-                            return p.getYears();
+
+
+                            return duration7.get(ChronoUnit.SECONDS);
                         }
                     }
                     //unlikely to reach
                     return null;
                 };
-
-                Callable<Integer> monthsCallable = () -> {
-                    GetCards getCards = new GetCards();
-                    ContextType contextType = new ContextType();
-                    contextType.setMandantId(runtimeConfig.getMandantId());
-                    contextType.setClientSystemId(runtimeConfig.getClientSystemId());
-                    contextType.setWorkplaceId(runtimeConfig.getWorkplaceId());
-                    contextType.setUserId(runtimeConfig.getUserId());
-                    getCards.setContext(contextType);
-                    GetCardsResponse getCardsResponse = eventServicePortType.getCards(getCards);
-                    Integer numberOfCards = getCardsResponse.getCards().getCard().size();
-                    String expirationString = null;
-                    for(int i=0;i<numberOfCards;i++){
-                        String cardType = getCardsResponse.getCards().getCard().get(i).getCardType().toString();
-                        if (cardType == "SMC_KT") {
-                            expirationString  = getCardsResponse.getCards().getCard().get(i).getCertificateExpirationDate().toString();
-                            Date expirationDate = new SimpleDateFormat("yyyy-MM-dd").parse(expirationString);
-
-                            ZonedDateTime now = ZonedDateTime.now();
-                            ZonedDateTime futureExpiration = expirationDate.toInstant().atZone(ZoneId.of("Europe/Berlin"));
-                            Duration duration = Duration.between(now,futureExpiration);
-
-                            LocalDate today = LocalDate.now();
-                            LocalDate futureExpiration2 = LocalDate.of(futureExpiration.getYear(), expirationDate.getMonth(),expirationDate.getDay());
-
-                            Period p = Period.between(today,futureExpiration2);
-                            long p2 = ChronoUnit.DAYS.between(today,futureExpiration2);
-
-                            return p.getMonths();
-                        }
-                    }
-                    //unlikely to reach
-                    return null;
-                };
-
-                Callable<Integer> daysCallable = () -> {
-                    GetCards getCards = new GetCards();
-                    ContextType contextType = new ContextType();
-                    contextType.setMandantId(runtimeConfig.getMandantId());
-                    contextType.setClientSystemId(runtimeConfig.getClientSystemId());
-                    contextType.setWorkplaceId(runtimeConfig.getWorkplaceId());
-                    contextType.setUserId(runtimeConfig.getUserId());
-                    getCards.setContext(contextType);
-                    GetCardsResponse getCardsResponse = eventServicePortType.getCards(getCards);
-                    Integer numberOfCards = getCardsResponse.getCards().getCard().size();
-                    String expirationString = null;
-                    for(int i=0;i<numberOfCards;i++){
-                        String cardType = getCardsResponse.getCards().getCard().get(i).getCardType().toString();
-                        if (cardType == "SMC_KT") {
-                            expirationString  = getCardsResponse.getCards().getCard().get(i).getCertificateExpirationDate().toString();
-                            Date expirationDate = new SimpleDateFormat("yyyy-MM-dd").parse(expirationString);
-
-                            ZonedDateTime now = ZonedDateTime.now();
-                            ZonedDateTime futureExpiration = expirationDate.toInstant().atZone(ZoneId.of("Europe/Berlin"));
-                            Duration duration = Duration.between(now,futureExpiration);
-
-                            LocalDate today = LocalDate.now();
-                            LocalDate futureExpiration2 = LocalDate.of(futureExpiration.getYear(), expirationDate.getMonth(),expirationDate.getDay());
-
-                            Period p = Period.between(today,futureExpiration2);
-                            long p2 = ChronoUnit.DAYS.between(today,futureExpiration2);
-
-                            return p.getDays();
-                        }
-                    }
-                    //unlikely to reach
-                    return null;
-                };
-
-                Callable<Long> millisecondCallable = () -> {
-                    GetCards getCards = new GetCards();
-                    ContextType contextType = new ContextType();
-                    contextType.setMandantId(runtimeConfig.getMandantId());
-                    contextType.setClientSystemId(runtimeConfig.getClientSystemId());
-                    contextType.setWorkplaceId(runtimeConfig.getWorkplaceId());
-                    contextType.setUserId(runtimeConfig.getUserId());
-                    getCards.setContext(contextType);
-                    GetCardsResponse getCardsResponse = eventServicePortType.getCards(getCards);
-                    Integer numberOfCards = getCardsResponse.getCards().getCard().size();
-                    String expirationString = null;
-                    for(int i=0;i<numberOfCards;i++){
-                        String cardType = getCardsResponse.getCards().getCard().get(i).getCardType().toString();
-                        if (cardType == "SMC_KT") {
-                            expirationString  = getCardsResponse.getCards().getCard().get(i).getCertificateExpirationDate().toString();
-                            Date expirationDate = new SimpleDateFormat("yyyy-MM-dd").parse(expirationString);
-
-                            ZonedDateTime now = ZonedDateTime.now();
-                            ZonedDateTime futureExpiration = expirationDate.toInstant().atZone(ZoneId.of("Europe/Berlin"));
-                            Duration duration = Duration.between(now,futureExpiration);
-                            Float daysDuration = (float) duration.toSeconds()/(24*60*60);
-                            return expirationDate.getTime();
-                        }
-                    }
-                    //unlikely to reach
-                    return null;
-                };
-
-                Callable<Long> millisecondNowCallable = () -> {
-                    GetCards getCards = new GetCards();
-                    ContextType contextType = new ContextType();
-                    contextType.setMandantId(runtimeConfig.getMandantId());
-                    contextType.setClientSystemId(runtimeConfig.getClientSystemId());
-                    contextType.setWorkplaceId(runtimeConfig.getWorkplaceId());
-                    contextType.setUserId(runtimeConfig.getUserId());
-                    getCards.setContext(contextType);
-                    GetCardsResponse getCardsResponse = eventServicePortType.getCards(getCards);
-                    Integer numberOfCards = getCardsResponse.getCards().getCard().size();
-                    String expirationString = null;
-                    for(int i=0;i<numberOfCards;i++){
-                        String cardType = getCardsResponse.getCards().getCard().get(i).getCardType().toString();
-                        if (cardType == "SMC_KT") {
-                            expirationString  = getCardsResponse.getCards().getCard().get(i).getCertificateExpirationDate().toString();
-                            Date expirationDate = new SimpleDateFormat("yyyy-MM-dd").parse(expirationString);
-
-                            ZonedDateTime now = ZonedDateTime.now();
-                            ZonedDateTime futureExpiration = expirationDate.toInstant().atZone(ZoneId.of("Europe/Berlin"));
-                            Duration duration = Duration.between(now,futureExpiration);
-                            Float daysDuration = (float) duration.toSeconds()/(24*60*60);
-
-
-                            LocalDate today = LocalDate.now();
-                            LocalDate futureExpiration2 = LocalDate.of(futureExpiration.getYear(), expirationDate.getMonth(),expirationDate.getDay());
-
-                            Period p = Period.between(today,futureExpiration2);
-                            long p2 = ChronoUnit.DAYS.between(today,futureExpiration2);
-
-                            System.out.println("-----------------");
-                            System.out.println("-----------------");
-                            System.out.println("-----------------");
-                            System.out.println("-----------------");
-
-                            System.out.println("You are " + p.getYears() + " years, " + p.getMonths() +
-                                    " months, and " + p.getDays() +
-                                    " days old. (" + p2 + " days total)");
-
-
-                            return new Date().getTime();
-
-                            //return p2;
-                        }
-                    }
-                    //unlikely to reach
-                    return null;
-                };
-
-
-
-                Callable<Integer> durationCallable = () -> {
-                    GetCards getCards = new GetCards();
-                    ContextType contextType = new ContextType();
-                    contextType.setMandantId(runtimeConfig.getMandantId());
-                    contextType.setClientSystemId(runtimeConfig.getClientSystemId());
-                    contextType.setWorkplaceId(runtimeConfig.getWorkplaceId());
-                    contextType.setUserId(runtimeConfig.getUserId());
-                    getCards.setContext(contextType);
-                    GetCardsResponse getCardsResponse = eventServicePortType.getCards(getCards);
-                    Integer numberOfCards = getCardsResponse.getCards().getCard().size();
-                    String expirationString = null;
-                    for(int i=0;i<numberOfCards;i++){
-                        String cardType = getCardsResponse.getCards().getCard().get(i).getCardType().toString();
-                        if (cardType == "SMC_KT") {
-                            expirationString  = getCardsResponse.getCards().getCard().get(i).getCertificateExpirationDate().toString();
-                            Date expirationDate = new SimpleDateFormat("yyyy-MM-dd").parse(expirationString);
-
-                            ZonedDateTime now = ZonedDateTime.now();
-                            ZonedDateTime futureExpiration = expirationDate.toInstant().atZone(ZoneId.of("Europe/Berlin"));
-                            Duration duration = Duration.between(now,futureExpiration);
-
-                            LocalDate today = LocalDate.now();
-                            LocalDate futureExpiration2 = LocalDate.of(futureExpiration.getYear(), expirationDate.getMonth(),expirationDate.getDay());
-
-                            Period p = Period.between(today,futureExpiration2);
-                            long p2 = ChronoUnit.DAYS.between(today,futureExpiration2);
-
-                            return (int) p2;
-                        }
-                    }
-                    //unlikely to reach
-                    return null;
-                };
-
 
 
 
                 try {
                     Gauge<Long> someVar  = applicationRegistry.gauge(Metadata.builder()
-                            .withName("nowInMilliseconds_"+runtimeConfig.getUrl())
-                            .withDescription("the moment of now in milliseconds "+runtimeConfig.getUrl())
-                            .build(), () -> {
-                        Long nowMilliseconds;
-                        try {
-                            nowMilliseconds = connectorResponseTime.time(millisecondNowCallable);
-                            log.info("Currently connected cards: "+nowMilliseconds+" "+runtimeConfig.getUrl());
-                            return nowMilliseconds;
-                        } catch (Exception e) {
-                            log.log(Level.WARNING, "Can't measure connector", e);
-                        }
-                        return null;
-                    });
-                } catch (Exception e) {
-                    log.log(Level.WARNING, "Can't measure connector", e);
-                }
-
-
-                try {
-                    Gauge<Integer> someVar  = applicationRegistry.gauge(Metadata.builder()
-                            .withName("yearsPeriodLeftUntilSMC_KTexpiry_"+runtimeConfig.getUrl())
-                            .withDescription("period of left years until the SMC_KT card expires "+runtimeConfig.getUrl())
-                            .build(), () -> {
-                        Integer yearsLefTillExpiryInt;
-                        try {
-                            yearsLefTillExpiryInt = connectorResponseTime.time(yearsCallable);
-                            log.info("Currently connected cards: "+yearsLefTillExpiryInt+" "+runtimeConfig.getUrl());
-                            return yearsLefTillExpiryInt;
-                        } catch (Exception e) {
-                            log.log(Level.WARNING, "Can't measure connector", e);
-                        }
-                        return null;
-                    });
-                } catch (Exception e) {
-                    log.log(Level.WARNING, "Can't measure connector", e);
-                }
-
-                try {
-                    Gauge<Integer> someVar  = applicationRegistry.gauge(Metadata.builder()
-                            .withName("monthsPeriodLeftUntilSMC_KTexpiry_"+runtimeConfig.getUrl())
-                            .withDescription("period of left months until the SMC_KT card expires "+runtimeConfig.getUrl())
-                            .build(), () -> {
-                        Integer monthsLefTillExpiryInt;
-                        try {
-                            monthsLefTillExpiryInt = connectorResponseTime.time(monthsCallable);
-                            log.info("Currently connected cards: "+monthsLefTillExpiryInt+" "+runtimeConfig.getUrl());
-                            return monthsLefTillExpiryInt;
-                        } catch (Exception e) {
-                            log.log(Level.WARNING, "Can't measure connector", e);
-                        }
-                        return null;
-                    });
-                } catch (Exception e) {
-                    log.log(Level.WARNING, "Can't measure connector", e);
-                }
-
-                try {
-                    Gauge<Integer> someVar  = applicationRegistry.gauge(Metadata.builder()
-                            .withName("daysPeriodLeftUntilSMC_KTexpiry_"+runtimeConfig.getUrl())
-                            .withDescription("period of left days until the SMC_KT card expires "+runtimeConfig.getUrl())
-                            .build(), () -> {
-                        Integer daysLefTillExpiryInt;
-                        try {
-                            daysLefTillExpiryInt = connectorResponseTime.time(daysCallable);
-                            log.info("Currently connected cards: "+daysLefTillExpiryInt+" "+runtimeConfig.getUrl());
-                            return daysLefTillExpiryInt;
-                        } catch (Exception e) {
-                            log.log(Level.WARNING, "Can't measure connector", e);
-                        }
-                        return null;
-                    });
-                } catch (Exception e) {
-                    log.log(Level.WARNING, "Can't measure connector", e);
-                }
-
-
-                try {
-                    Gauge<Integer> someVar  = applicationRegistry.gauge(Metadata.builder()
-                            .withName("daysDurationLeftUntilSMC_KTexpiry_"+runtimeConfig.getUrl())
-                            .withDescription("duration of left days until the SMC_KT card expires "+runtimeConfig.getUrl())
-                            .build(), () -> {
-                        Integer daysDurationLefTillExpiryInt;
-                        try {
-                            daysDurationLefTillExpiryInt = connectorResponseTime.time(durationCallable);
-                            log.info("Currently connected cards: "+daysDurationLefTillExpiryInt+" "+runtimeConfig.getUrl());
-                            return daysDurationLefTillExpiryInt;
-                        } catch (Exception e) {
-                            log.log(Level.WARNING, "Can't measure connector", e);
-                        }
-                        return null;
-                    });
-                } catch (Exception e) {
-                    log.log(Level.WARNING, "Can't measure connector", e);
-                }
-
-                try {
-                    Gauge<Long> someVar  = applicationRegistry.gauge(Metadata.builder()
-                            .withName("millisecondsDurationLeftUntilSMC_KTexpiry_"+runtimeConfig.getUrl())
-                            .withDescription("duration of milliseconds until the SMC_KT card expires "+runtimeConfig.getUrl())
+                            .withName("secondsDurationLeftUntilSMC_KTexpiry_"+runtimeConfig.getUrl())
+                            .withDescription("duration of seconds until the SMC_KT card expires "+runtimeConfig.getUrl())
                             .build(), () -> {
                         Long millisecondsDurationLefTillExpiryLng;
                         try {
-                            millisecondsDurationLefTillExpiryLng = connectorResponseTime.time(millisecondCallable);
+                            millisecondsDurationLefTillExpiryLng = connectorResponseTime.time(secondsCallable);
                             log.info("Currently connected cards: "+millisecondsDurationLefTillExpiryLng+" "+runtimeConfig.getUrl());
                             return millisecondsDurationLefTillExpiryLng;
                         } catch (Exception e) {

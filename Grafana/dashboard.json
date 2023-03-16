@@ -4,8 +4,8 @@
       {
         "builtIn": 1,
         "datasource": {
-          "type": "grafana",
-          "uid": "-- Grafana --"
+          "type": "datasource",
+          "uid": "grafana"
         },
         "enable": true,
         "hide": true,
@@ -21,10 +21,12 @@
       }
     ]
   },
+  "description": "https://github.com/amimof/node-cert-exporter",
   "editable": true,
   "fiscalYearStartMonth": 0,
+  "gnetId": 9999,
   "graphTooltip": 0,
-  "id": 2,
+  "id": 5,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -36,7 +38,7 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "continuous-GrYlRd"
+            "mode": "thresholds"
           },
           "custom": {
             "align": "auto",
@@ -44,165 +46,8 @@
               "mode": "gradient",
               "type": "color-background"
             },
-            "inspect": false
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          }
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Years"
-            },
-            "properties": [
-              {
-                "id": "thresholds",
-                "value": {
-                  "mode": "absolute",
-                  "steps": [
-                    {
-                      "color": "red",
-                      "value": null
-                    },
-                    {
-                      "color": "#EAB839",
-                      "value": 5
-                    }
-                  ]
-                }
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 0
-      },
-      "id": 4,
-      "options": {
-        "footer": {
-          "countRows": false,
-          "fields": "",
-          "reducer": [
-            "sum"
-          ],
-          "show": false
-        },
-        "showHeader": true
-      },
-      "pluginVersion": "9.4.3",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "i94K2YaVz"
-          },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "floor(application_nowInMilliseconds_https___192_168_178_42/365)",
-          "format": "table",
-          "instant": true,
-          "legendFormat": "__auto",
-          "range": false,
-          "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "i94K2YaVz"
-          },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "floor(application_nowInMilliseconds_https___192_168_178_42/365*12-12*floor(application_nowInMilliseconds_https___192_168_178_42/365))",
-          "format": "table",
-          "hide": false,
-          "instant": true,
-          "legendFormat": "__auto",
-          "range": false,
-          "refId": "B"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "i94K2YaVz"
-          },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "application_nowInMilliseconds_https___192_168_178_42 - floor((floor(application_nowInMilliseconds_https___192_168_178_42/365*12-12*floor(application_nowInMilliseconds_https___192_168_178_42/365)))*30.8 +floor(application_nowInMilliseconds_https___192_168_178_42/365)*365)",
-          "format": "table",
-          "hide": false,
-          "instant": true,
-          "legendFormat": "__auto",
-          "range": false,
-          "refId": "C"
-        }
-      ],
-      "title": "All from one value",
-      "transformations": [
-        {
-          "id": "joinByField",
-          "options": {
-            "byField": "instance",
-            "mode": "outer"
-          }
-        },
-        {
-          "id": "organize",
-          "options": {
-            "excludeByName": {
-              "Time 1": true,
-              "Time 2": true,
-              "Time 3": true,
-              "__name__": true,
-              "__name__ 1": true,
-              "__name__ 2": true,
-              "__name__ 3": true,
-              "instance": true,
-              "job 1": true,
-              "job 2": true,
-              "job 3": true
-            },
-            "indexByName": {},
-            "renameByName": {
-              "Value #A": "Years",
-              "Value #B": "Months",
-              "Value #C": "Days"
-            }
-          }
-        }
-      ],
-      "type": "table"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "i94K2YaVz"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "continuous-GrYlRd"
-          },
-          "custom": {
-            "align": "auto",
-            "cellOptions": {
-              "mode": "basic",
-              "type": "color-background"
-            },
             "inspect": false,
-            "minWidth": 50
+            "width": 300
           },
           "mappings": [],
           "thresholds": {
@@ -219,36 +64,104 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "total"
+              "options": "Time"
             },
             "properties": [
               {
-                "id": "custom.width",
-                "value": 50
+                "id": "displayName",
+                "value": "Time"
+              },
+              {
+                "id": "custom.align"
               }
             ]
           },
           {
             "matcher": {
               "id": "byName",
-              "options": "Months"
+              "options": "Value"
             },
             "properties": [
+              {
+                "id": "displayName",
+                "value": "Expires In"
+              },
+              {
+                "id": "unit",
+                "value": "dtdurations"
+              },
+              {
+                "id": "decimals",
+                "value": 3
+              },
+              {
+                "id": "custom.align"
+              },
               {
                 "id": "thresholds",
                 "value": {
                   "mode": "absolute",
                   "steps": [
                     {
-                      "color": "green",
+                      "color": "rgba(245, 54, 54, 0.9)",
                       "value": null
                     },
                     {
-                      "color": "red",
-                      "value": 3
+                      "color": "rgba(237, 129, 40, 0.89)",
+                      "value": 7889231
+                    },
+                    {
+                      "color": "rgba(50, 172, 45, 0.97)",
+                      "value": 15778463
                     }
                   ]
                 }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "kubernetes_pod_node_name"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Node"
+              },
+              {
+                "id": "unit",
+                "value": "short"
+              },
+              {
+                "id": "decimals",
+                "value": 2
+              },
+              {
+                "id": "custom.align"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "path"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Path"
+              },
+              {
+                "id": "unit",
+                "value": "short"
+              },
+              {
+                "id": "decimals",
+                "value": 2
+              },
+              {
+                "id": "custom.align"
               }
             ]
           }
@@ -256,15 +169,15 @@
       },
       "gridPos": {
         "h": 5,
-        "w": 9,
+        "w": 6,
         "x": 0,
-        "y": 8
+        "y": 0
       },
       "id": 2,
+      "links": [],
       "options": {
         "footer": {
           "countRows": false,
-          "enablePagination": false,
           "fields": "",
           "reducer": [
             "sum"
@@ -281,94 +194,27 @@
             "uid": "i94K2YaVz"
           },
           "editorMode": "code",
-          "exemplar": false,
-          "expr": "application_yearsPeriodLeftUntilSMC_KTexpiry_https___192_168_178_42",
+          "expr": "application_secondsDurationLeftUntilSMC_KTexpiry_https___192_168_178_42",
           "format": "table",
           "instant": true,
-          "legendFormat": "__auto",
-          "range": false,
+          "interval": "15s",
+          "intervalFactor": 1,
           "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "i94K2YaVz"
-          },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "application_monthsPeriodLeftUntilSMC_KTexpiry_https___192_168_178_42",
-          "format": "table",
-          "hide": false,
-          "instant": true,
-          "legendFormat": "__auto",
-          "range": false,
-          "refId": "B"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "i94K2YaVz"
-          },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "application_daysPeriodLeftUntilSMC_KTexpiry_https___192_168_178_42",
-          "format": "table",
-          "hide": false,
-          "instant": true,
-          "legendFormat": "__auto",
-          "range": false,
-          "refId": "C"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "i94K2YaVz"
-          },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "application_daysDurationLeftUntilSMC_KTexpiry_https___192_168_178_42",
-          "format": "table",
-          "hide": false,
-          "instant": true,
-          "legendFormat": "__auto",
-          "range": false,
-          "refId": "D"
         }
       ],
-      "title": "Time left until SMC_KT Certificate Expiration",
+      "title": "SMC_KT Certificate Expiration",
       "transformations": [
-        {
-          "id": "joinByField",
-          "options": {
-            "byField": "instance",
-            "mode": "outer"
-          }
-        },
         {
           "id": "organize",
           "options": {
             "excludeByName": {
-              "Time 1": true,
-              "Time 2": true,
-              "Time 3": true,
-              "Time 4": true,
-              "__name__ 1": true,
-              "__name__ 2": true,
-              "__name__ 3": true,
-              "__name__ 4": true,
+              "Time": true,
+              "__name__": true,
               "instance": true,
-              "job 1": true,
-              "job 2": true,
-              "job 3": true,
-              "job 4": true
+              "job": true
             },
             "indexByName": {},
-            "renameByName": {
-              "Value #A": "Years",
-              "Value #B": "Months",
-              "Value #C": "Days",
-              "Value #D": "total"
-            }
+            "renameByName": {}
           }
         }
       ],
@@ -387,10 +233,34 @@
     "from": "now-5m",
     "to": "now"
   },
-  "timepicker": {},
-  "timezone": "",
-  "title": "Final Attempt",
-  "uid": "O0QqbLa4z",
-  "version": 20,
-  "weekStart": ""
+  "timepicker": {
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ],
+    "time_options": [
+      "5m",
+      "15m",
+      "1h",
+      "6h",
+      "12h",
+      "24h",
+      "2d",
+      "7d",
+      "30d"
+    ]
+  },
+  "timezone": "Europe/Berlin",
+  "title": "Working Certificate Expiration Diagram",
+  "uid": "F_gILm6iz4",
+  "version": 9,
+  "weekStart": "monday"
 }
