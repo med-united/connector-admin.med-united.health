@@ -21,8 +21,8 @@ sap.ui.define(
           const oVerifyAllModel = new JSONModel();
           this.getView().setModel(oVerifyAllModel, "VerifyAll");
 
-          const oPinStats = new JSONModel();
-          this.getView().setModel(oPinStats, "PINStatus");
+          const oPinStatus = new JSONModel();
+          this.getView().setModel(oPinStatus, "PINStatus");
         },
         onVerifyPinCh: function (oEvent) {
           const sPath = "/RuntimeConfigs('" + this._entity + "')";
@@ -189,16 +189,16 @@ sap.ui.define(
             );
 
             this.getView()
-                .getModel("PINStatus")
-                .loadData(
-                "connector/card/PINStatus",
+              .getModel("PINStatus")
+              .loadData(
+                "connector/card/pinStatus",
                 {},
                 "true",
                 "GET",
                 false,
                 true,
                 mHeaders
-            );
+              );
 
           this.getView()
             .getModel("Cards")
@@ -267,9 +267,28 @@ sap.ui.define(
                       certificateCollection: { certificates: plainList },
                     });
 
-                  fetch("connector/card/PINStatus", { headers: { Accept: "application/json" },})
-                  .then((result) => result.json())
-                  .then((stats) => console.log(stats));
+                  let arrayResult = [];
+
+                  fetch("connector/card/pinStatus", { headers: mHeaders }).then(
+                   (result) => result.json())
+                   .then((stats) => {
+                       let numOfCards = stats.length;
+                       for (let x = 0; x < numOfCards; x++){
+                          arrayResult.push({
+                            handle : stats[x].cardHandle,
+                            type : stats[x].cardType,
+                            status : stats[x].status});
+                       }
+                   });
+
+                  this.getView()
+                    .getModel("PINStatus")
+                    .setData({
+                        StatusCollection : arrayResult
+                  });
+
+                  console.log(this.getView().getModel("PINStatus").getData());
+
 
                   let m;
                   let ip;
