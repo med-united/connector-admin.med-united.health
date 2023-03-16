@@ -143,11 +143,11 @@ public class Scheduler {
                             .withName("secondsDurationLeftUntilSMC_KTexpiry_"+runtimeConfig.getUrl())
                             .withDescription("duration of seconds until the SMC_KT card expires "+runtimeConfig.getUrl())
                             .build(), () -> {
-                        Long millisecondsDurationLefTillExpiryLng;
+                        Long secondsDurationLefTillExpiryLng;
                         try {
-                            millisecondsDurationLefTillExpiryLng = connectorResponseTime.time(secondsCallable);
-                            log.info("Currently connected cards: "+millisecondsDurationLefTillExpiryLng+" "+runtimeConfig.getUrl());
-                            return millisecondsDurationLefTillExpiryLng;
+                            secondsDurationLefTillExpiryLng = connectorResponseTime.time(secondsCallable);
+                            log.info("Currently connected cards: "+secondsDurationLefTillExpiryLng+" "+runtimeConfig.getUrl());
+                            return secondsDurationLefTillExpiryLng;
                         } catch (Exception e) {
                             log.log(Level.WARNING, "Can't measure connector", e);
                         }
