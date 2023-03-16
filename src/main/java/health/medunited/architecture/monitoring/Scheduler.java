@@ -117,23 +117,19 @@ public class Scheduler {
                         String cardType = getCardsResponse.getCards().getCard().get(i).getCardType().toString();
                         if (cardType == "SMC_KT") {
                             expirationString  = getCardsResponse.getCards().getCard().get(i).getCertificateExpirationDate().toString();
-                            String expirationStringShorter = expirationString.substring(0,expirationString.length()-1)+"T00:00:00.00";
+
+                            String expStr = expirationString.substring(0,expirationString.length()-1);
 
 
-                            Duration duration7 = Duration.between(
-                                    LocalDateTime.now(),
-                                    LocalDateTime.parse(expirationStringShorter)
-                                    );
-
-                            System.out.println(expirationStringShorter);
-                            System.out.println("SECONDS   : " + duration7.get(ChronoUnit.SECONDS));
-                            System.out.println(LocalDateTime.parse(expirationStringShorter).getYear());
-                            System.out.println(LocalDateTime.parse(expirationStringShorter).getMonth());
-                            System.out.println(LocalDateTime.parse(expirationStringShorter).getDayOfMonth()+" day");
+                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                            Date future = sdf.parse(expStr);
 
 
+                            Instant one = Instant.now();
+                            Instant two = future.toInstant();
+                            Duration duration = Duration.between(one, two);
 
-                            return duration7.get(ChronoUnit.SECONDS);
+                            return duration.toSeconds();
                         }
                     }
                     //unlikely to reach

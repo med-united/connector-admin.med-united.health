@@ -64,21 +64,6 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "Time"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "Time"
-              },
-              {
-                "id": "custom.align"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
               "options": "Value"
             },
             "properties": [
@@ -221,7 +206,7 @@
       "type": "table"
     }
   ],
-  "refresh": "",
+  "refresh": false,
   "revision": 1,
   "schemaVersion": 38,
   "style": "dark",
@@ -230,8 +215,8 @@
     "list": []
   },
   "time": {
-    "from": "now-5m",
-    "to": "now"
+    "from": "2023-03-16T12:38:59.679Z",
+    "to": "2023-03-16T12:48:59.679Z"
   },
   "timepicker": {
     "refresh_intervals": [
@@ -261,6 +246,6 @@
   "timezone": "Europe/Berlin",
   "title": "Working Certificate Expiration Diagram",
   "uid": "F_gILm6iz4",
-  "version": 9,
+  "version": 13,
   "weekStart": "monday"
 }
