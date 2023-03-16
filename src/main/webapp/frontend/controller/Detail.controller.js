@@ -20,6 +20,9 @@ sap.ui.define(
 
           const oVerifyAllModel = new JSONModel();
           this.getView().setModel(oVerifyAllModel, "VerifyAll");
+
+          const oPinStats = new JSONModel();
+          this.getView().setModel(oPinStats, "PINStatus");
         },
         onVerifyPinCh: function (oEvent) {
           const sPath = "/RuntimeConfigs('" + this._entity + "')";
@@ -185,6 +188,18 @@ sap.ui.define(
               mHeaders
             );
 
+            this.getView()
+                .getModel("PINStatus")
+                .loadData(
+                "connector/card/PINStatus",
+                {},
+                "true",
+                "GET",
+                false,
+                true,
+                mHeaders
+            );
+
           this.getView()
             .getModel("Cards")
             .loadData(
@@ -251,6 +266,10 @@ sap.ui.define(
                     .setData({
                       certificateCollection: { certificates: plainList },
                     });
+
+                  fetch("connector/card/PINStatus", { headers: { Accept: "application/json" },})
+                  .then((result) => result.json())
+                  .then((stats) => console.log(stats));
 
                   let m;
                   let ip;
