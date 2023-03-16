@@ -41,6 +41,10 @@ To access the application you need to create a user in the wildfly server. To do
 target/server/bin/add-user.sh -> Linux
 target/server/bin/add-user.bat -> Windows
 ```
+
+# Grafana
+The JSON Model for building the Grafana Graph to view the OpenMetrics is in the /Grafana folder and can be imported via the "Import JSON" function in Grafana
+
 # Example for metrics
 
 ```
