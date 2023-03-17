@@ -1,6 +1,47 @@
 <mxfile host="65bd71144e">
+    <diagram id="XVRLgaRRa0-e0b5sQCnj" name="checkmk">
+        <mxGraphModel dx="1024" dy="518" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="0.0" value="Best viewed with the &lt;a href=&quot;https://github.com/ariel-bentu/tam-drawio&quot;&gt;TAM plugin&lt;/a&gt;" style="text;html=1;shape=tamPluginMissing;" parent="1" vertex="1" connectable="0">
+                    <mxGeometry x="200" y="510" width="200" height="25" as="geometry"/>
+                </mxCell>
+                <mxCell id="zCmpaBpcssPtYIkRfh-4-2" value="Server" style="shape=agent;offsetSize=8;strokeWidth=2;verticalAlign=top;" parent="1" vertex="1">
+                    <mxGeometry x="100" y="350" width="260" height="130" as="geometry"/>
+                </mxCell>
+                <mxCell id="zCmpaBpcssPtYIkRfh-4-1" value="Konnektor&#10;Admin Tool" style="shape=agent;offsetSize=8;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="110" y="390" width="100" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="zCmpaBpcssPtYIkRfh-4-3" value="prometheus" style="shape=agent;offsetSize=8;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="240" y="390" width="100" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="zCmpaBpcssPtYIkRfh-4-4" value="" style="shape=useedge;endArrow=none;edgeStyle=none;useSignPosition=up;useSignDirection=none;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="zCmpaBpcssPtYIkRfh-4-1" target="zCmpaBpcssPtYIkRfh-4-3" edge="1">
+                    <mxGeometry width="160" relative="1" as="geometry">
+                        <mxPoint x="240" y="430" as="sourcePoint"/>
+                        <mxPoint x="400" y="430" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="zCmpaBpcssPtYIkRfh-4-6" value="" style="shape=useedge;endArrow=none;edgeStyle=none;useSignPosition=up;useSignDirection=west;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="zCmpaBpcssPtYIkRfh-4-3" target="zCmpaBpcssPtYIkRfh-4-5" edge="1">
+                    <mxGeometry width="160" relative="1" as="geometry">
+                        <mxPoint x="380" y="420" as="sourcePoint"/>
+                        <mxPoint x="540" y="420" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="zCmpaBpcssPtYIkRfh-4-7" value="9090" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="360" y="430" width="60" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="zCmpaBpcssPtYIkRfh-4-5" value="checkmk" style="shape=agent;offsetSize=8;strokeWidth=2;verticalAlign=top;" parent="1" vertex="1">
+                    <mxGeometry x="430" y="385" width="100" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="zCmpaBpcssPtYIkRfh-4-8" value="Spezialagent" style="shape=agent;offsetSize=8;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="440" y="415" width="80" height="25" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
     <diagram id="Fpsi-UkH_9leQJDjks8w" name="Hospital">
-        <mxGraphModel dx="955" dy="739" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="839" dy="380" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -107,11 +148,11 @@
         </mxGraphModel>
     </diagram>
     <diagram id="WJoYJa_mneZ7pbeJPqfU" name="Seite-1">
-        <mxGraphModel dx="1024" dy="500" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="1024" dy="518" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
-                <mxCell id="2" value="Quarkus Application" style="shape=agent;offsetSize=8;strokeWidth=2;verticalAlign=top;" parent="1" vertex="1">
+                <mxCell id="2" value="Wildfly Application" style="shape=agent;offsetSize=8;strokeWidth=2;verticalAlign=top;" parent="1" vertex="1">
                     <mxGeometry x="220" y="240" width="300" height="210" as="geometry"/>
                 </mxCell>
                 <mxCell id="0.1" value="Best viewed with the &lt;a href=&quot;https://github.com/ariel-bentu/tam-drawio&quot;&gt;TAM plugin&lt;/a&gt;" style="text;html=1;shape=tamPluginMissing;" parent="1" vertex="1" connectable="0">
@@ -217,17 +258,17 @@
         </mxGraphModel>
     </diagram>
     <diagram id="pcQcGQzyTQLJBqN-FWd8" name="OpenMetrics">
-        <mxGraphModel dx="1024" dy="565" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="1024" dy="518" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
-                <mxCell id="0.0" value="Best viewed with the &lt;a href=&quot;https://github.com/ariel-bentu/tam-drawio&quot;&gt;TAM plugin&lt;/a&gt;" style="text;html=1;shape=tamPluginMissing;" vertex="1" connectable="0" parent="1">
+                <mxCell id="0.0" value="Best viewed with the &lt;a href=&quot;https://github.com/ariel-bentu/tam-drawio&quot;&gt;TAM plugin&lt;/a&gt;" style="text;html=1;shape=tamPluginMissing;" parent="1" vertex="1" connectable="0">
                     <mxGeometry x="10" y="380" width="200" height="25" as="geometry"/>
                 </mxCell>
-                <mxCell id="6D_YpuJgfdh5k-wZ-Zpk-2" value="OpenMetrics&#10;Enabled App e.g.&#10;Connector Admin Tool" style="shape=agent;offsetSize=8;strokeWidth=2;" vertex="1" parent="1">
+                <mxCell id="6D_YpuJgfdh5k-wZ-Zpk-2" value="OpenMetrics&#10;Enabled App e.g.&#10;Connector Admin Tool" style="shape=agent;offsetSize=8;strokeWidth=2;" parent="1" vertex="1">
                     <mxGeometry x="90" y="260" width="130" height="90" as="geometry"/>
                 </mxCell>
-                <mxCell id="6D_YpuJgfdh5k-wZ-Zpk-3" value="" style="shape=useedge;endArrow=none;edgeStyle=none;useSignPosition=up;useSignDirection=east;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="6D_YpuJgfdh5k-wZ-Zpk-2">
+                <mxCell id="6D_YpuJgfdh5k-wZ-Zpk-3" value="" style="shape=useedge;endArrow=none;edgeStyle=none;useSignPosition=up;useSignDirection=east;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" parent="1" source="6D_YpuJgfdh5k-wZ-Zpk-2" edge="1">
                     <mxGeometry width="160" relative="1" as="geometry">
                         <mxPoint x="240" y="300" as="sourcePoint"/>
                         <mxPoint x="400" y="300" as="targetPoint"/>
