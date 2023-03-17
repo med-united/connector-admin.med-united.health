@@ -1,6 +1,7 @@
 package health.medunited.architecture.jaxrs.resource.model;
 
 import de.gematik.ws.conn.cardservice.v8.CardInfoType;
+import de.gematik.ws.conn.cardservice.v8.GetPinStatusResponse;
 
 public class PINStatus {
 
