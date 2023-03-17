@@ -284,7 +284,7 @@ sap.ui.define(
                   this.getView()
                     .getModel("PINStatus")
                     .setData({
-                        StatusCollection : arrayResult
+                        StatusCollection : {stats : arrayResult}
                   });
 
                   console.log(this.getView().getModel("PINStatus").getData());
