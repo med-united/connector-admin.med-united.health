@@ -99,7 +99,7 @@ public class Card {
 
         GetCardsResponse getCardResoponse = eventServicePortType.getCards(getCards);
         List<PINStatus> result = getCardResoponse.getCards().getCard().stream().map(this::getPINStatus).collect(Collectors.toList());
-        Collection<JsonObject> items = new ArrayList<JsonObject>();
+        Collection<JsonObject> items = new ArrayList<>();
         for (PINStatus pinStatus : result){
             JsonObject value = Json.createObjectBuilder()
                     .add("cardHandle", pinStatus.getHandle())
@@ -115,7 +115,7 @@ public class Card {
         PINStatus pinStatus = new PINStatus();
         pinStatus.setCardInfoType(cardInfoType);
 
-        pinStatus.setHandle(cardInfoType.getCardHandle().toString());
+        pinStatus.setHandle(cardInfoType.getCardHandle());
         pinStatus.setType(cardInfoType.getCardType().toString());
 
         String pinType = "";
@@ -126,9 +126,6 @@ public class Card {
 
         if (cardInfoType.getCardType().equals(CardTypeType.SMC_B)) {
             pinType = "PIN.SMC";
-        }
-        else if(cardInfoType.getCardType().equals(CardTypeType.HBA)){
-            pinType = "PIN.CH";
         }
 
         try {
