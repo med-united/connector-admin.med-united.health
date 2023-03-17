@@ -35,6 +35,12 @@ spec:
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
+          env:
+            - name: WILDFLY_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: connector-admin
+                  key: wildfly-password
 
 ---
 

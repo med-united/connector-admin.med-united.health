@@ -1,9 +1,21 @@
 
-FROM jboss/wildfly
+FROM bitnami/wildfly:26.1.3-debian-11-r18
 
-RUN wildfly/bin/add-user.sh -a -u 'adminuser1' -p 'password1!' -g 'user'
+COPY wildfly-configuration/standalone.xml /opt/bitnami/wildfly/standalone/configuration/
 
-COPY wildfly/modules/ /opt/jboss/wildfly/modules/
-COPY wildfly-configuration/standalone.xml /opt/jboss/wildfly/standalone/configuration/
+ADD target/frontend.war /opt/bitnami/wildfly/standalone/deployments/
 
-ADD target/frontend.war /opt/jboss/wildfly/standalone/deployments/
+USER root
+RUN chown -R 1001:root /opt/bitnami/wildfly
+RUN chmod -R g+w /opt/bitnami/wildfly
+
+RUN chown 1001:root /opt/bitnami/wildfly/standalone/configuration/standalone.xml
+RUN chmod g+w /opt/bitnami/wildfly/standalone/configuration/standalone.xml
+
+USER 1001
+
+
+
+
+
+
