@@ -1,7 +1,7 @@
 <mvc:View xmlns="sap.f" xmlns:mvc="sap.ui.core.mvc" xmlns:m="sap.m" displayBlock="true" controllerName="sap.f.ShellBarWithFlexibleColumnLayout.controller.FlexibleColumnLayout" height="100%">
     <m:Page>
         <m:customHeader>
-            <ShellBar title="Connector admin tool" homeIcon="./../../../../../../../resources/sap/ui/documentation/sdk/images/logo_ui5.png" showNavButton="{= ${/layout} === 'EndColumnFullScreen'}" navButtonPressed="handleBackButtonPressed" />
+            <ShellBar title="Konnektor Admin Tool" homeIcon="./../../../../../../../resources/sap/ui/documentation/sdk/images/logo_ui5.png" showNavButton="{= ${/layout} === 'EndColumnFullScreen'}" navButtonPressed="handleBackButtonPressed" />
         </m:customHeader>
         <FlexibleColumnLayout id="fcl" stateChange="onStateChanged" layout="{Layout>/layout}" backgroundDesign="Solid" />
     </m:Page>
