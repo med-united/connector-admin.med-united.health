@@ -52,7 +52,7 @@
                                                 <Text text="Typ" />
                                             </Column>
                                             <Column>
-                                                <Text text="Zertifikats-Auslaufdatum" />
+                                                <Text text="Auslaufdatum Zertifikat" />
                                             </Column>
                                             <Column>
                                                 <Text text="Iccsn" />
