@@ -76,10 +76,10 @@
                                                 <Text text="{Cards>slotId}" />
                                                 <MenuButton text="Aktion ...">
                                                     <Menu>
-                                                        <MenuItem text="Verify PIN.CH" press="onVerifyPinCh" />
-                                                        <MenuItem text="Verify PIN.SMC" press="onVerifyPinSmc" />
-                                                        <MenuItem text="Change PIN.QES" press="onChangePinQes" />
-                                                        <MenuItem text="Change PIN.CH" press="onChangePinCh" />
+                                                        <MenuItem text="Verifiziere PIN.CH" press="onVerifyPinCh" />
+                                                        <MenuItem text="Verifiziere PIN.SMC" press="onVerifyPinSmc" />
+                                                        <MenuItem text="Ändere PIN.QES" press="onChangePinQes" />
+                                                        <MenuItem text="Änedere PIN.CH" press="onChangePinCh" />
                                                     </Menu>
                                                 </MenuButton>
                                             </ColumnListItem>
