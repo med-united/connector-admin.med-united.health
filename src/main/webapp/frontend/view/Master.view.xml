@@ -47,7 +47,7 @@
                         <Text text="Mandant Id" />
                     </Column>
                     <Column width="12em">
-                        <Text text="System-ID Kunde" />
+                        <Text text="System-Id Kunde" />
                     </Column>
                     <Column width="12em">
                         <Text text="Arbeitsplatz Id" />
