@@ -8,7 +8,7 @@
         <f:title>
             <f:DynamicPageTitle>
                 <f:heading>
-                    <Title text="Connector manager"/>
+                    <Title text="Konnektorverwaltung"/>
                 </f:heading>
             </f:DynamicPageTitle>
         </f:title>
@@ -32,25 +32,25 @@
                 </headerToolbar>
                 <columns>
                     <Column width="12em">
-                        <Text text="User Id" />
+                        <Text text="Benutzer Id" />
                     </Column>
                     <Column width="12em">
                         <Text text="Url" />
                     </Column>
                     <Column width="12em">
-                        <Text text="Sign port" />
+                        <Text text="Signierport" />
                     </Column>
                     <Column width="12em">
-                        <Text text="Vzd port" />
+                        <Text text="Vzdport" />
                     </Column>
                     <Column width="12em">
                         <Text text="Mandant Id" />
                     </Column>
                     <Column width="12em">
-                        <Text text="Client System Id" />
+                        <Text text="System-ID Kunde" />
                     </Column>
                     <Column width="12em">
-                        <Text text="Workplace Id" />
+                        <Text text="Arbeitsplatz Id" />
                     </Column>
                 </columns>
                 <items>

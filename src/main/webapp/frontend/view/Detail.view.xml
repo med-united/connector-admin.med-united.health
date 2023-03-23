@@ -43,7 +43,7 @@
                                     <Table items="{Cards>/cards/card}">
                                         <columns>
                                             <Column>
-                                                <Text text="Handle" />
+                                                <Text text="Alias" />
                                             </Column>
                                             <Column>
                                                 <Text text="Kartenhalter" />
@@ -52,16 +52,16 @@
                                                 <Text text="Typ" />
                                             </Column>
                                             <Column>
-                                                <Text text="Zertifikatsauslaufdatum" />
+                                                <Text text="Zertifikats-Auslaufdatum" />
                                             </Column>
                                             <Column>
                                                 <Text text="Iccsn" />
                                             </Column>
                                             <Column>
-                                                <Text text="insertTime" />
+                                                <Text text="Steckzeit" />
                                             </Column>
                                             <Column>
-                                                <Text text="slotId" />
+                                                <Text text="Steckplatz" />
                                             </Column>
                                             <Column />
                                         </columns>
@@ -97,7 +97,7 @@
                                     <Table items="{VerifyAll>/certificateCollection/certificates}">
                                         <columns>
                                             <Column>
-                                                <Text text="CardHandle" />
+                                                <Text text="Alias" />
                                             </Column>
                                             <Column>
                                                 <Text text="Seriennummer" />
@@ -126,7 +126,7 @@
                                     <Table items="{CardTerminals>/cardTerminals/cardTerminal}">
                                         <columns>
                                             <Column>
-                                                <Text text="Connected" />
+                                                <Text text="Verbindung" />
                                             </Column>
                                             <Column>
                                                 <Text text="Name" />
@@ -135,7 +135,7 @@
                                                 <Text text="IP" />
                                             </Column>
                                             <Column>
-                                                <Text text="Product" />
+                                                <Text text="Produkt" />
                                             </Column>
                                         </columns>
                                         <items>
@@ -158,13 +158,13 @@
                                     <Table>
                                         <columns>
                                             <Column>
-                                                <Text text="Metric" />
+                                                <Text text="Parameter" />
                                             </Column>
                                             <Column>
-                                                <Text text="Value" />
+                                                <Text text="Wert" />
                                             </Column>
                                             <Column>
-                                                <Text text="Count" />
+                                                <Text text="Anzahl" />
                                             </Column>
                                             <Column>
                                                 <Text text="Min" />
@@ -173,7 +173,7 @@
                                                 <Text text="Max" />
                                             </Column>
                                             <Column>
-                                                <Text text="Mean" />
+                                                <Text text="Durchschnitt" />
                                             </Column>
                                         </columns>
                                         <items>
