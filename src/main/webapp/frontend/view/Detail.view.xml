@@ -178,7 +178,7 @@
                                         </columns>
                                         <items>
                                             <ColumnListItem>
-                                                <Text text="Connector Response Times" />
+                                                <Text text="Konnektor Antwortzeiten" />
                                                 <Text text="" />
                                                 <Text text="{Metrics>/connectorResponseTime/count}" />
                                                 <Text text="{Metrics>/connectorResponseTime/min}" />
@@ -186,7 +186,7 @@
                                                 <Text text="{Metrics>/connectorResponseTime/mean}" />
                                             </ColumnListItem>
                                             <ColumnListItem>
-                                                <Text text="Currently ConnectedCards" />
+                                                <Text text="Derzeitig gesteckte Karten" />
                                                 <Text text="{Metrics>/currentlyConnectedCards}" />
                                                 <Text text="" />
                                                 <Text text="" />

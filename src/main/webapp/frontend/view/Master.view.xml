@@ -32,25 +32,25 @@
                 </headerToolbar>
                 <columns>
                     <Column width="12em">
-                        <Text text="Benutzer Id" />
+                        <Text text="Benutzer-ID" />
                     </Column>
                     <Column width="12em">
                         <Text text="Url" />
                     </Column>
                     <Column width="12em">
-                        <Text text="Signierport" />
+                        <Text text="Signier-Port" />
                     </Column>
                     <Column width="12em">
-                        <Text text="Vzdport" />
+                        <Text text="VZD-Port" />
                     </Column>
                     <Column width="12em">
-                        <Text text="Mandant Id" />
+                        <Text text="Mandant-ID" />
                     </Column>
                     <Column width="12em">
-                        <Text text="System-Id Kunde" />
+                        <Text text="System-ID Kunde" />
                     </Column>
                     <Column width="12em">
-                        <Text text="Arbeitsplatz Id" />
+                        <Text text="Arbeitsplatz-ID" />
                     </Column>
                 </columns>
                 <items>
