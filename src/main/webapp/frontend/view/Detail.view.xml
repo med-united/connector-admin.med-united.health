@@ -20,10 +20,10 @@
                 <uxap:headerTitle>
                     <uxap:ObjectPageHeader objectImageShape="Circle" objectImageAlt="Profile" objectTitle="{Url}" isObjectIconAlwaysVisible="false" isObjectTitleAlwaysVisible="false" isObjectSubtitleAlwaysVisible="false">
                         <uxap:actions>
-                            <uxap:ObjectPageHeaderActionButton type="Emphasized" icon="sap-icon://restart" tooltip="Restart connector" text="Restart" visible="true" />
-                            <uxap:ObjectPageHeaderActionButton type="Transparent" icon="sap-icon://full-screen" press="handleFullScreen" tooltip="Enter Full Screen Mode" visible="{= ${Layout>/actionButtonsInfo/midColumn/fullScreen} !== null }" />
-                            <uxap:ObjectPageHeaderActionButton type="Transparent" icon="sap-icon://exit-full-screen" press="handleExitFullScreen" tooltip="Exit Full Screen Mode" visible="{= ${Layout>/actionButtonsInfo/midColumn/exitFullScreen} !== null }" />
-                            <uxap:ObjectPageHeaderActionButton type="Transparent" icon="sap-icon://decline" press="handleClose" tooltip="Close column" visible="{= ${Layout>/actionButtonsInfo/midColumn/closeColumn} !== null }" />
+                            <uxap:ObjectPageHeaderActionButton type="Emphasized" icon="sap-icon://restart" tooltip="{i18n>RestartConnector}" text="Restart" visible="true" />
+                            <uxap:ObjectPageHeaderActionButton type="Transparent" icon="sap-icon://full-screen" press="handleFullScreen" tooltip="{i18n>EnterFullScreenMode}" visible="{= ${Layout>/actionButtonsInfo/midColumn/fullScreen} !== null }" />
+                            <uxap:ObjectPageHeaderActionButton type="Transparent" icon="sap-icon://exit-full-screen" press="handleExitFullScreen" tooltip="{i18n>ExitFullScreenMode}" visible="{= ${Layout>/actionButtonsInfo/midColumn/exitFullScreen} !== null }" />
+                            <uxap:ObjectPageHeaderActionButton type="Transparent" icon="sap-icon://decline" press="handleClose" tooltip="{i18n>CloseConnectorDetails}" visible="{= ${Layout>/actionButtonsInfo/midColumn/closeColumn} !== null }" />
                         </uxap:actions>
                     </uxap:ObjectPageHeader>
                 </uxap:headerTitle>
