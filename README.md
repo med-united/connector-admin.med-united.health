@@ -22,7 +22,6 @@ Prerequisites:
 
 Now you can start the application:
 ```
-mvn wildfly:provision
 mvn wildfly:start
 mvn package wildfly:deploy
 ```
@@ -30,16 +29,6 @@ mvn package wildfly:deploy
 ```
 mvn wildfly:undeploy
 mvn wildfly:shutdown
-```
-
-# Basic auth info
-
-The application is secured with basic auth. The specification is in the file src/main/webapp/WEB-INF/web.xml
-
-To access the application you need to create a user in the wildfly server. To do so, you can use this script:
-```
-target/server/bin/add-user.sh -> Linux
-target/server/bin/add-user.bat -> Windows
 ```
 
 # Prometheus
