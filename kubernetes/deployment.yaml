@@ -35,7 +35,6 @@ spec:
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
-            - containerPort: 9990
           env:
             - name: WILDFLY_PASSWORD
               valueFrom:
@@ -54,18 +53,6 @@ spec:
     app: connector-admin
   ports:
     - port: 8080
-
----
-
-kind: Service
-apiVersion: v1
-metadata:
-  name: connector-admin-console
-spec:
-  selector:
-    app: connector-admin
-  ports:
-    - port: 9990
 
 ---
 
@@ -95,11 +82,3 @@ spec:
                 name: connector-admin
                 port:
                   number: 8080
-          - path: /console
-              pathType: Prefix
-              backend:
-                service:
-                  name: connector-admin-console
-                  port:
-                    number: 9990
-
