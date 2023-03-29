@@ -18,17 +18,31 @@
         <content>
             <uxap:ObjectPageLayout id="objectPageLayout" showTitleInHeaderContent="true">
                 <uxap:headerTitle>
-                    <uxap:ObjectPageHeader objectImageShape="Circle" objectImageAlt="Profile" objectTitle="{Url}" isObjectIconAlwaysVisible="false" isObjectTitleAlwaysVisible="false" isObjectSubtitleAlwaysVisible="false">
+                    <uxap:ObjectPageHeader objectImageShape="Circle" objectImageAlt="Profile"
+                        objectTitle="{Url}" isObjectIconAlwaysVisible="false"
+                        isObjectTitleAlwaysVisible="false" isObjectSubtitleAlwaysVisible="false">
                         <uxap:actions>
-                            <uxap:ObjectPageHeaderActionButton type="Emphasized" icon="sap-icon://restart" tooltip="{i18n>RestartConnector}" text="Restart" visible="true" />
-                            <uxap:ObjectPageHeaderActionButton type="Transparent" icon="sap-icon://full-screen" press="handleFullScreen" tooltip="{i18n>EnterFullScreenMode}" visible="{= ${Layout>/actionButtonsInfo/midColumn/fullScreen} !== null }" />
-                            <uxap:ObjectPageHeaderActionButton type="Transparent" icon="sap-icon://exit-full-screen" press="handleExitFullScreen" tooltip="{i18n>ExitFullScreenMode}" visible="{= ${Layout>/actionButtonsInfo/midColumn/exitFullScreen} !== null }" />
-                            <uxap:ObjectPageHeaderActionButton type="Transparent" icon="sap-icon://decline" press="handleClose" tooltip="{i18n>CloseConnectorDetails}" visible="{= ${Layout>/actionButtonsInfo/midColumn/closeColumn} !== null }" />
+                            <uxap:ObjectPageHeaderActionButton type="Emphasized"
+                                icon="sap-icon://restart" tooltip="{i18n>RestartConnector}"
+                                text="Restart" visible="true" />
+                            <uxap:ObjectPageHeaderActionButton type="Transparent"
+                                icon="sap-icon://full-screen" press="handleFullScreen"
+                                tooltip="{i18n>EnterFullScreenMode}"
+                                visible="{= ${Layout>/actionButtonsInfo/midColumn/fullScreen} !== null }" />
+                            <uxap:ObjectPageHeaderActionButton type="Transparent"
+                                icon="sap-icon://exit-full-screen" press="handleExitFullScreen"
+                                tooltip="{i18n>ExitFullScreenMode}"
+                                visible="{= ${Layout>/actionButtonsInfo/midColumn/exitFullScreen} !== null }" />
+                            <uxap:ObjectPageHeaderActionButton type="Transparent"
+                                icon="sap-icon://decline" press="handleClose"
+                                tooltip="{i18n>CloseConnectorDetails}"
+                                visible="{= ${Layout>/actionButtonsInfo/midColumn/closeColumn} !== null }" />
                         </uxap:actions>
                     </uxap:ObjectPageHeader>
                 </uxap:headerTitle>
                 <uxap:sections>
-                    <!-- <uxap:ObjectPageSection id="personalSection" title="{i18n>titleSectionPersonal}">
+                    <!-- <uxap:ObjectPageSection id="personalSection"
+                    title="{i18n>titleSectionPersonal}">
                         <uxap:subSections>
                             <uxap:ObjectPageSubSection id="nameSubSection" title="{i18n>titleSubSectionName}">
                                 <uxap:blocks>
@@ -77,10 +91,14 @@
                                                 <Text text="{Cards>slotId}" />
                                                 <MenuButton text="Aktion ...">
                                                     <Menu>
-                                                        <MenuItem text="Verifiziere PIN.CH" press="onVerifyPinCh" />
-                                                        <MenuItem text="Verifiziere PIN.SMC" press="onVerifyPinSmc" />
-                                                        <MenuItem text="Ändere PIN.QES" press="onChangePinQes" />
-                                                        <MenuItem text="Ändere PIN.CH" press="onChangePinCh" />
+                                                        <MenuItem text="Verifiziere PIN.CH"
+                                                            press="onVerifyPinCh" />
+                                                        <MenuItem text="Verifiziere PIN.SMC"
+                                                            press="onVerifyPinSmc" />
+                                                        <MenuItem text="Ändere PIN.QES"
+                                                            press="onChangePinQes" />
+                                                        <MenuItem text="Ändere PIN.CH"
+                                                            press="onChangePinCh" />
                                                     </Menu>
                                                 </MenuButton>
                                             </ColumnListItem>
@@ -93,7 +111,8 @@
 
                     <uxap:ObjectPageSection id="certificatesSection" title="Zertifikate">
                         <uxap:subSections>
-                            <uxap:ObjectPageSubSection id="certificatesSubsection" title="Vorhandene Zertifikate">
+                            <uxap:ObjectPageSubSection id="certificatesSubsection"
+                                title="Vorhandene Zertifikate">
                                 <uxap:blocks>
                                     <Table items="{VerifyAll>/certificateCollection/certificates}">
                                         <columns>
@@ -120,9 +139,11 @@
                         </uxap:subSections>
                     </uxap:ObjectPageSection>
 
-                    <uxap:ObjectPageSection id="cardTerminalSection" title="Angeschlossene Kartenterminals">
+                    <uxap:ObjectPageSection id="cardTerminalSection"
+                        title="Angeschlossene Kartenterminals">
                         <uxap:subSections>
-                            <uxap:ObjectPageSubSection id="cardTerminalSubSection" title="Angeschlossene Kartenterminals">
+                            <uxap:ObjectPageSubSection id="cardTerminalSubSection"
+                                title="Angeschlossene Kartenterminals">
                                 <uxap:blocks>
                                     <Table items="{CardTerminals>/cardTerminals/cardTerminal}">
                                         <columns>
@@ -144,7 +165,8 @@
                                                 <Text text="{CardTerminals>connected}" />
                                                 <Text text="{CardTerminals>name}" />
                                                 <Text text="{CardTerminals>IPAddress/IPV4Address}" />
-                                                <Text text="{CardTerminals>productInformation/productIdentification/productCode} {CardTerminals>productInformation/productIdentification/productVendorID} {CardTerminals>productInformation/productIdentification/productVersion/local/FWVersion}" />
+                                                <Text
+                                                    text="{CardTerminals>productInformation/productIdentification/productCode} {CardTerminals>productInformation/productIdentification/productVendorID} {CardTerminals>productInformation/productIdentification/productVersion/local/FWVersion}" />
                                             </ColumnListItem>
                                         </items>
                                     </Table>
