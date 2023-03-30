@@ -56,12 +56,12 @@ public class EndpointDiscoveryService {
                     .newDocumentBuilder()
                     .parse(inputStream);
 
-            Node serviceInformationNode = getNodeWithTag(document.getDocumentElement(), "ServiceInformation");
+            String connectorVersion = getConnectorVersion(document);
 
+            Node serviceInformationNode = getNodeWithTag(document.getDocumentElement(), "ServiceInformation");
             if (serviceInformationNode == null) {
                 throw new IllegalArgumentException("Could not find single 'ServiceInformation'-tag");
             }
-
             NodeList serviceNodeList = serviceInformationNode.getChildNodes();
 
             for (int i = 0, n = serviceNodeList.getLength(); i < n; ++i) {
@@ -95,6 +95,22 @@ public class EndpointDiscoveryService {
         } catch (ProcessingException | SAXException | IllegalArgumentException e) {
             log.log(Level.SEVERE, "Could not get or parse connector.sds", e);
         }
+    }
+
+    public String getConnectorVersion(Document document) {
+        Node productInformationNode = getNodeWithTag(document.getDocumentElement(), "ProductInformation");
+        if (productInformationNode == null) {
+            throw new IllegalArgumentException("Could not find single 'ProductInformation'-tag");
+        }
+        Node productTypeInformationNode = getNodeWithTag(productInformationNode, "ProductTypeInformation");
+        if (productTypeInformationNode == null) {
+            throw new IllegalArgumentException("Could not find single 'ProductTypeInformation'-tag");
+        }
+        Node productTypeVersionNode = getNodeWithTag(productTypeInformationNode, "ProductTypeVersion");
+        if (productTypeVersionNode == null) {
+            throw new IllegalArgumentException("Could not find single 'ProductTypeVersion'-tag");
+        }
+        return productTypeVersionNode.getTextContent();
     }
 
     private String getEndpoint(Node serviceNode) {
