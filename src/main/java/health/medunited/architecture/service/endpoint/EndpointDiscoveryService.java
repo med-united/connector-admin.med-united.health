@@ -32,6 +32,8 @@ public class EndpointDiscoveryService {
 
     private String certificateServiceEndpointAddress;
 
+    private String connectorVersion;
+
     public void setSecretsManagerService(SecretsManagerService secretsManagerService) {
         this.secretsManagerService = secretsManagerService;
     }
@@ -56,7 +58,7 @@ public class EndpointDiscoveryService {
                     .newDocumentBuilder()
                     .parse(inputStream);
 
-            String connectorVersion = getConnectorVersion(document);
+            connectorVersion = getConnectorVersion(document);
 
             Node serviceInformationNode = getNodeWithTag(document.getDocumentElement(), "ServiceInformation");
             if (serviceInformationNode == null) {

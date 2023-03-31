@@ -11,6 +11,7 @@ import javax.net.ssl.SSLContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.ws.BindingProvider;
 
+import de.gematik.ws._int.version.productinformation.v1.ProductInformation;
 import de.gematik.ws.conn.certificateservice.wsdl.v6.CertificateServicePortType;
 import health.medunited.architecture.service.common.security.SecretsManagerService;
 import health.medunited.architecture.service.endpoint.EndpointDiscoveryService;
@@ -41,6 +42,7 @@ public class ConnectorServicesProducer {
     private de.gematik.ws.conn.eventservice.wsdl.v7.EventServicePortType eventServicePortType;
     private de.gematik.ws.conn.cardservice.wsdl.v8.CardServicePortType cardServicePortType;
     private de.gematik.ws.conn.certificateservice.wsdl.v6.CertificateServicePortType certificateServicePortType;
+    private de.gematik.ws._int.version.productinformation.v1.ProductTypeInformation productTypeInformation;
 
     public void setSecretsManagerService(SecretsManagerService secretsManagerService) {
         this.secretsManagerService = secretsManagerService;
@@ -126,6 +128,11 @@ public class ConnectorServicesProducer {
     @Produces
     public de.gematik.ws.conn.cardservice.wsdl.v8.CardServicePortType getCardServicePortType() {
         return this.cardServicePortType;
+    }
+
+    @Produces
+    public de.gematik.ws._int.version.productinformation.v1.ProductTypeInformation getProductTypeInformation() {
+        return this.productTypeInformation;
     }
 
 }
