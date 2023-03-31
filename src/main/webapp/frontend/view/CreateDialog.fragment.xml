@@ -6,23 +6,23 @@
             emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2"
             singleContainerFullSize="true">
             <form:content>
-                <Label text="User Id" />
+                <Label text="Benutzer-ID" />
                 <Input type="Text" value="{UserId}" />
                 <Label text="Url" />
                 <Input type="Text" value="{Url}" />
-                <Label text="Sign port" />
+                <Label text="Signier-Port" />
                 <Input type="Text" value="{SignPort}" />
-                <Label text="Vzd port" />
+                <Label text="VZD-Port" />
                 <Input type="Text" value="{VzdPort}" />
-                <Label text="Mandant id" />
+                <Label text="Mandant-ID" />
                 <Input type="Text" value="{MandantId}" />
-                <Label text="Client System id" />
+                <Label text="System-ID Kunde" />
                 <Input type="Text" value="{ClientSystemId}" />
-                <Label text="Workplace id" />
+                <Label text="Arbeitsplatz-ID" />
                 <Input type="Text" value="{WorkplaceId}" />
-                <Label text="Client certificate" />
+                <Label text="Kundenzertifikat" />
                 <Input type="Text" value="{ClientCertificate}" />
-                <Label text="Client certificate password" />
+                <Label text="Kennwort Kundenzertifikat" />
                 <Input type="Text" value="{ClientCertificatePassword}" />
             </form:content>
         </form:SimpleForm>
