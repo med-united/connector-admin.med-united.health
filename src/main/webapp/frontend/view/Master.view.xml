@@ -41,7 +41,7 @@
                         <Text text="Benutzer-ID" />
                     </Column>
                     <Column width="12em">
-                        <Text text="Url" />
+                        <Text text="URL" />
                     </Column>
                     <Column width="12em">
                         <Text text="Signier-Port" />

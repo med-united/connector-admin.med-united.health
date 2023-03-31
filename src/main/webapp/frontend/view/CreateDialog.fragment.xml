@@ -8,7 +8,7 @@
             <form:content>
                 <Label text="Benutzer-ID" />
                 <Input type="Text" value="{UserId}" />
-                <Label text="Url" />
+                <Label text="URL" />
                 <Input type="Text" value="{Url}" />
                 <Label text="Signier-Port" />
                 <Input type="Text" value="{SignPort}" />
