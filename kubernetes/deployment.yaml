@@ -68,7 +68,10 @@ spec:
   selector:
     app: connector-admin
   ports:
-    - port: 9990
+    - name: console
+      port: 9990
+      targetPort: 9990
+      protocol: TCP
 
 ---
 
