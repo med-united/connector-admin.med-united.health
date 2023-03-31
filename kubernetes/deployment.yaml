@@ -99,10 +99,10 @@ spec:
                 port:
                   number: 8080
           - path: /console
-              pathType: Prefix
-              backend:
-                service:
-                  name: connector-admin-console
-                  port:
-                    number: 9990
+            pathType: Prefix
+            backend:
+              service:
+                name: connector-admin-console
+                port:
+                  number: 9990
 
