@@ -79,9 +79,6 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: "nginx"
     nginx.ingress.kubernetes.io/enable-cors: "true"
-    nginx.ingress.kubernetes.io/cors-allow-methods: POST, GET, OPTIONS, DELETE, PUT
-    nginx.ingress.kubernetes.io/cors-allow-origin: https://eau.med-united.health
-    nginx.ingress.kubernetes.io/cors-expose-headers: X-Custom-Header
 spec:
   tls:
     - hosts:
