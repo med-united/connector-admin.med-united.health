@@ -32,5 +32,6 @@ public class ProductTypeInformation {
             log.log(Level.WARNING, "Could not get product type information", t);
             throw t;
         }
+        return null;
     }
 }
