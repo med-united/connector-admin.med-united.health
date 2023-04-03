@@ -14,6 +14,8 @@ RUN chmod g+w /opt/bitnami/wildfly/standalone/configuration/standalone.xml
 
 USER 1001
 
+CMD ["/opt/bitnami/wildfly/bin/standalone.sh", "-b", "0.0.0.0", "-Djboss.bind.address.management=0.0.0.0"]
+
 
 
 
