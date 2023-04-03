@@ -35,7 +35,7 @@ spec:
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
-            - containerPort: 8443
+            - containerPort: 9990
           env:
             - name: WILDFLY_PASSWORD
               valueFrom:
@@ -63,14 +63,14 @@ metadata:
   name: connector-admin-console
   annotations:
     prometheus.io/scrape: 'true'
-    prometheus.io/port: '8443'
+    prometheus.io/port: '9990'
 spec:
   selector:
     app: connector-admin
   ports:
     - name: console
-      port: 8443
-      targetPort: 8443
+      port: 9990
+      targetPort: 9990
       protocol: TCP
 
 ---
@@ -104,5 +104,5 @@ spec:
               service:
                 name: connector-admin-console
                 port:
-                  number: 8443
+                  number: 9990
 
