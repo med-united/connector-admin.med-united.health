@@ -1,5 +1,6 @@
 package health.medunited.architecture.service.endpoint;
 
+import de.gematik.ws._int.version.productinformation.v1.ProductTypeInformation;
 import health.medunited.architecture.service.common.security.SecretsManagerService;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -32,7 +33,7 @@ public class EndpointDiscoveryService {
 
     private String certificateServiceEndpointAddress;
 
-    private String connectorVersion;
+    private ProductTypeInformation connectorVersion;
 
     public void setSecretsManagerService(SecretsManagerService secretsManagerService) {
         this.secretsManagerService = secretsManagerService;
@@ -99,7 +100,7 @@ public class EndpointDiscoveryService {
         }
     }
 
-    public String getConnectorVersion(Document document) {
+    public ProductTypeInformation getConnectorVersion(Document document) {
         Node productInformationNode = getNodeWithTag(document.getDocumentElement(), "ProductInformation");
         if (productInformationNode == null) {
             throw new IllegalArgumentException("Could not find single 'ProductInformation'-tag");
@@ -112,7 +113,10 @@ public class EndpointDiscoveryService {
         if (productTypeVersionNode == null) {
             throw new IllegalArgumentException("Could not find single 'ProductTypeVersion'-tag");
         }
-        return productTypeVersionNode.getTextContent();
+
+        ProductTypeInformation productTypeInformation = new ProductTypeInformation();
+        productTypeInformation.setProductTypeVersion(productTypeVersionNode.getTextContent());
+        return productTypeInformation;
     }
 
     private String getEndpoint(Node serviceNode) {
@@ -165,4 +169,6 @@ public class EndpointDiscoveryService {
     public String getCertificateServiceEndpointAddress() {
         return certificateServiceEndpointAddress;
     }
+
+
 }
