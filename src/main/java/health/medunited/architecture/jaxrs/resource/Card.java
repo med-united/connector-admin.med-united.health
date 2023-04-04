@@ -93,12 +93,12 @@ public class Card {
 
     @GET
     @Path("/pinStatus")
-    public Collection<JsonObject> AllPinStatus() throws Throwable {
+    public Collection<JsonObject> allPinStatus() throws Throwable {
         GetCards getCards = new GetCards();
         getCards.setContext(copyValuesFromProxyIntoContextType(contextType));
 
-        GetCardsResponse getCardResoponse = eventServicePortType.getCards(getCards);
-        List<PINStatus> result = getCardResoponse.getCards().getCard().stream().map(this::getPINStatus).collect(Collectors.toList());
+        GetCardsResponse getCardResponse = eventServicePortType.getCards(getCards);
+        List<PINStatus> result = getCardResponse.getCards().getCard().stream().map(this::getPINStatus).collect(Collectors.toList());
         Collection<JsonObject> items = new ArrayList<>();
         for (PINStatus pinStatus : result){
             JsonObject value = Json.createObjectBuilder()
