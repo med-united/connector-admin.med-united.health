@@ -138,6 +138,34 @@
                             </uxap:ObjectPageSubSection>
                         </uxap:subSections>
                     </uxap:ObjectPageSection>
+                    <uxap:ObjectPageSection id="statusPinSection" title="PIN-Status">
+                        <uxap:subSections>
+                            <uxap:ObjectPageSubSection id="statusPinSubsection" title="PIN-Status">
+                                <uxap:blocks>
+                                    <Table items="{PINStatus>/StatusCollection/stats}">
+                                        <columns>
+                                            <Column>
+                                                <Text text="CardHandle" />
+                                            </Column>
+                                            <Column>
+                                                <Text text="CardType" />
+                                            </Column>
+                                            <Column>
+                                                <Text text="PIN-Status" />
+                                            </Column>
+                                        </columns>
+                                        <items>
+                                            <ColumnListItem>
+                                                <Text text="{PINStatus>handle}" />
+                                                <Text text="{PINStatus>type}" />
+                                                <Text text="{PINStatus>status}" />
+                                            </ColumnListItem>
+                                        </items>
+                                    </Table>
+                                </uxap:blocks>
+                            </uxap:ObjectPageSubSection>
+                        </uxap:subSections>
+                    </uxap:ObjectPageSection>
                     <uxap:ObjectPageSection id="cardTerminalSection"
                         title="Angeschlossene Kartenterminals">
                         <uxap:subSections>
