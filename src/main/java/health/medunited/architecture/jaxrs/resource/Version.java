@@ -26,6 +26,6 @@ public class Version {
     @GET
     @Path("/getVersion")
     public Response getProductTypeInformation() {
-        return Response.ok(productTypeInformation.getProductTypeVersion()).build();
+        return Response.ok(productTypeInformation).build();
     }
 }
