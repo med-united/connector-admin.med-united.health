@@ -177,18 +177,6 @@ sap.ui.define(
           };
 
           this.getView()
-            .getModel("VerifyAll")
-            .loadData(
-              "connector/certificate/verifyAll",
-              {},
-              "true",
-              "GET",
-              false,
-              true,
-              mHeaders
-            );
-
-          this.getView()
             .getModel("Cards")
             .loadData(
               "connector/event/get-cards",
@@ -239,6 +227,7 @@ sap.ui.define(
                     if (!res.data[i].readCardCertificateResponse) continue;
                     arrayData.push({
                       handle: res.data[i].cardInfoType.cardHandle,
+                      cardHolderName: res.data[i].cardInfoType.cardHolderName,
                       certInfos:
                         res.data[i].readCardCertificateResponse.x509DataInfoList
                           .x509DataInfo,
@@ -250,6 +239,8 @@ sap.ui.define(
                   for (let j = 0; j < arrayData.length; j++) {
                     for (let q = 0; q < arrayData[j].certInfos.length; q++) {
                       plainList.push({
+                        cardHolderName: arrayData[j].cardHolderName,
+                        certRefList: arrayData[j].certInfos[q].certRef,
                         handle: arrayData[j].handle,
                         serial:
                           arrayData[j].certInfos[q].x509Data.x509IssuerSerial

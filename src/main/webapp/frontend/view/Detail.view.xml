@@ -66,25 +66,25 @@
                                 <uxap:blocks>
                                     <Table items="{Cards>/cards/card}">
                                         <columns>
-                                            <Column>
+                                            <Column importance="Low">
                                                 <Text text="Alias" />
                                             </Column>
-                                            <Column>
+                                            <Column importance="High">
                                                 <Text text="Kartenhalter" />
                                             </Column>
-                                            <Column>
+                                            <Column importance="Medium">
                                                 <Text text="Typ" />
                                             </Column>
-                                            <Column>
+                                            <Column importance="High">
                                                 <Text text="Auslaufdatum Zertifikat" />
                                             </Column>
-                                            <Column>
+                                            <Column importance="Medium">
                                                 <Text text="Iccsn" />
                                             </Column>
-                                            <Column>
+                                            <Column importance="Low">
                                                 <Text text="Steckzeit" />
                                             </Column>
-                                            <Column>
+                                            <Column importance="Low">
                                                 <Text text="Steckplatz" />
                                             </Column>
                                             <Column />
@@ -125,18 +125,26 @@
                                 <uxap:blocks>
                                     <Table items="{VerifyAll>/certificateCollection/certificates}">
                                         <columns>
-                                            <Column>
+                                            <Column importance="Medium">
+                                                <Text text="Subject" />
+                                            </Column>
+                                            <Column importance="High">
+                                                <Text text="CertRef" />
+                                            </Column>
+                                            <Column  importance="Low">
                                                 <Text text="Alias" />
                                             </Column>
-                                            <Column>
+                                            <Column  importance="High">
                                                 <Text text="Seriennummer" />
                                             </Column>
-                                            <Column>
+                                            <Column importance="High">
                                                 <Text text="Verifizierung" />
                                             </Column>
                                         </columns>
                                         <items>
                                             <ColumnListItem>
+                                                <Text text="{VerifyAll>subject}" />
+                                                <Text text="{VerifyAll>certRef}" />
                                                 <Text text="{VerifyAll>handle}" />
                                                 <Text text="{VerifyAll>serial}" />
                                                 <Text text="{VerifyAll>verify}" />
@@ -156,17 +164,17 @@
                                 <uxap:blocks>
                                     <Table items="{CardTerminals>/cardTerminals/cardTerminal}">
                                         <columns>
-                                            <Column>
-                                                <Text text="Verbindung" />
+                                            <Column importance="High">
+                                                <Text text="Verbindung"/>
                                             </Column>
-                                            <Column>
-                                                <Text text="Name" />
+                                            <Column importance="Low">
+                                                <Text text="Name"/>
                                             </Column>
-                                            <Column>
-                                                <Text text="IP" />
+                                            <Column importance="High">
+                                                <Text text="IP"/>
                                             </Column>
-                                            <Column>
-                                                <Text text="Produkt" />
+                                            <Column importance="Medium">
+                                                <Text text="Produkt"/>
                                             </Column>
                                         </columns>
                                         <items>
@@ -189,22 +197,22 @@
                                 <uxap:blocks>
                                     <Table>
                                         <columns>
-                                            <Column>
+                                            <Column importance="High">
                                                 <Text text="Parameter" />
                                             </Column>
-                                            <Column>
+                                            <Column importance="High">
                                                 <Text text="Wert" />
                                             </Column>
-                                            <Column>
+                                            <Column importance="Medium">
                                                 <Text text="Anzahl" />
                                             </Column>
-                                            <Column>
+                                            <Column importance="Low">
                                                 <Text text="Min" />
                                             </Column>
-                                            <Column>
+                                            <Column importance="Low">
                                                 <Text text="Max" />
                                             </Column>
-                                            <Column>
+                                            <Column importance="Medium">
                                                 <Text text="Durchschnitt" />
                                             </Column>
                                         </columns>
