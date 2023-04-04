@@ -11,7 +11,6 @@ import javax.net.ssl.SSLContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.ws.BindingProvider;
 
-import de.gematik.ws.conn.certificateservice.wsdl.v6.CertificateServicePortType;
 import health.medunited.architecture.service.common.security.SecretsManagerService;
 import health.medunited.architecture.service.endpoint.EndpointDiscoveryService;
 import health.medunited.architecture.service.endpoint.SSLUtilities;
@@ -127,5 +126,4 @@ public class ConnectorServicesProducer {
     public de.gematik.ws.conn.cardservice.wsdl.v8.CardServicePortType getCardServicePortType() {
         return this.cardServicePortType;
     }
-
 }

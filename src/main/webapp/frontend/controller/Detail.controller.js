@@ -20,6 +20,9 @@ sap.ui.define(
 
           const oVerifyAllModel = new JSONModel();
           this.getView().setModel(oVerifyAllModel, "VerifyAll");
+
+          const oProductInformationModel = new JSONModel();
+          this.getView().setModel(oProductInformationModel, "ProductInformation")
         },
         onVerifyPinCh: function (oEvent) {
           const sPath = "/RuntimeConfigs('" + this._entity + "')";
@@ -208,6 +211,18 @@ sap.ui.define(
               true,
               mHeaders
             );
+
+          this.getView()
+          .getModel("ProductInformation")
+          .loadData(
+            "connector/productTypeInformation/getVersion",
+            {},
+            "true",
+            "GET",
+            false,
+            true,
+            mHeaders
+          );
 
           fetch("connector/certificate/verifyAll", { headers: mHeaders }).then(
             (response) =>

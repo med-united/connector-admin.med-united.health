@@ -41,6 +41,15 @@
                     </uxap:ObjectPageHeader>
                 </uxap:headerTitle>
                 <uxap:sections>
+                    <uxap:ObjectPageSection id="connectorVersion" title="{i18n>AboutThisConnector}">
+                        <uxap:subSections>
+                            <uxap:ObjectPageSubSection>
+                                <uxap:blocks>
+                                    <Text text="{i18n>Version} {ProductInformation>/productTypeVersion}" />
+                                </uxap:blocks>
+                            </uxap:ObjectPageSubSection>
+                        </uxap:subSections>
+                    </uxap:ObjectPageSection>
                     <!-- <uxap:ObjectPageSection id="personalSection"
                     title="{i18n>titleSectionPersonal}">
                         <uxap:subSections>
