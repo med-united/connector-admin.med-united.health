@@ -142,7 +142,7 @@
                         <uxap:subSections>
                             <uxap:ObjectPageSubSection id="statusPinSubsection" title="PIN-Status">
                                 <uxap:blocks>
-                                    <Table items="{PINStatus>/StatusCollection/stats}">
+                                    <Table items="{PINStatus>/}">
                                         <columns>
                                             <Column>
                                                 <Text text="CardHandle" />
@@ -156,8 +156,8 @@
                                         </columns>
                                         <items>
                                             <ColumnListItem>
-                                                <Text text="{PINStatus>handle}" />
-                                                <Text text="{PINStatus>type}" />
+                                                <Text text="{PINStatus>cardHandle}" />
+                                                <Text text="{PINStatus>cardType}" />
                                                 <Text text="{PINStatus>status}" />
                                             </ColumnListItem>
                                         </items>

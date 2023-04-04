@@ -267,29 +267,6 @@ sap.ui.define(
                       certificateCollection: { certificates: plainList },
                     });
 
-                  let arrayResult = [];
-
-                  fetch("connector/card/pinStatus", { headers: mHeaders })
-                    .then((result) => result.json())
-                    .then((stats) => {
-                      let numOfCards = stats.length;
-                      for (let x = 0; x < numOfCards; x++) {
-                        arrayResult.push({
-                          handle: stats[x].cardHandle,
-                          type: stats[x].cardType,
-                          status: stats[x].status,
-                        });
-                      }
-                    });
-
-                  this.getView()
-                    .getModel("PINStatus")
-                    .setData({
-                      StatusCollection: { stats: arrayResult },
-                    });
-
-                  console.log(this.getView().getModel("PINStatus").getData());
-
                   let m;
                   let ip;
                   if ((m = oRuntimeConfig.Url.match("//([^/:]+)(:\\d+)?/"))) {
