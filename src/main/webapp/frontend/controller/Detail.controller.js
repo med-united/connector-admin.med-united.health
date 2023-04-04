@@ -188,17 +188,17 @@ sap.ui.define(
               mHeaders
             );
 
-            this.getView()
-              .getModel("PINStatus")
-              .loadData(
-                "connector/card/pinStatus",
-                {},
-                "true",
-                "GET",
-                false,
-                true,
-                mHeaders
-              );
+          this.getView()
+            .getModel("PINStatus")
+            .loadData(
+              "connector/card/pinStatus",
+              {},
+              "true",
+              "GET",
+              false,
+              true,
+              mHeaders
+            );
 
           this.getView()
             .getModel("Cards")
@@ -269,26 +269,26 @@ sap.ui.define(
 
                   let arrayResult = [];
 
-                  fetch("connector/card/pinStatus", { headers: mHeaders }).then(
-                   (result) => result.json())
-                   .then((stats) => {
-                       let numOfCards = stats.length;
-                       for (let x = 0; x < numOfCards; x++){
-                          arrayResult.push({
-                            handle : stats[x].cardHandle,
-                            type : stats[x].cardType,
-                            status : stats[x].status});
-                       }
-                   });
+                  fetch("connector/card/pinStatus", { headers: mHeaders })
+                    .then((result) => result.json())
+                    .then((stats) => {
+                      let numOfCards = stats.length;
+                      for (let x = 0; x < numOfCards; x++) {
+                        arrayResult.push({
+                          handle: stats[x].cardHandle,
+                          type: stats[x].cardType,
+                          status: stats[x].status,
+                        });
+                      }
+                    });
 
                   this.getView()
                     .getModel("PINStatus")
                     .setData({
-                        StatusCollection : {stats : arrayResult}
-                  });
+                      StatusCollection: { stats: arrayResult },
+                    });
 
                   console.log(this.getView().getModel("PINStatus").getData());
-
 
                   let m;
                   let ip;
