@@ -226,7 +226,7 @@ sap.ui.define(
                   for (let i = 0; i < numberOfCards; i++) {
                     if (!res.data[i].readCardCertificateResponse) continue;
                     arrayData.push({
-                      handle: res.data[i].cardInfoType.cardHandle,
+                      cardHandle: res.data[i].cardInfoType.cardHandle,
                       cardHolderName: res.data[i].cardInfoType.cardHolderName,
                       certInfos:
                         res.data[i].readCardCertificateResponse.x509DataInfoList
@@ -240,8 +240,8 @@ sap.ui.define(
                     for (let q = 0; q < arrayData[j].certInfos.length; q++) {
                       plainList.push({
                         cardHolderName: arrayData[j].cardHolderName,
-                        certRefList: arrayData[j].certInfos[q].certRef,
-                        handle: arrayData[j].handle,
+                        certRef: arrayData[j].certInfos[q].certRef,
+                        cardHandle: arrayData[j].cardHandle,
                         serial:
                           arrayData[j].certInfos[q].x509Data.x509IssuerSerial
                             .x509SerialNumber,

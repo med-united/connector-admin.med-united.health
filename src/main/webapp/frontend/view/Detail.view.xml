@@ -64,7 +64,7 @@
                         <uxap:subSections>
                             <uxap:ObjectPageSubSection id="cardSubSection" title="Gestecke Karten">
                                 <uxap:blocks>
-                                    <Table items="{Cards>/cards/card}">
+                                    <Table autoPopinMode="true" contextualWidth="Auto"  items="{Cards>/cards/card}">
                                         <columns>
                                             <Column importance="Low">
                                                 <Text text="Alias" />
@@ -123,10 +123,10 @@
                             <uxap:ObjectPageSubSection id="certificatesSubsection"
                                 title="Vorhandene Zertifikate">
                                 <uxap:blocks>
-                                    <Table items="{VerifyAll>/certificateCollection/certificates}">
+                                    <Table autoPopinMode="true" contextualWidth="Auto" items="{VerifyAll>/certificateCollection/certificates}">
                                         <columns>
                                             <Column importance="Medium">
-                                                <Text text="Subject" />
+                                                <Text text="Karteninhaber" />
                                             </Column>
                                             <Column importance="High">
                                                 <Text text="CertRef" />
@@ -143,9 +143,9 @@
                                         </columns>
                                         <items>
                                             <ColumnListItem>
-                                                <Text text="{VerifyAll>subject}" />
+                                                <Text text="{VerifyAll>cardHolderName}" />
                                                 <Text text="{VerifyAll>certRef}" />
-                                                <Text text="{VerifyAll>handle}" />
+                                                <Text text="{VerifyAll>cardHandle}" />
                                                 <Text text="{VerifyAll>serial}" />
                                                 <Text text="{VerifyAll>verify}" />
                                             </ColumnListItem>
@@ -162,7 +162,7 @@
                             <uxap:ObjectPageSubSection id="cardTerminalSubSection"
                                 title="Angeschlossene Kartenterminals">
                                 <uxap:blocks>
-                                    <Table items="{CardTerminals>/cardTerminals/cardTerminal}">
+                                    <Table autoPopinMode="true" contextualWidth="Auto" items="{CardTerminals>/cardTerminals/cardTerminal}">
                                         <columns>
                                             <Column importance="High">
                                                 <Text text="Verbindung"/>
@@ -195,7 +195,7 @@
                         <uxap:subSections>
                             <uxap:ObjectPageSubSection id="metricsSubSection" title="Aktuelle Daten">
                                 <uxap:blocks>
-                                    <Table>
+                                    <Table autoPopinMode="true" contextualWidth="Auto" >
                                         <columns>
                                             <Column importance="High">
                                                 <Text text="Parameter" />
