@@ -16,6 +16,7 @@ import javax.json.JsonObject;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 
@@ -93,6 +94,7 @@ public class Card {
 
     @GET
     @Path("/pinStatus")
+    @Produces("application/json")
     public Collection<JsonObject> allPinStatus() throws Throwable {
         GetCards getCards = new GetCards();
         getCards.setContext(copyValuesFromProxyIntoContextType(contextType));
