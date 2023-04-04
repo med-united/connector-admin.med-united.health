@@ -18,16 +18,31 @@
         <content>
             <uxap:ObjectPageLayout id="objectPageLayout" showTitleInHeaderContent="true">
                 <uxap:headerTitle>
-                    <uxap:ObjectPageHeader objectImageShape="Circle" objectImageAlt="Profile" objectTitle="{Url}" isObjectIconAlwaysVisible="false" isObjectTitleAlwaysVisible="false" isObjectSubtitleAlwaysVisible="false">
+                    <uxap:ObjectPageHeader objectImageShape="Circle" objectImageAlt="Profile"
+                        objectTitle="{Url}" isObjectIconAlwaysVisible="false"
+                        isObjectTitleAlwaysVisible="false" isObjectSubtitleAlwaysVisible="false">
                         <uxap:actions>
-                            <uxap:ObjectPageHeaderActionButton type="Transparent" icon="sap-icon://full-screen" press="handleFullScreen" tooltip="Enter Full Screen Mode" visible="{= ${Layout>/actionButtonsInfo/midColumn/fullScreen} !== null }" />
-                            <uxap:ObjectPageHeaderActionButton type="Transparent" icon="sap-icon://exit-full-screen" press="handleExitFullScreen" tooltip="Exit Full Screen Mode" visible="{= ${Layout>/actionButtonsInfo/midColumn/exitFullScreen} !== null }" />
-                            <uxap:ObjectPageHeaderActionButton type="Transparent" icon="sap-icon://decline" press="handleClose" tooltip="Close column" visible="{= ${Layout>/actionButtonsInfo/midColumn/closeColumn} !== null }" />
+                            <uxap:ObjectPageHeaderActionButton type="Emphasized"
+                                icon="sap-icon://restart" tooltip="{i18n>RestartConnector}"
+                                text="Restart" visible="true" />
+                            <uxap:ObjectPageHeaderActionButton type="Transparent"
+                                icon="sap-icon://full-screen" press="handleFullScreen"
+                                tooltip="{i18n>EnterFullScreenMode}"
+                                visible="{= ${Layout>/actionButtonsInfo/midColumn/fullScreen} !== null }" />
+                            <uxap:ObjectPageHeaderActionButton type="Transparent"
+                                icon="sap-icon://exit-full-screen" press="handleExitFullScreen"
+                                tooltip="{i18n>ExitFullScreenMode}"
+                                visible="{= ${Layout>/actionButtonsInfo/midColumn/exitFullScreen} !== null }" />
+                            <uxap:ObjectPageHeaderActionButton type="Transparent"
+                                icon="sap-icon://decline" press="handleClose"
+                                tooltip="{i18n>CloseConnectorDetails}"
+                                visible="{= ${Layout>/actionButtonsInfo/midColumn/closeColumn} !== null }" />
                         </uxap:actions>
                     </uxap:ObjectPageHeader>
                 </uxap:headerTitle>
                 <uxap:sections>
-                    <!-- <uxap:ObjectPageSection id="personalSection" title="{i18n>titleSectionPersonal}">
+                    <!-- <uxap:ObjectPageSection id="personalSection"
+                    title="{i18n>titleSectionPersonal}">
                         <uxap:subSections>
                             <uxap:ObjectPageSubSection id="nameSubSection" title="{i18n>titleSubSectionName}">
                                 <uxap:blocks>
@@ -43,7 +58,7 @@
                                     <Table items="{Cards>/cards/card}">
                                         <columns>
                                             <Column>
-                                                <Text text="Handle" />
+                                                <Text text="Alias" />
                                             </Column>
                                             <Column>
                                                 <Text text="Kartenhalter" />
@@ -52,16 +67,16 @@
                                                 <Text text="Typ" />
                                             </Column>
                                             <Column>
-                                                <Text text="Zertifikatsauslaufdatum" />
+                                                <Text text="Auslaufdatum Zertifikat" />
                                             </Column>
                                             <Column>
                                                 <Text text="Iccsn" />
                                             </Column>
                                             <Column>
-                                                <Text text="insertTime" />
+                                                <Text text="Steckzeit" />
                                             </Column>
                                             <Column>
-                                                <Text text="slotId" />
+                                                <Text text="Steckplatz" />
                                             </Column>
                                             <Column />
                                         </columns>
@@ -76,10 +91,14 @@
                                                 <Text text="{Cards>slotId}" />
                                                 <MenuButton text="Aktion ...">
                                                     <Menu>
-                                                        <MenuItem text="Verify PIN.CH" press="onVerifyPinCh" />
-                                                        <MenuItem text="Verify PIN.SMC" press="onVerifyPinSmc" />
-                                                        <MenuItem text="Change PIN.QES" press="onChangePinQes" />
-                                                        <MenuItem text="Change PIN.CH" press="onChangePinCh" />
+                                                        <MenuItem text="Verifiziere PIN.CH"
+                                                            press="onVerifyPinCh" />
+                                                        <MenuItem text="Verifiziere PIN.SMC"
+                                                            press="onVerifyPinSmc" />
+                                                        <MenuItem text="Ändere PIN.QES"
+                                                            press="onChangePinQes" />
+                                                        <MenuItem text="Ändere PIN.CH"
+                                                            press="onChangePinCh" />
                                                     </Menu>
                                                 </MenuButton>
                                             </ColumnListItem>
@@ -92,12 +111,13 @@
 
                     <uxap:ObjectPageSection id="certificatesSection" title="Zertifikate">
                         <uxap:subSections>
-                            <uxap:ObjectPageSubSection id="certificatesSubsection" title="Vorhandene Zertifikate">
+                            <uxap:ObjectPageSubSection id="certificatesSubsection"
+                                title="Vorhandene Zertifikate">
                                 <uxap:blocks>
                                     <Table items="{VerifyAll>/certificateCollection/certificates}">
                                         <columns>
                                             <Column>
-                                                <Text text="CardHandle" />
+                                                <Text text="Alias" />
                                             </Column>
                                             <Column>
                                                 <Text text="Seriennummer" />
@@ -118,44 +138,16 @@
                             </uxap:ObjectPageSubSection>
                         </uxap:subSections>
                     </uxap:ObjectPageSection>
-
-                    <uxap:ObjectPageSection id="statusPinSection" title="PIN-Status">
+                    <uxap:ObjectPageSection id="cardTerminalSection"
+                        title="Angeschlossene Kartenterminals">
                         <uxap:subSections>
-                            <uxap:ObjectPageSubSection id="statusPinSubsection" title="PIN-Status">
-                                <uxap:blocks>
-                                    <Table items="{PINStatus>/StatusCollection/stats}">
-                                        <columns>
-                                            <Column>
-                                                <Text text="CardHandle" />
-                                            </Column>
-                                            <Column>
-                                                <Text text="CardType" />
-                                            </Column>
-                                            <Column>
-                                                <Text text="PIN-Status" />
-                                            </Column>
-                                        </columns>
-                                        <items>
-                                            <ColumnListItem>
-                                                <Text text="{PINStatus>handle}" />
-                                                <Text text="{PINStatus>type}" />
-                                                <Text text="{PINStatus>status}" />
-                                            </ColumnListItem>
-                                        </items>
-                                    </Table>
-                                </uxap:blocks>
-                            </uxap:ObjectPageSubSection>
-                        </uxap:subSections>
-                    </uxap:ObjectPageSection>
-
-                    <uxap:ObjectPageSection id="cardTerminalSection" title="Angeschlossene Kartenterminals">
-                        <uxap:subSections>
-                            <uxap:ObjectPageSubSection id="cardTerminalSubSection" title="Angeschlossene Kartenterminals">
+                            <uxap:ObjectPageSubSection id="cardTerminalSubSection"
+                                title="Angeschlossene Kartenterminals">
                                 <uxap:blocks>
                                     <Table items="{CardTerminals>/cardTerminals/cardTerminal}">
                                         <columns>
                                             <Column>
-                                                <Text text="Connected" />
+                                                <Text text="Verbindung" />
                                             </Column>
                                             <Column>
                                                 <Text text="Name" />
@@ -164,7 +156,7 @@
                                                 <Text text="IP" />
                                             </Column>
                                             <Column>
-                                                <Text text="Product" />
+                                                <Text text="Produkt" />
                                             </Column>
                                         </columns>
                                         <items>
@@ -172,7 +164,8 @@
                                                 <Text text="{CardTerminals>connected}" />
                                                 <Text text="{CardTerminals>name}" />
                                                 <Text text="{CardTerminals>IPAddress/IPV4Address}" />
-                                                <Text text="{CardTerminals>productInformation/productIdentification/productCode} {CardTerminals>productInformation/productIdentification/productVendorID} {CardTerminals>productInformation/productIdentification/productVersion/local/FWVersion}" />
+                                                <Text
+                                                    text="{CardTerminals>productInformation/productIdentification/productCode} {CardTerminals>productInformation/productIdentification/productVendorID} {CardTerminals>productInformation/productIdentification/productVersion/local/FWVersion}" />
                                             </ColumnListItem>
                                         </items>
                                     </Table>
@@ -188,13 +181,13 @@
                                     <Table>
                                         <columns>
                                             <Column>
-                                                <Text text="Metric" />
+                                                <Text text="Parameter" />
                                             </Column>
                                             <Column>
-                                                <Text text="Value" />
+                                                <Text text="Wert" />
                                             </Column>
                                             <Column>
-                                                <Text text="Count" />
+                                                <Text text="Anzahl" />
                                             </Column>
                                             <Column>
                                                 <Text text="Min" />
@@ -203,12 +196,12 @@
                                                 <Text text="Max" />
                                             </Column>
                                             <Column>
-                                                <Text text="Mean" />
+                                                <Text text="Durchschnitt" />
                                             </Column>
                                         </columns>
                                         <items>
                                             <ColumnListItem>
-                                                <Text text="Connector Response Times" />
+                                                <Text text="Konnektor Antwortzeiten" />
                                                 <Text text="" />
                                                 <Text text="{Metrics>/connectorResponseTime/count}" />
                                                 <Text text="{Metrics>/connectorResponseTime/min}" />
@@ -216,7 +209,7 @@
                                                 <Text text="{Metrics>/connectorResponseTime/mean}" />
                                             </ColumnListItem>
                                             <ColumnListItem>
-                                                <Text text="Currently ConnectedCards" />
+                                                <Text text="Derzeitig gesteckte Karten" />
                                                 <Text text="{Metrics>/currentlyConnectedCards}" />
                                                 <Text text="" />
                                                 <Text text="" />

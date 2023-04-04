@@ -22,7 +22,6 @@ Prerequisites:
 
 Now you can start the application:
 ```
-mvn wildfly:provision
 mvn wildfly:start
 mvn package wildfly:deploy
 ```
@@ -32,15 +31,14 @@ mvn wildfly:undeploy
 mvn wildfly:shutdown
 ```
 
-# Basic auth info
+# Prometheus
+Prometheus will read the metrics from the /metrics endpoint at regular intervals, provided by the scheduler in the Scheduler.java class
+There is an openMetrics "secondsDuration" that will go through into Grafana for the SMC_KT expiration graph
 
-The application is secured with basic auth. The specification is in the file src/main/webapp/WEB-INF/web.xml
+# Grafana
+The JSON Model for building the Grafana Graph to view the OpenMetrics is in the /Grafana folder and can be imported via the "Import JSON" function in Grafana
+The model currently shows a traffic-light graph (red, yellow, green) about how much time is left until the SMC_KT certificate expires
 
-To access the application you need to create a user in the wildfly server. To do so, you can use this script:
-```
-target/server/bin/add-user.sh -> Linux
-target/server/bin/add-user.bat -> Windows
-```
 # Example for metrics
 
 ```

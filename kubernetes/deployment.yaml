@@ -35,6 +35,13 @@ spec:
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
+            - containerPort: 9990
+          env:
+            - name: WILDFLY_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: connector-admin
+                  key: wildfly-password
 
 ---
 
@@ -50,6 +57,24 @@ spec:
 
 ---
 
+kind: Service
+apiVersion: v1
+metadata:
+  name: connector-admin-console
+  annotations:
+    prometheus.io/scrape: 'true'
+    prometheus.io/port: '9990'
+spec:
+  selector:
+    app: connector-admin
+  ports:
+    - name: console
+      port: 9990
+      targetPort: 9990
+      protocol: TCP
+
+---
+
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -57,9 +82,6 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: "nginx"
     nginx.ingress.kubernetes.io/enable-cors: "true"
-    nginx.ingress.kubernetes.io/cors-allow-methods: POST, GET, OPTIONS, DELETE, PUT
-    nginx.ingress.kubernetes.io/cors-allow-origin: https://eau.med-united.health
-    nginx.ingress.kubernetes.io/cors-expose-headers: X-Custom-Header
 spec:
   tls:
     - hosts:
@@ -76,4 +98,11 @@ spec:
                 name: connector-admin
                 port:
                   number: 8080
+          - path: /console
+            pathType: Prefix
+            backend:
+              service:
+                name: connector-admin-console
+                port:
+                  number: 9990
 

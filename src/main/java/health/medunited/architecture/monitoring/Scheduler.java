@@ -6,6 +6,9 @@ import java.security.KeyManagementException;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
+import java.text.SimpleDateFormat;
+import java.time.*;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.logging.Level;
@@ -56,6 +59,7 @@ public class Scheduler {
 
         List<RuntimeConfig> runtimeConfigs = query.getResultList();
         for(RuntimeConfig runtimeConfig : runtimeConfigs) {
+
             try {
                 SecretsManagerService secretsManagerService = new SecretsManagerService();
                 if(runtimeConfig.getClientCertificate() != null) {
@@ -89,6 +93,67 @@ public class Scheduler {
                     .withDescription("Timer for measuring response times for "+runtimeConfig.getUrl())
                     .build());
 
+
+
+                Callable<Long> secondsCallable = () -> {
+                    GetCards getCards = new GetCards();
+                    ContextType contextType = new ContextType();
+                    contextType.setMandantId(runtimeConfig.getMandantId());
+                    contextType.setClientSystemId(runtimeConfig.getClientSystemId());
+                    contextType.setWorkplaceId(runtimeConfig.getWorkplaceId());
+                    contextType.setUserId(runtimeConfig.getUserId());
+                    getCards.setContext(contextType);
+                    GetCardsResponse getCardsResponse = eventServicePortType.getCards(getCards);
+                    Integer numberOfCards = getCardsResponse.getCards().getCard().size();
+                    String expirationString = "2024-01-01";
+                    for(int i=0;i<numberOfCards;i++){
+                        String cardType = getCardsResponse.getCards().getCard().get(i).getCardType().toString();
+                        if (cardType == "SMC_KT") {
+                            expirationString  = getCardsResponse.getCards().getCard().get(i).getCertificateExpirationDate().toString();
+
+                            String expStr = expirationString.substring(0,expirationString.length()-1);
+
+
+                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                            Date future = sdf.parse(expStr);
+
+
+                            Instant one = Instant.now();
+                            Instant two = future.toInstant();
+                            Duration duration = Duration.between(one, two);
+
+                            return duration.toSeconds();
+                        }
+                    }
+                    //unlikely to reach
+                    return null;
+                };
+
+
+
+                try {
+                    Gauge<Long> someVar  = applicationRegistry.gauge(Metadata.builder()
+                            .withName("secondsDurationLeftUntilSMC_KTexpiry_"+runtimeConfig.getUrl())
+                            .withDescription("duration of seconds until the SMC_KT card expires "+runtimeConfig.getUrl())
+                            .build(), () -> {
+                        Long secondsDurationLefTillExpiryLng;
+                        try {
+                            secondsDurationLefTillExpiryLng = connectorResponseTime.time(secondsCallable);
+                            log.info("Currently connected cards: "+secondsDurationLefTillExpiryLng+" "+runtimeConfig.getUrl());
+                            return secondsDurationLefTillExpiryLng;
+                        } catch (Exception e) {
+                            log.log(Level.WARNING, "Can't measure connector", e);
+                        }
+                        return null;
+                    });
+                } catch (Exception e) {
+                    log.log(Level.WARNING, "Can't measure connector", e);
+                }
+
+
+
+
+
                 Callable<Integer> callable = () -> {
                     GetCards getCards = new GetCards();
                     ContextType contextType = new ContextType();
@@ -100,7 +165,9 @@ public class Scheduler {
                     GetCardsResponse getCardsResponse = eventServicePortType.getCards(getCards);
                     return getCardsResponse.getCards().getCard().size();
                 };
-                
+
+
+
                 try {
                     Gauge<Integer> currentlyConnectedCards  = applicationRegistry.gauge(Metadata.builder()
                     .withName("currentlyConnectedCards_"+runtimeConfig.getUrl())
