@@ -129,6 +129,13 @@ public class Card {
         if (cardInfoType.getCardType().equals(CardTypeType.SMC_B)) {
             pinType = "PIN.SMC";
         }
+        else if (cardInfoType.getCardType().equals(CardTypeType.EGK)){
+            pinType = "PIN.CH";
+        }
+        else if(cardInfoType.getCardType().equals(CardTypeType.HBA))
+        {
+            pinType = "PIN.CH";
+        }
 
         try {
             cardServicePortType.getPinStatus(
