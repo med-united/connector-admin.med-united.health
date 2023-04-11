@@ -83,6 +83,14 @@
 					]
 				},
 				{
+					"pattern": "dashboard/{layout}",
+					"name": "dashboard",
+					"target": [
+						"master",
+						"dashboard"
+					]
+				},
+				{
 					"pattern": "detail/RuntimeConfigs('{id}')/{layout}",
 					"name": "detail",
 					"target": [
@@ -102,6 +110,11 @@
 			"targets": {
 				"master": {
 					"viewName": "Master",
+					"controlAggregation": "beginColumnPages",
+					"clearControlAggregation": true
+				},
+				"dashboard": {
+					"viewName": "Dashboard",
 					"controlAggregation": "beginColumnPages",
 					"clearControlAggregation": true
 				},
