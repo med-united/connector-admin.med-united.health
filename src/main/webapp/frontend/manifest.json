@@ -76,18 +76,18 @@
 			},
 			"routes": [
 				{
-					"pattern": ":layout:",
-					"name": "master",
-					"target": [
-						"master"
-					]
-				},
-				{
-					"pattern": "dashboard/{layout}",
+					"pattern": "",
 					"name": "dashboard",
 					"target": [
 						"master",
 						"dashboard"
+					]
+				},
+				{
+					"pattern": "management",
+					"name": "master",
+					"target": [
+						"master"
 					]
 				},
 				{
