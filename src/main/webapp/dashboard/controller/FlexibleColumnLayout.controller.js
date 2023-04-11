@@ -36,6 +36,12 @@ sap.ui.define(
           // Save the current route name
           this.currentRouteName = sRouteName;
           this.currentProduct = oArguments.product;
+
+          if(sRouteName === "master") {
+            this.getView().byId("shellbar").setShowNavButton(true)
+          } else {
+            this.getView().byId("shellbar").setShowNavButton(false)
+          }
         },
 
         onStateChanged: function (oEvent) {
@@ -64,7 +70,7 @@ sap.ui.define(
         },
 
         handleBackButtonPressed: function () {
-          window.history.go(-1);
+          this.oRouter.navTo("dashboard");
         },
 
         onExit: function () {
