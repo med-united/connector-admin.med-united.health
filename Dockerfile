@@ -3,7 +3,7 @@ FROM bitnami/wildfly:26.1.3-debian-11-r18
 
 COPY wildfly-configuration/standalone.xml /opt/bitnami/wildfly/standalone/configuration/
 
-ADD target/frontend.war /opt/bitnami/wildfly/standalone/deployments/
+ADD target/dashboard.war /opt/bitnami/wildfly/standalone/deployments/
 
 USER root
 RUN chown -R 1001:root /opt/bitnami/wildfly

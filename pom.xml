@@ -117,7 +117,7 @@
         </dependency>
     </dependencies>
     <build>
-        <finalName>frontend</finalName>
+        <finalName>dashboard</finalName>
         <plugins>
             <plugin>
                 <groupId>org.wildfly.plugins</groupId>
