@@ -1,9 +1,9 @@
 sap.ui.define(
   [
-    "./AbstractMasterController",
+    "./AbstractMasterController"
   ],
   function (
-    AbstractMasterController,
+    AbstractMasterController
   ) {
     "use strict";
 
