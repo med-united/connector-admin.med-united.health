@@ -19,7 +19,7 @@
 
 
            <VBox
-                   alignItems="Left"
+                   alignItems="Center"
                    justifyContent="SpaceBetween" >
                 <Title level="H3" text="Title" />
                 <Text text="insideText"/>
