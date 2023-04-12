@@ -16,7 +16,15 @@
 
         <!-- DynamicPage Content -->
         <f:content>
-            <Button id="routeToMaster" text="{i18n>RouteToMaster}" press=".onRouteToMaster" class="sapUiTinyMarginEnd"/>
+
+
+           <VBox
+                   alignItems="Left"
+                   justifyContent="SpaceBetween" >
+                <Title level="H3" text="Title" />
+                <Text text="insideText"/>
+               <Button id="routeToMaster" text="{i18n>RouteToMaster}" press=".onRouteToMaster" class="sapUiTinyMarginEnd"/>
+            </VBox>
         </f:content>
 
         <!-- DynamicPage Footer -->
