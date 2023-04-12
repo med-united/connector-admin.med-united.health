@@ -1,9 +1,13 @@
 sap.ui.define(
   [
-    "./AbstractMasterController"
+    "./AbstractMasterController",
+    "../resources/libs/vega5",
+    "../resources/libs/vega-embed5"
   ],
   function (
-    AbstractMasterController
+    AbstractMasterController,
+    vega5js,
+    vega5embedjs
   ) {
     "use strict";
 
