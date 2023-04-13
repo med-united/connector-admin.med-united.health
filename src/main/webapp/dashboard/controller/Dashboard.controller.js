@@ -15,7 +15,7 @@ sap.ui.define(
       "sap.f.ShellBarWithFlexibleColumnLayout.controller.Dashboard",
       {
         onInit: function () {
-          var myJSON = {
+          var graphJSON = {
                             "$schema": "https://vega.github.io/schema/vega/v4.0.json",
                             "width": 400,
                             "height": 200,
@@ -110,16 +110,18 @@ sap.ui.define(
                           };
           this.oRouter = this.getOwnerComponent().getRouter();
           this._bDescendingSort = false;
-          console.log("Yeees, vega is installed:"+vega.version);
+          console.log("Vega is installed: "+vega.version);
 
-          setTimeout(myGreeting, 5000);
-
-            function myGreeting() {
-            	vegaEmbed("#__data12", myJSON)
-                // result.view provides access to the Vega View API
-                .then(result => console.log(result))
-                .catch(console.warn);
+            // attaching "manually" to a div __data12. We need a better way to do this
+            // ideally this should be loaded into a panel or a card
+            function attachGraphToElement() {
+            	vegaEmbed("#__data12", graphJSON)
+                    .then(result => console.log(result))
+                    .catch(console.warn);
              }
+
+          setTimeout(attachGraphToElement, 1500);
+
         },
         onRouteToMaster: function (oEvent) {
 
