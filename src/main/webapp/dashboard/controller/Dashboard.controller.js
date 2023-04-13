@@ -120,7 +120,7 @@ sap.ui.define(
                     .catch(console.warn);
              }
 
-          setTimeout(attachGraphToElement, 1500);
+          setTimeout(attachGraphToElement, 2000);
 
         },
         onRouteToMaster: function (oEvent) {
