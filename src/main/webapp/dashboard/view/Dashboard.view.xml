@@ -16,7 +16,17 @@
 
         <!-- DynamicPage Content -->
         <f:content>
-            <Button id="routeToMaster" text="{i18n>RouteToMaster}" press=".onRouteToMaster" class="sapUiTinyMarginEnd"/>
+
+
+           <VBox
+                   alignItems="Center"
+                   justifyContent="SpaceBetween" >
+                <Title level="H3" text="Loading Vega Graph..." />
+                <Text text=" "/>
+                <Text text=" "/>
+                <Text text=" "/>
+               <Button id="routeToMaster" text="{i18n>RouteToMaster}" press=".onRouteToMaster" class="sapUiTinyMarginEnd"/>
+            </VBox>
         </f:content>
 
         <!-- DynamicPage Footer -->

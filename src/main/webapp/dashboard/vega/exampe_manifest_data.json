@@ -1,0 +1,267 @@
+{
+  "rows": 3,
+  "columns": 2,
+  "header": {
+    "title": "Project offers",
+    "subTitle": "by date",
+    "status": {
+      "text": "open"
+    },
+    "icon": {
+      "src": "sap-icon://project-definition-triangle"
+    }
+  },
+  "content": {
+    "$schema": "https://vega.github.io/schema/vega/v5.json",
+    "background": "white",
+    "padding": 5,
+    "height": 200,
+    "width": 600,
+    "data": [
+      {
+        "name": "source_0",
+        "url": "../../../project-offer-backend/Data.svc/ProjectOffers?$select=Id,OriginalPublicationDate&$filter=OriginalPublicationDate gt __TWO_WEEKS_AGO__"
+      },
+      {
+        "name": "data_0",
+        "source": "source_0",
+        "transform": [
+          {
+            "type": "flatten",
+            "fields": [
+              "d.results"
+            ],
+            "as": [
+              "project"
+            ]
+          },
+          {
+            "type": "formula",
+            "expr": "timeParse(datum[\"project\"] && datum[\"project\"][\"OriginalPublicationDate\"],'/Date(%Q)/')",
+            "as": "project.OriginalPublicationDate"
+          },
+          {
+            "field": "project\\.OriginalPublicationDate",
+            "type": "timeunit",
+            "units": [
+              "year",
+              "month",
+              "date"
+            ],
+            "as": [
+              "yearmonthdate_project.OriginalPublicationDate",
+              "yearmonthdate_project.OriginalPublicationDate_end"
+            ]
+          },
+          {
+            "type": "aggregate",
+            "groupby": [
+              "yearmonthdate_project\\.OriginalPublicationDate",
+              "yearmonthdate_project\\.OriginalPublicationDate_end"
+            ],
+            "ops": [
+              "count"
+            ],
+            "fields": [
+              null
+            ],
+            "as": [
+              "__count"
+            ]
+          },
+          {
+            "type": "filter",
+            "expr": "(isDate(datum[\"yearmonthdate_project.OriginalPublicationDate\"]) || (isValid(datum[\"yearmonthdate_project.OriginalPublicationDate\"]) && isFinite(+datum[\"yearmonthdate_project.OriginalPublicationDate\"]))) && ((now()-datum[\"yearmonthdate_project.OriginalPublicationDate\"])<(1000*60*60*24*30))"
+          }
+        ]
+      }
+    ],
+    "signals": [
+      {
+        "name": "childWidth",
+        "value": 580
+      }
+    ],
+    "layout": {
+      "padding": 20,
+      "bounds": "full",
+      "align": "each"
+    },
+    "marks": [
+      {
+        "type": "group",
+        "name": "concat_0_group",
+        "title": {
+          "text": "Job offers per day",
+          "frame": "group"
+        },
+        "style": "cell",
+        "encode": {
+          "update": {
+            "width": {
+              "signal": "childWidth"
+            },
+            "height": {
+              "signal": "height"
+            }
+          }
+        },
+        "marks": [
+          {
+            "name": "concat_0_marks",
+            "type": "rect",
+            "style": [
+              "bar"
+            ],
+            "from": {
+              "data": "data_0"
+            },
+            "encode": {
+              "update": {
+                "fill": {
+                  "value": "#4c78a8"
+                },
+                "tooltip": {
+                  "signal": "format(datum[\"__count\"], \"\")"
+                },
+                "ariaRoleDescription": {
+                  "value": "bar"
+                },
+                "description": {
+                  "signal": "\"project.OriginalPublicationDate (year-month-date): \" + (utcFormat(datum[\"yearmonthdate_project.OriginalPublicationDate\"], timeUnitSpecifier([\"year\",\"month\",\"date\"], {\"year-month\":\"%b %Y \",\"year-month-date\":\"%b %d, %Y \"}))) + \"; Count of Records: \" + (format(datum[\"__count\"], \"\"))"
+                },
+                "x2": [
+                  {
+                    "test": "!isValid(datum[\"yearmonthdate_project.OriginalPublicationDate\"]) || !isFinite(+datum[\"yearmonthdate_project.OriginalPublicationDate\"])",
+                    "value": 0
+                  },
+                  {
+                    "scale": "concat_0_x",
+                    "field": "yearmonthdate_project\\.OriginalPublicationDate",
+                    "offset": 1
+                  }
+                ],
+                "x": [
+                  {
+                    "test": "!isValid(datum[\"yearmonthdate_project.OriginalPublicationDate\"]) || !isFinite(+datum[\"yearmonthdate_project.OriginalPublicationDate\"])",
+                    "value": 0
+                  },
+                  {
+                    "scale": "concat_0_x",
+                    "field": "yearmonthdate_project\\.OriginalPublicationDate_end"
+                  }
+                ],
+                "y": {
+                  "scale": "concat_0_y",
+                  "field": "__count"
+                },
+                "y2": {
+                  "scale": "concat_0_y",
+                  "value": 0
+                }
+              }
+            }
+          }
+        ],
+        "axes": [
+          {
+            "scale": "concat_0_x",
+            "orient": "bottom",
+            "gridScale": "concat_0_y",
+            "grid": true,
+            "tickCount": {
+              "signal": "ceil(childWidth/40)"
+            },
+            "domain": false,
+            "labels": false,
+            "aria": false,
+            "maxExtent": 0,
+            "minExtent": 0,
+            "ticks": false,
+            "zindex": 0
+          },
+          {
+            "scale": "concat_0_y",
+            "orient": "left",
+            "gridScale": "concat_0_x",
+            "grid": true,
+            "tickCount": {
+              "signal": "ceil(height/40)"
+            },
+            "domain": false,
+            "labels": false,
+            "aria": false,
+            "maxExtent": 0,
+            "minExtent": 0,
+            "ticks": false,
+            "zindex": 0
+          },
+          {
+            "scale": "concat_0_x",
+            "orient": "bottom",
+            "grid": false,
+            "title": "project.OriginalPublicationDate (year-month-date)",
+            "labelAngle": 15,
+            "format": {
+              "signal": "timeUnitSpecifier([\"year\",\"month\",\"date\"], {\"year-month\":\"%b %Y \",\"year-month-date\":\"%b %d, %Y \"})"
+            },
+            "labelAlign": "left",
+            "labelBaseline": "top",
+            "labelFlush": true,
+            "labelOverlap": true,
+            "tickCount": {
+              "signal": "ceil(childWidth/40)"
+            },
+            "zindex": 0
+          },
+          {
+            "scale": "concat_0_y",
+            "orient": "left",
+            "grid": false,
+            "title": "Count of Records",
+            "labelOverlap": true,
+            "tickCount": {
+              "signal": "ceil(height/40)"
+            },
+            "zindex": 0
+          }
+        ]
+      }
+    ],
+    "scales": [
+      {
+        "name": "concat_0_x",
+        "type": "utc",
+        "domain": {
+          "data": "data_0",
+          "fields": [
+            "yearmonthdate_project\\.OriginalPublicationDate",
+            "yearmonthdate_project\\.OriginalPublicationDate_end"
+          ]
+        },
+        "range": [
+          0,
+          {
+            "signal": "childWidth"
+          }
+        ]
+      },
+      {
+        "name": "concat_0_y",
+        "type": "linear",
+        "domain": {
+          "data": "data_0",
+          "field": "__count"
+        },
+        "range": [
+          {
+            "signal": "height"
+          },
+          0
+        ],
+        "nice": true,
+        "zero": true
+      }
+    ]
+  }
+}

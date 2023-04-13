@@ -31,6 +31,8 @@
 			"sap_fiori_3"
 		]
 	},
+	"incentergy.base.vega": [
+	],
 	"sap.ui5": {
 		"rootView": {
 			"viewName": "sap.f.ShellBarWithFlexibleColumnLayout.view.FlexibleColumnLayout",
