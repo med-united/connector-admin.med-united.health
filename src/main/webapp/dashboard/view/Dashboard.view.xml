@@ -21,7 +21,7 @@
            <VBox
                    alignItems="Center"
                    justifyContent="SpaceBetween" >
-                <Title level="H3" text="Loading Vega Graph..." />
+                <Title level="H3" text="{i18n>loadingStatus}" />
                 <Text text=" "/>
                 <Text text=" "/>
                 <Text text=" "/>
