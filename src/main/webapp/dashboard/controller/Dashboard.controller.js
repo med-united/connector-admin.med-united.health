@@ -145,21 +145,23 @@ sap.ui.define(
                 fetch("/connector/event/get-cards", {
                   headers: getCardsHeaders,
                 }).then((response) => {
-                  response.json().then((data) => {
-                    let cards = data.cards.card;
-                    let content = cards.map((card) => ({
-                      x: config.Url,
-                      y: 1,
-                      c: card.cardType,
-                    }));
-                    allContent.push(...content); // Accumulate data from this response
-                    numResponses++;
-                    if (numResponses === numConfigs) {
-                      // Check if all responses have been received
-                      graphJSON.data[0].values = allContent; // Update graph with all data
-                      attachGraphToElement();
-                    }
-                  });
+                  numResponses++;
+                  if (response.ok) {
+                    response.json().then((data) => {
+                      let cards = data.cards.card;
+                      let content = cards.map((card) => ({
+                        x: config.Url,
+                        y: 1,
+                        c: card.cardType,
+                      }));
+                      allContent.push(...content); // Accumulate data from this response
+                    });
+                  }
+                  if (numResponses === numConfigs) {
+                    // Check if all responses have been received
+                    graphJSON.data[0].values = allContent; // Update graph with all data
+                    attachGraphToElement();
+                  }
                 });
               });
             },
