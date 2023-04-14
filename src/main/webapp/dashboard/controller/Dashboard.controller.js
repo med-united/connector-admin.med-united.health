@@ -12,7 +12,6 @@ sap.ui.define(
       "sap.f.ShellBarWithFlexibleColumnLayout.controller.Dashboard",
       {
         onInit: function () {
-          console.log("HELLO");
           let graphJSON = {
             $schema: "https://vega.github.io/schema/vega/v5.json",
             title: "Gesteckte Karten aller verfügbaren Konnektoren",
