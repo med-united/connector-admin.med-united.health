@@ -147,9 +147,8 @@ sap.ui.define(
                 }).then((response) => {
                   response.json().then((data) => {
                     let cards = data.cards.card;
-                    let konnektor = "Kops";
                     let content = cards.map((card) => ({
-                      x: konnektor,
+                      x: config.Url,
                       y: 1,
                       c: card.cardType,
                     }));
