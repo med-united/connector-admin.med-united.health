@@ -21,8 +21,13 @@ sap.ui.define(
           const oVerifyAllModel = new JSONModel();
           this.getView().setModel(oVerifyAllModel, "VerifyAll");
 
+
           const oPinStatus = new JSONModel();
           this.getView().setModel(oPinStatus, "PINStatus");
+
+          const oProductInformationModel = new JSONModel();
+          this.getView().setModel(oProductInformationModel, "ProductInformation")
+
         },
         onVerifyPinCh: function (oEvent) {
           const sPath = "/RuntimeConfigs('" + this._entity + "')";
@@ -176,17 +181,6 @@ sap.ui.define(
             Accept: "application/json",
           };
 
-          this.getView()
-            .getModel("VerifyAll")
-            .loadData(
-              "connector/certificate/verifyAll",
-              {},
-              "true",
-              "GET",
-              false,
-              true,
-              mHeaders
-            );
 
           this.getView()
             .getModel("PINStatus")
@@ -224,6 +218,18 @@ sap.ui.define(
               mHeaders
             );
 
+          this.getView()
+          .getModel("ProductInformation")
+          .loadData(
+            "connector/productTypeInformation/getVersion",
+            {},
+            "true",
+            "GET",
+            false,
+            true,
+            mHeaders
+          );
+
           fetch("connector/certificate/verifyAll", { headers: mHeaders }).then(
             (response) =>
               response
@@ -238,7 +244,8 @@ sap.ui.define(
                   for (let i = 0; i < numberOfCards; i++) {
                     if (!res.data[i].readCardCertificateResponse) continue;
                     arrayData.push({
-                      handle: res.data[i].cardInfoType.cardHandle,
+                      cardHandle: res.data[i].cardInfoType.cardHandle,
+                      cardHolderName: res.data[i].cardInfoType.cardHolderName,
                       certInfos:
                         res.data[i].readCardCertificateResponse.x509DataInfoList
                           .x509DataInfo,
@@ -250,7 +257,9 @@ sap.ui.define(
                   for (let j = 0; j < arrayData.length; j++) {
                     for (let q = 0; q < arrayData[j].certInfos.length; q++) {
                       plainList.push({
-                        handle: arrayData[j].handle,
+                        cardHolderName: arrayData[j].cardHolderName,
+                        certRef: arrayData[j].certInfos[q].certRef,
+                        cardHandle: arrayData[j].cardHandle,
                         serial:
                           arrayData[j].certInfos[q].x509Data.x509IssuerSerial
                             .x509SerialNumber,

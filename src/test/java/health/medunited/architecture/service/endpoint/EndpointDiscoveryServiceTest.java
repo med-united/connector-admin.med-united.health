@@ -1,17 +1,24 @@
 package health.medunited.architecture.service.endpoint;
 
-import health.medunited.architecture.service.common.security.SecretsManagerService;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.IOException;
+import de.gematik.ws.conn.servicedirectory.v3.ConnectorServices;
+import health.medunited.architecture.service.common.security.SecretsManagerService;
 
-@Disabled("Integration test with Kops")
+
 class EndpointDiscoveryServiceTest {
 
     private static SecretsManagerService secretsManagerService;
@@ -27,10 +34,19 @@ class EndpointDiscoveryServiceTest {
     }
 
     @Test
+    @Disabled("Integration test with Kops")
     void testObtainConfiguration() throws IOException, ParserConfigurationException {
         EndpointDiscoveryService endpointDiscoveryService = new EndpointDiscoveryService();
         endpointDiscoveryService.secretsManagerService = secretsManagerService;
         endpointDiscoveryService.obtainConfiguration("https://127.0.0.1");
         Assertions.assertFalse(endpointDiscoveryService.getEventServiceEndpointAddress().isEmpty());
+    }
+
+    @Test
+    void readConnectorSDS() throws JAXBException {
+        JAXBContext jaxbContext = JAXBContext.newInstance(ConnectorServices.class);
+        ConnectorServices connectorServices = (ConnectorServices) jaxbContext.createUnmarshaller().unmarshal(EndpointDiscoveryServiceTest.class.getResourceAsStream("/connector.sds"));
+        assertEquals("5.53.0", connectorServices.getProductInformation().getProductTypeInformation().getProductTypeVersion());
+    
     }
 }

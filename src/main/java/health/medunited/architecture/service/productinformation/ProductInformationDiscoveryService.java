@@ -1,7 +1,8 @@
-package health.medunited.architecture.service.endpoint;
+package health.medunited.architecture.service.productinformation;
 
 import de.gematik.ws._int.version.productinformation.v1.ProductTypeInformation;
 import health.medunited.architecture.service.common.security.SecretsManagerService;
+import health.medunited.architecture.service.endpoint.SSLUtilities;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -20,18 +21,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @RequestScoped
-public class EndpointDiscoveryService {
+public class ProductInformationDiscoveryService {
 
-    private static final Logger log = Logger.getLogger(EndpointDiscoveryService.class.getName());
+    private static final Logger log = Logger.getLogger(ProductInformationDiscoveryService.class.getName());
 
     @Inject
     SecretsManagerService secretsManagerService;
-
-    private String eventServiceEndpointAddress;
-
-    private String cardServiceEndpointAddress;
-
-    private String certificateServiceEndpointAddress;
 
     private ProductTypeInformation connectorVersion;
 
@@ -61,40 +56,6 @@ public class EndpointDiscoveryService {
 
             connectorVersion = getConnectorVersion(document);
 
-            Node serviceInformationNode = getNodeWithTag(document.getDocumentElement(), "ServiceInformation");
-            if (serviceInformationNode == null) {
-                throw new IllegalArgumentException("Could not find single 'ServiceInformation'-tag");
-            }
-            NodeList serviceNodeList = serviceInformationNode.getChildNodes();
-
-            for (int i = 0, n = serviceNodeList.getLength(); i < n; ++i) {
-                Node node = serviceNodeList.item(i);
-
-                if (node.getNodeType() != 1) {
-                    // ignore formatting related text nodes
-                    continue;
-                }
-
-                if (!node.hasAttributes() || node.getAttributes().getNamedItem("Name") == null) {
-                    break;
-                }
-
-                switch (node.getAttributes().getNamedItem("Name").getTextContent()) {
-                    case "EventService": {
-                        eventServiceEndpointAddress = getEndpoint(node);
-                        break;
-                    }
-                    case "CardService":{
-                        cardServiceEndpointAddress = getEndpoint(node);
-                        break;
-                    }
-                    case "CertificateService":{
-                        certificateServiceEndpointAddress = getEndpoint(node);
-                        break;
-                    }
-                }
-            }
-
         } catch (ProcessingException | SAXException | IllegalArgumentException e) {
             log.log(Level.SEVERE, "Could not get or parse connector.sds", e);
         }
@@ -119,31 +80,6 @@ public class EndpointDiscoveryService {
         return productTypeInformation;
     }
 
-    private String getEndpoint(Node serviceNode) {
-        Node versionsNode = getNodeWithTag(serviceNode, "Versions");
-
-        if (versionsNode == null) {
-            throw new IllegalArgumentException("No version tags found");
-        }
-        NodeList versionNodes = versionsNode.getChildNodes();
-        String location = "";
-        for (int i = 0, n = versionNodes.getLength(); i < n; ++i) {
-            Node versionNode = versionNodes.item(i);
-
-            Node endpointNode = getNodeWithTag(versionNode, "EndpointTLS");
-
-            if (endpointNode == null || !endpointNode.hasAttributes()
-                    || endpointNode.getAttributes().getNamedItem("Location") == null) {
-                continue;
-            }
-
-            location = endpointNode.getAttributes().getNamedItem("Location").getTextContent();
-
-        }
-
-        return location;
-    }
-
     private Node getNodeWithTag(Node node, String tagName) {
         NodeList nodeList = node.getChildNodes();
 
@@ -158,17 +94,7 @@ public class EndpointDiscoveryService {
         return null;
     }
 
-    public String getEventServiceEndpointAddress() {
-        return eventServiceEndpointAddress;
+    public ProductTypeInformation getConnectorVersion() {
+        return connectorVersion;
     }
-
-    public String getCardServiceEndpointAddress() {
-        return cardServiceEndpointAddress;
-    }
-
-    public String getCertificateServiceEndpointAddress() {
-        return certificateServiceEndpointAddress;
-    }
-
-
 }

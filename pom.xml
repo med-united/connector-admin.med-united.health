@@ -72,7 +72,7 @@
         <dependency>
             <groupId>health.ere</groupId>
             <artifactId>api-telematik-service</artifactId>
-            <version>OPD4-20220115</version>
+            <version>OPD4-20230404</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/javax.json.bind/javax.json.bind-api -->
         <dependency>
