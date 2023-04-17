@@ -13,101 +13,96 @@ sap.ui.define(
       {
         onInit: function () {
           let graphJSON = {
-            $schema: "https://vega.github.io/schema/vega/v5.json",
-            title: "Gesteckte Karten aller verfügbaren Konnektoren",
-            width: 1000,
-            height: 300,
-            padding: 5,
+             "$schema": "https://vega.github.io/schema/vega/v5.json",
+                          "title": "Kartentypen aller verfügbaren Konnektoren",
+                          "width": 500,
+                          "height": 300,
+                          "padding": 5,
 
-            data: [
-              {
-                name: "table",
-                values: [],
-                transform: [
-                  {
-                    type: "stack",
-                    groupby: ["x"],
-                    sort: { field: "c" },
-                    field: "y",
-                  },
-                ],
-              },
-            ],
+                          "data": [
+                            {
+                              "name": "table",
+                              "values": [
+                              ],
+                              "transform": [
+                                {
+                                  "type": "stack",
+                                  "groupby": ["x"],
+                                  "sort": {"field": "c"},
+                                  "field": "y"
+                                }
+                              ]
+                            }
+                          ],
 
-            scales: [
-              {
-                name: "x",
-                type: "band",
-                range: "width",
-                domain: { data: "table", field: "x" },
-                paddingInner: 0.1, // distance between stacks
-                paddingOuter: 0.1,
-              },
-              {
-                name: "y",
-                type: "linear",
-                range: "height",
-                nice: 1, // x axis displaying a scale of 1
-                zero: true,
-                domain: { data: "table", field: "y1" },
-                round: true,
-              },
-              {
-                name: "color",
-                type: "ordinal",
-                range: ["#5899DA", "#E8743B", "#19A979", "#ED4A7B", "#945ECF"], // SAP Fiori for Web Design Guidelines
-                domain: ["SMC_KT", "SMC_B", "HBA", "EGK", "KVK"],
-              },
-            ],
+                          "scales": [
+                            {
+                              "name": "x",
+                              "type": "band",
+                              "range": "width",
+                              "domain": {"data": "table", "field": "x"},
+                              "paddingInner": 0.1, // distance between stacks
+                              "paddingOuter": 0.1
+                            },
+                            {
+                              "name": "y",
+                              "type": "linear",
+                              "range": "height",
+                              "nice": 1, // x axis displaying a scale of 1
+                              "zero": true,
+                              "domain": {"data": "table", "field": "y1"},
+                              "round": true
+                            },
+                            {
+                              "name": "color",
+                              "type": "ordinal",
+                              "range": ["#5899DA", "#E8743B", "#19A979", "#ED4A7B", "#945ECF"], // SAP Fiori for Web Design Guidelines
+                              "domain": ["SMC_KT", "SMC_B", "HBA", "EGK", "KVK"],
+                            }
+                          ],
 
-            axes: [
-              { orient: "bottom", scale: "x", zindex: 1, title: "Konnektoren" },
-              {
-                orient: "left",
-                scale: "y",
-                zindex: 1,
-                format: ".0f",
-                title: "Gesteckte Karten",
-              },
-            ],
+                          "axes": [
+                            {"orient": "bottom", "scale": "x", "zindex": 1, "title":"Konnektoren"},
+                            {"orient": "left", "scale": "y", "zindex": 1, "format": ".0f", "title":"Gesteckte Karten", "values": [1, 2, 3, 4,5,6,7,8,9]}
+                          ],
 
-            marks: [
-              {
-                type: "rect",
-                from: { data: "table" },
-                encode: {
-                  enter: {
-                    x: { scale: "x", field: "x" },
-                    width: { scale: "x", band: 1, offset: -1 },
-                    y: { scale: "y", field: "y0" },
-                    y2: { scale: "y", field: "y1" },
-                    fill: { scale: "color", field: "c" },
-                  },
-                  update: {
-                    fillOpacity: { value: 1 },
-                  },
-                  hover: {
-                    fillOpacity: { value: 0.5 },
-                  },
-                },
-              },
-            ],
-            legends: [
-              {
-                orient: "right",
-                direction: "vertical",
-                fill: "color",
-                encode: {
-                  labels: {
-                    interactive: true,
-                    update: {
-                      fontSize: { value: 12 },
-                      fill: { value: "black" },
-                    },
-                  },
-                },
-              },
-            ],
+                          "marks": [
+                            {
+                              "type": "rect",
+                              "from": {"data": "table"},
+                              "encode": {
+                                "enter": {
+                                  "x": {"scale": "x", "field": "x"},
+                                  "width": {"scale": "x", "band": 1, "offset": -1},
+                                  "y": {"scale": "y", "field": "y0"},
+                                  "y2": {"scale": "y", "field": "y1"},
+                                  "fill": {"scale": "color", "field": "c"}
+                                },
+                                "update": {
+                                  "fillOpacity": {"value": 1}
+                                },
+                                "hover": {
+                                  "fillOpacity": {"value": 0.5}
+                                }
+                              }
+                            }
+                          ],
+                        "legends": [
+                            {
+                                "orient": "right",
+                                "direction": "vertical",
+                                "fill": "color",
+                                "encode":{
+                                    "labels":{
+                                        "interactive": true,
+                                        "update":{
+                                            "fontSize": {"value": 12},
+                                            "fill": {"value": "black"},
+                                        },
+                                    },
+                                },
+                            },
+                        ],
           };
           this.oRouter = this.getOwnerComponent().getRouter();
           this._bDescendingSort = false;
