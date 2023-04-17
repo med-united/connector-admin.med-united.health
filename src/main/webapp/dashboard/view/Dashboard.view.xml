@@ -2,7 +2,9 @@
           controllerName="sap.f.ShellBarWithFlexibleColumnLayout.controller.Dashboard" height="100%"
           xmlns="sap.m"
           xmlns:f="sap.f"
-          xmlns:mvc="sap.ui.core.mvc">
+          xmlns:mvc="sap.ui.core.mvc"
+          xmlns:ui-integration="sap.ui.integration.widgets"
+>
     <f:DynamicPage id="dynamicPageId"
                    toggleHeaderOnTitleClick="false">
         <!-- DynamicPage Title -->
@@ -14,28 +16,10 @@
             </f:DynamicPageTitle>
         </f:title>
 
+
         <!-- DynamicPage Content -->
         <f:content>
-            <VBox  alignItems="Center"
-                   justifyContent="SpaceBetween" >
-
-                <Button id="routeToMaster" text="{i18n>RouteToMaster}" press=".onRouteToMaster" class="sapUiTinyMarginEnd"/>
-
-                <HBox
-                        alignItems="Center"
-                        justifyContent="SpaceBetween" >
-                    <Title level="H3" text=""/>
-                    <Title level="H3" text=""/>
-                </HBox>
-
-                <HBox
-                        alignItems="Center"
-                        justifyContent="SpaceBetween" >
-                    <Title level="H3" text=""/>
-                    <Title level="H3" text=""/>
-                </HBox>
-
-            </VBox>
+                <ui-integration:Card manifest="./manifest.json" width="400px" height="auto"/>
         </f:content>
 
         <!-- DynamicPage Footer -->
