@@ -96,7 +96,7 @@
                                                 <Text text="{Cards>cardType}" />
                                                 <Text text="{Cards>certificateExpirationDate}" />
                                                 <Text text="{Cards>iccsn}" />
-                                                <Text text="{Cards>insertTime}" />
+                                                <Text text="{path: 'Cards>insertTime', formatter: '.formatter.formatDateAndTimeWithTimezone'}" />
                                                 <Text text="{Cards>slotId}" />
                                                 <MenuButton text="Aktion ...">
                                                     <Menu>
