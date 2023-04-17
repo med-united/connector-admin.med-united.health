@@ -3,6 +3,8 @@ sap.ui.define([], function () {
 	return {
 		formatDateAndTimeWithTimezone: function (inputStamp) {
 
+		    if (inputStamp.length < 4 ) return "--";
+
 		    function convertTZ(date, tzString) {
                 return new Date((typeof date === "string" ? new Date(date) : date).toLocaleString("en-US", {timeZone: tzString}));
             }
@@ -19,12 +21,14 @@ sap.ui.define([], function () {
 		    let year = datePart[0];
 		    let month = datePart[1];
 		    let day = datePart[2];
-		    let timeOnly = timePart.split(".")[0].split("Z")[0];
+		    let timeOnly = timePart.split(".")[0].split("Z")[0].split("+")[0];
 
             if (timeOnly == "00:00:00") {
                 timeOnly = "";
                 return day+"."+month+"."+year;
             }
+
+            //console.log("interm:"+day+"."+month+"."+year+"  "+timeOnly);
 
 		    let convertedDate = convertTZ(year+"/"+month+"/"+day+" "+timeOnly, "Europe/Berlin")
 
