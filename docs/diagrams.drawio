@@ -183,11 +183,11 @@
         </mxGraphModel>
     </diagram>
     <diagram id="WJoYJa_mneZ7pbeJPqfU" name="Seite-1">
-        <mxGraphModel dx="1024" dy="500" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="1024" dy="518" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
-                <mxCell id="2" value="Quarkus Application" style="shape=agent;offsetSize=8;strokeWidth=2;verticalAlign=top;" parent="1" vertex="1">
+                <mxCell id="2" value="Wildfly Application" style="shape=agent;offsetSize=8;strokeWidth=2;verticalAlign=top;" parent="1" vertex="1">
                     <mxGeometry x="220" y="240" width="300" height="210" as="geometry"/>
                 </mxCell>
                 <mxCell id="0.1" value="Best viewed with the &lt;a href=&quot;https://github.com/ariel-bentu/tam-drawio&quot;&gt;TAM plugin&lt;/a&gt;" style="text;html=1;shape=tamPluginMissing;" parent="1" vertex="1" connectable="0">
@@ -293,17 +293,17 @@
         </mxGraphModel>
     </diagram>
     <diagram id="pcQcGQzyTQLJBqN-FWd8" name="OpenMetrics">
-        <mxGraphModel dx="1024" dy="565" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="1024" dy="518" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
-                <mxCell id="0.0" value="Best viewed with the &lt;a href=&quot;https://github.com/ariel-bentu/tam-drawio&quot;&gt;TAM plugin&lt;/a&gt;" style="text;html=1;shape=tamPluginMissing;" vertex="1" connectable="0" parent="1">
+                <mxCell id="0.0" value="Best viewed with the &lt;a href=&quot;https://github.com/ariel-bentu/tam-drawio&quot;&gt;TAM plugin&lt;/a&gt;" style="text;html=1;shape=tamPluginMissing;" parent="1" vertex="1" connectable="0">
                     <mxGeometry x="10" y="380" width="200" height="25" as="geometry"/>
                 </mxCell>
-                <mxCell id="6D_YpuJgfdh5k-wZ-Zpk-2" value="OpenMetrics&#10;Enabled App e.g.&#10;Connector Admin Tool" style="shape=agent;offsetSize=8;strokeWidth=2;" vertex="1" parent="1">
+                <mxCell id="6D_YpuJgfdh5k-wZ-Zpk-2" value="OpenMetrics&#10;Enabled App e.g.&#10;Connector Admin Tool" style="shape=agent;offsetSize=8;strokeWidth=2;" parent="1" vertex="1">
                     <mxGeometry x="90" y="260" width="130" height="90" as="geometry"/>
                 </mxCell>
-                <mxCell id="6D_YpuJgfdh5k-wZ-Zpk-3" value="" style="shape=useedge;endArrow=none;edgeStyle=none;useSignPosition=up;useSignDirection=east;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="6D_YpuJgfdh5k-wZ-Zpk-2">
+                <mxCell id="6D_YpuJgfdh5k-wZ-Zpk-3" value="" style="shape=useedge;endArrow=none;edgeStyle=none;useSignPosition=up;useSignDirection=east;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" parent="1" source="6D_YpuJgfdh5k-wZ-Zpk-2" edge="1">
                     <mxGeometry width="160" relative="1" as="geometry">
                         <mxPoint x="240" y="300" as="sourcePoint"/>
                         <mxPoint x="400" y="300" as="targetPoint"/>

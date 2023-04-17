@@ -155,7 +155,34 @@
                             </uxap:ObjectPageSubSection>
                         </uxap:subSections>
                     </uxap:ObjectPageSection>
-
+                    <uxap:ObjectPageSection id="statusPinSection" title="PIN-Status">
+                        <uxap:subSections>
+                            <uxap:ObjectPageSubSection id="statusPinSubsection" title="PIN-Status">
+                                <uxap:blocks>
+                                    <Table items="{PINStatus>/}">
+                                        <columns>
+                                            <Column>
+                                                <Text text="CardHandle" />
+                                            </Column>
+                                            <Column>
+                                                <Text text="CardType" />
+                                            </Column>
+                                            <Column>
+                                                <Text text="PIN-Status" />
+                                            </Column>
+                                        </columns>
+                                        <items>
+                                            <ColumnListItem>
+                                                <Text text="{PINStatus>cardHandle}" />
+                                                <Text text="{PINStatus>cardType}" />
+                                                <Text text="{PINStatus>status}" />
+                                            </ColumnListItem>
+                                        </items>
+                                    </Table>
+                                </uxap:blocks>
+                            </uxap:ObjectPageSubSection>
+                        </uxap:subSections>
+                    </uxap:ObjectPageSection>
                     <uxap:ObjectPageSection id="cardTerminalSection"
                         title="Angeschlossene Kartenterminals">
                         <uxap:subSections>
@@ -191,6 +218,7 @@
                             </uxap:ObjectPageSubSection>
                         </uxap:subSections>
                     </uxap:ObjectPageSection>
+
                     <uxap:ObjectPageSection id="metricsSection" title="Metrics für diesen Konnector">
                         <uxap:subSections>
                             <uxap:ObjectPageSubSection id="metricsSubSection" title="Aktuelle Daten">

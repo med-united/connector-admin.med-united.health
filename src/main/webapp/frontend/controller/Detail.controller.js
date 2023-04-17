@@ -21,8 +21,13 @@ sap.ui.define(
           const oVerifyAllModel = new JSONModel();
           this.getView().setModel(oVerifyAllModel, "VerifyAll");
 
+
+          const oPinStatus = new JSONModel();
+          this.getView().setModel(oPinStatus, "PINStatus");
+
           const oProductInformationModel = new JSONModel();
           this.getView().setModel(oProductInformationModel, "ProductInformation")
+
         },
         onVerifyPinCh: function (oEvent) {
           const sPath = "/RuntimeConfigs('" + this._entity + "')";
@@ -175,6 +180,19 @@ sap.ui.define(
             "x-host": oRuntimeConfig.Url,
             Accept: "application/json",
           };
+
+
+          this.getView()
+            .getModel("PINStatus")
+            .loadData(
+              "connector/card/pinStatus",
+              {},
+              "true",
+              "GET",
+              false,
+              true,
+              mHeaders
+            );
 
           this.getView()
             .getModel("Cards")
