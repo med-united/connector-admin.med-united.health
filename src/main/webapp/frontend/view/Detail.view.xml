@@ -1,42 +1,42 @@
 <mvc:View
-    xmlns:core="sap.ui.core"
-    xmlns:mvc="sap.ui.core.mvc"
-    xmlns="sap.m"
-    xmlns:uxap="sap.uxap"
-    xmlns:medunited="medunited.base.control"
-    xmlns:name="medunited.care.SharedBlocks.name"
-    xmlns:address="medunited.care.SharedBlocks.address"
-    xmlns:biological="medunited.care.SharedBlocks.biological"
-    xmlns:generalPractitioner="medunited.care.SharedBlocks.generalPractitioner"
-    xmlns:defaultOrganization="medunited.care.SharedBlocks.defaultOrganization"
-    xmlns:insurance="medunited.care.SharedBlocks.insurance"
-    xmlns:medication="medunited.care.SharedBlocks.medication"
-    controllerName="sap.f.ShellBarWithFlexibleColumnLayout.controller.Detail"
-    xmlns:html="http://www.w3.org/1999/xhtml"
+        xmlns:core="sap.ui.core"
+        xmlns:mvc="sap.ui.core.mvc"
+        xmlns="sap.m"
+        xmlns:uxap="sap.uxap"
+        xmlns:medunited="medunited.base.control"
+        xmlns:name="medunited.care.SharedBlocks.name"
+        xmlns:address="medunited.care.SharedBlocks.address"
+        xmlns:biological="medunited.care.SharedBlocks.biological"
+        xmlns:generalPractitioner="medunited.care.SharedBlocks.generalPractitioner"
+        xmlns:defaultOrganization="medunited.care.SharedBlocks.defaultOrganization"
+        xmlns:insurance="medunited.care.SharedBlocks.insurance"
+        xmlns:medication="medunited.care.SharedBlocks.medication"
+        controllerName="sap.f.ShellBarWithFlexibleColumnLayout.controller.Detail"
+        xmlns:html="http://www.w3.org/1999/xhtml"
 >
     <Page showHeader="false">
         <content>
             <uxap:ObjectPageLayout id="objectPageLayout" showTitleInHeaderContent="true">
                 <uxap:headerTitle>
                     <uxap:ObjectPageHeader objectImageShape="Circle" objectImageAlt="Profile"
-                        objectTitle="{Url}" isObjectIconAlwaysVisible="false"
-                        isObjectTitleAlwaysVisible="false" isObjectSubtitleAlwaysVisible="false">
+                                           objectTitle="{Url}" isObjectIconAlwaysVisible="false"
+                                           isObjectTitleAlwaysVisible="false" isObjectSubtitleAlwaysVisible="false">
                         <uxap:actions>
                             <uxap:ObjectPageHeaderActionButton type="Emphasized"
-                                icon="sap-icon://restart" tooltip="{i18n>RestartConnector}"
-                                text="Restart" visible="true" />
+                                                               icon="sap-icon://restart" tooltip="{i18n>RestartConnector}"
+                                                               text="Restart" visible="true" />
                             <uxap:ObjectPageHeaderActionButton type="Transparent"
-                                icon="sap-icon://full-screen" press="handleFullScreen"
-                                tooltip="{i18n>EnterFullScreenMode}"
-                                visible="{= ${Layout>/actionButtonsInfo/midColumn/fullScreen} !== null }" />
+                                                               icon="sap-icon://full-screen" press="handleFullScreen"
+                                                               tooltip="{i18n>EnterFullScreenMode}"
+                                                               visible="{= ${Layout>/actionButtonsInfo/midColumn/fullScreen} !== null }" />
                             <uxap:ObjectPageHeaderActionButton type="Transparent"
-                                icon="sap-icon://exit-full-screen" press="handleExitFullScreen"
-                                tooltip="{i18n>ExitFullScreenMode}"
-                                visible="{= ${Layout>/actionButtonsInfo/midColumn/exitFullScreen} !== null }" />
+                                                               icon="sap-icon://exit-full-screen" press="handleExitFullScreen"
+                                                               tooltip="{i18n>ExitFullScreenMode}"
+                                                               visible="{= ${Layout>/actionButtonsInfo/midColumn/exitFullScreen} !== null }" />
                             <uxap:ObjectPageHeaderActionButton type="Transparent"
-                                icon="sap-icon://decline" press="handleClose"
-                                tooltip="{i18n>CloseConnectorDetails}"
-                                visible="{= ${Layout>/actionButtonsInfo/midColumn/closeColumn} !== null }" />
+                                                               icon="sap-icon://decline" press="handleClose"
+                                                               tooltip="{i18n>CloseConnectorDetails}"
+                                                               visible="{= ${Layout>/actionButtonsInfo/midColumn/closeColumn} !== null }" />
                         </uxap:actions>
                     </uxap:ObjectPageHeader>
                 </uxap:headerTitle>
@@ -64,7 +64,7 @@
                         <uxap:subSections>
                             <uxap:ObjectPageSubSection id="cardSubSection" title="Gestecke Karten">
                                 <uxap:blocks>
-                                    <Table autoPopinMode="true" contextualWidth="Auto"  items="{Cards>/cards/card}">
+                                    <Table autoPopinMode="true" contextualWidth="Auto"  items="{Cards>/cards/card}" class="withGrid">
                                         <columns>
                                             <Column importance="Low">
                                                 <Text text="Alias" />
@@ -101,13 +101,13 @@
                                                 <MenuButton text="Aktion ...">
                                                     <Menu>
                                                         <MenuItem text="Verifiziere PIN.CH"
-                                                            press="onVerifyPinCh" />
+                                                                  press="onVerifyPinCh" />
                                                         <MenuItem text="Verifiziere PIN.SMC"
-                                                            press="onVerifyPinSmc" />
+                                                                  press="onVerifyPinSmc" />
                                                         <MenuItem text="Ändere PIN.QES"
-                                                            press="onChangePinQes" />
+                                                                  press="onChangePinQes" />
                                                         <MenuItem text="Ändere PIN.CH"
-                                                            press="onChangePinCh" />
+                                                                  press="onChangePinCh" />
                                                     </Menu>
                                                 </MenuButton>
                                             </ColumnListItem>
@@ -121,9 +121,9 @@
                     <uxap:ObjectPageSection id="certificatesSection" title="Zertifikate">
                         <uxap:subSections>
                             <uxap:ObjectPageSubSection id="certificatesSubsection"
-                                title="Vorhandene Zertifikate">
+                                                       title="Vorhandene Zertifikate">
                                 <uxap:blocks>
-                                    <Table autoPopinMode="true" contextualWidth="Auto" items="{VerifyAll>/certificateCollection/certificates}">
+                                    <Table autoPopinMode="true" contextualWidth="Auto" items="{VerifyAll>/certificateCollection/certificates}" class="withGrid">
                                         <columns>
                                             <Column importance="Medium">
                                                 <Text text="Karteninhaber" />
@@ -159,7 +159,7 @@
                         <uxap:subSections>
                             <uxap:ObjectPageSubSection id="statusPinSubsection" title="PIN-Status">
                                 <uxap:blocks>
-                                    <Table items="{PINStatus>/}">
+                                    <Table items="{PINStatus>/}" class="withGrid">
                                         <columns>
                                             <Column>
                                                 <Text text="CardHandle" />
@@ -184,12 +184,12 @@
                         </uxap:subSections>
                     </uxap:ObjectPageSection>
                     <uxap:ObjectPageSection id="cardTerminalSection"
-                        title="Angeschlossene Kartenterminals">
+                                            title="Angeschlossene Kartenterminals">
                         <uxap:subSections>
                             <uxap:ObjectPageSubSection id="cardTerminalSubSection"
-                                title="Angeschlossene Kartenterminals">
+                                                       title="Angeschlossene Kartenterminals">
                                 <uxap:blocks>
-                                    <Table autoPopinMode="true" contextualWidth="Auto" items="{CardTerminals>/cardTerminals/cardTerminal}">
+                                    <Table autoPopinMode="true" contextualWidth="Auto" items="{CardTerminals>/cardTerminals/cardTerminal}" class="withGrid">
                                         <columns>
                                             <Column importance="High">
                                                 <Text text="Verbindung"/>
@@ -210,7 +210,7 @@
                                                 <Text text="{CardTerminals>name}" />
                                                 <Text text="{CardTerminals>IPAddress/IPV4Address}" />
                                                 <Text
-                                                    text="{CardTerminals>productInformation/productIdentification/productCode} {CardTerminals>productInformation/productIdentification/productVendorID} {CardTerminals>productInformation/productIdentification/productVersion/local/FWVersion}" />
+                                                        text="{CardTerminals>productInformation/productIdentification/productCode} {CardTerminals>productInformation/productIdentification/productVendorID} {CardTerminals>productInformation/productIdentification/productVersion/local/FWVersion}" />
                                             </ColumnListItem>
                                         </items>
                                     </Table>
@@ -223,7 +223,7 @@
                         <uxap:subSections>
                             <uxap:ObjectPageSubSection id="metricsSubSection" title="Aktuelle Daten">
                                 <uxap:blocks>
-                                    <Table autoPopinMode="true" contextualWidth="Auto" >
+                                    <Table autoPopinMode="true" contextualWidth="Auto" class="withGrid">
                                         <columns>
                                             <Column importance="High">
                                                 <Text text="Parameter" />
