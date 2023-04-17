@@ -16,23 +16,26 @@
 
         <!-- DynamicPage Content -->
         <f:content>
-
-
-           <VBox
-                   alignItems="Center"
+            <VBox  alignItems="Center"
                    justifyContent="SpaceBetween" >
-               <Text text=" "/>
-               <Text text=" "/>
-               <Text text=" "/>
-               <Text text=" "/>
-               <Text text=" "/>
-               <Text text=" "/>
-               <Text text=" "/>
-               <Text text=" "/>
-               <Text text=" "/>
-               <Button id="routeToMaster" text="{i18n>RouteToMaster}" press=".onRouteToMaster" class="sapUiTinyMarginEnd"/>
-            </VBox>
 
+                <Button id="routeToMaster" text="{i18n>RouteToMaster}" press=".onRouteToMaster" class="sapUiTinyMarginEnd"/>
+
+                <HBox
+                        alignItems="Center"
+                        justifyContent="SpaceBetween" >
+                    <Title level="H3" text=""/>
+                    <Title level="H3" text=""/>
+                </HBox>
+
+                <HBox
+                        alignItems="Center"
+                        justifyContent="SpaceBetween" >
+                    <Title level="H3" text=""/>
+                    <Title level="H3" text=""/>
+                </HBox>
+
+            </VBox>
         </f:content>
 
         <!-- DynamicPage Footer -->
