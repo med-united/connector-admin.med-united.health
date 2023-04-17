@@ -29,6 +29,8 @@ sap.ui.define(
           this.getView().setModel(oProductInformationModel, "ProductInformation")
 
         },
+        formatDateAndTimeWithTimezone: function(vl) {
+        },
         onVerifyPinCh: function (oEvent) {
           const sPath = "/RuntimeConfigs('" + this._entity + "')";
           const oRuntimeConfig = this.getView().getModel().getProperty(sPath);
