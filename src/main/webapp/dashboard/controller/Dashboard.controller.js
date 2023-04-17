@@ -1,130 +1,176 @@
 sap.ui.define(
   [
     "./AbstractMasterController",
+    "sap/ui/model/json/JSONModel",
     "../resources/libs/vega5",
-    "../resources/libs/vega-embed5"
+    "../resources/libs/vega-embed5",
   ],
-  function (
-    AbstractMasterController,
-    vega5js,
-    vega5embedjs
-  ) {
+  function (AbstractMasterController) {
     "use strict";
 
     return AbstractMasterController.extend(
       "sap.f.ShellBarWithFlexibleColumnLayout.controller.Dashboard",
       {
         onInit: function () {
-          var graphJSON = {
-                            "$schema": "https://vega.github.io/schema/vega/v4.0.json",
-                            "width": 400,
-                            "height": 200,
-                            "padding": 5,
+          let graphJSON = {
+             "$schema": "https://vega.github.io/schema/vega/v5.json",
+                          "title": "Kartentypen aller verfügbaren Konnektoren",
+                          "width": 500,
+                          "height": 300,
+                          "padding": 5,
 
-                            "data": [
-                              {
-                                "name": "table",
-                                "values": [
-                                  {"category": "A", "amount": 28},
-                                  {"category": "B", "amount": 55},
-                                  {"category": "C", "amount": 43},
-                                  {"category": "D", "amount": 91},
-                                  {"category": "E", "amount": 81},
-                                  {"category": "F", "amount": 53},
-                                  {"category": "G", "amount": 19},
-                                  {"category": "H", "amount": 87}
-                                ]
-                              }
-                            ],
-
-                            "signals": [
-                              {
-                                "name": "tooltip",
-                                "value": {},
-                                "on": [
-                                  {"events": "rect:mouseover", "update": "datum"},
-                                  {"events": "rect:mouseout",  "update": "{}"}
-                                ]
-                              }
-                            ],
-
-                            "scales": [
-                              {
-                                "name": "xscale",
-                                "type": "band",
-                                "domain": {"data": "table", "field": "category"},
-                                "range": "width"
-                              },
-                              {
-                                "name": "yscale",
-                                "domain": {"data": "table", "field": "amount"},
-                                "nice": true,
-                                "range": "height"
-                              }
-                            ],
-
-                            "axes": [
-                              { "orient": "bottom", "scale": "xscale" },
-                              { "orient": "left", "scale": "yscale" }
-                            ],
-
-                            "marks": [
-                              {
-                                "type": "rect",
-                                "from": {"data":"table"},
-                                "encode": {
-                                  "enter": {
-                                    "x": {"scale": "xscale", "field": "category", "offset": 1},
-                                    "width": {"scale": "xscale", "band": 1, "offset": -1},
-                                    "y": {"scale": "yscale", "field": "amount"},
-                                    "y2": {"scale": "yscale", "value": 0}
-                                  },
-                                  "update": {
-                                    "fill": {"value": "steelblue"}
-                                  },
-                                  "hover": {
-                                    "fill": {"value": "red"}
-                                  }
+                          "data": [
+                            {
+                              "name": "table",
+                              "values": [
+                              ],
+                              "transform": [
+                                {
+                                  "type": "stack",
+                                  "groupby": ["x"],
+                                  "sort": {"field": "c"},
+                                  "field": "y"
                                 }
-                              },
-                              {
-                                "type": "text",
-                                "encode": {
-                                  "enter": {
-                                    "align": {"value": "center"},
-                                    "baseline": {"value": "bottom"},
-                                    "fill": {"value": "#333"}
-                                  },
-                                  "update": {
-                                    "x": {"scale": "xscale", "signal": "tooltip.category", "band": 0.5},
-                                    "y": {"scale": "yscale", "signal": "tooltip.amount", "offset": -2},
-                                    "text": {"signal": "tooltip.amount"},
-                                    "fillOpacity": [
-                                      {"test": "datum === tooltip", "value": 0},
-                                      {"value": 1}
-                                    ]
-                                  }
+                              ]
+                            }
+                          ],
+
+                          "scales": [
+                            {
+                              "name": "x",
+                              "type": "band",
+                              "range": "width",
+                              "domain": {"data": "table", "field": "x"},
+                              "paddingInner": 0.1, // distance between stacks
+                              "paddingOuter": 0.1
+                            },
+                            {
+                              "name": "y",
+                              "type": "linear",
+                              "range": "height",
+                              "nice": 1, // x axis displaying a scale of 1
+                              "zero": true,
+                              "domain": {"data": "table", "field": "y1"},
+                              "round": true
+                            },
+                            {
+                              "name": "color",
+                              "type": "ordinal",
+                              "range": ["#5899DA", "#E8743B", "#19A979", "#ED4A7B", "#945ECF"], // SAP Fiori for Web Design Guidelines
+                              "domain": ["SMC_KT", "SMC_B", "HBA", "EGK", "KVK"],
+                            }
+                          ],
+
+                          "axes": [
+                            {"orient": "bottom", "scale": "x", "zindex": 1, "title":"Konnektoren"},
+                            {"orient": "left", "scale": "y", "zindex": 1, "format": ".0f", "title":"Gesteckte Karten", "values": [1, 2, 3, 4,5,6,7,8,9]}
+                          ],
+
+                          "marks": [
+                            {
+                              "type": "rect",
+                              "from": {"data": "table"},
+                              "encode": {
+                                "enter": {
+                                  "x": {"scale": "x", "field": "x"},
+                                  "width": {"scale": "x", "band": 1, "offset": -1},
+                                  "y": {"scale": "y", "field": "y0"},
+                                  "y2": {"scale": "y", "field": "y1"},
+                                  "fill": {"scale": "color", "field": "c"}
+                                },
+                                "update": {
+                                  "fillOpacity": {"value": 1}
+                                },
+                                "hover": {
+                                  "fillOpacity": {"value": 0.5}
                                 }
                               }
-                            ]
-                          };
+                            }
+                          ],
+                        "legends": [
+                            {
+                                "orient": "right",
+                                "direction": "vertical",
+                                "fill": "color",
+                                "encode":{
+                                    "labels":{
+                                        "interactive": true,
+                                        "update":{
+                                            "fontSize": {"value": 12},
+                                            "fill": {"value": "black"},
+                                        },
+                                    },
+                                },
+                            },
+                        ],
+          };
           this.oRouter = this.getOwnerComponent().getRouter();
           this._bDescendingSort = false;
-          console.log("Vega is installed: "+vega.version);
 
-            // attaching "manually" to a div __data12. We need a better way to do this
-            // ideally this should be loaded into a panel or a card
-            function attachGraphToElement() {
-            	vegaEmbed("#__data12", graphJSON)
-                    .then(result => console.log(result))
-                    .catch(console.warn);
-             }
+          // attaching "manually" to a div __data12. We need a better way to do this
+          // ideally this should be loaded into a panel or a card
+          function attachGraphToElement() {
+            vegaEmbed("#__data16", graphJSON)
+              //.then(result => console.log(result))
+              .catch(console.warn);
+          }
 
-          setTimeout(attachGraphToElement, 2000);
+          const runtimeConfigModel = new sap.ui.model.odata.v2.ODataModel(
+            "../Data.svc",
+            true
+          );
 
+          runtimeConfigModel.read("/RuntimeConfigs", {
+            success: function (oData) {
+              const configs = oData.results;
+              const allContent = [];
+              const numConfigs = configs.length;
+              let numResponses = 0;
+              configs.forEach(function (config) {
+                let getCardsHeaders = {
+                  "x-client-system-id": config.ClientSystemId,
+                  "x-client-certificate": config.ClientCertificate,
+                  "x-client-certificate-password":
+                    config.ClientCertificatePassword,
+                  "x-mandant-id": config.MandantId,
+                  "x-workplace-id": config.WorkplaceId,
+                  "x-host": config.Url,
+                  Accept: "application/json",
+                };
+                fetch("/connector/event/get-cards", {
+                  headers: getCardsHeaders,
+                }).then((response) => {
+                  numResponses++;
+                  if (response.ok) {
+                    response.json().then((data) => {
+                      let cards = data.cards.card;
+                      let content = cards.map((card) => ({
+                        x: config.Url,
+                        y: 1,
+                        c: card.cardType,
+                      }));
+                      allContent.push(...content); // Accumulate data from this response
+                    });
+                  }
+                  if (numResponses === numConfigs) {
+                    // Check if all responses have been received
+                    graphJSON.data[0].values = allContent; // Update graph with all data
+                    attachGraphToElement();
+                  }
+                });
+              });
+            },
+            error: function (error) {
+              console.log(error);
+            },
+          });
         },
-        onRouteToMaster: function (oEvent) {
 
+        onBeforeRendering: function () {
+          this.onInit();
+        },
+
+        onRouteToMaster: function (oEvent) {
           this.oRouter.navTo("master");
         },
       }
