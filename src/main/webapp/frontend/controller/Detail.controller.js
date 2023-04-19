@@ -1,11 +1,15 @@
 sap.ui.define(
-  ["./AbstractDetailController", "sap/ui/model/json/JSONModel"],
-  function (AbstractDetailController, JSONModel) {
+  ["./AbstractDetailController",
+  "sap/ui/model/json/JSONModel",
+  "../model/formatter"
+  ],
+  function (AbstractDetailController, JSONModel, formatter) {
     "use strict";
 
     return AbstractDetailController.extend(
       "ap.f.ShellBarWithFlexibleColumnLayout.controller.Detail",
       {
+      formatter: formatter,
         onInit: function () {
           AbstractDetailController.prototype.onInit.apply(this, arguments);
 

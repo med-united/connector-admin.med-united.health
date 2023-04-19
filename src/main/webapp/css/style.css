@@ -1,0 +1,3 @@
+.withGrid .sapMListTblCell:not(:first-child) {
+    border-left: 2px solid #d5dadc;
+}
