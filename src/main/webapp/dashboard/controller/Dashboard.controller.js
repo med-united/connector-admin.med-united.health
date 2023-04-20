@@ -23,10 +23,7 @@ sap.ui.define(
                               	"sap.card": {
                               		"type": "List",
                               		"header": {
-                              			"title": "Konnektorübersicht",
-                              			"icon": {
-                              				"src": "sap-icon://phone"
-                              			}
+                              			"title": "Konnektorübersicht"
                               		},
                               		"content": {
                               			"data": { "json":
@@ -34,12 +31,9 @@ sap.ui.define(
                               			    ]
                               			},
                               			"item": {
-                              				"title": {
-                              					"value": "{Name}"
-                              				},
-                              				"description": {
-                              					"value": "{Value}"
-                              				}
+                              				"title": "{Name}",
+                              				"description": "{Value}",
+                              				"icon": {"src" : "{Icon}"}
                               			}
                               		}
                               	}
@@ -47,7 +41,7 @@ sap.ui.define(
 
           this.oRouter = this.getOwnerComponent().getRouter();
           this._bDescendingSort = false;
-          var oCardContainer = this.getView().byId("dynamicPageId");
+          var oCardContainer = this.getView().byId("CardContainer");
 
           const runtimeConfigModel = new sap.ui.model.odata.v2.ODataModel(
             "../Data.svc",
@@ -57,7 +51,14 @@ sap.ui.define(
            function attachCard(){
              var oCard = new Card();
              oCard.setManifest(ConnectorList);
-             oCardContainer.setContent(oCard);
+             var items = oCardContainer.getItems();
+             for(let i = 0; i< items.length; i++){
+                 if(items[i].sId == "__card0"){
+                    oCardContainer.removeItem("__card0");
+                 }
+             }
+             oCardContainer.getLayout();
+             oCardContainer.addItem(oCard);
            }
 
           runtimeConfigModel.read("/RuntimeConfigs", {
@@ -66,6 +67,7 @@ sap.ui.define(
                 const content = [];
                 let anz_Connectors = configs.length;
                 let anz_Cards = 0;
+                let anz_Terminals = 0;
                 const numConfigs = configs.length;
                 let numResponses = 0;
                 configs.forEach(function (config) {
@@ -82,25 +84,39 @@ sap.ui.define(
                           fetch("/connector/event/get-cards", {
                             headers: getCardsHeaders,
                           }).then((response) => {
-                            numResponses++;
                             if (response.ok) {
                               response.json().then((data) => {
                                 let cards = data.cards.card;
                                 anz_Cards = anz_Cards + cards.length
                               });
                             }
-                            if (numResponses === numConfigs) {
-                              // Check if all responses have been received
-                              content.push({
-                                "Name" : "Anzahl Konnektoren",
-                                "Value" : anz_Connectors
-                              });
-                              content.push({
-                                "Name" : "Anzahl Karten",
-                                "Value" : anz_Cards
-                              });
-                              ConnectorList["sap.card"].content.data.json = content;
-                              attachCard();
+                          });
+                          fetch("connector/event/get-card-terminals", {headers : getCardsHeaders}).then((res) => {
+                            numResponses++;
+                            if(res.ok){
+                                res.json().then((d) => {
+                                    let terminals = d.cardTerminals.cardTerminal;
+                                    anz_Terminals = anz_Terminals + terminals.length;
+                                });
+                            }
+                            if(numResponses == numConfigs){
+                                content.push({
+                                    "Name" : "Konnektoren:",
+                                    "Value": anz_Connectors,
+                                    "Icon": "http://localhost:8080/dashboard/images/Connector.png"
+                                });
+                                content.push({
+                                    "Name" : "Terminals:",
+                                    "Value" : anz_Terminals,
+                                    "Icon": "http://localhost:8080/dashboard/images/CardTerminal.png"
+                                });
+                                content.push({
+                                    "Name" : "Karten:",
+                                    "Value": anz_Cards,
+                                    "Icon": "http://localhost:8080/dashboard/images/Card.png"
+                                });
+                                ConnectorList["sap.card"].content.data.json = content;
+                                attachCard();
                             }
                           });
                         });
