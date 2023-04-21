@@ -20,7 +20,7 @@
         <f:content>
             <f:GridContainer id="CardContainer">
                 <f:layout>
-                    <f:GridContainerSettings rowSize="200px" columnSize="200px" gap="10px" />
+                    <f:GridContainerSettings rowSize="200px" columnSize="250px" gap="10px" />
                 </f:layout>
                 <Button id="routeToMaster" text="{i18n>RouteToMaster}" press=".onRouteToMaster" class="sapUiTinyMarginEnd"/>
             </f:GridContainer>

@@ -23,7 +23,8 @@ sap.ui.define(
                               	"sap.card": {
                               		"type": "List",
                               		"header": {
-                              			"title": "Konnektorübersicht"
+                              			"title": "Konnektorübersicht",
+                              			"icon": {"src": "sap-icon://overview-chart"}
                               		},
                               		"content": {
                               			"data": { "json":
@@ -101,17 +102,17 @@ sap.ui.define(
                             }
                             if(numResponses == numConfigs){
                                 content.push({
-                                    "Name" : "Konnektoren:",
+                                    "Name" : "Konnektoren",
                                     "Value": anz_Connectors,
                                     "Icon": "http://localhost:8080/dashboard/images/Connector.png"
                                 });
                                 content.push({
-                                    "Name" : "Terminals:",
+                                    "Name" : "Kartenterminals",
                                     "Value" : anz_Terminals,
                                     "Icon": "http://localhost:8080/dashboard/images/CardTerminal.png"
                                 });
                                 content.push({
-                                    "Name" : "Karten:",
+                                    "Name" : "Karten",
                                     "Value": anz_Cards,
                                     "Icon": "http://localhost:8080/dashboard/images/Card.png"
                                 });
