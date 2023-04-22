@@ -1,15 +1,43 @@
 sap.ui.define(
   ["./AbstractDetailController",
   "sap/ui/model/json/JSONModel",
+  'sap/ui/core/Fragment',
   "../model/formatter"
   ],
-  function (AbstractDetailController, JSONModel, formatter) {
+  function (AbstractDetailController, JSONModel, Fragment, formatter) {
     "use strict";
 
     return AbstractDetailController.extend(
-      "ap.f.ShellBarWithFlexibleColumnLayout.controller.Detail",
+      "sap.f.ShellBarWithFlexibleColumnLayout.controller.Detail",
       {
-      formatter: formatter,
+ 
+        handlePopoverPress: function (oEvent) {
+          var oButton = oEvent.getSource(),
+            oView = this.getView();
+    
+          // create popover
+          if (!this._pPopover) {
+            this._pPopover = Fragment.load({
+              id: oView.getId(),
+              name: "sap.f.ShellBarWithFlexibleColumnLayout.view.CertPopover",
+              controller: this
+            }).then(function(oPopover) {
+              oView.addDependent(oPopover);
+              oPopover.bindElement("Cards>/ProductCollection/50");
+              return oPopover;
+            });
+          }
+          this._pPopover.then(function(oPopover) {
+            oPopover.openBy(oButton);
+          });
+        },
+    
+        handlePopoverClosePress: function (oEvent) {
+          this.getView().byId("certPopover").close();
+        },
+
+        formatter: formatter,
+
         onInit: function () {
           AbstractDetailController.prototype.onInit.apply(this, arguments);
 

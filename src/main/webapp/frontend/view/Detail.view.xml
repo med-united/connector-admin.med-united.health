@@ -93,7 +93,8 @@
                                             <ColumnListItem>
                                                 <Text text="{Cards>cardHandle}" />
                                                 <Text text="{Cards>cardHolderName}" />
-                                                <Text text="{Cards>cardType}" />
+                                                <!-- <Text text="{Cards>cardType}" /> -->
+                                                <Button text="{Cards>cardType}" press="handlePopoverPress" ariaHasPopup="Dialog" />
                                                 <Text text="{path: 'Cards>certificateExpirationDate', formatter: '.formatter.formatDateAndTimeWithTimezone'}" />
                                                 <Text text="{Cards>iccsn}" />
                                                 <Text text="{path: 'Cards>insertTime', formatter: '.formatter.formatDateAndTimeWithTimezone'}" />
