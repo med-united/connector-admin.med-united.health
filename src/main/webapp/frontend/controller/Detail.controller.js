@@ -12,8 +12,9 @@ sap.ui.define(
       {
  
         handlePopoverPress: function (oEvent) {
-          var oButton = oEvent.getSource(),
-            oView = this.getView();
+          const oButton = oEvent.getSource();
+          const oView = this.getView();
+          const sPath = oButton.getBindingContext().getPath();
     
           // create popover
           if (!this._pPopover) {
@@ -23,11 +24,12 @@ sap.ui.define(
               controller: this
             }).then(function(oPopover) {
               oView.addDependent(oPopover);
-              oPopover.bindElement("Cards>/ProductCollection/50");
+              oPopover.bindElement(sPath);
               return oPopover;
             });
           }
           this._pPopover.then(function(oPopover) {
+            oPopover.bindElement(sPath);
             oPopover.openBy(oButton);
           });
         },
