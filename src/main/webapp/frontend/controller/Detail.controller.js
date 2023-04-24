@@ -12,9 +12,9 @@ sap.ui.define(
       {
  
         handlePopoverPress: function (oEvent) {
-          const oButton = oEvent.getSource();
-          const oView = this.getView();
-          const sPath = oButton.getBindingContext().getPath();
+          var oCtx = oEvent.getSource().getBindingContext("Cards"),
+            oControl = oEvent.getSource(),
+            oView = this.getView();
     
           // create popover
           if (!this._pPopover) {
@@ -22,15 +22,17 @@ sap.ui.define(
               id: oView.getId(),
               name: "sap.f.ShellBarWithFlexibleColumnLayout.view.CertPopover",
               controller: this
-            }).then(function(oPopover) {
+            }).then(function (oPopover) {
               oView.addDependent(oPopover);
-              oPopover.bindElement(sPath);
               return oPopover;
-            });
+            }.bind(this));
           }
           this._pPopover.then(function(oPopover) {
-            oPopover.bindElement(sPath);
-            oPopover.openBy(oButton);
+            oPopover.bindElement({
+              path: oCtx.getPath(),
+              model: "Cards"
+            });
+            oPopover.openBy(oControl);
           });
         },
     

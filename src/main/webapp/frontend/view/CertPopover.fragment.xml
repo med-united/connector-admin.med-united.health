@@ -3,7 +3,7 @@
 	xmlns:core="sap.ui.core">
 	<Popover
 		id="certPopover"
-		title="{Name}"
+		title="{Cards>cardType}"
 		class="sapUiResponsivePadding--header sapUiResponsivePadding--footer"
 		placement="Bottom"
 		initialFocus="popoverClose">
@@ -17,7 +17,7 @@
 			</OverflowToolbar>
 		</footer>
 		<content>
-			<Text text="Lorem ipsum"/>
+			<Text text="{Cards>cardHandle}"/>
 		</content>
 	</Popover>
 </core:FragmentDefinition>
