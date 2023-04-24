@@ -24,7 +24,15 @@ sap.ui.define(
                               		"type": "List",
                               		"header": {
                               			"title": "Konnektorübersicht",
-                              			"icon": {"src": "sap-icon://overview-chart"}
+                              			"icon": {
+                                        			"src": "sap-icon://overview-chart"
+                                        		},
+                                        "actions": [
+                                        				{
+                                        					"type": "Navigation",
+                                        					"url": "./#/management"
+                                        				}
+                                        			]
                               		},
                               		"content": {
                               			"data": { "json":

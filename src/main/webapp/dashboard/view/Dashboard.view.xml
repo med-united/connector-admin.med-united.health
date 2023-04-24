@@ -3,6 +3,7 @@
           xmlns="sap.m"
           xmlns:f="sap.f"
           xmlns:mvc="sap.ui.core.mvc"
+          xmlns:w="sap.ui.integration.widgets"
 >
     <f:DynamicPage id="dynamicPageId"
                    toggleHeaderOnTitleClick="false">
@@ -22,7 +23,6 @@
                 <f:layout>
                     <f:GridContainerSettings rowSize="200px" columnSize="250px" gap="10px" />
                 </f:layout>
-                <Button id="routeToMaster" text="{i18n>RouteToMaster}" press=".onRouteToMaster" class="sapUiTinyMarginEnd"/>
             </f:GridContainer>
         </f:content>
 
