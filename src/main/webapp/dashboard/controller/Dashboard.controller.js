@@ -45,8 +45,7 @@ sap.ui.define(
                               				"icon": {"src" : "{Icon}"},
                               				"highlight": "{State}",
                               				"info": {
-                                            			"value": "{Info}",
-                                            			"state": "{State}"
+                                            			"value": "{Info}"
                                             		}
                               			}
                               		}
@@ -83,9 +82,10 @@ sap.ui.define(
                 ];
                 const configs = oData.results;
                 const content = [];
-                let anz_Connectors = configs.length;
                 let anz_Cards = 0;
                 let anz_Terminals = 0;
+                let inactiveConnectors= 0;
+                let inactiveTerminals = 0;
                 let activeConnectors= 0;
                 let activeTerminals = 0;
                 let defined = false;
@@ -117,7 +117,6 @@ sap.ui.define(
                         }).then(function (data) {
                             numResponses++;
                     	    if(defined){
-                    	        activeConnectors++;
                     	        let terminals = data[0].cardTerminals.cardTerminal;
                     	        anz_Terminals = anz_Terminals + terminals.length;
                     	        for(let i = 0; i< terminals.length; i++){
@@ -125,45 +124,52 @@ sap.ui.define(
                     	            {
                     	                activeTerminals++;
                     	            }
+                    	            else{
+                    	                inactiveTerminals++;
+                    	            }
                     	        }
                                 let cards = data[1].cards.card;
                                 anz_Cards = anz_Cards + cards.length;
+                                activeConnectors++;
                     	        defined = false;
+                    	    }
+                    	    else{
+                    	        inactiveConnectors++;
                     	    }
                     	    if(numResponses == numConfigs){
                     	        let StatusConnectors = "";
-                    	        if(activeConnectors == anz_Connectors){
-                    	            StatusConnectors = "Success";
-                    	        }
-                    	        else{
+                    	        if(inactiveConnectors > 0){
                     	            StatusConnectors = "Error";
                     	        }
+                    	        else{
+                    	            StatusConnectors = "Success";
+                    	        }
                     	        let StatusTerminals = "";
-                    	        if(activeTerminals == anz_Terminals){
-                    	            StatusTerminals = "Success";
+                    	        if(inactiveTerminals > 0){
+                    	            StatusTerminals = "Error";
                     	        }
                     	        else{
-                    	            StatusTerminals = "Error";
+                    	            StatusTerminals = "Success";
                     	        }
                     	        content.push({
                                     "Name" : "Konnektoren",
-                                    "Value": "Gesamt: " + anz_Connectors,
+                                    "Value": configs.length,
                                     "Icon": "http://localhost:8080/dashboard/images/Connector.png",
                                     "State" : StatusConnectors,
-                                    "Info": "Online: " + activeConnectors
+                                    "Info": "Online: " + activeConnectors + "    Offline: " + inactiveConnectors
                                 });
                                 content.push({
                                     "Name" : "Kartenterminals",
-                                    "Value" : "Gesamt: " + anz_Terminals,
+                                    "Value" : anz_Terminals,
                                     "Icon": "http://localhost:8080/dashboard/images/CardTerminal.png",
                                     "State": StatusTerminals,
-                                    "Info" : "Online: " + activeTerminals
+                                    "Info" : "Online: " + activeTerminals + "    Offline: " + inactiveTerminals
                                 });
                                 content.push({
                                     "Name" : "Karten",
-                                    "Value": "Gesamt: " + anz_Cards,
+                                    "Value": anz_Cards,
                                     "Icon": "http://localhost:8080/dashboard/images/Card.png",
-                                    "State": "Information"
+                                    "State": "None"
                                 });
                                 ConnectorList["sap.card"].content.data.json = content;
                                 attachCard();
