@@ -1,7 +1,7 @@
 sap.ui.define(
   ["./AbstractDetailController",
   "sap/ui/model/json/JSONModel",
-  "../model/formatter"
+  "../utils/formatter"
   ],
   function (AbstractDetailController, JSONModel, formatter) {
     "use strict";
