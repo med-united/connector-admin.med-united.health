@@ -11,35 +11,6 @@ sap.ui.define(
       "sap.f.ShellBarWithFlexibleColumnLayout.controller.Detail",
       {
  
-        handlePopoverPress: function (oEvent) {
-          var oCtx = oEvent.getSource().getBindingContext("Cards"),
-            oControl = oEvent.getSource(),
-            oView = this.getView();
-    
-          // create popover
-          if (!this._pPopover) {
-            this._pPopover = Fragment.load({
-              id: oView.getId(),
-              name: "sap.f.ShellBarWithFlexibleColumnLayout.view.CertPopover",
-              controller: this
-            }).then(function (oPopover) {
-              oView.addDependent(oPopover);
-              return oPopover;
-            }.bind(this));
-          }
-          this._pPopover.then(function(oPopover) {
-            oPopover.bindElement({
-              path: oCtx.getPath(),
-              model: "Cards"
-            });
-            oPopover.openBy(oControl);
-          });
-        },
-    
-        handlePopoverClosePress: function (oEvent) {
-          this.getView().byId("certPopover").close();
-        },
-
         formatter: formatter,
 
         onInit: function () {
@@ -340,8 +311,38 @@ sap.ui.define(
                 })
           );
         },
+
         getEntityName: function () {
           return "RuntimeConfig";
+        },
+
+        handlePopoverPress: function (oEvent) {
+          var oCtx = oEvent.getSource().getBindingContext("Cards"),
+            oControl = oEvent.getSource(),
+            oView = this.getView();
+    
+          // create popover
+          if (!this._pPopover) {
+            this._pPopover = Fragment.load({
+              id: oView.getId(),
+              name: "sap.f.ShellBarWithFlexibleColumnLayout.view.CertPopover",
+              controller: this
+            }).then(function (oPopover) {
+              oView.addDependent(oPopover);
+              return oPopover;
+            }.bind(this));
+          }
+          this._pPopover.then(function(oPopover) {
+            oPopover.bindElement({
+              path: oCtx.getPath(),
+              model: "Cards"
+            });
+            oPopover.openBy(oControl);
+          });
+        },
+    
+        handlePopoverClosePress: function (oEvent) {
+          this.getView().byId("certPopover").close();
         },
       }
     );

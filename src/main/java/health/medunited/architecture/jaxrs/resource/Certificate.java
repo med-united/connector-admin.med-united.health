@@ -13,6 +13,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Context;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
@@ -55,35 +56,33 @@ public class Certificate {
     ContextType contextType;
 
     @GET
+    @Path("/{cardHandle}/{certificateType}")
+    public void getCertificate(
+            @PathParam("cardHandle") String cardHandle, 
+            @PathParam("certificateType") String certificateType) throws Throwable {
+        GetCards getCards = new GetCards();
+        getCards.setContext(copyValuesFromProxyIntoContextType(contextType));
+
+        GetCardsResponse getCardResponse = eventServicePortType.getCards(getCards);
+    }
+
+    @GET
     @Path("/verifyAll")
     public List<VerifyAllEntry> verifyAll() throws Throwable {
         GetCards getCards = new GetCards();
         getCards.setContext(copyValuesFromProxyIntoContextType(contextType));
 
-        GetCardsResponse getCardResoponse = eventServicePortType.getCards(getCards);
+        GetCardsResponse getCardResponse = eventServicePortType.getCards(getCards);
 
-        return getCardResoponse.getCards().getCard().stream().map(this::card2VerifyAllEntry).collect(Collectors.toList());
+        return getCardResponse.getCards().getCard().stream().map(this::card2VerifyAllEntry).collect(Collectors.toList());
     }
 
     private VerifyAllEntry card2VerifyAllEntry(CardInfoType cardInfoType) {
         VerifyAllEntry verifyAllEntry = new VerifyAllEntry();
         verifyAllEntry.setCardInfoType(cardInfoType);
-        // Certificates from Card Type
-        // eHBA (C.AUT, C.QES)
-        CertRefList availableCertificates = new ReadCardCertificate.CertRefList();
-        if (cardInfoType.getCardType().equals(CardTypeType.HBA)) {
-            availableCertificates.getCertRef().add(CertRefEnum.C_ENC);
-            availableCertificates.getCertRef().add(CertRefEnum.C_AUT);
-            availableCertificates.getCertRef().add(CertRefEnum.C_QES);
-        } else if (cardInfoType.getCardType().equals(CardTypeType.SMC_B)) {
-            availableCertificates.getCertRef().add(CertRefEnum.C_ENC);
-            availableCertificates.getCertRef().add(CertRefEnum.C_AUT);
-            availableCertificates.getCertRef().add(CertRefEnum.C_SIG);
-        } else if (cardInfoType.getCardType().equals(CardTypeType.SMC_KT)) {
-            // Nothing available
-            return verifyAllEntry;
-        } else if (cardInfoType.getCardType().equals(CardTypeType.EGK)) {
-            // Zugriff auf eGK nicht gestattet 
+
+        CertRefList certificateTypes = getAvailableCertificateTypes(cardInfoType.getCardType());
+        if (certificateTypes.getCertRef().isEmpty()) {
             return verifyAllEntry;
         }
 
@@ -97,12 +96,12 @@ public class Certificate {
             certificateServicePortType.readCardCertificate(
                     cardInfoType.getCardHandle(),
                     copyValuesFromProxyIntoContextType(contextType),
-                    availableCertificates,
+                    certificateTypes,
                     status,
                     certList
             );
-            ReadCardCertificateResponse readCardCertificateResponse = new ReadCardCertificateResponse();
 
+            ReadCardCertificateResponse readCardCertificateResponse = new ReadCardCertificateResponse();
             readCardCertificateResponse.setStatus(status.value);
             readCardCertificateResponse.setX509DataInfoList(certList.value);
             verifyAllEntry.setReadCardCertificateResponse(readCardCertificateResponse);
@@ -114,18 +113,38 @@ public class Certificate {
                 Holder<VerifyCertificateResponse.VerificationStatus> verificationStatus = new Holder<>();
                 Holder<VerifyCertificateResponse.RoleList> roleList = new Holder<>();
 
-                certificateServicePortType.verifyCertificate(copyValuesFromProxyIntoContextType(contextType), encodedCertificate, now, status, verificationStatus, roleList);
+                certificateServicePortType.verifyCertificate(copyValuesFromProxyIntoContextType(contextType), encodedCertificate, now, status2, verificationStatus, roleList);
 
                 VerifyCertificateResponse verifyCertificateResponse = new VerifyCertificateResponse();
                 verifyCertificateResponse.setStatus(status2.value);
                 verifyCertificateResponse.setVerificationStatus(verificationStatus.value);
                 verifyCertificateResponse.setRoleList(roleList.value);
                 verifyAllEntry.getVerifyCertificateResponse().add(verifyCertificateResponse);
-
             }
         } catch (FaultMessage | DatatypeConfigurationException e) {
             log.log(Level.SEVERE, "Could not read certificate", e);
         }
         return verifyAllEntry;
     }
+
+    private CertRefList getAvailableCertificateTypes(CardTypeType cardType) {
+        // eHBA (C.AUT, C.QES)
+        CertRefList availableCertificates = new ReadCardCertificate.CertRefList();
+        List<CertRefEnum> certRefs = availableCertificates.getCertRef();
+        if (cardType.equals(CardTypeType.HBA)) {
+            certRefs.add(CertRefEnum.C_ENC);
+            certRefs.add(CertRefEnum.C_AUT);
+            certRefs.add(CertRefEnum.C_QES);
+        } else if (cardType.equals(CardTypeType.SMC_B)) {
+            certRefs.add(CertRefEnum.C_ENC);
+            certRefs.add(CertRefEnum.C_AUT);
+            certRefs.add(CertRefEnum.C_SIG);
+        } else if (cardType.equals(CardTypeType.SMC_KT)) {
+            // Nothing available
+        } else if (cardType.equals(CardTypeType.EGK)) {
+            // Nothing available
+        }
+        return availableCertificates;
+    }
+
 }
