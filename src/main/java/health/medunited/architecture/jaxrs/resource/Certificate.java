@@ -60,10 +60,12 @@ public class Certificate {
     public void getCertificate(
             @PathParam("cardHandle") String cardHandle, 
             @PathParam("certificateType") String certificateType) throws Throwable {
-        GetCards getCards = new GetCards();
-        getCards.setContext(copyValuesFromProxyIntoContextType(contextType));
 
-        GetCardsResponse getCardResponse = eventServicePortType.getCards(getCards);
+        CertRefList certificateTypes = new ReadCardCertificate.CertRefList();
+        List<CertRefEnum> certRefs = certificateTypes.getCertRef();
+        certRefs.add(CertRefEnum.valueOf(certificateType));
+        ReadCardCertificateResponse response = getCertificatesFromCard(cardHandle, certificateTypes);
+
     }
 
     @GET
@@ -86,40 +88,12 @@ public class Certificate {
             return verifyAllEntry;
         }
 
-        ReadCardCertificate readCardCertificate = new ReadCardCertificate();
-        readCardCertificate.setContext(copyValuesFromProxyIntoContextType(contextType));
-
-        Holder<Status> status = new Holder<>();
-        Holder<X509DataInfoListType> certList = new Holder<>();
-
         try {
-            certificateServicePortType.readCardCertificate(
-                    cardInfoType.getCardHandle(),
-                    copyValuesFromProxyIntoContextType(contextType),
-                    certificateTypes,
-                    status,
-                    certList
-            );
+            ReadCardCertificateResponse response = getCertificatesFromCard(cardInfoType.getCardHandle(), certificateTypes);
+            verifyAllEntry.setReadCardCertificateResponse(response);
 
-            ReadCardCertificateResponse readCardCertificateResponse = new ReadCardCertificateResponse();
-            readCardCertificateResponse.setStatus(status.value);
-            readCardCertificateResponse.setX509DataInfoList(certList.value);
-            verifyAllEntry.setReadCardCertificateResponse(readCardCertificateResponse);
-
-            for (X509DataInfo x509DataInfo : readCardCertificateResponse.getX509DataInfoList().getX509DataInfo()) {
-                byte[] encodedCertificate = x509DataInfo.getX509Data().getX509Certificate();
-                XMLGregorianCalendar now = DatatypeFactory.newInstance().newXMLGregorianCalendar(new GregorianCalendar(TimeZone.getTimeZone("UTC")));
-                Holder<Status> status2 = new Holder<>();
-                Holder<VerifyCertificateResponse.VerificationStatus> verificationStatus = new Holder<>();
-                Holder<VerifyCertificateResponse.RoleList> roleList = new Holder<>();
-
-                certificateServicePortType.verifyCertificate(copyValuesFromProxyIntoContextType(contextType), encodedCertificate, now, status2, verificationStatus, roleList);
-
-                VerifyCertificateResponse verifyCertificateResponse = new VerifyCertificateResponse();
-                verifyCertificateResponse.setStatus(status2.value);
-                verifyCertificateResponse.setVerificationStatus(verificationStatus.value);
-                verifyCertificateResponse.setRoleList(roleList.value);
-                verifyAllEntry.getVerifyCertificateResponse().add(verifyCertificateResponse);
+            for (X509DataInfo x509DataInfo : response.getX509DataInfoList().getX509DataInfo()) {
+                verifyAllEntry.getVerifyCertificateResponse().add(getCertificateVerification(x509DataInfo));
             }
         } catch (FaultMessage | DatatypeConfigurationException e) {
             log.log(Level.SEVERE, "Could not read certificate", e);
@@ -127,10 +101,34 @@ public class Certificate {
         return verifyAllEntry;
     }
 
+    private VerifyCertificateResponse getCertificateVerification(X509DataInfo x509DataInfo)
+            throws DatatypeConfigurationException, FaultMessage {
+                
+        byte[] encodedCertificate = x509DataInfo.getX509Data().getX509Certificate();
+        XMLGregorianCalendar now = DatatypeFactory.newInstance().newXMLGregorianCalendar(new GregorianCalendar(TimeZone.getTimeZone("UTC")));
+        Holder<Status> status = new Holder<>();
+        Holder<VerifyCertificateResponse.VerificationStatus> verificationStatus = new Holder<>();
+        Holder<VerifyCertificateResponse.RoleList> roleList = new Holder<>();
+
+        certificateServicePortType.verifyCertificate(
+            copyValuesFromProxyIntoContextType(contextType), 
+            encodedCertificate, 
+            now, 
+            status, 
+            verificationStatus, 
+            roleList);
+
+        VerifyCertificateResponse verifyCertificateResponse = new VerifyCertificateResponse();
+        verifyCertificateResponse.setStatus(status.value);
+        verifyCertificateResponse.setVerificationStatus(verificationStatus.value);
+        verifyCertificateResponse.setRoleList(roleList.value);
+        return verifyCertificateResponse;
+    }
+
     private CertRefList getAvailableCertificateTypes(CardTypeType cardType) {
         // eHBA (C.AUT, C.QES)
-        CertRefList availableCertificates = new ReadCardCertificate.CertRefList();
-        List<CertRefEnum> certRefs = availableCertificates.getCertRef();
+        CertRefList certificateTypes = new ReadCardCertificate.CertRefList();
+        List<CertRefEnum> certRefs = certificateTypes.getCertRef();
         if (cardType.equals(CardTypeType.HBA)) {
             certRefs.add(CertRefEnum.C_ENC);
             certRefs.add(CertRefEnum.C_AUT);
@@ -144,7 +142,23 @@ public class Certificate {
         } else if (cardType.equals(CardTypeType.EGK)) {
             // Nothing available
         }
-        return availableCertificates;
+        return certificateTypes;
+    }
+
+    private ReadCardCertificateResponse getCertificatesFromCard(String cardHandle, CertRefList certificateTypes) throws FaultMessage {
+        Holder<Status> status = new Holder<>();
+        Holder<X509DataInfoListType> certList = new Holder<>();
+        certificateServicePortType.readCardCertificate(
+            cardHandle,
+            copyValuesFromProxyIntoContextType(contextType),
+            certificateTypes,
+            status,
+            certList
+        );
+        ReadCardCertificateResponse readCardCertificateResponse = new ReadCardCertificateResponse();
+        readCardCertificateResponse.setStatus(status.value);
+        readCardCertificateResponse.setX509DataInfoList(certList.value);
+        return readCardCertificateResponse;
     }
 
 }
