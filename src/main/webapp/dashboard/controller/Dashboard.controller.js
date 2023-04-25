@@ -45,7 +45,8 @@ sap.ui.define(
                               				"icon": {"src" : "{Icon}"},
                               				"highlight": "{State}",
                               				"info": {
-                                            			"value": "{Info}"
+                                            			"value": "{Info}",
+                                            			"state": "{State}"
                                             		}
                               			}
                               		}
@@ -138,32 +139,38 @@ sap.ui.define(
                     	    }
                     	    if(numResponses == numConfigs){
                     	        let StatusConnectors = "";
+                    	        let InfoConnectors = "";
                     	        if(inactiveConnectors > 0){
                     	            StatusConnectors = "Error";
+                    	            InfoConnectors= "Offline: " + inactiveConnectors;
                     	        }
                     	        else{
                     	            StatusConnectors = "Success";
+                    	            InfoConnectors = "Alles Online";
                     	        }
                     	        let StatusTerminals = "";
+                    	        let InfoTerminals = "";
                     	        if(inactiveTerminals > 0){
                     	            StatusTerminals = "Error";
+                    	            InfoTerminals = "Offline: " + inactiveTerminals;
                     	        }
                     	        else{
                     	            StatusTerminals = "Success";
+                    	            InfoTerminals = "Alles Online"
                     	        }
                     	        content.push({
                                     "Name" : "Konnektoren",
                                     "Value": configs.length,
                                     "Icon": "http://localhost:8080/dashboard/images/Connector.png",
                                     "State" : StatusConnectors,
-                                    "Info": "Online: " + activeConnectors + "    Offline: " + inactiveConnectors
+                                    "Info": InfoConnectors
                                 });
                                 content.push({
                                     "Name" : "Kartenterminals",
                                     "Value" : anz_Terminals,
                                     "Icon": "http://localhost:8080/dashboard/images/CardTerminal.png",
                                     "State": StatusTerminals,
-                                    "Info" : "Online: " + activeTerminals + "    Offline: " + inactiveTerminals
+                                    "Info" : InfoTerminals
                                 });
                                 content.push({
                                     "Name" : "Karten",
