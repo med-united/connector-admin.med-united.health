@@ -57,7 +57,7 @@ public class Certificate {
 
     @GET
     @Path("/{cardHandle}/{certificateType}")
-    public void getCertificate(
+    public X509DataInfo getCertificate(
             @PathParam("cardHandle") String cardHandle, 
             @PathParam("certificateType") String certificateType) throws Throwable {
 
@@ -65,7 +65,7 @@ public class Certificate {
         List<CertRefEnum> certRefs = certificateTypes.getCertRef();
         certRefs.add(CertRefEnum.valueOf(certificateType));
         ReadCardCertificateResponse response = getCertificatesFromCard(cardHandle, certificateTypes);
-
+        return response.getX509DataInfoList().getX509DataInfo().get(0);
     }
 
     @GET
@@ -112,7 +112,7 @@ public class Certificate {
 
         certificateServicePortType.verifyCertificate(
             copyValuesFromProxyIntoContextType(contextType), 
-            encodedCertificate, 
+            encodedCertificate,
             now, 
             status, 
             verificationStatus, 
