@@ -3,17 +3,18 @@ package health.medunited.architecture.jaxrs.resource;
 import static health.medunited.architecture.provider.ContextTypeProducer.copyValuesFromProxyIntoContextType;
 
 import java.security.cert.CertificateEncodingException;
+import java.security.cert.X509Certificate;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import javax.inject.Inject;
+import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonArrayBuilder;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -24,10 +25,10 @@ import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.ws.Holder;
 
-import org.bouncycastle.asn1.ASN1ObjectIdentifier;
+import org.bouncycastle.asn1.x500.AttributeTypeAndValue;
+import org.bouncycastle.asn1.x500.RDN;
 import org.bouncycastle.asn1.x500.X500Name;
 import org.bouncycastle.asn1.x500.style.BCStyle;
-import org.bouncycastle.asn1.x500.style.IETFUtils;
 import org.bouncycastle.cert.jcajce.JcaX509CertificateHolder;
 import org.bouncycastle.crypto.CryptoException;
 
@@ -69,17 +70,15 @@ public class Certificate {
 
     @GET
     @Path("{certificateType}/{cardHandle}")
-    public X509DataInfo getCertificate(
+    public JsonArray getCertificate(
             @PathParam("certificateType") String certificateType,
-            @PathParam("cardHandle") String cardHandle) throws de.gematik.ws.conn.certificateservice.wsdl.v6.FaultMessage, CertificateEncodingException, CryptoException {
+            @PathParam("cardHandle") String cardHandle) throws de.gematik.ws.conn.certificateservice.wsdl.v6.FaultMessage, CertificateEncodingException, CryptoException, FaultMessage {
 
         CertRefList certificateTypes = new ReadCardCertificate.CertRefList();
-        List<CertRefEnum> certRefs = certificateTypes.getCertRef();
-        certRefs.add(CertRefEnum.valueOf(certificateType));
+        certificateTypes.getCertRef().add(CertRefEnum.valueOf(certificateType));
         ReadCardCertificateResponse response = getCertificatesFromCard(cardHandle, certificateTypes);
         X509DataInfo xDataInfo = response.getX509DataInfoList().getX509DataInfo().get(0);
-        smcbHandle2Organization(xDataInfo);
-        return xDataInfo;
+        return certSubjectToJSON(xDataInfo);
     }
 
     @GET
@@ -142,7 +141,7 @@ public class Certificate {
     }
 
     private CertRefList getAvailableCertificateTypes(CardTypeType cardType) {
-        // eHBA (C.AUT, C.QES)
+        // eHBA (C.ENC, C.AUT, C.QES)
         CertRefList certificateTypes = new ReadCardCertificate.CertRefList();
         List<CertRefEnum> certRefs = certificateTypes.getCertRef();
         if (cardType.equals(CardTypeType.HBA)) {
@@ -177,38 +176,20 @@ public class Certificate {
         return readCardCertificateResponse;
     }
 
-    private String smcbHandle2Organization(X509DataInfo xDataInfo) throws de.gematik.ws.conn.certificateservice.wsdl.v6.FaultMessage, CryptoException, CertificateEncodingException {
-        Pattern STREET_AND_NUMBER = Pattern.compile("(.*) ([^ ]*)$");
+    private JsonArray certSubjectToJSON(X509DataInfo xDataInfo) throws de.gematik.ws.conn.certificateservice.wsdl.v6.FaultMessage, CryptoException, CertificateEncodingException, FaultMessage {
+        X509Certificate certificate = CryptoLoader.getCertificateFromAsn1DERCertBytes(xDataInfo.getX509Data().getX509Certificate());
+        X500Name x500subject = new JcaX509CertificateHolder(certificate).getSubject();
 
-        java.security.cert.X509Certificate certificate = CryptoLoader.getCertificateFromAsn1DERCertBytes(xDataInfo.getX509Data().getX509Certificate());
-        X500Name x500name = new JcaX509CertificateHolder(certificate).getSubject();
+        // C=DE,L=Freiburg,PostalCode=79114,STREET=Sundgauallee 59,
+        // SERIALNUMBER=80276883110000118001,CN=VincenzkrankenhausTEST-ONLY
 
-        // C=DE,L=Freiburg,PostalCode=79114,STREET=Sundgauallee
-        // 59,SERIALNUMBER=80276883110000118001,CN=VincenzkrankenhausTEST-ONLY
-
-        String bsnr = "";
-        String phone = "";
-        String city = getRdnValue(x500name, BCStyle.L);
-        String postalCode = getRdnValue(x500name, BCStyle.POSTAL_CODE);
-
-        String streetName = "";
-        String houseNumber = "";
-        String street = getRdnValue(x500name, BCStyle.STREET);
-        Matcher m = STREET_AND_NUMBER.matcher(street);
-        if (m.matches()) {
-            streetName = m.group(1);
-            houseNumber = m.group(2);
-        } else {
-            streetName = street;
-        }
-        String organizationName = getRdnValue(x500name, BCStyle.CN);
-
-        return "";
+        JsonArrayBuilder items = Json.createArrayBuilder();
+        for(RDN rdn : x500subject.getRDNs())
+            for(AttributeTypeAndValue tv : rdn.getTypesAndValues()){
+                items.add(Json.createObjectBuilder()
+                    .add(BCStyle.INSTANCE.oidToDisplayName(tv.getType()),
+                         tv.getValue().toString()));                
+            }
+        return items.build();
     }
-
-    private String getRdnValue(X500Name x500name, ASN1ObjectIdentifier rdnType) {
-		return IETFUtils.valueToString(Stream.of(x500name.getRDNs(rdnType)[0].getTypesAndValues())
-				.filter(tv -> tv.getType() == rdnType).findFirst().get().getValue());
-	}
-
 }

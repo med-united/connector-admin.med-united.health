@@ -7,12 +7,12 @@ import javax.ws.rs.core.MediaType;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+import de.gematik.ws.conn.certificateservicecommon.v2.CertRefEnum;
 import de.gematik.ws.conn.connectorcontext.v2.ContextType;
 import health.medunited.architecture.Bootstrap;
 import health.medunited.architecture.entities.RuntimeConfig;
 import health.medunited.architecture.service.common.security.SecretsManagerService;
 
-// @Disabled
 public class CertificateTest {
 
     private static SecretsManagerService secretsManagerService;
@@ -41,19 +41,20 @@ public class CertificateTest {
 
     }
 
+    @Disabled
     @Test
     void getCertificateDetailsForCardHandleAndCertType() throws Throwable {
         Client client = ClientBuilder.newClient();
 
         RuntimeConfig runtimeConfig = Bootstrap.getRuntimeConfigKops();
 
-        String cardHandle = "ee647111-5d42-42e0-b4c5-8e19cf052827";
-        String certType = "C_ENC";
+        String cardHandle = "5647527e-12a2-4e53-8f4a-6b73a363cdf4";
+        CertRefEnum certType = CertRefEnum.C_QES;
 
         String s = client
             .target("http://localhost:8080/frontend/connector/certificate")
                 .path("/{certType}/{cardHandle}")
-                .resolveTemplate("certType", certType) 
+                .resolveTemplate("certType", certType.name()) 
                 .resolveTemplate("cardHandle", cardHandle) 
             .request()
                 .header("x-mandant-id", runtimeConfig.getMandantId())
@@ -66,6 +67,8 @@ public class CertificateTest {
                 .accept(MediaType.APPLICATION_JSON_TYPE)
             .get(String.class);
         
+        // C_AUT : [{"CN":"Test Praxis Valid"},{"SERIALNUMBER":"1-smcb-doctor-valid"},{"O":"eHealthExperts GmbH"},{"C":"DE"}]
+        // C_ENC : [{"CN":"Test Praxis Valid"},{"SERIALNUMBER":"1-smcb-doctor-valid"},{"O":"eHealthExperts GmbH"},{"C":"DE"}]
         System.out.println(s);
     }
 }
