@@ -47,22 +47,22 @@ public class CertificateTest {
 
         RuntimeConfig runtimeConfig = Bootstrap.getRuntimeConfigKops();
 
-        String cardHandle = "7c99dd08-18d3-4d86-a00a-f7e0f936f77c";
+        String cardHandle = "ee647111-5d42-42e0-b4c5-8e19cf052827";
         String certType = "C_ENC";
 
         String s = client
             .target("http://localhost:8080/frontend/connector/certificate")
-                .path("/{cardHandle}/{certType}")
-                .resolveTemplate("cardHandle", cardHandle) 
+                .path("/{certType}/{cardHandle}")
                 .resolveTemplate("certType", certType) 
+                .resolveTemplate("cardHandle", cardHandle) 
             .request()
-                .header("X-Mandant-Id", runtimeConfig.getMandantId())
-                .header("X-Client-System-Id", runtimeConfig.getClientSystemId())
-                .header("X-Workplace-Id", runtimeConfig.getWorkplaceId())
-                .header("X-User-Id", runtimeConfig.getUserId())
-                .header("X-Client-Certificate", runtimeConfig.getClientCertificate())
-                .header("X-Client-Certificate-Password", runtimeConfig.getClientCertificatePassword())
-                .header("X-Host", runtimeConfig.getUrl())
+                .header("x-mandant-id", runtimeConfig.getMandantId())
+                .header("x-client-system-id", runtimeConfig.getClientSystemId())
+                .header("x-workplace-id", runtimeConfig.getWorkplaceId())
+                .header("x-user-id", runtimeConfig.getUserId())
+                .header("x-client-certificate", runtimeConfig.getClientCertificate())
+                .header("x-client-certificate-password", runtimeConfig.getClientCertificatePassword())
+                .header("x-host", runtimeConfig.getUrl())
                 .accept(MediaType.APPLICATION_JSON_TYPE)
             .get(String.class);
         
