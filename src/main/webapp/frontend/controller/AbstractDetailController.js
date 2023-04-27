@@ -14,6 +14,9 @@ sap.ui.define([
 		handleFullScreen: function () {
 			this.navToLayoutProperty("/actionButtonsInfo/midColumn/fullScreen");
 		},
+        restartConnector: function () {
+            console.log("Implement Connector Restart here");
+        },
 		navToLayoutProperty: function (sLayoutProperty) {
 			let oLayoutModel = this.getOwnerComponent().getModel("Layout");
 			let sNextLayout = oLayoutModel.getProperty(sLayoutProperty);
