@@ -50,10 +50,13 @@ sap.ui.define(
             .filter(oTableSearchState, "Application");
         },
 
+/*
         remove: function (oEvent) {
+                  console.log("remove function");
           let oTable = this.getView().byId("runtimeConfigTable");
           oTable.removeItem(oEvent.getSource().getParent());
         },
+*/
 
         getEntityName: function () {
           return "RuntimeConfigs";
@@ -95,18 +98,24 @@ sap.ui.define(
         onConfirmDelete: function () {
           let oTable = this.getView().byId("runtimeConfigTable");
           let aSelectedItems = oTable.getSelectedItems();
+
+          let counter = 0;
+          let rowPath = [];
+
           for (let item of aSelectedItems) {
             let oContext = item.getBindingContext();
             let oModel = oContext.getModel();
-            oModel.remove(oContext.getPath(), {
-              success: function () {
-                sap.m.MessageToast.show("Selected items have been deleted.");
-              },
-              error: function () {
-                sap.m.MessageToast.show("Error deleting selected items.");
-              },
-            });
-            oTable.removeItem(item);
+            rowPath.push(oContext.getPath());
+
+            setTimeout(
+            function() {oModel.remove(rowPath[counter++],{
+                success : function(){
+                    console.log("Konnektor erfolgreich geloescht");
+                }
+            })}, 2000);
+
+            sap.m.MessageToast.show("Die ausgewaehlten Konnektoren werden alsbald geloescht");
+
           }
           this.byId("deleteConfirmationDialog").close();
         },
