@@ -320,9 +320,8 @@ sap.ui.define(
         },
 
         handlePopoverPress: function (oEvent) {
-          var oCtx = oEvent.getSource().getBindingContext("VerifyAll"),
-            oControl = oEvent.getSource(),
-            oView = this.getView();
+          var oControl = oEvent.getSource(),
+              oView = this.getView();
     
           // create popover
           if (!this._pPopover) {
@@ -333,7 +332,7 @@ sap.ui.define(
             }).then(function (oPopover) {
               oView.addDependent(oPopover);
               return oPopover;
-            }.bind(this));
+            });
           }
           this._pPopover.then(function(oPopover) {
             oView.getModel("CertSubject")
@@ -343,10 +342,6 @@ sap.ui.define(
                 { "field" : "O",            "value" : "eHealthExperts GmbH" },
                 { "field" : "C",            "value" : "DE" }
               ]);
-            oPopover.bindElement({
-              path: "/",
-              model: "CertSubject"
-            });
             oPopover.openBy(oControl);
           });
         },
@@ -354,6 +349,11 @@ sap.ui.define(
         handlePopoverClosePress: function (oEvent) {
           this.getView().byId("certPopover").close();
         },
+
+     		translateTextWithPrefix : function (prefix, certFieldName) {
+          return this.getOwnerComponent().getModel("i18n").getResourceBundle().getText(prefix+certFieldName);
+        }
+
       }
     );
   },

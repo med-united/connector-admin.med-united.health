@@ -49,7 +49,7 @@ public class CertificateTest {
         RuntimeConfig runtimeConfig = Bootstrap.getRuntimeConfigKops();
 
         String cardHandle = "90bee54a-0568-4fda-9389-5b3762384190";
-        CertRefEnum certType = CertRefEnum.C_QES;
+        CertRefEnum certType = CertRefEnum.C_ENC;
 
         String s = client
             .target("http://localhost:8080/frontend/connector/certificate")
@@ -67,8 +67,7 @@ public class CertificateTest {
                 .accept(MediaType.APPLICATION_JSON_TYPE)
             .get(String.class);
         
-        // C_AUT : [{"CN":"Test Praxis Valid"},{"SERIALNUMBER":"1-smcb-doctor-valid"},{"O":"eHealthExperts GmbH"},{"C":"DE"}]
-        // C_ENC : [{"CN":"Test Praxis Valid"},{"SERIALNUMBER":"1-smcb-doctor-valid"},{"O":"eHealthExperts GmbH"},{"C":"DE"}]
+        // C_ENC : [{"field":"CN","value":"Dr. Peter Müller"},{"field":"SERIALNUMBER","value":"1-hba-valid"},{"field":"O","value":"eHealthExperts GmbH"},{"field":"C","value":"DE"}]
         System.out.println(s);
     }
 }

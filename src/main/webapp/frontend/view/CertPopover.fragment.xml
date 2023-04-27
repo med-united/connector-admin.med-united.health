@@ -12,24 +12,23 @@
 				<ToolbarSpacer/>
 				<Button
 					id="popoverClose"
-					text="Close"
+					text="{i18n>Close}"
 					press="handlePopoverClosePress" />
 			</OverflowToolbar>
 		</footer>
 		<content>
-			<!-- <Text text="{VerifyAll>cardHandle}"/> -->
-			<Table items="{CertSubject>/}" width="auto" class="withGrid">
+			<Table items="{CertSubject>/}" class="withGrid">
 				<columns>
 					<Column>
-						<Text text="Field" />
+						<Text text="{i18n>Field}" />
 					</Column>
 					<Column>
-						<Text text="Value" />
+						<Text text="{i18n>Value}" />
 					</Column>
 				</columns>
 				<items>
 					<ColumnListItem>
-						<Text text="{CertSubject>field}" />
+						<Text text="{parts: [{value:'field'},{path:'CertSubject>field'}], formatter: '.translateTextWithPrefix'}" />
 						<Text text="{CertSubject>value}" />
 					</ColumnListItem>
 				</items>
