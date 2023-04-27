@@ -17,7 +17,23 @@
 			</OverflowToolbar>
 		</footer>
 		<content>
-			<Text text="{VerifyAll>cardHandle}"/>
+			<!-- <Text text="{VerifyAll>cardHandle}"/> -->
+			<Table items="{CertSubject>/}" width="auto" class="withGrid">
+				<columns>
+					<Column>
+						<Text text="Field" />
+					</Column>
+					<Column>
+						<Text text="Value" />
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem>
+						<Text text="{CertSubject>field}" />
+						<Text text="{CertSubject>value}" />
+					</ColumnListItem>
+				</items>
+			</Table>
 		</content>
 	</Popover>
 </core:FragmentDefinition>

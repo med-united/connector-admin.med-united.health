@@ -35,6 +35,9 @@ sap.ui.define(
           const oProductInformationModel = new JSONModel();
           this.getView().setModel(oProductInformationModel, "ProductInformation")
 
+          const oCertSubjectModel = new JSONModel();
+          this.getView().setModel(oCertSubjectModel, "CertSubject")
+
         },
         onVerifyPinCh: function (oEvent) {
           const sPath = "/RuntimeConfigs('" + this._entity + "')";
@@ -225,16 +228,16 @@ sap.ui.define(
               mHeaders
             );
 
-          this.getView()
-          .getModel("ProductInformation")
-          .loadData(
-            "connector/productTypeInformation/getVersion",
-            {},
-            "true",
-            "GET",
-            false,
-            true,
-            mHeaders
+            this.getView()
+            .getModel("ProductInformation")
+            .loadData(
+              "connector/productTypeInformation/getVersion",
+              {},
+              "true",
+              "GET",
+              false,
+              true,
+              mHeaders
           );
 
           fetch("connector/certificate/verifyAll", { headers: mHeaders }).then(
@@ -333,9 +336,16 @@ sap.ui.define(
             }.bind(this));
           }
           this._pPopover.then(function(oPopover) {
+            oView.getModel("CertSubject")
+              .setData([
+                { "field" : "CN",           "value" : "Test Praxis Valid" },
+                { "field" : "SERIALNUMBER", "value" : "1-smcb-doctor-valid" },
+                { "field" : "O",            "value" : "eHealthExperts GmbH" },
+                { "field" : "C",            "value" : "DE" }
+              ]);
             oPopover.bindElement({
-              path: oCtx.getPath(),
-              model: "VerifyAll"
+              path: "/",
+              model: "CertSubject"
             });
             oPopover.openBy(oControl);
           });

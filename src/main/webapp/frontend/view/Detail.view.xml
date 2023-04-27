@@ -210,8 +210,7 @@
                                                 <Text text="{CardTerminals>connected}" />
                                                 <Text text="{CardTerminals>name}" />
                                                 <Text text="{CardTerminals>IPAddress/IPV4Address}" />
-                                                <Text
-                                                        text="{CardTerminals>productInformation/productIdentification/productCode} {CardTerminals>productInformation/productIdentification/productVendorID} {CardTerminals>productInformation/productIdentification/productVersion/local/FWVersion}" />
+                                                <Text text="{CardTerminals>productInformation/productIdentification/productCode} {CardTerminals>productInformation/productIdentification/productVendorID} {CardTerminals>productInformation/productIdentification/productVersion/local/FWVersion}" />
                                             </ColumnListItem>
                                         </items>
                                     </Table>

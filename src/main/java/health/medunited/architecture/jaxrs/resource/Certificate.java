@@ -188,8 +188,8 @@ public class Certificate {
         for(RDN rdn : x500subject.getRDNs())
             for(AttributeTypeAndValue tv : rdn.getTypesAndValues()){
                 items.add(Json.createObjectBuilder()
-                    .add(BCStyle.INSTANCE.oidToDisplayName(tv.getType()),
-                         tv.getValue().toString()));                
+                    .add("field", BCStyle.INSTANCE.oidToDisplayName(tv.getType()))
+                    .add("value", tv.getValue().toString()));
             }
         return items.build();
     }
