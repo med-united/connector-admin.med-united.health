@@ -93,8 +93,7 @@
                                             <ColumnListItem>
                                                 <Text text="{Cards>cardHandle}" />
                                                 <Text text="{Cards>cardHolderName}" />
-                                                <!-- <Text text="{Cards>cardType}" /> -->
-                                                <Link text="{Cards>cardType}" press="handlePopoverPress" ariaHasPopup="Dialog" />
+                                                <Text text="{Cards>cardType}" />
                                                 <Text text="{path: 'Cards>certificateExpirationDate', formatter: '.formatter.formatDateAndTimeWithTimezone'}" />
                                                 <Text text="{Cards>iccsn}" />
                                                 <Text text="{path: 'Cards>insertTime', formatter: '.formatter.formatDateAndTimeWithTimezone'}" />
@@ -145,7 +144,8 @@
                                         <items>
                                             <ColumnListItem>
                                                 <Text text="{VerifyAll>cardHolderName}" />
-                                                <Text text="{VerifyAll>certRef}" />
+                                                <!-- <Text text="{VerifyAll>certRef}" /> -->
+                                                <Link text="{VerifyAll>certRef}" press="handlePopoverPress" ariaHasPopup="Dialog" />
                                                 <Text text="{VerifyAll>cardHandle}" />
                                                 <Text text="{VerifyAll>serial}" />
                                                 <Text text="{VerifyAll>verify}" />

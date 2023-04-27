@@ -317,7 +317,7 @@ sap.ui.define(
         },
 
         handlePopoverPress: function (oEvent) {
-          var oCtx = oEvent.getSource().getBindingContext("Cards"),
+          var oCtx = oEvent.getSource().getBindingContext("VerifyAll"),
             oControl = oEvent.getSource(),
             oView = this.getView();
     
@@ -335,7 +335,7 @@ sap.ui.define(
           this._pPopover.then(function(oPopover) {
             oPopover.bindElement({
               path: oCtx.getPath(),
-              model: "Cards"
+              model: "VerifyAll"
             });
             oPopover.openBy(oControl);
           });

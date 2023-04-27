@@ -1,4 +1,4 @@
-package health.medunited.architecture.jaxrs.resource;
+package health.medunited.architecture.jaxrs.resource.crypto;
 
 import java.security.PrivateKey;
 import java.security.cert.X509Certificate;

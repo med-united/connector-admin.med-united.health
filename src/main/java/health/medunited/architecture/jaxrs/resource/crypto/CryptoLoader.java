@@ -1,4 +1,4 @@
-package health.medunited.architecture.jaxrs.resource;
+package health.medunited.architecture.jaxrs.resource.crypto;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;

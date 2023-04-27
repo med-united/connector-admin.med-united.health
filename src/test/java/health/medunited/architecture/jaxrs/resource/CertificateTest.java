@@ -41,14 +41,14 @@ public class CertificateTest {
 
     }
 
-    @Disabled
+    // @Disabled
     @Test
     void getCertificateDetailsForCardHandleAndCertType() throws Throwable {
         Client client = ClientBuilder.newClient();
 
         RuntimeConfig runtimeConfig = Bootstrap.getRuntimeConfigKops();
 
-        String cardHandle = "5647527e-12a2-4e53-8f4a-6b73a363cdf4";
+        String cardHandle = "90bee54a-0568-4fda-9389-5b3762384190";
         CertRefEnum certType = CertRefEnum.C_QES;
 
         String s = client
