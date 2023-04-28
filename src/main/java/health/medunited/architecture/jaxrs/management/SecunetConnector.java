@@ -12,6 +12,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
+import java.security.cert.X509Certificate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -30,21 +31,7 @@ public class SecunetConnector implements Connector{
         clientBuilder.hostnameVerifier(new SSLUtilities.FakeHostnameVerifier());
 
         // Create a TrustManager that trusts all certificates
-        TrustManager[] trustAllCerts = new TrustManager[]{
-                new X509TrustManager() {
-                    public java.security.cert.X509Certificate[] getAcceptedIssuers() {
-                        return null;
-                    }
-
-                    public void checkClientTrusted(
-                            java.security.cert.X509Certificate[] certs, String authType) {
-                    }
-
-                    public void checkServerTrusted(
-                            java.security.cert.X509Certificate[] certs, String authType) {
-                    }
-                }
-        };
+        TrustManager[] trustAllCerts = setupTrustManager();
 
         // Configure the client to use the TrustManager
         SSLContext sslContext;
@@ -58,20 +45,42 @@ public class SecunetConnector implements Connector{
         clientBuilder.hostnameVerifier((hostname, session) -> true);
 
         Client client = clientBuilder.build();
-        WebTarget loginTarget = client.target(connectorUrl + ":" + managementPort)
-                .path("/rest/mgmt/ak/konten/login");
+
+        Response loginResponse = loginManagementConsole(client, connectorUrl, managementPort);
 
         WebTarget restartTarget = client.target(connectorUrl + ":" + managementPort)
                 .path("/rest/mgmt/nk/system");
-
-        Invocation.Builder loginBuilder = loginTarget.request(MediaType.APPLICATION_JSON);
-        Response loginResponse = loginBuilder.post(Entity.json("{\n" +
-                "    \"username\": \"fakeusername\",\n" +
-                "    \"password\": \"fakepassword\"\n" +
-                "}"));
-
         Invocation.Builder restartBuilder = restartTarget.request(MediaType.APPLICATION_JSON);
         restartBuilder.header("Authorization", loginResponse.getHeaders().get("Authorization").get(0));
         restartBuilder.post(Entity.json(""));
+    }
+
+    private TrustManager[] setupTrustManager() {
+        return new TrustManager[]{
+                new X509TrustManager() {
+                    public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+                        return new X509Certificate[0];
+                    }
+
+                    public void checkClientTrusted(
+                            java.security.cert.X509Certificate[] certs, String authType) {
+                    }
+
+                    public void checkServerTrusted(
+                            java.security.cert.X509Certificate[] certs, String authType) {
+                    }
+                }
+        };
+    }
+
+    private Response loginManagementConsole(Client client, String connectorUrl, String managementPort) {
+        WebTarget loginTarget = client.target(connectorUrl + ":" + managementPort)
+                .path("/rest/mgmt/ak/konten/login");
+
+        Invocation.Builder loginBuilder = loginTarget.request(MediaType.APPLICATION_JSON);
+        return loginBuilder.post(Entity.json("{\n" +
+                "    \"username\": \"fakeusername\",\n" +
+                "    \"password\": \"fakepassword\"\n" +
+                "}"));
     }
 }
