@@ -24,7 +24,7 @@
                         <uxap:actions>
                             <uxap:ObjectPageHeaderActionButton type="Emphasized"
                                                                icon="sap-icon://restart" tooltip="{i18n>RestartConnector}"
-                                                               text="Restart" visible="true" />
+                                                               text="Restart" visible="true" press="restartConnector"/>
                             <uxap:ObjectPageHeaderActionButton type="Transparent"
                                                                icon="sap-icon://full-screen" press="handleFullScreen"
                                                                tooltip="{i18n>EnterFullScreenMode}"
