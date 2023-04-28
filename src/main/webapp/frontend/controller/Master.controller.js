@@ -5,13 +5,15 @@ sap.ui.define(
     "sap/ui/model/FilterOperator",
     "sap/ui/model/Sorter",
     "sap/ui/core/Fragment",
+    "sap/m/MessageToast"
   ],
   function (
     AbstractMasterController,
     Filter,
     FilterOperator,
     Sorter,
-    Fragment
+    Fragment,
+    MessageToast
   ) {
     "use strict";
 
@@ -48,11 +50,6 @@ sap.ui.define(
             .byId("runtimeConfigTable")
             .getBinding("items")
             .filter(oTableSearchState, "Application");
-        },
-
-        remove: function (oEvent) {
-          let oTable = this.getView().byId("runtimeConfigTable");
-          oTable.removeItem(oEvent.getSource().getParent());
         },
 
         getEntityName: function () {
@@ -92,23 +89,25 @@ sap.ui.define(
           this.byId("deleteConfirmationDialog").close();
         },
 
-        onConfirmDelete: function () {
+        onConfirmDelete: async function () {
           let oTable = this.getView().byId("runtimeConfigTable");
           let aSelectedItems = oTable.getSelectedItems();
+
+          let rowPaths = [];
+
           for (let item of aSelectedItems) {
             let oContext = item.getBindingContext();
             let oModel = oContext.getModel();
-            oModel.remove(oContext.getPath(), {
-              success: function () {
-                sap.m.MessageToast.show("Selected items have been deleted.");
-              },
-              error: function () {
-                sap.m.MessageToast.show("Error deleting selected items.");
-              },
-            });
-            oTable.removeItem(item);
+            rowPaths.push(oContext.getPath());
           }
+
+          MessageToast.show(this.translate("msgProcessingDeletionOfConnectorsSelected"));
+            await Promise.all(rowPaths.map(async (path) => {
+              await new Promise(resolve => setTimeout(resolve, 2000));
+              await oTable.getModel().remove(path);
+            }));
           this.byId("deleteConfirmationDialog").close();
+
         },
       }
     );
