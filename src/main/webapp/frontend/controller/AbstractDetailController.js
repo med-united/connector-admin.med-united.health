@@ -17,13 +17,17 @@ sap.ui.define([
 		},
         onAfterCreateOpenDialog: function () {},
         _openCreateDialog: function (oDialog, sEntityName) {
-          oDialog.open();
+                    oDialog.open();
         },
         pwdOnCancel: function (oEvent) {
           oEvent.getSource().getParent().close();
           oEvent.getSource().getParent().destroy();
         },
-        pwdOnSave: function (oEvent) {
+        pwdOnRestart: function (oEvent) {
+          oEvent.getSource().getParent().close();
+          //MessageToast.show(this.translate("restarting")); //this line is not compiling. I dont know why
+          MessageToast.show("Der Konnektor wird jetzt neu gestartet");
+          oEvent.getSource().getParent().destroy();
         },
         restartConnector: function () {
           let oView = this.getView();
