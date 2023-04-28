@@ -1,10 +1,9 @@
 sap.ui.define(
   [
     "./AbstractMasterController",
-    "sap/ui/model/json/JSONModel",
-    "sap/ui/integration/widgets/Card"
+    "sap/ui/model/json/JSONModel"
   ],
-  function (AbstractMasterController, JSONModel, Card) {
+  function (AbstractMasterController, JSONModel) {
     "use strict";
 
     return AbstractMasterController.extend(
@@ -12,183 +11,129 @@ sap.ui.define(
       {
         onInit: function () {
 
-          var ConnectorList = {
-                              	"sap.app": {
-                              		"id": "ConnectorList",
-                              		"type": "card",
-                              		"applicationVersion": {
-                              		  "version": "1.0.0"
-                              		}
-                              	},
-                              	"sap.card": {
-                              		"type": "List",
-                              		"header": {
-                              			"title": "Konnektorübersicht",
-                              			"icon": {
-                                        			"src": "sap-icon://overview-chart"
-                                        		},
-                                        "actions": [
-                                        				{
-                                        					"type": "Navigation",
-                                        					"url": "./#/management"
-                                        				}
-                                        			]
-                              		},
-                              		"content": {
-                              			"data": { "json":
-                              			    [
-                              			    ]
-                              			},
-                              			"item": {
-                              				"title": "{Name}",
-                              				"description": "{Value}",
-                              				"icon": {"src" : "{Icon}"},
-                              				"highlight": "{State}",
-                              				"info": {
-                                            			"value": "{Info}",
-                                            			"state": "{State}"
-                                            		}
-                              			}
-                              		}
-                              	}
-                              };
-
           this.oRouter = this.getOwnerComponent().getRouter();
           this._bDescendingSort = false;
-          var oCardContainer = this.getView().byId("CardContainer");
-
+          const oConnectorList = new JSONModel();
+          this.getView().setModel(oConnectorList, "Connectors");
+          this.setCardList();
           const runtimeConfigModel = new sap.ui.model.odata.v2.ODataModel(
             "../Data.svc",
             true
           );
+        },
 
-           function attachCard(){
-             var oCard = new Card();
-             oCard.setManifest(ConnectorList);
-             var items = oCardContainer.getItems();
-             for(let i = 0; i< items.length; i++){
-                 if(items[i].sId == "__card0"){
-                    oCardContainer.removeItem("__card0");
-                 }
-             }
-             oCardContainer.getLayout();
-             oCardContainer.addItem(oCard);
-           }
+        setCardList: function(){
+             const runtimeConfigModel = new sap.ui.model.odata.v2.ODataModel("../Data.svc",true);
+             const oConnectorList = this.getView().getModel("Connectors");
+             runtimeConfigModel.read("/RuntimeConfigs", {
+                           success: function (oData) {
+                             const configs = oData.results;
+                             let numCards = 0;
+                             let numTerminals = 0;
+                             let inactiveConnectors= 0;
+                             let inactiveTerminals = 0;
+                             let activeConnectors= 0;
+                             let activeTerminals = 0;
+                             const numConfigs = configs.length;
+                             let numResponses = 0;
+                             configs.forEach(function (config) {
+                                let getCardsHeaders = {
+                                   "x-client-system-id": config.ClientSystemId,
+                                   "x-client-certificate": config.ClientCertificate,
+                                    "x-client-certificate-password":
+                                           config.ClientCertificatePassword,
+                                         "x-mandant-id": config.MandantId,
+                                         "x-workplace-id": config.WorkplaceId,
+                                         "x-host": config.Url,
+                                         Accept: "application/json",
+                                       };
+                                 Promise.all([
+                                 	fetch("connector/event/get-card-terminals", {headers : getCardsHeaders}),
+                                 	fetch("connector/event/get-cards", {headers : getCardsHeaders}),
+                                 	fetch("dashboard/resources/ConnectorList.json")
+                                     ]).then(function (responses) {
+                                 	// Get a JSON object from each of the responses
+                                 	return Promise.all(responses.map(function (response) {
+                                 	    if(response.ok){
+                                 	        return response.json();
+                                 	    }
 
-          runtimeConfigModel.read("/RuntimeConfigs", {
-              success: function (oData) {
-                const urls = [
-                   'connector/event/get-card-terminals',
-                   "connector/event/get-cards"
-                ];
-                const configs = oData.results;
-                const content = [];
-                let anz_Cards = 0;
-                let anz_Terminals = 0;
-                let inactiveConnectors= 0;
-                let inactiveTerminals = 0;
-                let activeConnectors= 0;
-                let activeTerminals = 0;
-                let defined = false;
-                const numConfigs = configs.length;
-                let numResponses = 0;
-                configs.forEach(function (config) {
-                   let getCardsHeaders = {
-                      "x-client-system-id": config.ClientSystemId,
-                      "x-client-certificate": config.ClientCertificate,
-                       "x-client-certificate-password":
-                              config.ClientCertificatePassword,
-                            "x-mandant-id": config.MandantId,
-                            "x-workplace-id": config.WorkplaceId,
-                            "x-host": config.Url,
-                            Accept: "application/json",
-                          };
-                    Promise.all([
-                    	fetch("connector/event/get-card-terminals", {headers : getCardsHeaders}),
-                    	fetch("connector/event/get-cards", {headers : getCardsHeaders})
-                        ]).then(function (responses) {
-                    	// Get a JSON object from each of the responses
-                    	return Promise.all(responses.map(function (response) {
-                    	    if(response.ok){
-                    	        defined = true;
-                    	        return response.json();
-                    	    }
+                                 	}));
+                                     }).then(function (data) {
+                                         numResponses++;
+                                 	    if(data[0]!=null){
+                                 	        let terminals = data[0].cardTerminals.cardTerminal;
+                                 	        numTerminals = numTerminals + terminals.length;
+                                 	        for(let i = 0; i< terminals.length; i++){
+                                 	            if(terminals[i].connected)
+                                 	            {
+                                 	                activeTerminals++;
+                                 	            }
+                                 	            else{
+                                 	                inactiveTerminals++;
+                                 	            }
+                                 	        }
+                                             let cards = data[1].cards.card;
+                                             numCards = numCards + cards.length;
+                                             activeConnectors++;
+                                 	    }
+                                 	    else{
+                                 	        inactiveConnectors++;
+                                 	    }
+                                 	    if(numResponses == numConfigs){
+                                 	        let statusConnectors = "";
+                                 	        let infoConnectors = "";
+                                 	        if(inactiveConnectors > 0){
+                                 	            statusConnectors = "Error";
+                                 	            infoConnectors= "Offline: " + inactiveConnectors;
+                                 	        }
+                                 	        else{
+                                 	            statusConnectors = "Success";
+                                 	            infoConnectors = "Alles Online";
+                                 	        }
+                                 	        let statusTerminals = "";
+                                 	        let infoTerminals = "";
+                                 	        if(inactiveTerminals > 0){
+                                 	            statusTerminals = "Error";
+                                 	            infoTerminals = "Offline: " + inactiveTerminals;
+                                 	        }
+                                 	        else{
+                                 	            statusTerminals = "Success";
+                                 	            infoTerminals = "Alles Online"
+                                 	        }
+                                 	        const cardData = data[2];
+                                 	        let content = [];
+                                 	        content.push({
+                                                 "Name" : "Konnektoren",
+                                                 "Value": configs.length,
+                                                 "Icon": "http://localhost:8080/dashboard/images/Connector.png",
+                                                 "State" : statusConnectors,
+                                                 "Info": infoConnectors
+                                             });
+                                             content.push({
+                                                 "Name" : "Kartenterminals",
+                                                 "Value" : numTerminals,
+                                                 "Icon": "http://localhost:8080/dashboard/images/CardTerminal.png",
+                                                 "State": statusTerminals,
+                                                 "Info" : infoTerminals
+                                             });
+                                             content.push({
+                                                 "Name" : "Karten",
+                                                 "Value": numCards,
+                                                 "Icon": "http://localhost:8080/dashboard/images/Card.png",
+                                                 "State": "None"
+                                             });
+                                             cardData.connectors["sap.card"].content.data.json = content;
+                                             oConnectorList.setData(cardData);
+                                 	    }
+                                     });
 
-                    	}));
-                        }).then(function (data) {
-                            numResponses++;
-                    	    if(defined){
-                    	        let terminals = data[0].cardTerminals.cardTerminal;
-                    	        anz_Terminals = anz_Terminals + terminals.length;
-                    	        for(let i = 0; i< terminals.length; i++){
-                    	            if(terminals[i].connected)
-                    	            {
-                    	                activeTerminals++;
-                    	            }
-                    	            else{
-                    	                inactiveTerminals++;
-                    	            }
-                    	        }
-                                let cards = data[1].cards.card;
-                                anz_Cards = anz_Cards + cards.length;
-                                activeConnectors++;
-                    	        defined = false;
-                    	    }
-                    	    else{
-                    	        inactiveConnectors++;
-                    	    }
-                    	    if(numResponses == numConfigs){
-                    	        let StatusConnectors = "";
-                    	        let InfoConnectors = "";
-                    	        if(inactiveConnectors > 0){
-                    	            StatusConnectors = "Error";
-                    	            InfoConnectors= "Offline: " + inactiveConnectors;
-                    	        }
-                    	        else{
-                    	            StatusConnectors = "Success";
-                    	            InfoConnectors = "Alles Online";
-                    	        }
-                    	        let StatusTerminals = "";
-                    	        let InfoTerminals = "";
-                    	        if(inactiveTerminals > 0){
-                    	            StatusTerminals = "Error";
-                    	            InfoTerminals = "Offline: " + inactiveTerminals;
-                    	        }
-                    	        else{
-                    	            StatusTerminals = "Success";
-                    	            InfoTerminals = "Alles Online"
-                    	        }
-                    	        content.push({
-                                    "Name" : "Konnektoren",
-                                    "Value": configs.length,
-                                    "Icon": "http://localhost:8080/dashboard/images/Connector.png",
-                                    "State" : StatusConnectors,
-                                    "Info": InfoConnectors
-                                });
-                                content.push({
-                                    "Name" : "Kartenterminals",
-                                    "Value" : anz_Terminals,
-                                    "Icon": "http://localhost:8080/dashboard/images/CardTerminal.png",
-                                    "State": StatusTerminals,
-                                    "Info" : InfoTerminals
-                                });
-                                content.push({
-                                    "Name" : "Karten",
-                                    "Value": anz_Cards,
-                                    "Icon": "http://localhost:8080/dashboard/images/Card.png",
-                                    "State": "None"
-                                });
-                                ConnectorList["sap.card"].content.data.json = content;
-                                attachCard();
-                    	    }
-                        });
-
-                      });
-                      },
-                      error: function (error) {
-                        console.log(error);
-                      },
-                 });
+                                   });
+                                   },
+                                   error: function (error) {
+                                     console.log(error);
+                                   },
+                              });
         },
 
         onBeforeRendering: function () {
