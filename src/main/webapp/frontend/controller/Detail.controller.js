@@ -228,7 +228,7 @@ sap.ui.define(
               mHeaders
             );
 
-            this.getView()
+          this.getView()
             .getModel("ProductInformation")
             .loadData(
               "connector/productTypeInformation/getVersion",
@@ -335,15 +335,20 @@ sap.ui.define(
             });
           }
           this._pPopover.then(function(oPopover) {
-            oView.getModel("CertSubject")
-              .setData([
-                { "field" : "CN",           "value" : "Test Praxis Valid" },
-                { "field" : "SERIALNUMBER", "value" : "1-smcb-doctor-valid" },
-                { "field" : "O",            "value" : "eHealthExperts GmbH" },
-                { "field" : "C",            "value" : "DE" }
-              ]);
+            const oHeaders = this.getHttpHeadersFromRuntimeConfig();
+            const sCertRef = oControl.getBindingContext("VerifyAll").getProperty("certRef");
+            const sCardHandle = oControl.getBindingContext("VerifyAll").getProperty("cardHandle");
+            oView.getModel("CertSubject").loadData(
+              "connector/certificate/"+sCertRef+"/"+sCardHandle,
+              {},
+              "true",
+              "GET",
+              false,
+              true,
+              oHeaders
+            );
             oPopover.openBy(oControl);
-          });
+          }.bind(this));
         },
     
         handlePopoverClosePress: function (oEvent) {
@@ -352,8 +357,24 @@ sap.ui.define(
 
      		translateTextWithPrefix : function (prefix, certFieldName) {
           return this.getOwnerComponent().getModel("i18n").getResourceBundle().getText(prefix+certFieldName);
-        }
+        },
 
+        getHttpHeadersFromRuntimeConfig: function () {
+          const sPath = "/RuntimeConfigs('" + this._entity + "')";
+          const oRuntimeConfig = this.getView().getModel().getProperty(sPath);
+          return {
+            Accept: "application/json",
+            "x-client-system-id": oRuntimeConfig.ClientSystemId,
+            "x-client-certificate": oRuntimeConfig.ClientCertificate,
+            "x-client-certificate-password": oRuntimeConfig.ClientCertificatePassword,
+            "x-sign-port": oRuntimeConfig.SignPort,
+            "x-vzd-port": oRuntimeConfig.VzdPort,
+            "x-mandant-id": oRuntimeConfig.MandantId,
+            "x-workplace-id": oRuntimeConfig.WorkplaceId,
+            "x-user-id": oRuntimeConfig.UserId,
+            "x-host": oRuntimeConfig.Url,
+          };
+        }
       }
     );
   },
