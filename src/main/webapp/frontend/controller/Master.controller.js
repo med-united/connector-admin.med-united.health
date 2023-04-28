@@ -5,13 +5,15 @@ sap.ui.define(
     "sap/ui/model/FilterOperator",
     "sap/ui/model/Sorter",
     "sap/ui/core/Fragment",
+    "sap/m/MessageToast"
   ],
   function (
     AbstractMasterController,
     Filter,
     FilterOperator,
     Sorter,
-    Fragment
+    Fragment,
+    MessageToast
   ) {
     "use strict";
 
@@ -50,14 +52,6 @@ sap.ui.define(
             .filter(oTableSearchState, "Application");
         },
 
-/*
-        remove: function (oEvent) {
-                  console.log("remove function");
-          let oTable = this.getView().byId("runtimeConfigTable");
-          oTable.removeItem(oEvent.getSource().getParent());
-        },
-*/
-
         getEntityName: function () {
           return "RuntimeConfigs";
         },
@@ -95,29 +89,25 @@ sap.ui.define(
           this.byId("deleteConfirmationDialog").close();
         },
 
-        onConfirmDelete: function () {
+        onConfirmDelete: async function () {
           let oTable = this.getView().byId("runtimeConfigTable");
           let aSelectedItems = oTable.getSelectedItems();
 
-          let counter = 0;
-          let rowPath = [];
+          let rowPaths = [];
 
           for (let item of aSelectedItems) {
             let oContext = item.getBindingContext();
             let oModel = oContext.getModel();
-            rowPath.push(oContext.getPath());
-
-            setTimeout(
-            function() {oModel.remove(rowPath[counter++],{
-                success : function(){
-                    console.log("Konnektor erfolgreich geloescht");
-                }
-            })}, 2000);
-
-            sap.m.MessageToast.show("Die ausgewaehlten Konnektoren werden alsbald geloescht");
-
+            rowPaths.push(oContext.getPath());
           }
+
+          MessageToast.show(this.translate("msgProcessingDeletionOfConnectorsSelected"));
+            await Promise.all(rowPaths.map(async (path) => {
+              await new Promise(resolve => setTimeout(resolve, 2000));
+              await oTable.getModel().remove(path);
+            }));
           this.byId("deleteConfirmationDialog").close();
+
         },
       }
     );
