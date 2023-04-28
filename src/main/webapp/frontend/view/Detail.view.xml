@@ -60,9 +60,9 @@
                             </uxap:ObjectPageSubSection>
                         </uxap:subSections>
                     </uxap:ObjectPageSection> -->
-                    <uxap:ObjectPageSection id="cardSection" title="Gestecke Karten">
+                    <uxap:ObjectPageSection id="cardSection" title="Gesteckte Karten">
                         <uxap:subSections>
-                            <uxap:ObjectPageSubSection id="cardSubSection" title="Gestecke Karten">
+                            <uxap:ObjectPageSubSection id="cardSubSection" title="Gesteckte Karten">
                                 <uxap:blocks>
                                     <Table autoPopinMode="true" contextualWidth="Auto"  items="{Cards>/cards/card}" class="withGrid">
                                         <columns>
