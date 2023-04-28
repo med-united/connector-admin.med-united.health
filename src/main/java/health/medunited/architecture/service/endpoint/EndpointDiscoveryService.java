@@ -1,5 +1,6 @@
 package health.medunited.architecture.service.endpoint;
 
+import de.gematik.ws._int.version.productinformation.v1.ProductTypeInformation;
 import de.gematik.ws.conn.servicedirectory.v3.ConnectorServices;
 import de.gematik.ws.conn.serviceinformation.v2.ServiceType;
 import health.medunited.architecture.service.common.security.SecretsManagerService;
@@ -32,7 +33,7 @@ public class EndpointDiscoveryService {
 
     private ConnectorServices connectorSds;
 
-    private String connectorVersion;
+    private ProductTypeInformation connectorVersion;
 
     public void setSecretsManagerService(SecretsManagerService secretsManagerService) {
         this.secretsManagerService = secretsManagerService;
@@ -57,7 +58,7 @@ public class EndpointDiscoveryService {
             JAXBContext jaxbContext = JAXBContext.newInstance(ConnectorServices.class);
             connectorSds = (ConnectorServices) jaxbContext.createUnmarshaller().unmarshal(inputStream);
 
-            connectorVersion = connectorSds.getProductInformation().getProductTypeInformation().getProductTypeVersion();
+            connectorVersion = connectorSds.getProductInformation().getProductTypeInformation();
 
             List<ServiceType> services = connectorSds.getServiceInformation().getService();
 
@@ -102,7 +103,7 @@ public class EndpointDiscoveryService {
         return certificateServiceEndpointAddress;
     }
 
-    public String getConnectorVersion() {
+    public ProductTypeInformation getConnectorVersion() {
         return connectorVersion;
     }
 
