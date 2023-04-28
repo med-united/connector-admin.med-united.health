@@ -1,21 +1,18 @@
 package health.medunited.architecture.service.endpoint;
 
-import de.gematik.ws._int.version.productinformation.v1.ProductTypeInformation;
+import de.gematik.ws.conn.servicedirectory.v3.ConnectorServices;
+import de.gematik.ws.conn.serviceinformation.v2.ServiceType;
 import health.medunited.architecture.service.common.security.SecretsManagerService;
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.ProcessingException;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Invocation;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.IOException;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
 import java.io.InputStream;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -33,13 +30,15 @@ public class EndpointDiscoveryService {
 
     private String certificateServiceEndpointAddress;
 
-    private ProductTypeInformation connectorVersion;
+    private ConnectorServices connectorSds;
+
+    private String connectorVersion;
 
     public void setSecretsManagerService(SecretsManagerService secretsManagerService) {
         this.secretsManagerService = secretsManagerService;
     }
 
-    public void obtainConfiguration(String connectorBaseUrl) throws IOException, ParserConfigurationException {
+    public void obtainConfiguration(String connectorBaseUrl) {
         ClientBuilder clientBuilder = ClientBuilder.newBuilder();
         clientBuilder.sslContext(secretsManagerService.getSslContext());
 
@@ -55,108 +54,41 @@ public class EndpointDiscoveryService {
 
         try {
             InputStream inputStream = invocation.invoke(InputStream.class);
-            Document document = DocumentBuilderFactory.newDefaultInstance()
-                    .newDocumentBuilder()
-                    .parse(inputStream);
+            JAXBContext jaxbContext = JAXBContext.newInstance(ConnectorServices.class);
+            connectorSds = (ConnectorServices) jaxbContext.createUnmarshaller().unmarshal(inputStream);
 
-            connectorVersion = getConnectorVersion(document);
+            connectorVersion = connectorSds.getProductInformation().getProductTypeInformation().getProductTypeVersion();
 
-            Node serviceInformationNode = getNodeWithTag(document.getDocumentElement(), "ServiceInformation");
-            if (serviceInformationNode == null) {
-                throw new IllegalArgumentException("Could not find single 'ServiceInformation'-tag");
-            }
-            NodeList serviceNodeList = serviceInformationNode.getChildNodes();
+            List<ServiceType> services = connectorSds.getServiceInformation().getService();
 
-            for (int i = 0, n = serviceNodeList.getLength(); i < n; ++i) {
-                Node node = serviceNodeList.item(i);
-
-                if (node.getNodeType() != 1) {
-                    // ignore formatting related text nodes
-                    continue;
-                }
-
-                if (!node.hasAttributes() || node.getAttributes().getNamedItem("Name") == null) {
-                    break;
-                }
-
-                switch (node.getAttributes().getNamedItem("Name").getTextContent()) {
+            for (ServiceType service : services) {
+                String serviceName = service.getName();
+                switch (serviceName) {
                     case "EventService": {
-                        eventServiceEndpointAddress = getEndpoint(node);
+                        eventServiceEndpointAddress = service.getVersions().getVersion().get(0).getEndpointTLS().getLocation();
                         break;
                     }
-                    case "CardService":{
-                        cardServiceEndpointAddress = getEndpoint(node);
+                    case "CardService": {
+                        cardServiceEndpointAddress = service.getVersions().getVersion().get(0).getEndpointTLS().getLocation();
                         break;
                     }
-                    case "CertificateService":{
-                        certificateServiceEndpointAddress = getEndpoint(node);
+                    case "CertificateService": {
+                        certificateServiceEndpointAddress = service.getVersions().getVersion().get(0).getEndpointTLS().getLocation();
+                        break;
+                    }
+                    default: {
+                        log.log(Level.WARNING, "Unknown service name: {}", serviceName);
                         break;
                     }
                 }
             }
-
-        } catch (ProcessingException | SAXException | IllegalArgumentException e) {
+        } catch (ProcessingException | IllegalArgumentException e) {
             log.log(Level.SEVERE, "Could not get or parse connector.sds", e);
+        } catch (JAXBException e) {
+            e.printStackTrace();
         }
     }
 
-    public ProductTypeInformation getConnectorVersion(Document document) {
-        Node productInformationNode = getNodeWithTag(document.getDocumentElement(), "ProductInformation");
-        if (productInformationNode == null) {
-            throw new IllegalArgumentException("Could not find single 'ProductInformation'-tag");
-        }
-        Node productTypeInformationNode = getNodeWithTag(productInformationNode, "ProductTypeInformation");
-        if (productTypeInformationNode == null) {
-            throw new IllegalArgumentException("Could not find single 'ProductTypeInformation'-tag");
-        }
-        Node productTypeVersionNode = getNodeWithTag(productTypeInformationNode, "ProductTypeVersion");
-        if (productTypeVersionNode == null) {
-            throw new IllegalArgumentException("Could not find single 'ProductTypeVersion'-tag");
-        }
-
-        ProductTypeInformation productTypeInformation = new ProductTypeInformation();
-        productTypeInformation.setProductTypeVersion(productTypeVersionNode.getTextContent());
-        return productTypeInformation;
-    }
-
-    private String getEndpoint(Node serviceNode) {
-        Node versionsNode = getNodeWithTag(serviceNode, "Versions");
-
-        if (versionsNode == null) {
-            throw new IllegalArgumentException("No version tags found");
-        }
-        NodeList versionNodes = versionsNode.getChildNodes();
-        String location = "";
-        for (int i = 0, n = versionNodes.getLength(); i < n; ++i) {
-            Node versionNode = versionNodes.item(i);
-
-            Node endpointNode = getNodeWithTag(versionNode, "EndpointTLS");
-
-            if (endpointNode == null || !endpointNode.hasAttributes()
-                    || endpointNode.getAttributes().getNamedItem("Location") == null) {
-                continue;
-            }
-
-            location = endpointNode.getAttributes().getNamedItem("Location").getTextContent();
-
-        }
-
-        return location;
-    }
-
-    private Node getNodeWithTag(Node node, String tagName) {
-        NodeList nodeList = node.getChildNodes();
-
-        for (int i = 0, n = nodeList.getLength(); i < n; ++i) {
-            Node childNode = nodeList.item(i);
-
-            // ignore namespace entirely
-            if (tagName.equals(childNode.getNodeName()) || childNode.getNodeName().endsWith(":" + tagName)) {
-                return childNode;
-            }
-        }
-        return null;
-    }
 
     public String getEventServiceEndpointAddress() {
         return eventServiceEndpointAddress;
@@ -170,5 +102,12 @@ public class EndpointDiscoveryService {
         return certificateServiceEndpointAddress;
     }
 
+    public String getConnectorVersion() {
+        return connectorVersion;
+    }
+
+    public ConnectorServices getConnectorSds() {
+        return connectorSds;
+    }
 
 }
