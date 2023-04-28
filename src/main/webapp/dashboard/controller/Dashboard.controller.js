@@ -16,15 +16,12 @@ sap.ui.define(
           const oConnectorList = new JSONModel();
           this.getView().setModel(oConnectorList, "Connectors");
           this.setCardList();
-          const runtimeConfigModel = new sap.ui.model.odata.v2.ODataModel(
-            "../Data.svc",
-            true
-          );
         },
 
         setCardList: function(){
              const runtimeConfigModel = new sap.ui.model.odata.v2.ODataModel("../Data.svc",true);
              const oConnectorList = this.getView().getModel("Connectors");
+             const url = document.URL;
              runtimeConfigModel.read("/RuntimeConfigs", {
                            success: function (oData) {
                              const configs = oData.results;
@@ -106,21 +103,21 @@ sap.ui.define(
                                  	        content.push({
                                                  "Name" : "Konnektoren",
                                                  "Value": configs.length,
-                                                 "Icon": "http://localhost:8080/dashboard/images/Connector.png",
+                                                 "Icon": url + "dashboard/images/Connector.png",
                                                  "State" : statusConnectors,
                                                  "Info": infoConnectors
                                              });
                                              content.push({
                                                  "Name" : "Kartenterminals",
                                                  "Value" : numTerminals,
-                                                 "Icon": "http://localhost:8080/dashboard/images/CardTerminal.png",
+                                                 "Icon": url + "dashboard/images/CardTerminal.png",
                                                  "State": statusTerminals,
                                                  "Info" : infoTerminals
                                              });
                                              content.push({
                                                  "Name" : "Karten",
                                                  "Value": numCards,
-                                                 "Icon": "http://localhost:8080/dashboard/images/Card.png",
+                                                 "Icon": url + "dashboard/images/Card.png",
                                                  "State": "None"
                                              });
                                              cardData.connectors["sap.card"].content.data.json = content;
