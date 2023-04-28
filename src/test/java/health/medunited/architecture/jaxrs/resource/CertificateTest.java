@@ -24,7 +24,7 @@ public class CertificateTest {
     void testGetCardHandle() throws Throwable {
         Client client = ClientBuilder.newClient();
 
-        RuntimeConfig runtimeConfig = Bootstrap.getRuntimeConfigKops();
+        RuntimeConfig runtimeConfig = Bootstrap.getRuntimeConfig();
 
         String s = client.target("http://localhost:8080/frontend/connector/certificate/verifyAll").request()
             .header("X-Mandant-Id", runtimeConfig.getMandantId())
@@ -41,7 +41,7 @@ public class CertificateTest {
 
     }
 
-    // @Disabled
+    @Disabled
     @Test
     void getCertificateDetailsForCardHandleAndCertType() throws Throwable {
         Client client = ClientBuilder.newClient();
