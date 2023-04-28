@@ -19,7 +19,7 @@ public class ConnectorApplication extends Application {
 		set.add(Certificate.class);
 		set.add(Card.class);
 		set.add(Version.class);
-		set.add(Restart.class);
+		set.add(ConnectorManagement.class);
 		return set;
 	}
 }

@@ -1,25 +1,32 @@
-package health.medunited.architecture.jaxrs.resource;
+package health.medunited.architecture.jaxrs.management;
 
 import health.medunited.architecture.service.endpoint.SSLUtilities;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Named;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
 import javax.ws.rs.client.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-@Path("restart")
-public class Restart {
+@ApplicationScoped
+@Named("secunet")
+public class SecunetConnector implements Connector{
 
-    @POST
+    private static final Logger log = Logger.getLogger(SecunetConnector.class.getName());
+
+    @Override
     public void restart() {
-        ClientBuilder clientBuilder = ClientBuilder.newBuilder();
+        log.log(Level.INFO, "Restarting Secunet connector");
 
+        //TODO: This is only a test to prove that it works. We have to change it with security in mind and pass the parameters from the HTTP Request
+        ClientBuilder clientBuilder = ClientBuilder.newBuilder();
         clientBuilder.hostnameVerifier(new SSLUtilities.FakeHostnameVerifier());
 
         // Create a TrustManager that trusts all certificates
