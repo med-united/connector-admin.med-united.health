@@ -5,6 +5,7 @@
 		id="certPopover"
 		title="{VerifyAll>certRef}"
 		class="sapUiResponsivePadding--header sapUiResponsivePadding--footer"
+		contentWidth="20rem"
 		placement="Bottom"
 		initialFocus="popoverClose">
 		<footer>
