@@ -12,7 +12,7 @@ public class RiseConnector implements Connector{
     private static final Logger log = Logger.getLogger(RiseConnector.class.getName());
 
     @Override
-    public void restart() {
+    public void restart(String connectorUrl, String managementPort) {
         log.log(Level.INFO, "Restarting Rise connector");
     }
 }

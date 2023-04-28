@@ -12,7 +12,7 @@ public class KocoboxConnector implements Connector{
     private static final Logger log = Logger.getLogger(KocoboxConnector.class.getName());
 
     @Override
-    public void restart() {
+    public void restart(String connectorUrl, String managementPort) {
         log.log(Level.INFO, "Restarting Kocobox connector");
     }
 }

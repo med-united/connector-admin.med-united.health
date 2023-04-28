@@ -22,7 +22,7 @@ public class SecunetConnector implements Connector{
     private static final Logger log = Logger.getLogger(SecunetConnector.class.getName());
 
     @Override
-    public void restart() {
+    public void restart(String connectorUrl, String managementPort) {
         log.log(Level.INFO, "Restarting Secunet connector");
 
         //TODO: This is only a test to prove that it works. We have to change it with security in mind and pass the parameters from the HTTP Request
@@ -58,10 +58,10 @@ public class SecunetConnector implements Connector{
         clientBuilder.hostnameVerifier((hostname, session) -> true);
 
         Client client = clientBuilder.build();
-        WebTarget loginTarget = client.target("https://192.168.178.42:8500")
+        WebTarget loginTarget = client.target(connectorUrl + ":" + managementPort)
                 .path("/rest/mgmt/ak/konten/login");
 
-        WebTarget restartTarget = client.target("https://192.168.178.42:8500")
+        WebTarget restartTarget = client.target(connectorUrl + ":" + managementPort)
                 .path("/rest/mgmt/nk/system");
 
         Invocation.Builder loginBuilder = loginTarget.request(MediaType.APPLICATION_JSON);

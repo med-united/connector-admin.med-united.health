@@ -9,6 +9,7 @@ import javax.inject.Named;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.QueryParam;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,12 +40,15 @@ public class ConnectorManagement {
 
     @POST
     @Path("/{connectorType}/restart")
-    public void restart(@PathParam("connectorType") String connectorType) {
+    public void restart(@PathParam("connectorType") String connectorType,
+                        @QueryParam("connectorUrl") String connectorUrl,
+                        @QueryParam("managementPort") String managementPort
+    ) {
 
         Connector connector = connectorMap.get(connectorType);
         if (connector == null) {
             throw new IllegalArgumentException("Unknown connector type: " + connectorType);
         }
-        connector.restart();
+        connector.restart(connectorUrl, managementPort);
     }
 }
