@@ -21,7 +21,8 @@ sap.ui.define(
         setCardList: function(){
              const runtimeConfigModel = new sap.ui.model.odata.v2.ODataModel("../Data.svc",true);
              const oConnectorList = this.getView().getModel("Connectors");
-             const url = document.URL;
+             let url = document.URL;
+             url = url.endsWith("#") ? url.substring(0, url.length-1) : url.substring(0, url.length);
              runtimeConfigModel.read("/RuntimeConfigs", {
                success: function (oData) {
                  const configs = oData.results;
