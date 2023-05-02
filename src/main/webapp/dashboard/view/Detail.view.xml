@@ -39,6 +39,9 @@
                                 <uxap:blocks>
                                     <Text text="{i18n>Version} {ProductInformation>/productTypeVersion}" />
                                 </uxap:blocks>
+                                <uxap:blocks>
+                                    <Button id="buttonDownloadSDS" type="Accept" text="Download SDS file" press="onDownloadSDS"/>
+                                </uxap:blocks>
                             </uxap:ObjectPageSubSection>
                         </uxap:subSections>
                     </uxap:ObjectPageSection>

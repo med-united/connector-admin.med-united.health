@@ -1,10 +1,11 @@
 sap.ui.define(
   ["./AbstractDetailController",
   "sap/ui/model/json/JSONModel",
-  'sap/ui/core/Fragment',
+  "sap/ui/core/Fragment",
+  "sap/ui/core/util/File",
   "../utils/formatter"
   ],
-  function (AbstractDetailController, JSONModel, Fragment, formatter) {
+  function (AbstractDetailController, JSONModel, Fragment, File, formatter) {
     "use strict";
 
     return AbstractDetailController.extend(
@@ -363,7 +364,7 @@ sap.ui.define(
         },
 
         getHttpHeadersFromRuntimeConfig: function () {
-          const sPath = "/RuntimeConfigs('" + this._entity + "')";
+          const sPath = this._getRuntimeConfigPath();
           const oRuntimeConfig = this.getView().getModel().getProperty(sPath);
           return {
             Accept: "application/json",
@@ -377,6 +378,23 @@ sap.ui.define(
             "x-user-id": oRuntimeConfig.UserId,
             "x-host": oRuntimeConfig.Url,
           };
+        },
+
+        onDownloadSDS: function (oEvent) {
+          const sPath = this._getRuntimeConfigPath();
+          const sUrl = oEvent.getSource().getParent().getModel().getProperty(sPath).Url;
+          const oHeaders = this.getHttpHeadersFromRuntimeConfig();
+          oHeaders.Accept="application/xml"
+          fetch("connector/sds?connectorUrl="+sUrl, {
+            headers: oHeaders
+          }).then((response) => response.blob())
+          .then((xBlob) => 
+            File.save(xBlob, "Connector", "sds", oHeaders.Accept, null, false)
+          );
+        },
+
+        _getRuntimeConfigPath: function () {
+          return "/RuntimeConfigs('" + this._entity + "')";
         }
       }
     );
