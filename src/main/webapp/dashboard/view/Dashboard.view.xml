@@ -2,7 +2,9 @@
           controllerName="sap.f.ShellBarWithFlexibleColumnLayout.controller.Dashboard" height="100%"
           xmlns="sap.m"
           xmlns:f="sap.f"
-          xmlns:mvc="sap.ui.core.mvc">
+          xmlns:mvc="sap.ui.core.mvc"
+          xmlns:w="sap.ui.integration.widgets"
+>
     <f:DynamicPage id="dynamicPageId"
                    toggleHeaderOnTitleClick="false">
         <!-- DynamicPage Title -->
@@ -14,28 +16,19 @@
             </f:DynamicPageTitle>
         </f:title>
 
+
         <!-- DynamicPage Content -->
         <f:content>
-            <VBox  alignItems="Center"
-                   justifyContent="SpaceBetween" >
-
-                <Button id="routeToMaster" text="{i18n>RouteToMaster}" press=".onRouteToMaster" class="sapUiTinyMarginEnd"/>
-
-                <HBox
-                        alignItems="Center"
-                        justifyContent="SpaceBetween" >
-                    <Title level="H3" text=""/>
-                    <Title level="H3" text=""/>
-                </HBox>
-
-                <HBox
-                        alignItems="Center"
-                        justifyContent="SpaceBetween" >
-                    <Title level="H3" text=""/>
-                    <Title level="H3" text=""/>
-                </HBox>
-
-            </VBox>
+            <f:GridContainer id="CardContainer">
+                <f:layout>
+                    <f:GridContainerSettings rowSize="50px" columnSize="50px" gap="10px" />
+                </f:layout>
+                <w:Card id="ConnectorListCard" manifest="{Connectors>/connectors}">
+                    <w:layoutData>
+                        <f:GridContainerItemLayoutData minRows="3" columns="5" />
+                    </w:layoutData>
+                </w:Card>
+            </f:GridContainer>
         </f:content>
 
         <!-- DynamicPage Footer -->
