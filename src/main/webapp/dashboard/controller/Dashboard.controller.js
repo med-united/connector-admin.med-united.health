@@ -15,7 +15,7 @@ sap.ui.define(
           this._bDescendingSort = false;
           const oConnectorList = new JSONModel();
           this.getView().setModel(oConnectorList, "Connectors");
-          //this.setCardList();
+          this.setCardList();
         },
 
         setCardList: function(){
