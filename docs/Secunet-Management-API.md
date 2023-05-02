@@ -1,0 +1,491 @@
+https://192.168.178.42:8500/rest/mgmt/ak/dienste/status
+
+```
+{
+	"connectorStarted": 1670504159051,
+	"vpnTiConnected": true,
+	"vpnTiConnectionStateDate": 1678933328470,
+	"vpnSisConnected": true,
+	"vpnSisConnectionStateDate": 1678933329867,
+	"restartRequired": false,
+	"operatingStates": [{
+		"mainCondition": "EC_No_Online_Connection",
+		"subCondition": null,
+		"severity": "ERROR",
+		"severityLevel": 3,
+		"errorType": "TECHNICAL",
+		"errorTypeLevel": 0,
+		"value": false,
+		"parameters": {
+			"Value": "false",
+			"Bedeutung": "Konnektor kann Dienste im Transportnetz nicht erreichen"
+		},
+		"validFrom": 1677064839167
+	}, {
+		"mainCondition": "EC_CardTerminal_Software_Out_Of_Date",
+		"subCondition": "669d28df-b5b3-455f-afba-8a967f1a8df5",
+		"severity": "INFO",
+		"severityLevel": 1,
+		"errorType": "TECHNICAL",
+		"errorTypeLevel": 0,
+		"value": false,
+		"parameters": {
+			"Value": "false",
+			"CtID": "669d28df-b5b3-455f-afba-8a967f1a8df5",
+			"Bedeutung": "Software auf Kartenterminal(669d28df-b5b3-455f-afba-8a967f1a8df5) ist nicht aktuell"
+		},
+		"validFrom": 1670504220618
+	}, {
+		"mainCondition": "EC_Firewall_Not_Reliable",
+		"subCondition": null,
+		"severity": "FATAL",
+		"severityLevel": 4,
+		"errorType": "SECURITY",
+		"errorTypeLevel": 1,
+		"value": false,
+		"parameters": {},
+		"validFrom": 1670504159051
+	}, {
+		"mainCondition": "EC_TSL_Trust_Anchor_Out_Of_Date",
+		"subCondition": null,
+		"severity": "FATAL",
+		"severityLevel": 4,
+		"errorType": "SECURITY",
+		"errorTypeLevel": 1,
+		"value": false,
+		"parameters": {},
+		"validFrom": 1670504159051
+	}, {
+		"mainCondition": "EC_CRL_Expiring",
+		"subCondition": null,
+		"severity": "WARNING",
+		"severityLevel": 2,
+		"errorType": "SECURITY",
+		"errorTypeLevel": 1,
+		"value": false,
+		"parameters": {},
+		"validFrom": 1670504159051
+	}, {
+		"mainCondition": "EC_No_VPN_SIS_Connection",
+		"subCondition": null,
+		"severity": "ERROR",
+		"severityLevel": 3,
+		"errorType": "TECHNICAL",
+		"errorTypeLevel": 0,
+		"value": false,
+		"parameters": {
+			"Value": "false",
+			"Bedeutung": "kein sicherer Kanal (VPN) zu den Sicheren Internet Services aufgebaut. Der Wert 300 sec ist abgeleitet aus der maximalen Verbindungsaufbauzeit bei einem Standortausfall des VPN-Zugangsdienstes."
+		},
+		"validFrom": 1678933329867
+	}, {
+		"mainCondition": "EC_TSL_Out_Of_Date_Beyond_Grace_Period",
+		"subCondition": null,
+		"severity": "FATAL",
+		"severityLevel": 4,
+		"errorType": "SECURITY",
+		"errorTypeLevel": 1,
+		"value": false,
+		"parameters": {},
+		"validFrom": 1670504159051
+	}, {
+		"mainCondition": "EC_Software_Integrity_Check_Failed",
+		"subCondition": null,
+		"severity": "FATAL",
+		"severityLevel": 4,
+		"errorType": "SECURITY",
+		"errorTypeLevel": 1,
+		"value": false,
+		"parameters": {},
+		"validFrom": 1670504159051
+	}, {
+		"mainCondition": "EC_Time_Sync_Not_Successful",
+		"subCondition": null,
+		"severity": "INFO",
+		"severityLevel": 1,
+		"errorType": "TECHNICAL",
+		"errorTypeLevel": 0,
+		"value": false,
+		"parameters": {
+			"Value": "false",
+			"LastSyncAttempt": "16.03.2023 02:23:14.000",
+			"LastSyncSuccess": "16.03.2023 02:23:14.000",
+			"Bedeutung": "der letzte Synchronisationsversuch der Systemzeit war nicht erfolgreich."
+		},
+		"validFrom": 1678933394865
+	}, {
+		"mainCondition": "EC_Time_Sync_Pending_Critical",
+		"subCondition": null,
+		"severity": "FATAL",
+		"severityLevel": 4,
+		"errorType": "SECURITY",
+		"errorTypeLevel": 1,
+		"value": false,
+		"parameters": {},
+		"validFrom": 1670504159051
+	}, {
+		"mainCondition": "EC_TSL_Out_Of_Date_Within_Grace_Period",
+		"subCondition": null,
+		"severity": "WARNING",
+		"severityLevel": 2,
+		"errorType": "SECURITY",
+		"errorTypeLevel": 1,
+		"value": false,
+		"parameters": {},
+		"validFrom": 1670504159051
+	}, {
+		"mainCondition": "EC_CardTerminal_gSMC-KT_Certificate_Expires_Soon",
+		"subCondition": "669d28df-b5b3-455f-afba-8a967f1a8df5",
+		"severity": "INFO",
+		"severityLevel": 1,
+		"errorType": "TECHNICAL",
+		"errorTypeLevel": 0,
+		"value": false,
+		"parameters": {
+			"Value": "false",
+			"CtID": "669d28df-b5b3-455f-afba-8a967f1a8df5",
+			"Bedeutung": "Das Zertifikat der gSMC-KT im Kartenterminal(669d28df-b5b3-455f-afba-8a967f1a8df5) läuft in weniger als 5 Wochen ab"
+		},
+		"validFrom": 1670504150103
+	}, {
+		"mainCondition": "EC_BNetzA_VL_Update_Not_Successful",
+		"subCondition": null,
+		"severity": "INFO",
+		"severityLevel": 1,
+		"errorType": "TECHNICAL",
+		"errorTypeLevel": 0,
+		"value": false,
+		"parameters": {
+			"Value": "false",
+			"LastUpdateBNetzAVL": "06.02.2023 15:04:09.702",
+			"Bedeutung": "Das letzte Update der BNetzA-VL war nicht erfolgreich"
+		},
+		"validFrom": 1675695850359
+	}, {
+		"mainCondition": "EC_OTHER_ERROR_STATE",
+		"subCondition": "3",
+		"severity": "ERROR",
+		"severityLevel": 3,
+		"errorType": "TECHNICAL",
+		"errorTypeLevel": 0,
+		"value": true,
+		"parameters": {
+			"Value": "true",
+			"CtID": "669d28df-b5b3-455f-afba-8a967f1a8df5",
+			"Slot": "1",
+			"Bedeutung": "Die Karte wurde aufgrund eines Protokollfehlers zurückgesetzt"
+		},
+		"validFrom": 1674469753405
+	}, {
+		"mainCondition": "EC_FW_Not_Valid_Status_Blocked",
+		"subCondition": null,
+		"severity": "FATAL",
+		"severityLevel": 4,
+		"errorType": "SECURITY",
+		"errorTypeLevel": 1,
+		"value": false,
+		"parameters": {},
+		"validFrom": 1670504159051
+	}, {
+		"mainCondition": "EC_BNetzA_VL_not_valid",
+		"subCondition": null,
+		"severity": "WARNING",
+		"severityLevel": 2,
+		"errorType": "SECURITY",
+		"errorTypeLevel": 1,
+		"value": false,
+		"parameters": {},
+		"validFrom": 1670504159051
+	}, {
+		"mainCondition": "EC_OTHER_ERROR_STATE",
+		"subCondition": "1",
+		"severity": "FATAL",
+		"severityLevel": 4,
+		"errorType": "SECURITY",
+		"errorTypeLevel": 1,
+		"value": false,
+		"parameters": {},
+		"validFrom": 1670504159051
+	}, {
+		"mainCondition": "EC_No_VPN_TI_Connection",
+		"subCondition": null,
+		"severity": "ERROR",
+		"severityLevel": 3,
+		"errorType": "TECHNICAL",
+		"errorTypeLevel": 0,
+		"value": false,
+		"parameters": {
+			"Value": "false",
+			"Bedeutung": "kein sicherer Kanal (VPN) in die Telematikinfrastruktur aufgebaut. Der Wert 300 sec ist abgeleitet aus der maximalen Verbindungsaufbauzeit bei einem Standortausfall des VPN-Zugangsdienstes."
+		},
+		"validFrom": 1678933328470
+	}, {
+		"mainCondition": "EC_LOG_OVERFLOW",
+		"subCondition": null,
+		"severity": "WARNING",
+		"severityLevel": 2,
+		"errorType": "TECHNICAL",
+		"errorTypeLevel": 0,
+		"value": false,
+		"parameters": {},
+		"validFrom": 1670504159051
+	}, {
+		"mainCondition": "EC_TSL_Expiring",
+		"subCondition": null,
+		"severity": "INFO",
+		"severityLevel": 1,
+		"errorType": "SECURITY",
+		"errorTypeLevel": 1,
+		"value": false,
+		"parameters": {},
+		"validFrom": 1670504159051
+	}, {
+		"mainCondition": "EC_Connector_Software_Out_Of_Date",
+		"subCondition": null,
+		"severity": "INFO",
+		"severityLevel": 1,
+		"errorType": "TECHNICAL",
+		"errorTypeLevel": 0,
+		"value": false,
+		"parameters": {
+			"Value": "false",
+			"Bedeutung": "I_KSRS_Download::list_Updates liefert mindestens eine UpdateInformation mit einer UpdateInformation/Firmware/FWVersion > aktuelle Version der Konnektorsoftware, deren UpdateInformation/Firmware/FWPriority =„Kritisch“"
+		},
+		"validFrom": 1670504220596
+	}, {
+		"mainCondition": "EC_Security_Log_Not_Writable",
+		"subCondition": null,
+		"severity": "FATAL",
+		"severityLevel": 4,
+		"errorType": "TECHNICAL",
+		"errorTypeLevel": 0,
+		"value": false,
+		"parameters": {},
+		"validFrom": 1670504159051
+	}, {
+		"mainCondition": "EC_Random_Generator_Not_Reliable",
+		"subCondition": null,
+		"severity": "FATAL",
+		"severityLevel": 4,
+		"errorType": "SECURITY",
+		"errorTypeLevel": 1,
+		"value": false,
+		"parameters": {},
+		"validFrom": 1670504159051
+	}, {
+		"mainCondition": "EC_TLS_Certificate_Security",
+		"subCondition": null,
+		"severity": "INFO",
+		"severityLevel": 1,
+		"errorType": "SECURITY",
+		"errorTypeLevel": 1,
+		"value": false,
+		"parameters": {},
+		"validFrom": 1670504159051
+	}, {
+		"mainCondition": "EC_TSL_Trust_Anchor_Expiring",
+		"subCondition": null,
+		"severity": "INFO",
+		"severityLevel": 1,
+		"errorType": "SECURITY",
+		"errorTypeLevel": 1,
+		"value": false,
+		"parameters": {},
+		"validFrom": 1670504159051
+	}, {
+		"mainCondition": "EC_Time_Sync_Pending_Warning",
+		"subCondition": null,
+		"severity": "WARNING",
+		"severityLevel": 2,
+		"errorType": "SECURITY",
+		"errorTypeLevel": 1,
+		"value": false,
+		"parameters": {},
+		"validFrom": 1670504159051
+	}, {
+		"mainCondition": "EC_Secure_KeyStore_Not_Available",
+		"subCondition": null,
+		"severity": "FATAL",
+		"severityLevel": 4,
+		"errorType": "SECURITY",
+		"errorTypeLevel": 1,
+		"value": false,
+		"parameters": {},
+		"validFrom": 1670504159051
+	}, {
+		"mainCondition": "EC_CRYPTOPERATION_ALARM",
+		"subCondition": null,
+		"severity": "WARNING",
+		"severityLevel": 2,
+		"errorType": "SECURITY",
+		"errorTypeLevel": 1,
+		"value": false,
+		"parameters": {},
+		"validFrom": 1670504159051
+	}, {
+		"mainCondition": "EC_TSL_Update_Not_Successful",
+		"subCondition": null,
+		"severity": "INFO",
+		"severityLevel": 1,
+		"errorType": "TECHNICAL",
+		"errorTypeLevel": 0,
+		"value": false,
+		"parameters": {
+			"Value": "false",
+			"LastUpdateTSL": "12.04.2023 06:51:06.249",
+			"Bedeutung": "das letzte Update der TSL war nicht erfolgreich."
+		},
+		"validFrom": 1681282266714
+	}, {
+		"mainCondition": "EC_OTHER_ERROR_STATE",
+		"subCondition": "2",
+		"severity": "INFO",
+		"severityLevel": 1,
+		"errorType": "TECHNICAL",
+		"errorTypeLevel": 0,
+		"value": false,
+		"parameters": {},
+		"validFrom": 1670504159051
+	}, {
+		"mainCondition": "EC_Time_Difference_Intolerable",
+		"subCondition": null,
+		"severity": "FATAL",
+		"severityLevel": 4,
+		"errorType": "SECURITY",
+		"errorTypeLevel": 1,
+		"value": false,
+		"parameters": {},
+		"validFrom": 1670504159051
+	}, {
+		"mainCondition": "EC_CardTerminal_Not_Available",
+		"subCondition": "669d28df-b5b3-455f-afba-8a967f1a8df5",
+		"severity": "ERROR",
+		"severityLevel": 3,
+		"errorType": "TECHNICAL",
+		"errorTypeLevel": 0,
+		"value": false,
+		"parameters": {
+			"Value": "false",
+			"CtID": "669d28df-b5b3-455f-afba-8a967f1a8df5",
+			"Bedeutung": "Bekanntes Kartenterminal (669d28df-b5b3-455f-afba-8a967f1a8df5) ist nicht verfügbar"
+		},
+		"validFrom": 1676636295301
+	}, {
+		"mainCondition": "EC_IP_Adresses_Not_Available",
+		"subCondition": null,
+		"severity": "ERROR",
+		"severityLevel": 3,
+		"errorType": "SECURITY",
+		"errorTypeLevel": 1,
+		"value": false,
+		"parameters": {},
+		"validFrom": 1670504159051
+	}, {
+		"mainCondition": "EC_CRL_Out_Of_Date",
+		"subCondition": null,
+		"severity": "FATAL",
+		"severityLevel": 4,
+		"errorType": "SECURITY",
+		"errorTypeLevel": 1,
+		"value": false,
+		"parameters": {},
+		"validFrom": 1670504159051
+	}]
+}
+```
+
+https://192.168.178.42:8500/rest/mgmt/nk/licence/features
+```
+[{
+	"feature": "encservice",
+	"licenced": true,
+	"validFrom": "",
+	"validTo": "",
+	"count": null,
+	"active": true
+}, {
+	"feature": "amts",
+	"licenced": true,
+	"validFrom": "",
+	"validTo": "",
+	"count": null,
+	"active": true
+}, {
+	"feature": "komfortsignatur",
+	"licenced": true,
+	"validFrom": "",
+	"validTo": "",
+	"count": null,
+	"active": true
+}, {
+	"feature": "aesni",
+	"licenced": true,
+	"validFrom": "",
+	"validTo": "",
+	"count": null,
+	"active": true
+}, {
+	"feature": "signservice",
+	"licenced": true,
+	"validFrom": "",
+	"validTo": "",
+	"count": null,
+	"active": true
+}, {
+	"feature": "nfdm",
+	"licenced": true,
+	"validFrom": "",
+	"validTo": "",
+	"count": null,
+	"active": true
+}, {
+	"feature": "tbauth",
+	"licenced": true,
+	"validFrom": "",
+	"validTo": "",
+	"count": null,
+	"active": true
+}, {
+	"feature": "epa2",
+	"licenced": true,
+	"validFrom": "",
+	"validTo": "",
+	"count": null,
+	"active": true
+}, {
+	"feature": "ldap",
+	"licenced": true,
+	"validFrom": "",
+	"validTo": "",
+	"count": null,
+	"active": true
+}, {
+	"feature": "epa",
+	"licenced": true,
+	"validFrom": "",
+	"validTo": "",
+	"count": null,
+	"active": true
+}, {
+	"feature": "bsnr",
+	"licenced": true,
+	"validFrom": "",
+	"validTo": "",
+	"count": null,
+	"active": true
+}, {
+	"feature": "gsmckrenew",
+	"licenced": false,
+	"validFrom": "",
+	"validTo": "",
+	"count": null,
+	"active": false
+}, {
+	"feature": "ktnr",
+	"licenced": true,
+	"validFrom": "",
+	"validTo": "",
+	"count": null,
+	"active": true
+}]
+```
