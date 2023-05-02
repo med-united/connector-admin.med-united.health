@@ -17,10 +17,10 @@ public class Bootstrap {
 
     @PostConstruct
     public void generateDemoData() {
-        RuntimeConfig runtimeConfig = getRuntimeConfig();
-        em.persist(runtimeConfig);
-        //RuntimeConfig runtimeConfigKops = getRuntimeConfigKops();
-        //em.persist(runtimeConfigKops);
+        //RuntimeConfig runtimeConfig = getRuntimeConfig();
+        //em.persist(runtimeConfig);
+        RuntimeConfig runtimeConfigKops = getRuntimeConfigKops();
+        em.persist(runtimeConfigKops);
     }
 
     public static RuntimeConfig getRuntimeConfig() {
