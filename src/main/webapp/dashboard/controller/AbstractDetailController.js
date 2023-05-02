@@ -54,7 +54,6 @@ sap.ui.define([
 			let oParams = { layout: sNextLayout };
 			oParams["id"] = this._entity;
 			this.oRouter.navTo("detail", oParams);
-
 		},
 		handleClose: function () {
 			let oLayoutModel = this.getOwnerComponent().getModel("Layout");

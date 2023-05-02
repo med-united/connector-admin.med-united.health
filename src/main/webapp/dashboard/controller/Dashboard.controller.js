@@ -107,7 +107,6 @@ sap.ui.define(
                  },
                });
         },
-
         onBeforeRendering: function () {
           this.onInit();
         },
