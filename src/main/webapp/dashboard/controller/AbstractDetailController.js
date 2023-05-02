@@ -54,9 +54,6 @@ sap.ui.define([
 			oParams["id"] = this._entity;
 			this.oRouter.navTo("detail", oParams);
 		},
-		handleExitFullScreen: function () {
-			this.navToLayoutProperty("/actionButtonsInfo/midColumn/exitFullScreen");
-		},
 		handleClose: function () {
 			let oLayoutModel = this.getOwnerComponent().getModel("Layout");
 			let sNextLayout = oLayoutModel.getProperty("/actionButtonsInfo/midColumn/closeColumn");
