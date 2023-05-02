@@ -40,7 +40,7 @@ public class JpaODataServiceFactory extends ODataJPAServiceFactory {
 			EntityManagerFactory entityManagerFactory = (EntityManagerFactory) initialContext
 					.lookup("java:/blueprintEntityManagerFactory");
 			oDataJPAContext.setEntityManagerFactory(entityManagerFactory);
-			oDataJPAContext.setPersistenceUnitName("frontend");
+			oDataJPAContext.setPersistenceUnitName("dashboard");
 			oDataJPAContext.setContainerManaged(true);
 			oDataJPAContext.setODataProcessor(new ETagCacheControlODataJPAProcessor(oDataJPAContext));
 			oDataJPAContext.setJPAEdmExtension(new ETagJPAEDMExtension());

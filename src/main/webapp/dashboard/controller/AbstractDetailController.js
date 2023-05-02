@@ -1,8 +1,9 @@
 sap.ui.define([
 	"./AbstractController",
 	'sap/m/MessageBox',
-	'sap/m/MessageToast'
-], function (AbstractController, MessageBox, MessageToast) {
+	'sap/m/MessageToast',
+	"sap/ui/core/Fragment"
+], function (AbstractController, MessageBox, MessageToast, Fragment) {
 	"use strict";
 
 	return AbstractController.extend("sap.f.ShellBarWithFlexibleColumnLayout.controller.AbstractDetailController", {
@@ -14,6 +15,38 @@ sap.ui.define([
 		handleFullScreen: function () {
 			this.navToLayoutProperty("/actionButtonsInfo/midColumn/fullScreen");
 		},
+        onAfterCreateOpenDialog: function () {},
+        _openCreateDialog: function (oDialog, sEntityName) {
+                    oDialog.open();
+        },
+        pwdOnCancel: function (oEvent) {
+          oEvent.getSource().getParent().close();
+          oEvent.getSource().getParent().destroy();
+        },
+        pwdOnRestart: function (oEvent) {
+          oEvent.getSource().getParent().close();
+          //MessageToast.show(this.translate("restarting")); //this line is not compiling. I dont know why
+          MessageToast.show("Der Konnektor wird jetzt neu gestartet");
+          oEvent.getSource().getParent().destroy();
+        },
+        restartConnector: function () {
+          let oView = this.getView();
+          const me = this;
+
+          if (!this.byId("RestartPasswordDialog")) {
+            Fragment.load({
+              id: oView.getId(),
+              name: "sap.f.ShellBarWithFlexibleColumnLayout.view.RestartPasswordDialog",
+              controller: this,
+            }).then(function (oDialog) {
+              me.onAfterCreateOpenDialog({ dialog: oDialog });
+              oView.addDependent(oDialog);
+              me._openCreateDialog(oDialog);
+            });
+          } else {
+            this._openCreateDialog(this.byId("restartPasswordDialog"));
+          }
+        },
 		navToLayoutProperty: function (sLayoutProperty) {
 			let oLayoutModel = this.getOwnerComponent().getModel("Layout");
 			let sNextLayout = oLayoutModel.getProperty(sLayoutProperty);

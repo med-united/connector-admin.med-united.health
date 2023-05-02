@@ -7,25 +7,26 @@ import javax.ws.rs.core.MediaType;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+import de.gematik.ws.conn.certificateservicecommon.v2.CertRefEnum;
 import de.gematik.ws.conn.connectorcontext.v2.ContextType;
 import health.medunited.architecture.Bootstrap;
 import health.medunited.architecture.entities.RuntimeConfig;
 import health.medunited.architecture.service.common.security.SecretsManagerService;
 
-@Disabled
 public class CertificateTest {
 
     private static SecretsManagerService secretsManagerService;
 
     ContextType contextType;
 
+    @Disabled
     @Test
     void testGetCardHandle() throws Throwable {
         Client client = ClientBuilder.newClient();
 
         RuntimeConfig runtimeConfig = Bootstrap.getRuntimeConfig();
 
-        String s = client.target("http://localhost:8080/frontend/connector/certificate/verifyAll").request()
+        String s = client.target("http://localhost:8080/connector/certificate/verifyAll").request()
             .header("X-Mandant-Id", runtimeConfig.getMandantId())
             .header("X-Client-System-Id", runtimeConfig.getClientSystemId())
             .header("X-Workplace-Id", runtimeConfig.getWorkplaceId())
@@ -38,5 +39,35 @@ public class CertificateTest {
         
         System.out.println(s);
 
+    }
+
+    @Disabled
+    @Test
+    void getCertificateDetailsForCardHandleAndCertType() throws Throwable {
+        Client client = ClientBuilder.newClient();
+
+        RuntimeConfig runtimeConfig = Bootstrap.getRuntimeConfigKops();
+
+        String cardHandle = "90bee54a-0568-4fda-9389-5b3762384190";
+        CertRefEnum certType = CertRefEnum.C_ENC;
+
+        String s = client
+            .target("http://localhost:8080/frontend/connector/certificate")
+                .path("/{certType}/{cardHandle}")
+                .resolveTemplate("certType", certType.name()) 
+                .resolveTemplate("cardHandle", cardHandle) 
+            .request()
+                .header("x-mandant-id", runtimeConfig.getMandantId())
+                .header("x-client-system-id", runtimeConfig.getClientSystemId())
+                .header("x-workplace-id", runtimeConfig.getWorkplaceId())
+                .header("x-user-id", runtimeConfig.getUserId())
+                .header("x-client-certificate", runtimeConfig.getClientCertificate())
+                .header("x-client-certificate-password", runtimeConfig.getClientCertificatePassword())
+                .header("x-host", runtimeConfig.getUrl())
+                .accept(MediaType.APPLICATION_JSON_TYPE)
+            .get(String.class);
+        
+        // C_ENC : [{"field":"CN","value":"Dr. Peter Müller"},{"field":"SERIALNUMBER","value":"1-hba-valid"},{"field":"O","value":"eHealthExperts GmbH"},{"field":"C","value":"DE"}]
+        System.out.println(s);
     }
 }
