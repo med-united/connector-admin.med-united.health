@@ -37,7 +37,10 @@ sap.ui.define(
                  let activeTerminals = 0;
                  let invalidSMCB = 0;
                  let invalidHBA = 0;
-                 const cardTypes = {"SMC_KT" : 0, "SMC_B" : 0, "HBA": 0, "EGK": 0, "KVK": 0}
+                 const date = new Date().toJSON();
+                 const cardTypes = {"SMC_KT" : 0, "SMC_B" : 0, "HBA": 0, "EGK": 0, "KVK": 0};
+                 const validCards = {"SMC_KT" : 0, "SMC_B" : 0, "HBA": 0, "EGK": 0, "KVK": 0};
+                 const percentageCards = {"SMC_KT" : 0, "SMC_B" : 0, "HBA": 0, "EGK": 0, "KVK": 0};
                  const numConfigs = configs.length;
                  let numResponses = 0;
                  configs.forEach(function (config) {
@@ -70,10 +73,14 @@ sap.ui.define(
                           for(let i = 0; i< terminals.length; i++){
                              terminals[i].connected ? activeTerminals++ : inactiveTerminals++;
                           }
-                          let cards = data[1].cards.card;
+                          const cards = data[1].cards.card;
                           numCards = numCards + cards.length;
+                          for(let k = 0; k < cards.length; k++){
+                            const cardType = cards[k].cardType;
+                            validCards[cardType] = cards[k].certificateExpirationDate > date ? validCards[cardType] + 1 : validCards[cardType];
+                          }
                           activeConnectors++;
-                          const pinStatus = data[3]
+                          const pinStatus = data[3];
                           for(let j = 0; j < pinStatus.length; j++)
                           {
                             const cardType = pinStatus[j].cardType;
@@ -85,7 +92,9 @@ sap.ui.define(
                             if(cardType == "HBA" && status!="VERIFIED"){
                                 invalidHBA++;
                             }
+                            percentageCards[cardType] = (validCards[cardType] / cardTypes[cardType]) * 100;
                           }
+                          console.log(percentageCards);
                         }
                         else{
                            inactiveConnectors++;
@@ -99,8 +108,8 @@ sap.ui.define(
                            const cardData = data[4];
                            const statusSMCB = invalidSMCB > 0 ? "Error" : "Success";
                            const statusHBA = invalidHBA > 0 ? "Error" : "Success";
-                           const infoSMCB = invalidSMCB > 0 ? "Pin-Status: " + invalidSMCB + " nicht verifiziert" : "Pin-Status: Alles verifiziert";
-                           const infoHBA = invalidHBA > 0 ? "Pin-Status: " + invalidHBA + " nicht verifiziert" : "Pin-Status: Alles verifiziert";
+                           const infoSMCB = invalidSMCB > 0 ? "Nicht verifiziert: " + invalidSMCB : "Alles verifiziert";
+                           const infoHBA = invalidHBA > 0 ? "Nicht verifiziert: " + invalidHBA : "Alles verifiziert";
                            let connectorContent = [];
                            let cardContent = [];
                            connectorContent.push({
@@ -126,38 +135,41 @@ sap.ui.define(
                            cardContent.push({
                              "Name" : "SMC-KT",
                              "Value": cardTypes["SMC_KT"],
-                             "Info": "Pin-Status: Alle unbekannt   " + "Abgelaufen: 0",
-                             "State": "Success"
+                             "PinInfo" : "Alles unbekannt",
+                             "PinStatus": "Warning",
+                             "CertInfo": validCards["SMC_KT"]
                            });
                            cardContent.push({
                              "Name": "SMC-B",
                              "Value": cardTypes["SMC_B"],
-                             "Info": infoSMCB + "   Abgelaufen: 0",
-                             "State": statusSMCB
+                             "PinInfo": infoSMCB,
+                             "PinStatus": statusSMCB,
+                             "CertInfo": validCards["SMC_B"]
                            });
                            cardContent.push({
                              "Name": "HBA",
                              "Value": cardTypes["HBA"],
-                             "Info": infoHBA + "    Abgelaufen: 0",
-                             "State": statusHBA
+                             "PinInfo": infoHBA,
+                             "PinStatus": statusHBA,
+                             "CertInfo": validCards["HBA"]
                            });
                            cardContent.push({
                              "Name": "EGK",
                              "Value": cardTypes["EGK"],
-                             "Info": "Pin-Status: Alle unbekannt   " + "Abgelaufen: 0",
-                             "State": "Success"
+                             "PinInfo" : "Alles unbekannt",
+                             "PinStatus": "Warning",
+                             "CertInfo": validCards["EGK"]
                            });
                            cardContent.push({
                              "Name": "KVK",
                              "Value": cardTypes["KVK"],
-                             "Info": "Pin-Status: Alle unbekannt   " + "Abgelaufen: 0",
-                             "State": "Success"
+                             "PinInfo" : "Alles unbekannt",
+                             "PinStatus": "Warning",
+                             "CertInfo": validCards["KVK"]
                            });
-                           console.log(cardContent);
                            connectorData.connectors["sap.card"].content.data.json = connectorContent;
                            oConnectorList.setData(connectorData);
                            cardData.cards["sap.card"].content.data.json = cardContent;
-                           console.log(cardData);
                            oCardList.setData(cardData);
                         }
                      });

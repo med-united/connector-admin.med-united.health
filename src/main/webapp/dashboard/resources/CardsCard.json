@@ -8,7 +8,7 @@
       }
     },
     "sap.card": {
-      "type": "List",
+      "type": "Table",
       "header": {
         "title": "Kartenübersicht",
         "icon": {
@@ -20,14 +20,29 @@
           "json": [
           ]
         },
-        "item": {
-          "title": "{Name}",
-          "description": "{Value}",
-          "highlight": "{State}",
-          "info": {
-            "value": "{Info}",
-            "state": "{State}"
-          }
+        "row": {
+          "columns" : [
+            {
+              "title": "Kartentyp",
+              "value" : "{Name}"
+            },
+            {
+              "title": "Anzahl",
+              "value": "{Value}"
+            },
+            {
+              "title": "PIN-Status",
+              "value": "{PinInfo}",
+              "state": "{PinStatus}"
+            },
+            {
+              "title": "Gültig",
+              "progressIndicator" : {
+                "percent": "50.0",
+                "text": "50%",
+                "state": "Error"
+              }
+            }]
         }
       }
     }
