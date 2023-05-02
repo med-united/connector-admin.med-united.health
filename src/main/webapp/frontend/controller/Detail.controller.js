@@ -261,7 +261,7 @@ sap.ui.define(
                   for (let j = 0; j < arrayData.length; j++) {
                     for (let q = 0; q < arrayData[j].certInfos.length; q++) {
                       plainList.push({
-                        cardHolderName: arrayData[j].cardHolderName,
+                        cardHolderName: (q == 0) ? arrayData[j].cardHolderName : "",
                         certRef: arrayData[j].certInfos[q].certRef,
                         cardHandle: arrayData[j].cardHandle,
                         serial:
