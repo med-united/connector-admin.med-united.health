@@ -156,7 +156,7 @@ public class Certificate {
         } else if (cardType.equals(CardTypeType.SMC_KT)) {
             // Nothing available
         } else if (cardType.equals(CardTypeType.EGK)) {
-            // Nothing available
+            certRefs.add(CertRefEnum.C_AUT);
         }
         return certificateTypes;
     }
