@@ -28,6 +28,11 @@
                         <f:GridContainerItemLayoutData minRows="3" columns="5" />
                     </w:layoutData>
                 </w:Card>
+                <w:Card id="CardsCard" manifest="{Cards>/cards}">
+                    <w:layoutData>
+                        <f:GridContainerItemLayoutData minRows="3" columns="8" />
+                    </w:layoutData>
+                </w:Card>
             </f:GridContainer>
         </f:content>
 
