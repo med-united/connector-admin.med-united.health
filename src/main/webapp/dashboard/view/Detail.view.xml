@@ -144,7 +144,8 @@
                                         <items>
                                             <ColumnListItem>
                                                 <Text text="{VerifyAll>cardHolderName}" />
-                                                <Text text="{VerifyAll>certRef}" />
+                                                <!-- <Text text="{VerifyAll>certRef}" /> -->
+                                                <Link text="{VerifyAll>certRef}" press="handlePopoverPress" ariaHasPopup="Dialog" />
                                                 <Text text="{VerifyAll>cardHandle}" />
                                                 <Text text="{VerifyAll>serial}" />
                                                 <Text text="{VerifyAll>verify}" />
@@ -209,8 +210,7 @@
                                                 <Text text="{CardTerminals>connected}" />
                                                 <Text text="{CardTerminals>name}" />
                                                 <Text text="{CardTerminals>IPAddress/IPV4Address}" />
-                                                <Text
-                                                        text="{CardTerminals>productInformation/productIdentification/productCode} {CardTerminals>productInformation/productIdentification/productVendorID} {CardTerminals>productInformation/productIdentification/productVersion/local/FWVersion}" />
+                                                <Text text="{CardTerminals>productInformation/productIdentification/productCode} {CardTerminals>productInformation/productIdentification/productVendorID} {CardTerminals>productInformation/productIdentification/productVersion/local/FWVersion}" />
                                             </ColumnListItem>
                                         </items>
                                     </Table>
