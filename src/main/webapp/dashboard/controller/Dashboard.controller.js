@@ -44,7 +44,6 @@ sap.ui.define(
                      "x-host": config.Url,
                      Accept: "application/json",
                    };
-                   console.log(config.Url);
                    Promise.all([
                      fetch("connector/event/get-card-terminals", {headers : getCardsHeaders}),
                      fetch("connector/event/get-cards", {headers : getCardsHeaders}),
