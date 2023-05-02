@@ -50,6 +50,7 @@ sap.ui.define([
 		navToLayoutProperty: function (sLayoutProperty) {
 			let oLayoutModel = this.getOwnerComponent().getModel("Layout");
 			let sNextLayout = oLayoutModel.getProperty(sLayoutProperty);
+			if (sNextLayout == null) sNextLayout = "MidColumnFullScreen";
 			let oParams = { layout: sNextLayout };
 			oParams["id"] = this._entity;
 			this.oRouter.navTo("detail", oParams);
