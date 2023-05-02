@@ -36,6 +36,12 @@ sap.ui.define(
           // Save the current route name
           this.currentRouteName = sRouteName;
           this.currentProduct = oArguments.product;
+
+          if(sRouteName === "master") {
+             this.getView().byId("shellbar").setShowNavButton(true)
+          } else {
+             this.getView().byId("shellbar").setShowNavButton(false)
+          }
         },
 
         onStateChanged: function (oEvent) {
