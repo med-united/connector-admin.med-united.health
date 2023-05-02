@@ -64,7 +64,7 @@ sap.ui.define(
         },
 
         handleBackButtonPressed: function () {
-          window.history.go(-1);
+          this.oRouter.navTo("dashboard");
         },
 
         onExit: function () {

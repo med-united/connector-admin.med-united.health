@@ -25,7 +25,7 @@ public class CertificateTest {
 
         RuntimeConfig runtimeConfig = Bootstrap.getRuntimeConfig();
 
-        String s = client.target("http://localhost:8080/frontend/connector/certificate/verifyAll").request()
+        String s = client.target("http://localhost:8080/connector/certificate/verifyAll").request()
             .header("X-Mandant-Id", runtimeConfig.getMandantId())
             .header("X-Client-System-Id", runtimeConfig.getClientSystemId())
             .header("X-Workplace-Id", runtimeConfig.getWorkplaceId())
