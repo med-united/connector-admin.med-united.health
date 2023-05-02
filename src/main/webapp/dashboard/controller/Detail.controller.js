@@ -177,6 +177,9 @@ sap.ui.define(
           }
         },
         reloadModels: function (oRuntimeConfig) {
+
+          this.handleFullScreen();
+
           const mHeaders = {
             "x-client-system-id": oRuntimeConfig.ClientSystemId,
             "x-client-certificate": oRuntimeConfig.ClientCertificate,

@@ -26,14 +26,6 @@
                                                                icon="sap-icon://restart" tooltip="{i18n>RestartConnector}"
                                                                text="Restart" visible="true" press="restartConnector"/>
                             <uxap:ObjectPageHeaderActionButton type="Transparent"
-                                                               icon="sap-icon://full-screen" press="handleFullScreen"
-                                                               tooltip="{i18n>EnterFullScreenMode}"
-                                                               visible="{= ${Layout>/actionButtonsInfo/midColumn/fullScreen} !== null }" />
-                            <uxap:ObjectPageHeaderActionButton type="Transparent"
-                                                               icon="sap-icon://exit-full-screen" press="handleExitFullScreen"
-                                                               tooltip="{i18n>ExitFullScreenMode}"
-                                                               visible="{= ${Layout>/actionButtonsInfo/midColumn/exitFullScreen} !== null }" />
-                            <uxap:ObjectPageHeaderActionButton type="Transparent"
                                                                icon="sap-icon://decline" press="handleClose"
                                                                tooltip="{i18n>CloseConnectorDetails}"
                                                                visible="{= ${Layout>/actionButtonsInfo/midColumn/closeColumn} !== null }" />
