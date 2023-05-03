@@ -94,37 +94,28 @@ sap.ui.define(
                             }
                             percentageCards[cardType] = (validCards[cardType] / cardTypes[cardType]) * 100;
                           }
-                          console.log(percentageCards);
                         }
                         else{
                            inactiveConnectors++;
                         }
                         if(numResponses == numConfigs){
-                           const statusConnectors = inactiveConnectors > 0 ? "Error" : "Success";
-                           const statusTerminals = inactiveTerminals > 0 ? "Error" : "Success";
-                           const infoConnectors = inactiveConnectors > 0 ? "Offline: " + inactiveConnectors : "Alles Online";
-                           const infoTerminals = inactiveTerminals > 0 ? "Offline: " + inactiveTerminals : "Alles Online";
                            const connectorData = data[2];
                            const cardData = data[4];
-                           const statusSMCB = invalidSMCB > 0 ? "Error" : "Success";
-                           const statusHBA = invalidHBA > 0 ? "Error" : "Success";
-                           const infoSMCB = invalidSMCB > 0 ? "Nicht verifiziert: " + invalidSMCB : "Alles verifiziert";
-                           const infoHBA = invalidHBA > 0 ? "Nicht verifiziert: " + invalidHBA : "Alles verifiziert";
                            let connectorContent = [];
                            let cardContent = [];
                            connectorContent.push({
                              "Name" : "Konnektoren",
                              "Value": configs.length,
                              "Icon": url + "dashboard/images/Connector.png",
-                             "State" : statusConnectors,
-                             "Info": infoConnectors
+                             "State" : inactiveConnectors > 0 ? "Error" : "Success",
+                             "Info": inactiveConnectors > 0 ? "Offline: " + inactiveConnectors : "Alles Online"
                            });
                            connectorContent.push({
                              "Name" : "Kartenterminals",
                              "Value" : numTerminals,
                              "Icon": url + "dashboard/images/CardTerminal.png",
-                             "State": statusTerminals,
-                             "Info" : infoTerminals
+                             "State": inactiveTerminals > 0 ? "Error" : "Success",
+                             "Info" : inactiveTerminals > 0 ? "Offline: " + inactiveTerminals : "Alles Online"
                            });
                            connectorContent.push({
                              "Name" : "Karten",
@@ -136,36 +127,46 @@ sap.ui.define(
                              "Name" : "SMC-KT",
                              "Value": cardTypes["SMC_KT"],
                              "PinInfo" : "Alles unbekannt",
-                             "PinStatus": "Warning",
-                             "CertInfo": validCards["SMC_KT"]
+                             "PinStatus": "None",
+                             "CertText": percentageCards["SMC_KT"] + "%",
+                             "CertPerc" : percentageCards["SMC_KT"],
+                             "CertStatus": percentageCards["SMC_KT"] == 100 ? "Success" : "Error"
                            });
                            cardContent.push({
                              "Name": "SMC-B",
                              "Value": cardTypes["SMC_B"],
-                             "PinInfo": infoSMCB,
-                             "PinStatus": statusSMCB,
-                             "CertInfo": validCards["SMC_B"]
+                             "PinInfo": invalidSMCB > 0 ? "Nicht verifiziert: " + invalidSMCB : "Alles verifiziert",
+                             "PinStatus": invalidSMCB > 0 ? "Error" : "Success",
+                             "CertText": percentageCards["SMC_B"] + "%",
+                             "CertPerc" : percentageCards["SMC_B"],
+                             "CertStatus": percentageCards["SMC_B"] == 100 ? "Success" : "Error"
                            });
                            cardContent.push({
                              "Name": "HBA",
                              "Value": cardTypes["HBA"],
-                             "PinInfo": infoHBA,
-                             "PinStatus": statusHBA,
-                             "CertInfo": validCards["HBA"]
+                             "PinInfo": invalidHBA > 0 ? "Nicht verifiziert: " + invalidHBA : "Alles verifiziert",
+                             "PinStatus": invalidHBA > 0 ? "Error" : "Success",
+                             "CertText": percentageCards["HBA"] + "%",
+                             "CertPerc" : percentageCards["HBA"],
+                             "CertStatus": percentageCards["HBA"] == 100 ? "Success" : "Error"
                            });
                            cardContent.push({
                              "Name": "EGK",
                              "Value": cardTypes["EGK"],
                              "PinInfo" : "Alles unbekannt",
-                             "PinStatus": "Warning",
-                             "CertInfo": validCards["EGK"]
+                             "PinStatus": "None",
+                             "CertText": percentageCards["EGK"] + "%",
+                             "CertPerc" : percentageCards["EGK"],
+                             "CertStatus": percentageCards["EGK"] == 100 ? "Success" : "Error"
                            });
                            cardContent.push({
                              "Name": "KVK",
                              "Value": cardTypes["KVK"],
                              "PinInfo" : "Alles unbekannt",
-                             "PinStatus": "Warning",
-                             "CertInfo": validCards["KVK"]
+                             "PinStatus": "None",
+                             "CertText": percentageCards["KVK"] + "%",
+                             "CertPerc" : percentageCards["KVK"],
+                             "CertStatus": percentageCards["KVK"] == 100 ? "Success" : "Error"
                            });
                            connectorData.connectors["sap.card"].content.data.json = connectorContent;
                            oConnectorList.setData(connectorData);

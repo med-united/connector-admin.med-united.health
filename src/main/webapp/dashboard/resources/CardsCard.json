@@ -38,9 +38,9 @@
             {
               "title": "Gültig",
               "progressIndicator" : {
-                "percent": "50.0",
-                "text": "50%",
-                "state": "Error"
+                "percent": "{CertPerc}",
+                "text": "{CertText}",
+                "state": "{CertStatus}"
               }
             }]
         }

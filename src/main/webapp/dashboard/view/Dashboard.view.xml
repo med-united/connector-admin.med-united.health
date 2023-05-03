@@ -30,7 +30,7 @@
                 </w:Card>
                 <w:Card id="CardsCard" manifest="{Cards>/cards}">
                     <w:layoutData>
-                        <f:GridContainerItemLayoutData minRows="3" columns="8" />
+                        <f:GridContainerItemLayoutData minRows="3" columns="10" />
                     </w:layoutData>
                 </w:Card>
             </f:GridContainer>
