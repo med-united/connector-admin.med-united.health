@@ -1,8 +1,9 @@
 sap.ui.define([
 	"./AbstractController",
 	'sap/m/MessageBox',
-	'sap/m/MessageToast'
-], function (AbstractController, MessageBox, MessageToast) {
+	'sap/m/MessageToast',
+	"sap/ui/core/Fragment"
+], function (AbstractController, MessageBox, MessageToast, Fragment) {
 	"use strict";
 
 	return AbstractController.extend("sap.f.ShellBarWithFlexibleColumnLayout.controller.AbstractDetailController", {
@@ -14,15 +15,17 @@ sap.ui.define([
 		handleFullScreen: function () {
 			this.navToLayoutProperty("/actionButtonsInfo/midColumn/fullScreen");
 		},
+        onAfterCreateOpenDialog: function () {},
+        _openCreateDialog: function (oDialog, sEntityName) {
+                    oDialog.open();
+        },
 		navToLayoutProperty: function (sLayoutProperty) {
 			let oLayoutModel = this.getOwnerComponent().getModel("Layout");
 			let sNextLayout = oLayoutModel.getProperty(sLayoutProperty);
+			if (sNextLayout == null) sNextLayout = "MidColumnFullScreen";
 			let oParams = { layout: sNextLayout };
 			oParams["id"] = this._entity;
 			this.oRouter.navTo("detail", oParams);
-		},
-		handleExitFullScreen: function () {
-			this.navToLayoutProperty("/actionButtonsInfo/midColumn/exitFullScreen");
 		},
 		handleClose: function () {
 			let oLayoutModel = this.getOwnerComponent().getModel("Layout");
@@ -64,7 +67,7 @@ sap.ui.define([
 		_onMatched: function (oEvent) {
 			this._entity = oEvent.getParameter("arguments")["id"];
 			this.getView().bindElement({
-				path: "/" + this.getEntityName() + "/" + this._entity,
+				path: "/" + this.getEntityName() + "s('" + this._entity+"')",
 				parameters: this.getBindElementParams()
 			});
 		},

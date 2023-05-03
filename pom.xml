@@ -18,7 +18,7 @@
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
-            <version>7.0</version>
+            <version>8.0</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -117,7 +117,7 @@
         </dependency>
     </dependencies>
     <build>
-        <finalName>frontend</finalName>
+        <finalName>ROOT</finalName>
         <plugins>
             <plugin>
                 <groupId>org.wildfly.plugins</groupId>

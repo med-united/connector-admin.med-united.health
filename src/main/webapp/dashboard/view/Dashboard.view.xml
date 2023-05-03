@@ -1,0 +1,44 @@
+<mvc:View displayBlock="true"
+          controllerName="sap.f.ShellBarWithFlexibleColumnLayout.controller.Dashboard" height="100%"
+          xmlns="sap.m"
+          xmlns:f="sap.f"
+          xmlns:mvc="sap.ui.core.mvc"
+          xmlns:w="sap.ui.integration.widgets"
+>
+    <f:DynamicPage id="dynamicPageId"
+                   toggleHeaderOnTitleClick="false">
+        <!-- DynamicPage Title -->
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:heading>
+                    <Title text="Startmenü" />
+                </f:heading>
+            </f:DynamicPageTitle>
+        </f:title>
+
+
+        <!-- DynamicPage Content -->
+        <f:content>
+            <f:GridContainer id="CardContainer">
+                <f:layout>
+                    <f:GridContainerSettings rowSize="50px" columnSize="50px" gap="10px" />
+                </f:layout>
+                <w:Card id="ConnectorListCard" manifest="{Connectors>/connectors}">
+                    <w:layoutData>
+                        <f:GridContainerItemLayoutData minRows="3" columns="5" />
+                    </w:layoutData>
+                </w:Card>
+            </f:GridContainer>
+        </f:content>
+
+        <!-- DynamicPage Footer -->
+        <f:footer>
+            <OverflowToolbar>
+                <ToolbarSpacer />
+                <Button type="Accept" text="Accept" />
+                <Button type="Reject" text="Reject" />
+            </OverflowToolbar>
+        </f:footer>
+    </f:DynamicPage>
+
+</mvc:View>

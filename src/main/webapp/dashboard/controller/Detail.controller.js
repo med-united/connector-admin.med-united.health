@@ -1,19 +1,35 @@
 sap.ui.define(
   ["./AbstractDetailController",
   "sap/ui/model/json/JSONModel",
+  "sap/m/MessageToast",
+  'sap/ui/core/Fragment',
   "../utils/formatter"
   ],
-  function (AbstractDetailController, JSONModel, formatter) {
+  function (AbstractDetailController, JSONModel, MessageToast, Fragment, formatter) {
     "use strict";
 
     return AbstractDetailController.extend(
-      "ap.f.ShellBarWithFlexibleColumnLayout.controller.Detail",
+      "sap.f.ShellBarWithFlexibleColumnLayout.controller.Detail",
       {
-      formatter: formatter,
+ 
+        formatter: formatter,
+
         onInit: function () {
           AbstractDetailController.prototype.onInit.apply(this, arguments);
 
           const oCardsModel = new JSONModel();
+          
+          oCardsModel.attachRequestSent(() => {
+            this.byId("cardTable").setBusy(true);
+          });
+          oCardsModel.attachRequestCompleted(() => {
+            this.byId("cardTable").setBusy(false);
+          });
+          oCardsModel.attachRequestFailed(() => {
+            MessageToast.show("Konnte keine Karten laden");
+          });
+
+
           this.getView().setModel(oCardsModel, "Cards");
 
           const oCardTerminalsModel = new JSONModel();
@@ -31,6 +47,9 @@ sap.ui.define(
 
           const oProductInformationModel = new JSONModel();
           this.getView().setModel(oProductInformationModel, "ProductInformation")
+
+          const oCertSubjectModel = new JSONModel();
+          this.getView().setModel(oCertSubjectModel, "CertSubject")
 
         },
         onVerifyPinCh: function (oEvent) {
@@ -170,7 +189,39 @@ sap.ui.define(
             this.reloadModels(oRuntimeConfig);
           }
         },
+
+        pwdOnCancel: function (oEvent) {
+          oEvent.getSource().getParent().close();
+          oEvent.getSource().getParent().destroy();
+        },
+        pwdOnRestart: function (oEvent) {
+          oEvent.getSource().getParent().close();
+          //MessageToast.show(this.translate("restarting")); //this line is not compiling. I dont know why
+          MessageToast.show("Der Konnektor wird jetzt neu gestartet");
+          oEvent.getSource().getParent().destroy();
+        },
+        restartConnector: function () {
+          let oView = this.getView();
+          const me = this;
+
+          if (!this.byId("RestartPasswordDialog")) {
+            Fragment.load({
+              id: oView.getId(),
+              name: "sap.f.ShellBarWithFlexibleColumnLayout.view.RestartPasswordDialog",
+              controller: this,
+            }).then(function (oDialog) {
+              me.onAfterCreateOpenDialog({ dialog: oDialog });
+              oView.addDependent(oDialog);
+              me._openCreateDialog(oDialog);
+            });
+          } else {
+            this._openCreateDialog(this.byId("restartPasswordDialog"));
+          }
+        },
         reloadModels: function (oRuntimeConfig) {
+
+          this.handleFullScreen();
+
           const mHeaders = {
             "x-client-system-id": oRuntimeConfig.ClientSystemId,
             "x-client-certificate": oRuntimeConfig.ClientCertificate,
@@ -223,15 +274,15 @@ sap.ui.define(
             );
 
           this.getView()
-          .getModel("ProductInformation")
-          .loadData(
-            "connector/productTypeInformation/getVersion",
-            {},
-            "true",
-            "GET",
-            false,
-            true,
-            mHeaders
+            .getModel("ProductInformation")
+            .loadData(
+              "connector/productTypeInformation/getVersion",
+              {},
+              "true",
+              "GET",
+              false,
+              true,
+              mHeaders
           );
 
           fetch("connector/certificate/verifyAll", { headers: mHeaders }).then(
@@ -308,9 +359,67 @@ sap.ui.define(
                 })
           );
         },
+
         getEntityName: function () {
           return "RuntimeConfig";
         },
+
+        handlePopoverPress: function (oEvent) {
+          var oControl = oEvent.getSource(),
+              oView = this.getView();
+    
+          // create popover
+          if (!this._pPopover) {
+            this._pPopover = Fragment.load({
+              id: oView.getId(),
+              name: "sap.f.ShellBarWithFlexibleColumnLayout.view.CertPopover",
+              controller: this
+            }).then(function (oPopover) {
+              oView.addDependent(oPopover);
+              return oPopover;
+            });
+          }
+          this._pPopover.then(function(oPopover) {
+            const oHeaders = this.getHttpHeadersFromRuntimeConfig();
+            const sCertRef = oControl.getBindingContext("VerifyAll").getProperty("certRef");
+            const sCardHandle = oControl.getBindingContext("VerifyAll").getProperty("cardHandle");
+            oView.getModel("CertSubject").loadData(
+              "connector/certificate/"+sCertRef+"/"+sCardHandle,
+              {},
+              "true",
+              "GET",
+              false,
+              true,
+              oHeaders
+            );
+            oPopover.openBy(oControl);
+          }.bind(this));
+        },
+    
+        handlePopoverClosePress: function (oEvent) {
+          this.getView().byId("certPopover").close();
+        },
+
+     		translateTextWithPrefix : function (prefix, certFieldName) {
+          return this.getOwnerComponent().getModel("i18n").getResourceBundle().getText(prefix+certFieldName);
+        },
+
+        getHttpHeadersFromRuntimeConfig: function () {
+          const sPath = "/RuntimeConfigs('" + this._entity + "')";
+          const oRuntimeConfig = this.getView().getModel().getProperty(sPath);
+          return {
+            Accept: "application/json",
+            "x-client-system-id": oRuntimeConfig.ClientSystemId,
+            "x-client-certificate": oRuntimeConfig.ClientCertificate,
+            "x-client-certificate-password": oRuntimeConfig.ClientCertificatePassword,
+            "x-sign-port": oRuntimeConfig.SignPort,
+            "x-vzd-port": oRuntimeConfig.VzdPort,
+            "x-mandant-id": oRuntimeConfig.MandantId,
+            "x-workplace-id": oRuntimeConfig.WorkplaceId,
+            "x-user-id": oRuntimeConfig.UserId,
+            "x-host": oRuntimeConfig.Url,
+          };
+        }
       }
     );
   },
