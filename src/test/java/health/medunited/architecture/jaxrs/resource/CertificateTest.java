@@ -73,14 +73,14 @@ public class CertificateTest {
 
 
     @Test
-    void getConnectorSds() throws Throwable {
+    void getConnectorSdsConfig() throws Throwable {
         Client client = ClientBuilder.newClient();
 
         RuntimeConfig runtimeConfig = Bootstrap.getRuntimeConfigKops();
 
         String s = client
-            .target("http://localhost:8080/connector/sds")
-                .queryParam("connectorUrl", "https://localhost") 
+            .target("http://localhost:8080/connector/sds/config")
+                .queryParam("connectorUrl", runtimeConfig.getUrl()) 
             .request()
                 .header("x-mandant-id", runtimeConfig.getMandantId())
                 .header("x-client-system-id", runtimeConfig.getClientSystemId())
@@ -90,6 +90,28 @@ public class CertificateTest {
                 .header("x-client-certificate-password", runtimeConfig.getClientCertificatePassword())
                 .header("x-host", runtimeConfig.getUrl())
                 .accept(MediaType.APPLICATION_XML_TYPE)
+            .get(String.class);
+        
+        // <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:ConnectorServices......
+        System.out.println(s);
+    }
+
+    @Test
+    void getConnectorSdsFile() throws Throwable {
+        Client client = ClientBuilder.newClient();
+
+        RuntimeConfig runtimeConfig = Bootstrap.getRuntimeConfigKops();
+
+        String s = client
+            .target("http://localhost:8080/connector/sds/file")
+            .request()
+                .header("x-mandant-id", runtimeConfig.getMandantId())
+                .header("x-client-system-id", runtimeConfig.getClientSystemId())
+                .header("x-workplace-id", runtimeConfig.getWorkplaceId())
+                .header("x-user-id", runtimeConfig.getUserId())
+                .header("x-client-certificate", runtimeConfig.getClientCertificate())
+                .header("x-client-certificate-password", runtimeConfig.getClientCertificatePassword())
+                .header("x-host", runtimeConfig.getUrl())
             .get(String.class);
         
         // <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:ConnectorServices......

@@ -424,14 +424,12 @@ sap.ui.define(
 
         onDownloadSDS: function (oEvent) {
           const sPath = this._getRuntimeConfigPath();
-          const sUrl = oEvent.getSource().getParent().getModel().getProperty(sPath).Url;
           const oHeaders = this.getHttpHeadersFromRuntimeConfig();
-          oHeaders.Accept="application/xml"
-          fetch("connector/sds?connectorUrl="+sUrl, {
+          fetch("connector/sds/file", {
             headers: oHeaders
           }).then((response) => response.blob())
           .then((xBlob) => 
-            File.save(xBlob, "Connector", "sds", oHeaders.Accept, null, false)
+            File.save(xBlob, "Connector", "sds", "application/octet-stream", null, false)
           );
         },
 
