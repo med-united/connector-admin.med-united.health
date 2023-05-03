@@ -181,6 +181,9 @@ sap.ui.define(
                  },
                });
         },
+        onBeforeRendering: function () {
+         this.onInit();
+        },
 
         onRouteToMaster: function (oEvent) {
           this.oRouter.navTo("master");
