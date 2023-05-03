@@ -2,14 +2,13 @@ package health.medunited.architecture.jaxrs.resource;
 
 import health.medunited.architecture.jaxrs.management.Connector;
 import health.medunited.architecture.jaxrs.management.ConnectorBrands;
+import health.medunited.architecture.model.RestartRequestBody;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.QueryParam;
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,15 +39,17 @@ public class ConnectorManagement {
 
     @POST
     @Path("/{connectorType}/restart")
+    @Consumes(MediaType.APPLICATION_JSON)
     public void restart(@PathParam("connectorType") String connectorType,
                         @QueryParam("connectorUrl") String connectorUrl,
-                        @QueryParam("managementPort") String managementPort
+                        @QueryParam("managementPort") String managementPort,
+                        RestartRequestBody managementCredentials
     ) {
 
         Connector connector = connectorMap.get(connectorType);
         if (connector == null) {
             throw new IllegalArgumentException("Unknown connector type: " + connectorType);
         }
-        connector.restart(connectorUrl, managementPort);
+        connector.restart(connectorUrl, managementPort, managementCredentials);
     }
 }

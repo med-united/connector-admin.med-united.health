@@ -1,5 +1,6 @@
 package health.medunited.architecture.jaxrs.management;
 
+import health.medunited.architecture.model.RestartRequestBody;
 import health.medunited.architecture.service.common.security.SecretsManagerService;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -23,7 +24,7 @@ public class SecunetConnector implements Connector {
     SecretsManagerService secretsManagerService;
 
     @Override
-    public void restart(String connectorUrl, String managementPort) {
+    public void restart(String connectorUrl, String managementPort, RestartRequestBody managementCredentials) {
         log.log(Level.INFO, "Restarting Secunet connector");
 
         ClientBuilder clientBuilder = ClientBuilder.newBuilder();
@@ -37,7 +38,7 @@ public class SecunetConnector implements Connector {
 
         Client client = clientBuilder.build();
 
-        Response loginResponse = loginManagementConsole(client, connectorUrl, managementPort);
+        Response loginResponse = loginManagementConsole(client, connectorUrl, managementPort, managementCredentials);
 
         WebTarget restartTarget = client.target(connectorUrl + ":" + managementPort)
                 .path("/rest/mgmt/nk/system");
@@ -46,14 +47,11 @@ public class SecunetConnector implements Connector {
         restartBuilder.post(Entity.json(""));
     }
 
-    private Response loginManagementConsole(Client client, String connectorUrl, String managementPort) {
+    private Response loginManagementConsole(Client client, String connectorUrl, String managementPort, RestartRequestBody managementCredentials) {
         WebTarget loginTarget = client.target(connectorUrl + ":" + managementPort)
                 .path("/rest/mgmt/ak/konten/login");
 
         Invocation.Builder loginBuilder = loginTarget.request(MediaType.APPLICATION_JSON);
-        return loginBuilder.post(Entity.json("{\n" +
-                "    \"username\": \"fakeuser\",\n" +
-                "    \"password\": \"fakepassword\"\n" +
-                "}"));
+        return loginBuilder.post(Entity.json(managementCredentials));
     }
 }
