@@ -1,17 +1,23 @@
 package health.medunited.architecture.jaxrs.resource;
 
-import health.medunited.architecture.service.endpoint.SSLUtilities;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
+import java.util.concurrent.TimeUnit;
 
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.client.*;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.client.Invocation;
+import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.security.KeyManagementException;
-import java.security.NoSuchAlgorithmException;
+
+import health.medunited.architecture.service.endpoint.SSLUtilities;
 
 @Path("restart")
 public class Restart {
@@ -19,6 +25,9 @@ public class Restart {
     @POST
     public void restart() {
         ClientBuilder clientBuilder = ClientBuilder.newBuilder();
+
+        clientBuilder.connectTimeout(3, TimeUnit.SECONDS);
+        clientBuilder.readTimeout(3, TimeUnit.SECONDS);
 
         clientBuilder.hostnameVerifier(new SSLUtilities.FakeHostnameVerifier());
 

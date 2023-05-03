@@ -1,11 +1,12 @@
 sap.ui.define(
   ["./AbstractDetailController",
   "sap/ui/model/json/JSONModel",
+  "sap/m/MessageToast",
   "sap/ui/core/Fragment",
   "sap/ui/core/util/File",
   "../utils/formatter"
   ],
-  function (AbstractDetailController, JSONModel, Fragment, File, formatter) {
+  function (AbstractDetailController, JSONModel, MessageToast, Fragment, File, formatter) {
     "use strict";
 
     return AbstractDetailController.extend(
@@ -18,6 +19,18 @@ sap.ui.define(
           AbstractDetailController.prototype.onInit.apply(this, arguments);
 
           const oCardsModel = new JSONModel();
+          
+          oCardsModel.attachRequestSent(() => {
+            this.byId("cardTable").setBusy(true);
+          });
+          oCardsModel.attachRequestCompleted(() => {
+            this.byId("cardTable").setBusy(false);
+          });
+          oCardsModel.attachRequestFailed(() => {
+            MessageToast.show("Konnte keine Karten laden");
+          });
+
+
           this.getView().setModel(oCardsModel, "Cards");
 
           const oCardTerminalsModel = new JSONModel();
@@ -175,6 +188,35 @@ sap.ui.define(
               });
           } else {
             this.reloadModels(oRuntimeConfig);
+          }
+        },
+
+        pwdOnCancel: function (oEvent) {
+          oEvent.getSource().getParent().close();
+          oEvent.getSource().getParent().destroy();
+        },
+        pwdOnRestart: function (oEvent) {
+          oEvent.getSource().getParent().close();
+          //MessageToast.show(this.translate("restarting")); //this line is not compiling. I dont know why
+          MessageToast.show("Der Konnektor wird jetzt neu gestartet");
+          oEvent.getSource().getParent().destroy();
+        },
+        restartConnector: function () {
+          let oView = this.getView();
+          const me = this;
+
+          if (!this.byId("RestartPasswordDialog")) {
+            Fragment.load({
+              id: oView.getId(),
+              name: "sap.f.ShellBarWithFlexibleColumnLayout.view.RestartPasswordDialog",
+              controller: this,
+            }).then(function (oDialog) {
+              me.onAfterCreateOpenDialog({ dialog: oDialog });
+              oView.addDependent(oDialog);
+              me._openCreateDialog(oDialog);
+            });
+          } else {
+            this._openCreateDialog(this.byId("restartPasswordDialog"));
           }
         },
         reloadModels: function (oRuntimeConfig) {

@@ -59,7 +59,7 @@
                         <uxap:subSections>
                             <uxap:ObjectPageSubSection id="cardSubSection" title="Gesteckte Karten">
                                 <uxap:blocks>
-                                    <Table autoPopinMode="true" contextualWidth="Auto"  items="{Cards>/cards/card}" class="withGrid">
+                                    <Table id="cardTable" autoPopinMode="true" contextualWidth="Auto"  items="{Cards>/cards/card}" class="withGrid">
                                         <columns>
                                             <Column importance="Low">
                                                 <Text text="Alias" />
