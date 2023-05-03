@@ -90,16 +90,23 @@
                                                 <Text text="{Cards>iccsn}" />
                                                 <Text text="{path: 'Cards>insertTime', formatter: '.formatter.formatDateAndTimeWithTimezone'}" />
                                                 <Text text="{Cards>slotId}" />
-                                                <MenuButton text="Aktion ...">
+                                                <MenuButton text="Aktion ..." visible="{Cards>option}">
                                                     <Menu>
                                                         <MenuItem text="Verifiziere PIN.CH"
-                                                                  press="onVerifyPinCh" />
+                                                                  press="onVerifyPinCh"
+                                                                  visible="{Cards>vPIN.CH}"  />
                                                         <MenuItem text="Verifiziere PIN.SMC"
-                                                                  press="onVerifyPinSmc" />
+                                                                  press="onVerifyPinSmc"
+                                                                  visible="{Cards>vPIN.SMC}" />
                                                         <MenuItem text="Ändere PIN.QES"
-                                                                  press="onChangePinQes" />
+                                                                  press="onChangePinQes"
+                                                                  visible="{Cards>cPIN.QES}" />
                                                         <MenuItem text="Ändere PIN.CH"
-                                                                  press="onChangePinCh" />
+                                                                  press="onChangePinCh"
+                                                                  visible="{Cards>cPIN.CH}" />
+                                                        <MenuItem text="Ändere PIN.SMC"
+                                                                  press="onChangePinSmc"
+                                                                  visible="{Cards>cPIN.SMC}" />
                                                     </Menu>
                                                 </MenuButton>
                                             </ColumnListItem>
