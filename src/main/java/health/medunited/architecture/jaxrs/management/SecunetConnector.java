@@ -13,6 +13,7 @@ import javax.ws.rs.core.Response;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.X509Certificate;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -28,6 +29,10 @@ public class SecunetConnector implements Connector{
 
         //TODO: This is only a test to prove that it works. We have to change it with security in mind and pass the parameters from the HTTP Request
         ClientBuilder clientBuilder = ClientBuilder.newBuilder();
+
+        clientBuilder.connectTimeout(3, TimeUnit.SECONDS);
+        clientBuilder.readTimeout(3, TimeUnit.SECONDS);
+
         clientBuilder.hostnameVerifier(new SSLUtilities.FakeHostnameVerifier());
 
         // Create a TrustManager that trusts all certificates
