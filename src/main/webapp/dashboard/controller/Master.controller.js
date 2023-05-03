@@ -5,7 +5,8 @@ sap.ui.define(
     "sap/ui/model/FilterOperator",
     "sap/ui/model/Sorter",
     "sap/ui/core/Fragment",
-    "sap/m/MessageToast"
+    "sap/m/MessageToast",
+    "sap/ui/model/json/JSONModel"
   ],
   function (
     AbstractMasterController,
@@ -13,7 +14,8 @@ sap.ui.define(
     FilterOperator,
     Sorter,
     Fragment,
-    MessageToast
+    MessageToast,
+    JSONModel
   ) {
     "use strict";
 
@@ -64,6 +66,42 @@ sap.ui.define(
             oSorter = new Sorter("Name", this._bDescendingSort);
 
           oBinding.sort(oSorter);
+        },
+
+        onChange: function(){
+           const oConnector = new JSONModel();
+           this.getView().setModel(oConnector, "Connector");
+           const oView = this.getView();
+           const aSelectedItems = oView.byId("runtimeConfigTable").getSelectedItems();
+           var oItemContextPath = aSelectedItems[0].getBindingContext().getPath();
+           const runtimeConfigModel = new sap.ui.model.odata.v2.ODataModel("../Data.svc",true);
+           runtimeConfigModel.read(oItemContextPath, {
+                          success: function (oData) {
+                            const data = {"User": oData.UserId, "Url": oData.Url, "SignPort": oData.SignPort};
+                            oConnector.setData(data);
+                            }
+           });
+            if (!this.byId("changeDialog")) {
+                        // load asynchronous XML fragment
+               Fragment.load({
+                 id: oView.getId(),
+                 name: "sap.f.ShellBarWithFlexibleColumnLayout.view.ChangeDialog",
+                 controller: this,
+                 }).then(function (oDialog) {
+                          oView.addDependent(oDialog);
+                          oDialog.open();
+                 });
+            } else {
+               this.byId("changeDialog").open();
+            }
+        },
+
+        onCancelChange:function(){
+            this.byId("changeDialog").close();
+        },
+
+        onSaveChange:function(){
+            this.byId("changeDialog").close();
         },
 
         onDelete: function () {

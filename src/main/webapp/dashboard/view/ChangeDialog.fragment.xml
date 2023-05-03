@@ -1,0 +1,36 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:form="sap.ui.layout.form"
+                         xmlns:core="sap.ui.core">
+    <Dialog id="changeDialog" title="{i18n>dialogTitleChange}" contentWidth="40rem">
+        <form:SimpleForm editable="false" layout="ResponsiveGridLayout" labelSpanXL="4"
+                         labelSpanL="4" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0"
+                         emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2"
+                         singleContainerFullSize="true">
+            <form:content>
+                <Label text="Benutzer-ID" />
+                <Input type="Text" value="{Connector>/User}" />
+                <Label text="URL" />
+                <Input type="Text" value="{Connector>/Url}" />
+                <Label text="Signier-Port" />
+                <Input type="Text" value="{Connector>/SignPort}" />
+                <Label text="VZD-Port" />
+                <Input type="Text" value="{Connector>/VzdPort}" />
+                <Label text="Mandant-ID" />
+                <Input type="Text" value="{Connector>/MandantId}" />
+                <Label text="System-ID Kunde" />
+                <Input type="Text" value="{Connector>/ClientSystemId}" />
+                <Label text="Arbeitsplatz-ID" />
+                <Input type="Text" value="{Connector>/WorkplaceId}" />
+                <Label text="Kundenzertifikat" />
+                <Input type="Text" value="{Connector>/ClientCertificate}" />
+                <Label text="Kennwort Kundenzertifikat" />
+                <Input type="Text" value="{Connector>/ClientCertificatePassword}" />
+            </form:content>
+        </form:SimpleForm>
+        <beginButton>
+            <Button type="Reject" text="{i18n>onCancelChange}" press="onCancelChange" />
+        </beginButton>
+        <endButton>
+            <Button type="Accept" text="{i18n>onSaveChange}" press="onSaveChange" />
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>
