@@ -1,25 +1,32 @@
 sap.ui.define(
-  ["./AbstractDetailController",
+  [
+  "./AbstractDetailController",
   "sap/ui/model/json/JSONModel",
   "sap/m/MessageToast",
   "sap/ui/core/Fragment",
   "sap/ui/core/util/File",
   "../utils/formatter"
   ],
-  function (AbstractDetailController, JSONModel, MessageToast, Fragment, File, formatter) {
+  function (
+    AbstractDetailController,
+    JSONModel,
+    MessageToast,
+    Fragment,
+    File,
+    formatter
+  ) {
     "use strict";
 
     return AbstractDetailController.extend(
       "sap.f.ShellBarWithFlexibleColumnLayout.controller.Detail",
       {
- 
         formatter: formatter,
 
         onInit: function () {
           AbstractDetailController.prototype.onInit.apply(this, arguments);
 
           const oCardsModel = new JSONModel();
-          
+
           oCardsModel.attachRequestSent(() => {
             this.byId("cardTable").setBusy(true);
           });
@@ -29,7 +36,6 @@ sap.ui.define(
           oCardsModel.attachRequestFailed(() => {
             MessageToast.show("Konnte keine Karten laden");
           });
-
 
           this.getView().setModel(oCardsModel, "Cards");
 
@@ -42,16 +48,17 @@ sap.ui.define(
           const oVerifyAllModel = new JSONModel();
           this.getView().setModel(oVerifyAllModel, "VerifyAll");
 
-
           const oPinStatus = new JSONModel();
           this.getView().setModel(oPinStatus, "PINStatus");
 
           const oProductInformationModel = new JSONModel();
-          this.getView().setModel(oProductInformationModel, "ProductInformation")
+          this.getView().setModel(
+            oProductInformationModel,
+            "ProductInformation"
+          );
 
           const oCertSubjectModel = new JSONModel();
-          this.getView().setModel(oCertSubjectModel, "CertSubject")
-
+          this.getView().setModel(oCertSubjectModel, "CertSubject");
         },
         onVerifyPinCh: function (oEvent) {
           const sPath = "/RuntimeConfigs('" + this._entity + "')";
@@ -196,8 +203,31 @@ sap.ui.define(
           oEvent.getSource().getParent().destroy();
         },
         pwdOnRestart: function (oEvent) {
+          const sPath = "/RuntimeConfigs('" + this._entity + "')";
+          const oRuntimeConfig = this.getView().getModel().getProperty(sPath);
+          const restartHeaders = {
+            "x-client-certificate": oRuntimeConfig.ClientCertificate,
+            "x-client-certificate-password":
+              oRuntimeConfig.ClientCertificatePassword,
+            "Content-Type": "application/json",
+          };
+          const username = this.byId("usernameInput").getValue();
+          const password = this.byId("passwordInput").getValue();
+          const requestBody = {
+            username: username,
+            password: password,
+          };
+          fetch(
+            "connector/management/secunet/restart?connectorUrl=" +
+              oRuntimeConfig.Url +
+              "&managementPort=8500",
+            {
+              headers: restartHeaders,
+              method: "POST",
+              body: JSON.stringify(requestBody),
+            }
+          );
           oEvent.getSource().getParent().close();
-          //MessageToast.show(this.translate("restarting")); //this line is not compiling. I dont know why
           MessageToast.show("Der Konnektor wird jetzt neu gestartet");
           oEvent.getSource().getParent().destroy();
         },
@@ -220,7 +250,6 @@ sap.ui.define(
           }
         },
         reloadModels: function (oRuntimeConfig) {
-
           this.handleFullScreen();
 
           const mHeaders = {
@@ -236,7 +265,6 @@ sap.ui.define(
             "x-host": oRuntimeConfig.Url,
             Accept: "application/json",
           };
-
 
           this.getView()
             .getModel("PINStatus")
@@ -284,7 +312,7 @@ sap.ui.define(
               false,
               true,
               mHeaders
-          );
+            );
 
           fetch("connector/certificate/verifyAll", { headers: mHeaders }).then(
             (response) =>
@@ -367,42 +395,53 @@ sap.ui.define(
 
         handlePopoverPress: function (oEvent) {
           var oControl = oEvent.getSource(),
-              oView = this.getView();
-    
+            oView = this.getView();
+
           // create popover
           if (!this._pPopover) {
             this._pPopover = Fragment.load({
               id: oView.getId(),
               name: "sap.f.ShellBarWithFlexibleColumnLayout.view.CertPopover",
-              controller: this
+              controller: this,
             }).then(function (oPopover) {
               oView.addDependent(oPopover);
               return oPopover;
             });
           }
-          this._pPopover.then(function(oPopover) {
-            const oHeaders = this.getHttpHeadersFromRuntimeConfig();
-            const sCertRef = oControl.getBindingContext("VerifyAll").getProperty("certRef");
-            const sCardHandle = oControl.getBindingContext("VerifyAll").getProperty("cardHandle");
-            oView.getModel("CertSubject").loadData(
-              "connector/certificate/"+sCertRef+"/"+sCardHandle,
-              {},
-              "true",
-              "GET",
-              false,
-              true,
-              oHeaders
-            );
-            oPopover.openBy(oControl);
-          }.bind(this));
+          this._pPopover.then(
+            function (oPopover) {
+              const oHeaders = this.getHttpHeadersFromRuntimeConfig();
+              const sCertRef = oControl
+                .getBindingContext("VerifyAll")
+                .getProperty("certRef");
+              const sCardHandle = oControl
+                .getBindingContext("VerifyAll")
+                .getProperty("cardHandle");
+              oView
+                .getModel("CertSubject")
+                .loadData(
+                  "connector/certificate/" + sCertRef + "/" + sCardHandle,
+                  {},
+                  "true",
+                  "GET",
+                  false,
+                  true,
+                  oHeaders
+                );
+              oPopover.openBy(oControl);
+            }.bind(this)
+          );
         },
-    
+
         handlePopoverClosePress: function (oEvent) {
           this.getView().byId("certPopover").close();
         },
 
-     		translateTextWithPrefix : function (prefix, certFieldName) {
-          return this.getOwnerComponent().getModel("i18n").getResourceBundle().getText(prefix+certFieldName);
+        translateTextWithPrefix: function (prefix, certFieldName) {
+          return this.getOwnerComponent()
+            .getModel("i18n")
+            .getResourceBundle()
+            .getText(prefix + certFieldName);
         },
 
         getHttpHeadersFromRuntimeConfig: function () {
