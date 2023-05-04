@@ -1,16 +1,18 @@
 sap.ui.define(
   [
-    "./AbstractDetailController",
-    "sap/ui/model/json/JSONModel",
-    "sap/m/MessageToast",
-    "sap/ui/core/Fragment",
-    "../utils/formatter",
+  "./AbstractDetailController",
+  "sap/ui/model/json/JSONModel",
+  "sap/m/MessageToast",
+  "sap/ui/core/Fragment",
+  "sap/ui/core/util/File",
+  "../utils/formatter"
   ],
   function (
     AbstractDetailController,
     JSONModel,
     MessageToast,
     Fragment,
+    File,
     formatter
   ) {
     "use strict";
@@ -443,14 +445,13 @@ sap.ui.define(
         },
 
         getHttpHeadersFromRuntimeConfig: function () {
-          const sPath = "/RuntimeConfigs('" + this._entity + "')";
+          const sPath = this._getRuntimeConfigPath();
           const oRuntimeConfig = this.getView().getModel().getProperty(sPath);
           return {
             Accept: "application/json",
             "x-client-system-id": oRuntimeConfig.ClientSystemId,
             "x-client-certificate": oRuntimeConfig.ClientCertificate,
-            "x-client-certificate-password":
-              oRuntimeConfig.ClientCertificatePassword,
+            "x-client-certificate-password": oRuntimeConfig.ClientCertificatePassword,
             "x-sign-port": oRuntimeConfig.SignPort,
             "x-vzd-port": oRuntimeConfig.VzdPort,
             "x-mandant-id": oRuntimeConfig.MandantId,
@@ -459,6 +460,21 @@ sap.ui.define(
             "x-host": oRuntimeConfig.Url,
           };
         },
+
+        onDownloadSDS: function (oEvent) {
+          const sPath = this._getRuntimeConfigPath();
+          const oHeaders = this.getHttpHeadersFromRuntimeConfig();
+          fetch("connector/sds/file", {
+            headers: oHeaders
+          }).then((response) => response.blob())
+          .then((xBlob) => 
+            File.save(xBlob, "Connector", "sds", "application/octet-stream", null, false)
+          );
+        },
+
+        _getRuntimeConfigPath: function () {
+          return "/RuntimeConfigs('" + this._entity + "')";
+        }
       }
     );
   },
