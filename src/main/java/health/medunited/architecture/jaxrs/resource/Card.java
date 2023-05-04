@@ -102,12 +102,14 @@ public class Card {
         GetCardsResponse getCardResponse = eventServicePortType.getCards(getCards);
         List<PINStatus> result = getCardResponse.getCards().getCard().stream().map(this::getPINStatus).collect(Collectors.toList());
         Collection<JsonObject> items = new ArrayList<>();
-        for (PINStatus pinStatus : result){
-            JsonObject value = Json.createObjectBuilder()
-                    .add("cardHandle", pinStatus.getHandle())
-                    .add("cardType", pinStatus.getType())
-                    .add("status", pinStatus.getStatus()).build();
-            items.add(value);
+        for (PINStatus pinStatus : result) {
+            if (pinStatus.getType() != "SMC_KT" && pinStatus.getType() != "KVK") {
+                    JsonObject value = Json.createObjectBuilder()
+                            .add("cardHandle", pinStatus.getHandle())
+                            .add("cardType", pinStatus.getType())
+                            .add("status", pinStatus.getStatus()).build();
+                    items.add(value);
+            }
         }
         return items;
     }
@@ -121,6 +123,8 @@ public class Card {
         pinStatus.setType(cardInfoType.getCardType().toString());
 
         String pinType = "";
+        String pinType0 = "";
+        String pinType1 = "";
 
         Holder<Status> status = new Holder<>();
         Holder<PinStatusEnum> pinStatusEnum = new Holder<>();
@@ -134,27 +138,48 @@ public class Card {
         }
         else if(cardInfoType.getCardType().equals(CardTypeType.HBA))
         {
-            pinType = "PIN.CH";
+            pinType0 = "PIN.CH";
+            pinType1 = "PIN.QES";
         }
+            if (pinStatus.getType() == "HBA") {
+                    try{
+                        cardServicePortType.getPinStatus(
+                                copyValuesFromProxyIntoContextType(contextType),
+                                cardInfoType.getCardHandle(),
+                                pinType0,
+                                status,
+                                pinStatusEnum,
+                                leftTries);
+                        String statusCH = pinStatusEnum.value.toString();
+                        cardServicePortType.getPinStatus(
+                                copyValuesFromProxyIntoContextType(contextType),
+                                cardInfoType.getCardHandle(),
+                                pinType1,
+                                status,
+                                pinStatusEnum,
+                                leftTries);
+                        String statusQES = pinStatusEnum.value.toString();
+                        pinStatus.setStatus("PIN.CH: " + statusCH + " PIN.QES: " + statusQES);
+                    }
+                    catch(FaultMessage e){
+                        log.log(Level.SEVERE, e.getMessage());
+                    }
+            } else {
+                try{
+                    cardServicePortType.getPinStatus(
+                            copyValuesFromProxyIntoContextType(contextType),
+                            cardInfoType.getCardHandle(),
+                            pinType,
+                            status,
+                            pinStatusEnum,
+                            leftTries);
 
-        try {
-            cardServicePortType.getPinStatus(
-                    copyValuesFromProxyIntoContextType(contextType),
-                    cardInfoType.getCardHandle(),
-                    pinType,
-                    status,
-                    pinStatusEnum,
-                    leftTries);
-
-            pinStatus.setStatus(pinStatusEnum.value.toString());
-
-        }  catch (FaultMessage e) {
-            pinStatus.setStatus("NOT AVAILABLE");
-            log.log(Level.SEVERE, e.getMessage());
-        }
-
-        return pinStatus;
+                    pinStatus.setStatus(pinStatusEnum.value.toString());
+                }
+                catch(FaultMessage e){
+                    log.log(Level.SEVERE, e.getMessage());
+                }
+            }
+            return pinStatus;
     }
-
-
 }
