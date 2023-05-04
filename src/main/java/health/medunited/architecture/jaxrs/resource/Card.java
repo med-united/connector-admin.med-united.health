@@ -34,7 +34,7 @@ import de.gematik.ws.conn.cardservice.wsdl.v8.FaultMessage;
 import de.gematik.ws.conn.eventservice.v7.GetCards;
 import de.gematik.ws.conn.eventservice.v7.GetCardsResponse;
 import de.gematik.ws.conn.eventservice.wsdl.v7.EventServicePortType;
-import health.medunited.architecture.jaxrs.resource.model.PINStatus;
+import health.medunited.architecture.model.PINStatus;
 
 @RequestScoped
 @Path("card")

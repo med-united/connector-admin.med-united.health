@@ -39,6 +39,9 @@
                                 <uxap:blocks>
                                     <Text text="{i18n>Version} {ProductInformation>/productTypeVersion}" />
                                 </uxap:blocks>
+                                <uxap:blocks>
+                                    <Button id="buttonDownloadSDS" text="Download SDS file" press="onDownloadSDS"/>
+                                </uxap:blocks>
                             </uxap:ObjectPageSubSection>
                         </uxap:subSections>
                     </uxap:ObjectPageSection>
@@ -56,7 +59,7 @@
                         <uxap:subSections>
                             <uxap:ObjectPageSubSection id="cardSubSection" title="Gesteckte Karten">
                                 <uxap:blocks>
-                                    <Table autoPopinMode="true" contextualWidth="Auto"  items="{Cards>/cards/card}" class="withGrid">
+                                    <Table id="cardTable" autoPopinMode="true" contextualWidth="Auto"  items="{Cards>/cards/card}" class="withGrid">
                                         <columns>
                                             <Column importance="Low">
                                                 <Text text="Alias" />
