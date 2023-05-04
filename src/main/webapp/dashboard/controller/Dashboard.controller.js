@@ -35,12 +35,12 @@ sap.ui.define(
                  let inactiveTerminals = 0;
                  let activeConnectors= 0;
                  let activeTerminals = 0;
-                 let invalidSMCB = 0;
                  let invalidHBA = 0;
+                 let invalidSMCB = 0;
+                 let invalidEGK = 0;
                  const date = new Date().toJSON();
-                 const cardTypes = {"SMC_KT" : 0, "SMC_B" : 0, "HBA": 0, "EGK": 0, "KVK": 0};
-                 const validCards = {"SMC_KT" : 0, "SMC_B" : 0, "HBA": 0, "EGK": 0, "KVK": 0};
-                 const percentageCards = {"SMC_KT" : 0, "SMC_B" : 0, "HBA": 0, "EGK": 0, "KVK": 0};
+                 const cardTypes = {"SMC_KT" : 0, "SMC_B" : 0, "HBA": 0, "EGK": 0};
+                 const invalidCertCards = {"SMC_KT" : 0, "SMC_B" : 0, "HBA": 0, "EGK": 0};
                  const numConfigs = configs.length;
                  let numResponses = 0;
                  configs.forEach(function (config) {
@@ -77,22 +77,22 @@ sap.ui.define(
                           numCards = numCards + cards.length;
                           for(let k = 0; k < cards.length; k++){
                             const cardType = cards[k].cardType;
-                            validCards[cardType] = cards[k].certificateExpirationDate > date ? validCards[cardType] + 1 : validCards[cardType];
+                            cardTypes[cardType] = cardTypes[cardType] + 1;
+                            invalidCertCards[cardType] = cards[k].certificateExpirationDate < date ? invalidCertCards[cardType] + 1 : invalidCertCards[cardType];
                           }
                           activeConnectors++;
                           const pinStatus = data[3];
                           for(let j = 0; j < pinStatus.length; j++)
                           {
-                            const cardType = pinStatus[j].cardType;
-                            cardTypes[cardType] = cardTypes[cardType] + 1;
-                            const status = pinStatus[j].status;
-                            if(cardType == "SMC_B" && status!="VERIFIED"){
+                            if(pinStatus[j].cardType == "SMC_B" && pinStatus[j].status!="VERIFIED"){
                                 invalidSMCB++;
                             }
-                            if(cardType == "HBA" && status!="VERIFIED"){
+                            else if(pinStatus[j].cardType == "HBA" && pinStatus[j].status!="VERIFIED"){
                                 invalidHBA++;
                             }
-                            percentageCards[cardType] = (validCards[cardType] / cardTypes[cardType]) * 100;
+                            else if(pinStatus[j].cardType =="EGK" && pinStatus[j].status!="VERIFIED"){
+                                invalidEGK++;
+                            }
                           }
                         }
                         else{
@@ -108,14 +108,14 @@ sap.ui.define(
                              "Value": configs.length,
                              "Icon": url + "dashboard/images/Connector.png",
                              "State" : inactiveConnectors > 0 ? "Error" : "Success",
-                             "Info": inactiveConnectors > 0 ? "Offline: " + inactiveConnectors : "Alles Online"
+                             "Info": inactiveConnectors > 0 ? "Offline: " + inactiveConnectors : "Alle Online"
                            });
                            connectorContent.push({
                              "Name" : "Kartenterminals",
                              "Value" : numTerminals,
                              "Icon": url + "dashboard/images/CardTerminal.png",
                              "State": inactiveTerminals > 0 ? "Error" : "Success",
-                             "Info" : inactiveTerminals > 0 ? "Offline: " + inactiveTerminals : "Alles Online"
+                             "Info" : inactiveTerminals > 0 ? "Offline: " + inactiveTerminals : "Alle Online"
                            });
                            connectorContent.push({
                              "Name" : "Karten",
@@ -124,49 +124,34 @@ sap.ui.define(
                              "State": "None"
                            });
                            cardContent.push({
-                             "Name" : "SMC-KT",
-                             "Value": cardTypes["SMC_KT"],
-                             "PinInfo" : "Alles unbekannt",
-                             "PinStatus": "None",
-                             "CertText": percentageCards["SMC_KT"] + "%",
-                             "CertPerc" : percentageCards["SMC_KT"],
-                             "CertStatus": percentageCards["SMC_KT"] == 100 ? "Success" : "Error"
-                           });
-                           cardContent.push({
-                             "Name": "SMC-B",
-                             "Value": cardTypes["SMC_B"],
-                             "PinInfo": invalidSMCB > 0 ? "Nicht verifiziert: " + invalidSMCB : "Alles verifiziert",
-                             "PinStatus": invalidSMCB > 0 ? "Error" : "Success",
-                             "CertText": percentageCards["SMC_B"] + "%",
-                             "CertPerc" : percentageCards["SMC_B"],
-                             "CertStatus": percentageCards["SMC_B"] == 100 ? "Success" : "Error"
+                             "Name": "eGK",
+                             "Value": cardTypes["EGK"],
+                             "PinInfo" : invalidEGK > 0 ? "Nicht verifiziert: " + invalidEGK : "Alle verifiziert",
+                             "PinStatus": invalidEGK > 0 ? "Error" : "Success",
+                             "CertInfo" : invalidCertCards["EGK"] > 0 ? "Abgelaufen: " + invalidCertCards["EGK"] : "Alle gültig",
+                             "CertStatus": invalidCertCards["EGK"] > 0 ? "Error" : "Success"
                            });
                            cardContent.push({
                              "Name": "HBA",
                              "Value": cardTypes["HBA"],
-                             "PinInfo": invalidHBA > 0 ? "Nicht verifiziert: " + invalidHBA : "Alles verifiziert",
+                             "PinInfo": invalidHBA > 0 ? "Nicht verifiziert: " + invalidHBA : "Alle verifiziert",
                              "PinStatus": invalidHBA > 0 ? "Error" : "Success",
-                             "CertText": percentageCards["HBA"] + "%",
-                             "CertPerc" : percentageCards["HBA"],
-                             "CertStatus": percentageCards["HBA"] == 100 ? "Success" : "Error"
+                             "CertInfo" : invalidCertCards["HBA"] > 0 ? "Abgelaufen: " + invalidCertCards["HBA"] : "Alle gültig",
+                             "CertStatus": invalidCertCards["HBA"] > 0 ? "Error" : "Success"
                            });
                            cardContent.push({
-                             "Name": "EGK",
-                             "Value": cardTypes["EGK"],
-                             "PinInfo" : "Alles unbekannt",
-                             "PinStatus": "None",
-                             "CertText": percentageCards["EGK"] + "%",
-                             "CertPerc" : percentageCards["EGK"],
-                             "CertStatus": percentageCards["EGK"] == 100 ? "Success" : "Error"
+                             "Name": "SMC-B",
+                             "Value": cardTypes["SMC_B"],
+                             "PinInfo": invalidSMCB > 0 ? "Nicht verifiziert: " + invalidSMCB : "Alle verifiziert",
+                             "PinStatus": invalidSMCB > 0 ? "Error" : "Success",
+                             "CertInfo" : invalidCertCards["SMC_B"] > 0 ? "Abgelaufen: " + invalidCertCards["SMC_B"] : "Alle gültig",
+                             "CertStatus": invalidCertCards["SMC_B"] > 0 ? "Error" : "Success"
                            });
                            cardContent.push({
-                             "Name": "KVK",
-                             "Value": cardTypes["KVK"],
-                             "PinInfo" : "Alles unbekannt",
-                             "PinStatus": "None",
-                             "CertText": percentageCards["KVK"] + "%",
-                             "CertPerc" : percentageCards["KVK"],
-                             "CertStatus": percentageCards["KVK"] == 100 ? "Success" : "Error"
+                             "Name" : "SMC-KT",
+                             "Value": cardTypes["SMC_KT"],
+                             "CertInfo" : invalidCertCards["SMC_KT"] > 0 ? "Abgelaufen: " + invalidCertCards["SMC_KT"] : "Alle gültig",
+                             "CertStatus": invalidCertCards["SMC_KT"] > 0 ? "Error" : "Success"
                            });
                            connectorData.connectors["sap.card"].content.data.json = connectorContent;
                            oConnectorList.setData(connectorData);

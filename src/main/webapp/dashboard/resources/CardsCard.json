@@ -36,13 +36,11 @@
               "state": "{PinStatus}"
             },
             {
-              "title": "Gültig",
-              "progressIndicator" : {
-                "percent": "{CertPerc}",
-                "text": "{CertText}",
-                "state": "{CertStatus}"
-              }
-            }]
+              "title": "Gültigkeit",
+              "value": "{CertInfo}",
+              "state": "{CertStatus}"
+            }
+            ]
         }
       }
     }

@@ -23,16 +23,16 @@
                 <f:layout>
                     <f:GridContainerSettings rowSize="50px" columnSize="50px" gap="10px" />
                 </f:layout>
-                <w:Card id="ConnectorListCard" manifest="{Connectors>/connectors}">
-                    <w:layoutData>
-                        <f:GridContainerItemLayoutData minRows="3" columns="5" />
-                    </w:layoutData>
-                </w:Card>
-                <w:Card id="CardsCard" manifest="{Cards>/cards}">
-                    <w:layoutData>
-                        <f:GridContainerItemLayoutData minRows="3" columns="10" />
-                    </w:layoutData>
-                </w:Card>
+                    <w:Card id="ConnectorListCard" manifest="{Connectors>/connectors}">
+                        <w:layoutData>
+                            <f:GridContainerItemLayoutData minRows="3" columns="5" />
+                        </w:layoutData>
+                    </w:Card>
+                    <w:Card id="CardsCard" manifest="{Cards>/cards}">
+                        <w:layoutData>
+                            <f:GridContainerItemLayoutData minRows="3" columns="10" />
+                        </w:layoutData>
+                    </w:Card>
             </f:GridContainer>
         </f:content>
 
