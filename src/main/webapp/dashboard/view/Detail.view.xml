@@ -68,13 +68,13 @@
                                                 <Text text="Kartenhalter" />
                                             </Column>
                                             <Column importance="Medium">
-                                                <Text text="Typ" />
+                                                <Text text="Kartentyp" />
                                             </Column>
                                             <Column importance="High">
                                                 <Text text="Auslaufdatum Zertifikat" />
                                             </Column>
                                             <Column importance="Medium">
-                                                <Text text="Iccsn" />
+                                                <Text text="ICCSN" />
                                             </Column>
                                             <Column importance="Low">
                                                 <Text text="Steckzeit" />
@@ -158,10 +158,10 @@
                                     <Table items="{PINStatus>/}" class="withGrid">
                                         <columns>
                                             <Column>
-                                                <Text text="CardHandle" />
+                                                <Text text="Alias" />
                                             </Column>
                                             <Column>
-                                                <Text text="CardType" />
+                                                <Text text="Kartentyp" />
                                             </Column>
                                             <Column>
                                                 <Text text="PIN-Status" />
