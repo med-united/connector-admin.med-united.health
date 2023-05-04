@@ -142,8 +142,8 @@
                                             </Column>
                                         </columns>
                                         <items>
-                                            <ColumnListItem>
-                                                <Text text="{VerifyAll>cardHolderName}" />
+                                            <ColumnListItem class="cHolderNameClass">
+                                                <Text text="{VerifyAll>cardHolderName}"/>
                                                 <Text text="{VerifyAll>certRef}" />
                                                 <Text text="{VerifyAll>cardHandle}" />
                                                 <Text text="{VerifyAll>serial}" />

@@ -13,6 +13,8 @@ sap.ui.define(
         onInit: function () {
           AbstractDetailController.prototype.onInit.apply(this, arguments);
 
+          let certData = null;
+
           const oCardsModel = new JSONModel();
           this.getView().setModel(oCardsModel, "Cards");
 
@@ -93,6 +95,23 @@ sap.ui.define(
               pinType,
             { headers: mHeaders }
           );
+        },
+        removeBoxBorders: function () {
+          const nodeList = document.querySelectorAll(".cHolderNameClass td");
+          if(nodeList.length > 0) {
+            let contentLength = [];
+            for(let i=0;i<this.certData.length;i++) contentLength.push(this.certData[i].certInfos.length);
+            let loopCount = 0;
+            let aux = 0;
+            let ct2 = 0;
+            for(let i=1;i<nodeList.length;) {
+                aux = contentLength[ct2];
+                if (loopCount > aux) ct2++;
+                if(loopCount % aux != 0) nodeList[i].style.borderTop = 0;
+                i+=8;
+                loopCount++
+            }
+          }
         },
         onChangePinQes: function (oEvent) {
           const sPath = "/RuntimeConfigs('" + this._entity + "')";
@@ -256,8 +275,10 @@ sap.ui.define(
                       verifyResponses: res.data[i].verifyCertificateResponse,
                     });
                   }
+                  this.certData = arrayData;
 
                   let plainList = [];
+                  this.holaVar = "hola";
                   for (let j = 0; j < arrayData.length; j++) {
                     for (let q = 0; q < arrayData[j].certInfos.length; q++) {
                       plainList.push({
@@ -306,7 +327,9 @@ sap.ui.define(
                         });
                     });
                 })
-          );
+          ).then((x) => {
+             this.removeBoxBorders();
+           });
         },
         getEntityName: function () {
           return "RuntimeConfig";
