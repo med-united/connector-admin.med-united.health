@@ -167,7 +167,7 @@ sap.ui.define(
                });
         },
         onBeforeRendering: function () {
-         this.onInit();
+          this.onInit();
         },
 
         onRouteToMaster: function (oEvent) {
