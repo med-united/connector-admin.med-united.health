@@ -7,30 +7,30 @@
                          singleContainerFullSize="true">
             <form:content>
                 <Label text="Benutzer-ID" />
-                <Input type="Text" value="{Connector>/User}" />
+                <Input type="Text" value="{UserId}" />
                 <Label text="URL" />
-                <Input type="Text" value="{Connector>/Url}" />
+                <Input type="Text" value="{Url}" />
                 <Label text="Signier-Port" />
-                <Input type="Text" value="{Connector>/SignPort}" />
+                <Input type="Text" value="{SignPort}" />
                 <Label text="VZD-Port" />
-                <Input type="Text" value="{Connector>/VzdPort}" />
+                <Input type="Text" value="{VzdPort}" />
                 <Label text="Mandant-ID" />
-                <Input type="Text" value="{Connector>/MandantId}" />
+                <Input type="Text" value="{MandantId}" />
                 <Label text="System-ID Kunde" />
-                <Input type="Text" value="{Connector>/ClientSystemId}" />
+                <Input type="Text" value="{ClientSystemId}" />
                 <Label text="Arbeitsplatz-ID" />
-                <Input type="Text" value="{Connector>/WorkplaceId}" />
+                <Input type="Text" value="{WorkplaceId}" />
                 <Label text="Kundenzertifikat" />
-                <Input type="Text" value="{Connector>/ClientCertificate}" />
+                <Input type="Text" value="{ClientCertificate}" />
                 <Label text="Kennwort Kundenzertifikat" />
-                <Input type="Text" value="{Connector>/ClientCertificatePassword}" />
+                <Input type="Text" value="{ClientCertificatePassword}" />
             </form:content>
         </form:SimpleForm>
         <beginButton>
-            <Button type="Reject" text="{i18n>onCancelChange}" press="onCancelChange" />
+            <Button type="Accept" text="{i18n>onSaveChange}" press="onSaveChange" />
         </beginButton>
         <endButton>
-            <Button type="Accept" text="{i18n>onSaveChange}" press="onSaveChange" />
+            <Button type="Reject" text="{i18n>onCancelChange}" press="onCancelChange" />
         </endButton>
     </Dialog>
 </core:FragmentDefinition>

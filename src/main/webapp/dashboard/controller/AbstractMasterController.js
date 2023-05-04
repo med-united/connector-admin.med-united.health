@@ -75,6 +75,7 @@ sap.ui.define(
           const sContextPath = this._createContextPathFromModel(
             "/" + sEntityName
           );
+          console.log(sContextPath.sPath);
           oDialog.bindElement(sContextPath.sPath);
         },
 

@@ -70,30 +70,33 @@ sap.ui.define(
 
         onChange: function(){
            const oConnector = new JSONModel();
-           this.getView().setModel(oConnector, "Connector");
            const oView = this.getView();
+           oView.setModel(oConnector, "Connector");
            const aSelectedItems = oView.byId("runtimeConfigTable").getSelectedItems();
-           var oItemContextPath = aSelectedItems[0].getBindingContext().getPath();
-           const runtimeConfigModel = new sap.ui.model.odata.v2.ODataModel("../Data.svc",true);
-           runtimeConfigModel.read(oItemContextPath, {
-                          success: function (oData) {
-                            const data = {"User": oData.UserId, "Url": oData.Url, "SignPort": oData.SignPort};
-                            oConnector.setData(data);
-                            }
-           });
-            if (!this.byId("changeDialog")) {
-                        // load asynchronous XML fragment
-               Fragment.load({
-                 id: oView.getId(),
-                 name: "sap.f.ShellBarWithFlexibleColumnLayout.view.ChangeDialog",
-                 controller: this,
-                 }).then(function (oDialog) {
-                          oView.addDependent(oDialog);
-                          oDialog.open();
-                 });
-            } else {
-               this.byId("changeDialog").open();
-            }
+           if(aSelectedItems.length == 1){
+             const me = this;
+             if (!this.byId("changeDialog")) {
+                       // load asynchronous XML fragment
+                       Fragment.load({
+                         id: oView.getId(),
+                         name: "sap.f.ShellBarWithFlexibleColumnLayout.view.ChangeDialog",
+                         controller: this,
+                       }).then(function (oDialog) {
+                         oView.addDependent(oDialog);
+                         me._openChangeDialog(oDialog);
+                       });
+                     } else {
+                       this._openChangeDialog(this.byId("changeDialog"));
+                     }
+           }
+        },
+
+        _openChangeDialog: function (oDialog, sEntityName) {
+            oDialog.open();
+            const oView = this.getView();
+            const aSelectedItems = oView.byId("runtimeConfigTable").getSelectedItems();
+            var oItemContextPath = aSelectedItems[0].getBindingContext().getPath();
+            oDialog.bindElement(oItemContextPath);
         },
 
         onCancelChange:function(){
@@ -101,13 +104,24 @@ sap.ui.define(
         },
 
         onSaveChange:function(){
+            this.getView()
+               .getModel()
+               .submitChanges({
+                 success: function () {
+                    const oTable = this.getView().byId("runtimeConfigTable");
+                    oTable.getBinding("items").refresh();
+                    sap.m.MessageToast.show("Daten erfolgreich geändert.");
+                 }.bind(this),
+                 error: function () {
+                    sap.m.MessageToast.show("Fehler beim ändern der Daten.");
+                 },
+               });
             this.byId("changeDialog").close();
         },
 
         onDelete: function () {
           let oView = this.getView();
           let dialog;
-
           if (!this.byId("deleteConfirmationDialog")) {
             // load asynchronous XML fragment
             Fragment.load({
