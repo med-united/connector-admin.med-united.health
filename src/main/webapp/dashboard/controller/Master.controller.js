@@ -5,8 +5,7 @@ sap.ui.define(
     "sap/ui/model/FilterOperator",
     "sap/ui/model/Sorter",
     "sap/ui/core/Fragment",
-    "sap/m/MessageToast",
-    "sap/ui/model/json/JSONModel"
+    "sap/m/MessageToast"
   ],
   function (
     AbstractMasterController,
@@ -14,8 +13,7 @@ sap.ui.define(
     FilterOperator,
     Sorter,
     Fragment,
-    MessageToast,
-    JSONModel
+    MessageToast
   ) {
     "use strict";
 
@@ -69,9 +67,7 @@ sap.ui.define(
         },
 
         onChange: function(){
-           const oConnector = new JSONModel();
            const oView = this.getView();
-           oView.setModel(oConnector, "Connector");
            const aSelectedItems = oView.byId("runtimeConfigTable").getSelectedItems();
            if(aSelectedItems.length == 1){
              const me = this;
@@ -93,9 +89,8 @@ sap.ui.define(
 
         _openChangeDialog: function (oDialog, sEntityName) {
             oDialog.open();
-            const oView = this.getView();
-            const aSelectedItems = oView.byId("runtimeConfigTable").getSelectedItems();
-            var oItemContextPath = aSelectedItems[0].getBindingContext().getPath();
+            const aSelectedItems = this.getView().byId("runtimeConfigTable").getSelectedItems();
+            const oItemContextPath = aSelectedItems[0].getBindingContext().getPath();
             oDialog.bindElement(oItemContextPath);
         },
 
