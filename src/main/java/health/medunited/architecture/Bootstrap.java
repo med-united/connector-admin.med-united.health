@@ -17,8 +17,8 @@ public class Bootstrap {
 
     @PostConstruct
     public void generateDemoData() {
-        //RuntimeConfig runtimeConfig = getRuntimeConfig();
-        //em.persist(runtimeConfig);
+        RuntimeConfig runtimeConfig = getRuntimeConfig();
+        em.persist(runtimeConfig);
         RuntimeConfig runtimeConfigKops = getRuntimeConfigKops();
         em.persist(runtimeConfigKops);
     }

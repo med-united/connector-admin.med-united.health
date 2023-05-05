@@ -1,22 +1,42 @@
 sap.ui.define(
-  ["./AbstractDetailController",
+  [
+  "./AbstractDetailController",
   "sap/ui/model/json/JSONModel",
-  'sap/ui/core/Fragment',
+  "sap/m/MessageToast",
+  "sap/ui/core/Fragment",
+  "sap/ui/core/util/File",
   "../utils/formatter"
   ],
-  function (AbstractDetailController, JSONModel, Fragment, formatter) {
+  function (
+    AbstractDetailController,
+    JSONModel,
+    MessageToast,
+    Fragment,
+    File,
+    formatter
+  ) {
     "use strict";
 
     return AbstractDetailController.extend(
       "sap.f.ShellBarWithFlexibleColumnLayout.controller.Detail",
       {
- 
         formatter: formatter,
 
         onInit: function () {
           AbstractDetailController.prototype.onInit.apply(this, arguments);
 
           const oCardsModel = new JSONModel();
+
+          oCardsModel.attachRequestSent(() => {
+            this.byId("cardTable").setBusy(true);
+          });
+          oCardsModel.attachRequestCompleted(() => {
+            this.byId("cardTable").setBusy(false);
+          });
+          oCardsModel.attachRequestFailed(() => {
+            MessageToast.show("Konnte keine Karten laden");
+          });
+
           this.getView().setModel(oCardsModel, "Cards");
 
           const oCardTerminalsModel = new JSONModel();
@@ -36,6 +56,7 @@ sap.ui.define(
 
           const oCertSubjectModel = new JSONModel();
           this.getView().setModel(oCertSubjectModel, "CertSubject");
+
 
 
         },
@@ -207,8 +228,59 @@ sap.ui.define(
             this.reloadModels(oRuntimeConfig);
           }
         },
-        reloadModels: function (oRuntimeConfig) {
 
+        pwdOnCancel: function (oEvent) {
+          oEvent.getSource().getParent().close();
+          oEvent.getSource().getParent().destroy();
+        },
+        pwdOnRestart: function (oEvent) {
+          const sPath = "/RuntimeConfigs('" + this._entity + "')";
+          const oRuntimeConfig = this.getView().getModel().getProperty(sPath);
+          const restartHeaders = {
+            "x-client-certificate": oRuntimeConfig.ClientCertificate,
+            "x-client-certificate-password":
+              oRuntimeConfig.ClientCertificatePassword,
+            "Content-Type": "application/json",
+          };
+          const username = this.byId("usernameInput").getValue();
+          const password = this.byId("passwordInput").getValue();
+          const requestBody = {
+            username: username,
+            password: password,
+          };
+          fetch(
+            "connector/management/secunet/restart?connectorUrl=" +
+              oRuntimeConfig.Url +
+              "&managementPort=8500",
+            {
+              headers: restartHeaders,
+              method: "POST",
+              body: JSON.stringify(requestBody),
+            }
+          );
+          oEvent.getSource().getParent().close();
+          MessageToast.show("Der Konnektor wird jetzt neu gestartet");
+          oEvent.getSource().getParent().destroy();
+        },
+        restartConnector: function () {
+          let oView = this.getView();
+          const me = this;
+
+          if (!this.byId("RestartPasswordDialog")) {
+            Fragment.load({
+              id: oView.getId(),
+              name: "sap.f.ShellBarWithFlexibleColumnLayout.view.RestartPasswordDialog",
+              controller: this,
+            }).then(function (oDialog) {
+              me.onAfterCreateOpenDialog({ dialog: oDialog });
+              oView.addDependent(oDialog);
+              me._openCreateDialog(oDialog);
+            });
+          } else {
+            this._openCreateDialog(this.byId("restartPasswordDialog"));
+          }
+        },
+        reloadModels: function (oRuntimeConfig) {
           this.handleFullScreen();
 
           const mHeaders = {
@@ -224,7 +296,6 @@ sap.ui.define(
             "x-host": oRuntimeConfig.Url,
             Accept: "application/json",
           };
-
 
           this.getView()
             .getModel("PINStatus")
@@ -262,7 +333,7 @@ sap.ui.define(
               false,
               true,
               mHeaders
-          );
+            );
 
           fetch("connector/certificate/verifyAll", { headers: mHeaders }).then(
             (response) =>
@@ -358,46 +429,57 @@ sap.ui.define(
 
         handlePopoverPress: function (oEvent) {
           var oControl = oEvent.getSource(),
-              oView = this.getView();
-    
+            oView = this.getView();
+
           // create popover
           if (!this._pPopover) {
             this._pPopover = Fragment.load({
               id: oView.getId(),
               name: "sap.f.ShellBarWithFlexibleColumnLayout.view.CertPopover",
-              controller: this
+              controller: this,
             }).then(function (oPopover) {
               oView.addDependent(oPopover);
               return oPopover;
             });
           }
-          this._pPopover.then(function(oPopover) {
-            const oHeaders = this.getHttpHeadersFromRuntimeConfig();
-            const sCertRef = oControl.getBindingContext("VerifyAll").getProperty("certRef");
-            const sCardHandle = oControl.getBindingContext("VerifyAll").getProperty("cardHandle");
-            oView.getModel("CertSubject").loadData(
-              "connector/certificate/"+sCertRef+"/"+sCardHandle,
-              {},
-              "true",
-              "GET",
-              false,
-              true,
-              oHeaders
-            );
-            oPopover.openBy(oControl);
-          }.bind(this));
+          this._pPopover.then(
+            function (oPopover) {
+              const oHeaders = this.getHttpHeadersFromRuntimeConfig();
+              const sCertRef = oControl
+                .getBindingContext("VerifyAll")
+                .getProperty("certRef");
+              const sCardHandle = oControl
+                .getBindingContext("VerifyAll")
+                .getProperty("cardHandle");
+              oView
+                .getModel("CertSubject")
+                .loadData(
+                  "connector/certificate/" + sCertRef + "/" + sCardHandle,
+                  {},
+                  "true",
+                  "GET",
+                  false,
+                  true,
+                  oHeaders
+                );
+              oPopover.openBy(oControl);
+            }.bind(this)
+          );
         },
-    
+
         handlePopoverClosePress: function (oEvent) {
           this.getView().byId("certPopover").close();
         },
 
-     		translateTextWithPrefix : function (prefix, certFieldName) {
-          return this.getOwnerComponent().getModel("i18n").getResourceBundle().getText(prefix+certFieldName);
+        translateTextWithPrefix: function (prefix, certFieldName) {
+          return this.getOwnerComponent()
+            .getModel("i18n")
+            .getResourceBundle()
+            .getText(prefix + certFieldName);
         },
 
         getHttpHeadersFromRuntimeConfig: function () {
-          const sPath = "/RuntimeConfigs('" + this._entity + "')";
+          const sPath = this._getRuntimeConfigPath();
           const oRuntimeConfig = this.getView().getModel().getProperty(sPath);
           return {
             Accept: "application/json",
@@ -411,6 +493,21 @@ sap.ui.define(
             "x-user-id": oRuntimeConfig.UserId,
             "x-host": oRuntimeConfig.Url,
           };
+        },
+
+        onDownloadSDS: function (oEvent) {
+          const sPath = this._getRuntimeConfigPath();
+          const oHeaders = this.getHttpHeadersFromRuntimeConfig();
+          fetch("connector/sds/file", {
+            headers: oHeaders
+          }).then((response) => response.blob())
+          .then((xBlob) => 
+            File.save(xBlob, "Connector", "sds", "application/octet-stream", null, false)
+          );
+        },
+
+        _getRuntimeConfigPath: function () {
+          return "/RuntimeConfigs('" + this._entity + "')";
         }
       }
     );
