@@ -61,41 +61,40 @@ public class EndpointDiscoveryService {
     public void obtainConfiguration(String connectorBaseUrl) {
         Client client = buildClient();
         Invocation invocation = buildInvocation(client, connectorBaseUrl);
-
         try {
             InputStream inputStream = invocation.invoke(InputStream.class);
-            JAXBContext jaxbContext = JAXBContext.newInstance(ConnectorServices.class);
-            connectorSds = (ConnectorServices) jaxbContext.createUnmarshaller().unmarshal(inputStream);
-
-            connectorVersion = connectorSds.getProductInformation().getProductTypeInformation();
-
-            List<ServiceType> services = connectorSds.getServiceInformation().getService();
-
-            for (ServiceType service : services) {
-                String serviceName = service.getName();
-                switch (serviceName) {
-                    case "EventService": {
-                        eventServiceEndpointAddress = service.getVersions().getVersion().get(0).getEndpointTLS().getLocation();
-                        break;
-                    }
-                    case "CardService": {
-                        cardServiceEndpointAddress = service.getVersions().getVersion().get(0).getEndpointTLS().getLocation();
-                        break;
-                    }
-                    case "CertificateService": {
-                        certificateServiceEndpointAddress = service.getVersions().getVersion().get(0).getEndpointTLS().getLocation();
-                        break;
-                    }
-                    default: {
-                        log.log(Level.WARNING, "Unknown service name: {}", serviceName);
-                        break;
-                    }
-                }
-            }
+            parseInput(inputStream);
         } catch (JAXBException | ProcessingException | IllegalArgumentException e) {
             log.log(Level.SEVERE, "Could not get or parse connector.sds", e);
         } finally {
             client.close();
+        }
+    }
+
+    public void parseInput(InputStream inputStream) throws JAXBException {
+        JAXBContext jaxbContext = JAXBContext.newInstance(ConnectorServices.class);
+        connectorSds = (ConnectorServices) jaxbContext.createUnmarshaller().unmarshal(inputStream);
+
+        connectorVersion = connectorSds.getProductInformation().getProductTypeInformation();
+
+        List<ServiceType> services = connectorSds.getServiceInformation().getService();
+
+        for (ServiceType service : services) {
+            String serviceName = service.getName();
+            switch (serviceName) {
+                case "EventService": {
+                    eventServiceEndpointAddress = service.getVersions().getVersion().get(0).getEndpointTLS().getLocation();
+                    break;
+                }
+                case "CardService": {
+                    cardServiceEndpointAddress = service.getVersions().getVersion().get(0).getEndpointTLS().getLocation();
+                    break;
+                }
+                case "CertificateService": {
+                    certificateServiceEndpointAddress = service.getVersions().getVersion().get(0).getEndpointTLS().getLocation();
+                    break;
+                }
+            }
         }
     }
 
