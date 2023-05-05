@@ -52,13 +52,13 @@ sap.ui.define(
           this.getView().setModel(oPinStatus, "PINStatus");
 
           const oProductInformationModel = new JSONModel();
-          this.getView().setModel(
-            oProductInformationModel,
-            "ProductInformation"
-          );
+          this.getView().setModel(oProductInformationModel, "ProductInformation");
 
           const oCertSubjectModel = new JSONModel();
           this.getView().setModel(oCertSubjectModel, "CertSubject");
+
+
+
         },
         onVerifyPinCh: function (oEvent) {
           const sPath = "/RuntimeConfigs('" + this._entity + "')";
@@ -181,6 +181,36 @@ sap.ui.define(
             { headers: mHeaders }
           );
         },
+        onChangePinSmc: function (oEvent) {
+                  const sPath = "/RuntimeConfigs('" + this._entity + "')";
+                  const oRuntimeConfig = this.getView().getModel().getProperty(sPath);
+                  const mHeaders = {
+                    "x-client-system-id": oRuntimeConfig.ClientSystemId,
+                    "x-client-certificate": oRuntimeConfig.ClientCertificate,
+                    "x-client-certificate-password":
+                      oRuntimeConfig.ClientCertificatePassword,
+                    "x-sign-port": oRuntimeConfig.SignPort,
+                    "x-vzd-port": oRuntimeConfig.VzdPort,
+                    "x-mandant-id": oRuntimeConfig.MandantId,
+                    "x-workplace-id": oRuntimeConfig.WorkplaceId,
+                    "x-user-id": oRuntimeConfig.UserId,
+                    "x-host": oRuntimeConfig.Url,
+                    Accept: "application/json",
+                  };
+
+                  let pinType = "PIN.SMC";
+                  let cardHandle = oEvent
+                    .getSource()
+                    .getBindingContext("Cards")
+                    .getProperty("cardHandle");
+                  fetch(
+                    "connector/card/changePin?cardHandle=" +
+                      cardHandle +
+                      "&pinType=" +
+                      pinType,
+                    { headers: mHeaders }
+                  );
+                 },
         _onMatched: function (oEvent) {
           AbstractDetailController.prototype._onMatched.apply(this, arguments);
           const sPath = "/RuntimeConfigs('" + this._entity + "')";
@@ -278,17 +308,7 @@ sap.ui.define(
               mHeaders
             );
 
-          this.getView()
-            .getModel("Cards")
-            .loadData(
-              "connector/event/get-cards",
-              {},
-              "true",
-              "GET",
-              false,
-              true,
-              mHeaders
-            );
+
 
           this.getView()
             .getModel("CardTerminals")
@@ -387,6 +407,19 @@ sap.ui.define(
                     });
                 })
           );
+          fetch("connector/event/get-cards", { headers: mHeaders }).then((re) => re.json()).then((da) => {
+            const cards = da.cards.card;
+            for(let i = 0; i < cards.length; i++){
+                cards[i]["option"] = (cards[i].cardType == "SMC_KT") || (cards[i].cardType == "KVK") ? false : true;
+                cards[i]["vPIN.CH"] = cards[i].cardType == "HBA" ? true : false;
+                cards[i]["vPIN.SMC"] = cards[i].cardType == "SMC_B" ? true : false;
+                cards[i]["cPIN.CH"] = (cards[i].cardType == "EGK") || (cards[i].cardType == "HBA") ? true : false;
+                cards[i]["cPIN.QES"] = cards[i].cardType == "HBA" ? true : false;
+                cards[i]["cPIN.SMC"] = cards[i].cardType == "SMC_B" ? true : false;
+            }
+            this.getView().getModel("Cards").setData(da);
+          });
+
         },
 
         getEntityName: function () {
