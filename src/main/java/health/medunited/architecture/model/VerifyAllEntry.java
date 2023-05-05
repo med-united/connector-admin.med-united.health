@@ -1,4 +1,4 @@
-package health.medunited.architecture.jaxrs.resource.model;
+package health.medunited.architecture.model;
 
 import java.util.ArrayList;
 import java.util.List;

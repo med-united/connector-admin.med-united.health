@@ -25,6 +25,8 @@ import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.ws.Holder;
 
+import de.gematik.ws.conn.eventservice.wsdl.v7.FaultMessage;
+import health.medunited.architecture.jaxrs.resource.crypto.CryptoLoader;
 import org.bouncycastle.asn1.x500.AttributeTypeAndValue;
 import org.bouncycastle.asn1.x500.RDN;
 import org.bouncycastle.asn1.x500.X500Name;
@@ -47,9 +49,7 @@ import de.gematik.ws.conn.connectorcontext.v2.ContextType;
 import de.gematik.ws.conn.eventservice.v7.GetCards;
 import de.gematik.ws.conn.eventservice.v7.GetCardsResponse;
 import de.gematik.ws.conn.eventservice.wsdl.v7.EventServicePortType;
-import de.gematik.ws.conn.eventservice.wsdl.v7.FaultMessage;
-import health.medunited.architecture.jaxrs.resource.crypto.CryptoLoader;
-import health.medunited.architecture.jaxrs.resource.model.VerifyAllEntry;
+import health.medunited.architecture.model.VerifyAllEntry;
 
 
 @Path("certificate")
@@ -119,7 +119,7 @@ public class Certificate {
 
     private VerifyCertificateResponse getCertificateVerification(X509DataInfo x509DataInfo)
             throws DatatypeConfigurationException, de.gematik.ws.conn.certificateservice.wsdl.v6.FaultMessage {
-                
+
         byte[] encodedCertificate = x509DataInfo.getX509Data().getX509Certificate();
         XMLGregorianCalendar now = DatatypeFactory.newInstance().newXMLGregorianCalendar(new GregorianCalendar(TimeZone.getTimeZone("UTC")));
         Holder<Status> status = new Holder<>();
@@ -127,11 +127,11 @@ public class Certificate {
         Holder<VerifyCertificateResponse.RoleList> roleList = new Holder<>();
 
         certificateServicePortType.verifyCertificate(
-            copyValuesFromProxyIntoContextType(contextType), 
+            copyValuesFromProxyIntoContextType(contextType),
             encodedCertificate,
-            now, 
-            status, 
-            verificationStatus, 
+            now,
+            status,
+            verificationStatus,
             roleList);
 
         VerifyCertificateResponse verifyCertificateResponse = new VerifyCertificateResponse();
