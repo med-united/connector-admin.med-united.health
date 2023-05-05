@@ -1,6 +1,6 @@
 package health.medunited.architecture.jaxrs.resource;
 
-import health.medunited.architecture.service.endpoint.EndpointDiscoveryService;
+import java.util.logging.Logger;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -8,7 +8,8 @@ import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
-import java.util.logging.Logger;
+
+import health.medunited.architecture.service.endpoint.EndpointDiscoveryService;
 
 @RequestScoped
 @Path("productTypeInformation")
@@ -21,8 +22,8 @@ public class Version {
 
     @GET
     @Path("/getVersion")
-    public Response getProductTypeInformation(@HeaderParam("X-Host") String connectorUrl) {
+    public Response getProductTypeInformation(@HeaderParam("X-Host") String connectorUrl) throws Exception {
         endpointDiscoveryService.obtainConfiguration(connectorUrl);
-        return Response.ok(endpointDiscoveryService.getConnectorVersion()).build();
+        return Response.ok(endpointDiscoveryService.ProductTypeInformation()).build();
     }
 }

@@ -37,7 +37,7 @@ public class EndpointDiscoveryService {
 
     private ConnectorServices connectorSds;
 
-    private ProductTypeInformation connectorVersion;
+    private ProductTypeInformation productTypeInformation;
 
     public void setSecretsManagerService(SecretsManagerService secretsManagerService) {
         this.secretsManagerService = secretsManagerService;
@@ -58,14 +58,14 @@ public class EndpointDiscoveryService {
         }
     }
 
-    public void obtainConfiguration(String connectorBaseUrl) {
+    public void obtainConfiguration(String connectorBaseUrl) throws Exception {
         Client client = buildClient();
         Invocation invocation = buildInvocation(client, connectorBaseUrl);
         try {
             InputStream inputStream = invocation.invoke(InputStream.class);
             parseInput(inputStream);
         } catch (JAXBException | ProcessingException | IllegalArgumentException e) {
-            log.log(Level.SEVERE, "Could not get or parse connector.sds", e);
+            throw new IllegalStateException("Could not get or parse connector.sds from "+connectorBaseUrl, e);
         } finally {
             client.close();
         }
@@ -75,7 +75,7 @@ public class EndpointDiscoveryService {
         JAXBContext jaxbContext = JAXBContext.newInstance(ConnectorServices.class);
         connectorSds = (ConnectorServices) jaxbContext.createUnmarshaller().unmarshal(inputStream);
 
-        connectorVersion = connectorSds.getProductInformation().getProductTypeInformation();
+        productTypeInformation = connectorSds.getProductInformation().getProductTypeInformation();
 
         List<ServiceType> services = connectorSds.getServiceInformation().getService();
 
@@ -127,8 +127,8 @@ public class EndpointDiscoveryService {
         return certificateServiceEndpointAddress;
     }
 
-    public ProductTypeInformation getConnectorVersion() {
-        return connectorVersion;
+    public ProductTypeInformation ProductTypeInformation() {
+        return productTypeInformation;
     }
 
     public ConnectorServices getConnectorSds() {

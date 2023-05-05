@@ -2,12 +2,10 @@ package health.medunited.architecture.service.endpoint;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.io.IOException;
 import java.io.InputStream;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.bind.JAXBException;
-import javax.xml.parsers.ParserConfigurationException;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -38,7 +36,7 @@ class EndpointDiscoveryServiceTest {
 
     @Test
     @Disabled("Integration test with Kops")
-    void testObtainConfiguration() throws IOException, ParserConfigurationException {
+    void testObtainConfiguration() throws Exception {
         EndpointDiscoveryService endpointDiscoveryService = new EndpointDiscoveryService();
         endpointDiscoveryService.secretsManagerService = secretsManagerService;
         endpointDiscoveryService.obtainConfiguration(runtimeConfig.getUrl());

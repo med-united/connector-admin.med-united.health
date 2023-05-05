@@ -17,7 +17,7 @@ public class ConnectorSds {
 
     @GET
     @Path("config")
-    public ConnectorServices connectorSdsConfig(@QueryParam("connectorUrl") String connectorUrl) {
+    public ConnectorServices connectorSdsConfig(@QueryParam("connectorUrl") String connectorUrl) throws Throwable {
         endpointDiscoveryService.obtainConfiguration(connectorUrl);
         return endpointDiscoveryService.getConnectorSds();
     }
