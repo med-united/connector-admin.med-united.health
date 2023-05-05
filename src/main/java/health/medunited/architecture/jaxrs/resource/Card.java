@@ -26,7 +26,6 @@ import javax.xml.ws.Holder;
 import de.gematik.ws.conn.cardservice.v8.CardInfoType;
 import de.gematik.ws.conn.cardservice.v8.PinStatusEnum;
 import de.gematik.ws.conn.cardservice.wsdl.v8.CardServicePortType;
-import de.gematik.ws.conn.cardservicecommon.v2.CardTypeType;
 import de.gematik.ws.conn.cardservicecommon.v2.PinResultEnum;
 import de.gematik.ws.conn.connectorcommon.v5.Status;
 import de.gematik.ws.conn.connectorcontext.v2.ContextType;
@@ -102,13 +101,31 @@ public class Card {
         GetCardsResponse getCardResponse = eventServicePortType.getCards(getCards);
         List<PINStatus> result = getCardResponse.getCards().getCard().stream().map(this::getPINStatus).collect(Collectors.toList());
         Collection<JsonObject> items = new ArrayList<>();
+        String[] pinTypes = {"PIN.CH", "PIN.QES"};
         for (PINStatus pinStatus : result) {
             if (pinStatus.getType() != "SMC_KT" && pinStatus.getType() != "KVK") {
+                if(pinStatus.getType() == "HBA"){
+                    for(int i = 0; i< 2; i++){
+                        int pos = pinStatus.getStatus().indexOf("/");
+                        String statusCH = pinStatus.getStatus().substring(0,pos);
+                        String statusQES = pinStatus.getStatus().substring(pos+1,pinStatus.getStatus().length());
+                        String[] status = {statusCH, statusQES};
+                        JsonObject value = Json.createObjectBuilder()
+                                .add("cardHandle", pinStatus.getHandle())
+                                .add("cardType", pinStatus.getType())
+                                .add("pinType", pinTypes[i])
+                                .add("status", status[i]).build();
+                        items.add(value);
+                    }
+                }
+                else {
                     JsonObject value = Json.createObjectBuilder()
                             .add("cardHandle", pinStatus.getHandle())
                             .add("cardType", pinStatus.getType())
+                            .add("pinType", pinStatus.getPINType())
                             .add("status", pinStatus.getStatus()).build();
                     items.add(value);
+                }
             }
         }
         return items;
@@ -116,70 +133,64 @@ public class Card {
 
     private PINStatus getPINStatus(CardInfoType cardInfoType) {
 
-        PINStatus pinStatus = new PINStatus();
-        pinStatus.setCardInfoType(cardInfoType);
-
-        pinStatus.setHandle(cardInfoType.getCardHandle());
-        pinStatus.setType(cardInfoType.getCardType().toString());
-
         String pinType = "";
-        String pinType0 = "";
-        String pinType1 = "";
-
+        PINStatus pinStatus = new PINStatus();
         Holder<Status> status = new Holder<>();
         Holder<PinStatusEnum> pinStatusEnum = new Holder<>();
         Holder<BigInteger> leftTries = new Holder<>();
 
-        if (cardInfoType.getCardType().equals(CardTypeType.SMC_B)) {
-            pinType = "PIN.SMC";
-        }
-        else if (cardInfoType.getCardType().equals(CardTypeType.EGK)){
-            pinType = "PIN.CH";
-        }
-        else if(cardInfoType.getCardType().equals(CardTypeType.HBA))
-        {
-            pinType0 = "PIN.CH";
-            pinType1 = "PIN.QES";
-        }
-            if (pinStatus.getType() == "HBA") {
-                    try{
-                        cardServicePortType.getPinStatus(
-                                copyValuesFromProxyIntoContextType(contextType),
-                                cardInfoType.getCardHandle(),
-                                pinType0,
-                                status,
-                                pinStatusEnum,
-                                leftTries);
-                        String statusCH = pinStatusEnum.value.toString();
-                        cardServicePortType.getPinStatus(
-                                copyValuesFromProxyIntoContextType(contextType),
-                                cardInfoType.getCardHandle(),
-                                pinType1,
-                                status,
-                                pinStatusEnum,
-                                leftTries);
-                        String statusQES = pinStatusEnum.value.toString();
-                        pinStatus.setStatus("PIN.CH: " + statusCH + " PIN.QES: " + statusQES);
-                    }
-                    catch(FaultMessage e){
-                        log.log(Level.SEVERE, e.getMessage());
-                    }
-            } else {
-                try{
+        pinStatus.setCardInfoType(cardInfoType);
+        pinStatus.setHandle(cardInfoType.getCardHandle());
+        pinStatus.setType(cardInfoType.getCardType().toString());
+
+        if (pinStatus.getType() == "HBA") {
+                pinStatus.setPINType("PIN.CH");
+                try {
                     cardServicePortType.getPinStatus(
                             copyValuesFromProxyIntoContextType(contextType),
                             cardInfoType.getCardHandle(),
-                            pinType,
+                            pinStatus.getPINType(),
                             status,
                             pinStatusEnum,
-                            leftTries);
-
-                    pinStatus.setStatus(pinStatusEnum.value.toString());
-                }
-                catch(FaultMessage e){
+                            leftTries
+                    );
+                    String statusCH = pinStatusEnum.value.toString();
+                    pinStatus.setPINType("PIN.QES");
+                    cardServicePortType.getPinStatus(
+                            copyValuesFromProxyIntoContextType(contextType),
+                            cardInfoType.getCardHandle(),
+                            pinStatus.getPINType(),
+                            status,
+                            pinStatusEnum,
+                            leftTries
+                    );
+                    String statusQES = pinStatusEnum.value.toString();
+                    pinStatus.setStatus(statusCH + "/" + statusQES);
+                } catch (FaultMessage e) {
                     log.log(Level.SEVERE, e.getMessage());
                 }
+        } else {
+            if(pinStatus.getType() == "SMC_B"){
+                pinType = "PIN.SMC";
+            } else if (pinStatus.getType() == "EGK") {
+                pinType = "PIN.CH";
             }
-            return pinStatus;
+            pinStatus.setPINType(pinType);
+            try {
+                cardServicePortType.getPinStatus(
+                        copyValuesFromProxyIntoContextType(contextType),
+                        cardInfoType.getCardHandle(),
+                        pinStatus.getPINType(),
+                        status,
+                        pinStatusEnum,
+                        leftTries
+                );
+                pinStatus.setStatus(pinStatusEnum.value.toString());
+            } catch (FaultMessage e) {
+                log.log(Level.SEVERE, e.getMessage());
+            }
+        }
+        return pinStatus;
     }
+
 }
