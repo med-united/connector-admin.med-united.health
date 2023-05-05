@@ -92,21 +92,21 @@
                                                 <Text text="{Cards>slotId}" />
                                                 <MenuButton text="Aktion ..." visible="{Cards>option}">
                                                     <Menu>
-                                                        <MenuItem text="Verifiziere PIN.CH"
-                                                                  press="onVerifyPinCh"
-                                                                  visible="{Cards>vPIN.CH}"  />
-                                                        <MenuItem text="Verifiziere PIN.SMC"
-                                                                  press="onVerifyPinSmc"
-                                                                  visible="{Cards>vPIN.SMC}" />
-                                                        <MenuItem text="Ändere PIN.QES"
-                                                                  press="onChangePinQes"
-                                                                  visible="{Cards>cPIN.QES}" />
-                                                        <MenuItem text="Ändere PIN.CH"
+                                                        <MenuItem text="PIN.CH {i18n>change}"
                                                                   press="onChangePinCh"
                                                                   visible="{Cards>cPIN.CH}" />
-                                                        <MenuItem text="Ändere PIN.SMC"
+                                                        <MenuItem text="PIN.CH {i18n>verify}"
+                                                                  press="onVerifyPinCh"
+                                                                  visible="{Cards>vPIN.CH}"  />
+                                                        <MenuItem text="PIN.SMC {i18n>change}"
                                                                   press="onChangePinSmc"
                                                                   visible="{Cards>cPIN.SMC}" />
+                                                        <MenuItem text="PIN.SMC {i18n>verify}"
+                                                                  press="onVerifyPinSmc"
+                                                                  visible="{Cards>vPIN.SMC}" />
+                                                        <MenuItem text="PIN.QES {i18n>change}"
+                                                                  press="onChangePinQes"
+                                                                  visible="{Cards>cPIN.QES}" />
                                                     </Menu>
                                                 </MenuButton>
                                             </ColumnListItem>
