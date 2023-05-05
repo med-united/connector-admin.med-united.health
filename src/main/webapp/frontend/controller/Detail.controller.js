@@ -1,7 +1,8 @@
 sap.ui.define(
-  ["./AbstractDetailController",
-  "sap/ui/model/json/JSONModel",
-  "../utils/formatter"
+  [
+    "./AbstractDetailController",
+    "sap/ui/model/json/JSONModel",
+    "../utils/formatter",
   ],
   function (AbstractDetailController, JSONModel, formatter) {
     "use strict";
@@ -9,7 +10,7 @@ sap.ui.define(
     return AbstractDetailController.extend(
       "ap.f.ShellBarWithFlexibleColumnLayout.controller.Detail",
       {
-      formatter: formatter,
+        formatter: formatter,
         onInit: function () {
           AbstractDetailController.prototype.onInit.apply(this, arguments);
 
@@ -27,13 +28,14 @@ sap.ui.define(
           const oVerifyAllModel = new JSONModel();
           this.getView().setModel(oVerifyAllModel, "VerifyAll");
 
-
           const oPinStatus = new JSONModel();
           this.getView().setModel(oPinStatus, "PINStatus");
 
           const oProductInformationModel = new JSONModel();
-          this.getView().setModel(oProductInformationModel, "ProductInformation")
-
+          this.getView().setModel(
+            oProductInformationModel,
+            "ProductInformation"
+          );
         },
         onVerifyPinCh: function (oEvent) {
           const sPath = "/RuntimeConfigs('" + this._entity + "')";
@@ -98,18 +100,19 @@ sap.ui.define(
         },
         removeSeparatorLines: function (startBox) {
           const nodeList = document.querySelectorAll(".availableCertsClass td");
-          if(nodeList.length > 0) {
+          if (nodeList.length > 0) {
             let contentLength = [];
-            for(let i=0;i<this.certData.length;i++) contentLength.push(this.certData[i].certInfos.length);
+            for (let i = 0; i < this.certData.length; i++)
+              contentLength.push(this.certData[i].certInfos.length);
             let loopCount = 0;
             let aux = 0;
             let ct2 = 0;
-            for(let i=startBox;i<nodeList.length;) {
-                aux = contentLength[ct2];
-                if (loopCount > aux) ct2++;
-                if(loopCount % aux != 0) nodeList[i].style.borderTop = 0;
-                i+=8;
-                loopCount++
+            for (let i = startBox; i < nodeList.length; ) {
+              aux = contentLength[ct2];
+              if (loopCount > aux) ct2++;
+              if (loopCount % aux != 0) nodeList[i].style.borderTop = 0;
+              i += 8;
+              loopCount++;
             }
           }
         },
@@ -204,7 +207,6 @@ sap.ui.define(
             Accept: "application/json",
           };
 
-
           this.getView()
             .getModel("PINStatus")
             .loadData(
@@ -242,16 +244,16 @@ sap.ui.define(
             );
 
           this.getView()
-          .getModel("ProductInformation")
-          .loadData(
-            "connector/productTypeInformation/getVersion",
-            {},
-            "true",
-            "GET",
-            false,
-            true,
-            mHeaders
-          );
+            .getModel("ProductInformation")
+            .loadData(
+              "connector/productTypeInformation/getVersion",
+              {},
+              "true",
+              "GET",
+              false,
+              true,
+              mHeaders
+            );
 
           fetch("connector/certificate/verifyAll", { headers: mHeaders }).then(
             (response) =>
@@ -281,9 +283,10 @@ sap.ui.define(
                   for (let j = 0; j < arrayData.length; j++) {
                     for (let q = 0; q < arrayData[j].certInfos.length; q++) {
                       plainList.push({
-                        cardHolderName: (q == 0) ? arrayData[j].cardHolderName : "",
+                        cardHolderName:
+                          q == 0 ? arrayData[j].cardHolderName : "",
                         certRef: arrayData[j].certInfos[q].certRef,
-                        cardHandle: (q == 0) ? arrayData[j].cardHandle : "",
+                        cardHandle: q == 0 ? arrayData[j].cardHandle : "",
                         serial:
                           arrayData[j].certInfos[q].x509Data.x509IssuerSerial
                             .x509SerialNumber,
