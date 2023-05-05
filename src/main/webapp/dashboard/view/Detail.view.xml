@@ -120,14 +120,14 @@
                                 <uxap:blocks>
                                     <Table autoPopinMode="true" contextualWidth="Auto" items="{VerifyAll>/certificateCollection/certificates}" class="withGrid">
                                         <columns>
+                                            <Column  importance="Low">
+                                                <Text text="Alias" />
+                                            </Column>
                                             <Column importance="Medium">
                                                 <Text text="{i18n>CardOwner}" />
                                             </Column>
                                             <Column importance="High">
                                                 <Text text="CertRef" />
-                                            </Column>
-                                            <Column  importance="Low">
-                                                <Text text="Alias" />
                                             </Column>
                                             <Column  importance="High">
                                                 <Text text="{i18n>SerialNumber}" />
@@ -138,10 +138,10 @@
                                         </columns>
                                         <items>
                                             <ColumnListItem>
+                                                <Text text="{VerifyAll>cardHandle}" />
                                                 <Text text="{VerifyAll>cardHolderName}" />
                                                 <!-- <Text text="{VerifyAll>certRef}" /> -->
                                                 <Link text="{VerifyAll>certRef}" press="handlePopoverPress" ariaHasPopup="Dialog" />
-                                                <Text text="{VerifyAll>cardHandle}" />
                                                 <Text text="{VerifyAll>serial}" />
                                                 <Text text="{VerifyAll>verify}" />
                                             </ColumnListItem>
@@ -188,24 +188,24 @@
                                     <Table autoPopinMode="true" contextualWidth="Auto" items="{CardTerminals>/cardTerminals/cardTerminal}" class="withGrid">
                                         <columns>
                                             <Column importance="High">
-                                                <Text text="{i18n>Connection}"/>
+                                                <Text text="IP"/>
                                             </Column>
                                             <Column importance="Low">
                                                 <Text text="Name"/>
                                             </Column>
-                                            <Column importance="High">
-                                                <Text text="IP"/>
-                                            </Column>
                                             <Column importance="Medium">
                                                 <Text text="Produkt"/>
+                                            </Column>
+                                            <Column importance="High">
+                                                <Text text="{i18n>Connection}"/>
                                             </Column>
                                         </columns>
                                         <items>
                                             <ColumnListItem>
-                                                <Text text="{CardTerminals>connected}" />
-                                                <Text text="{CardTerminals>name}" />
                                                 <Text text="{CardTerminals>IPAddress/IPV4Address}" />
+                                                <Text text="{CardTerminals>name}" />
                                                 <Text text="{CardTerminals>productInformation/productIdentification/productCode} {CardTerminals>productInformation/productIdentification/productVendorID} {CardTerminals>productInformation/productIdentification/productVersion/local/FWVersion}" />
+                                                <Text text="{CardTerminals>connected}" />
                                             </ColumnListItem>
                                         </items>
                                     </Table>
