@@ -142,7 +142,7 @@
                                             </Column>
                                         </columns>
                                         <items>
-                                            <ColumnListItem class="cHolderNameClass">
+                                            <ColumnListItem class="availableCertsClass">
                                                 <Text text="{VerifyAll>cardHolderName}"/>
                                                 <Text text="{VerifyAll>certRef}" />
                                                 <Text text="{VerifyAll>cardHandle}" />

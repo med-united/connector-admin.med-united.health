@@ -96,8 +96,8 @@ sap.ui.define(
             { headers: mHeaders }
           );
         },
-        removeBoxBorders: function () {
-          const nodeList = document.querySelectorAll(".cHolderNameClass td");
+        removeCardHolderBoxBorders: function () {
+          const nodeList = document.querySelectorAll(".availableCertsClass td");
           if(nodeList.length > 0) {
             let contentLength = [];
             for(let i=0;i<this.certData.length;i++) contentLength.push(this.certData[i].certInfos.length);
@@ -105,6 +105,23 @@ sap.ui.define(
             let aux = 0;
             let ct2 = 0;
             for(let i=1;i<nodeList.length;) {
+                aux = contentLength[ct2];
+                if (loopCount > aux) ct2++;
+                if(loopCount % aux != 0) nodeList[i].style.borderTop = 0;
+                i+=8;
+                loopCount++
+            }
+          }
+        },
+        removeAliasBoxBorders: function () {
+          const nodeList = document.querySelectorAll(".availableCertsClass td");
+          if(nodeList.length > 0) {
+            let contentLength = [];
+            for(let i=0;i<this.certData.length;i++) contentLength.push(this.certData[i].certInfos.length);
+            let loopCount = 0;
+            let aux = 0;
+            let ct2 = 0;
+            for(let i=3;i<nodeList.length;) {
                 aux = contentLength[ct2];
                 if (loopCount > aux) ct2++;
                 if(loopCount % aux != 0) nodeList[i].style.borderTop = 0;
@@ -278,13 +295,12 @@ sap.ui.define(
                   this.certData = arrayData;
 
                   let plainList = [];
-                  this.holaVar = "hola";
                   for (let j = 0; j < arrayData.length; j++) {
                     for (let q = 0; q < arrayData[j].certInfos.length; q++) {
                       plainList.push({
                         cardHolderName: (q == 0) ? arrayData[j].cardHolderName : "",
                         certRef: arrayData[j].certInfos[q].certRef,
-                        cardHandle: arrayData[j].cardHandle,
+                        cardHandle: (q == 0) ? arrayData[j].cardHandle : "",
                         serial:
                           arrayData[j].certInfos[q].x509Data.x509IssuerSerial
                             .x509SerialNumber,
@@ -311,7 +327,11 @@ sap.ui.define(
                   fetch("connector/metrics/application", {
                     headers: { Accept: "application/json" },
                   })
-                    .then((r) => r.json())
+                    .then((r) => {
+                                 r.json();
+                                 this.removeCardHolderBoxBorders();
+                                 this.removeAliasBoxBorders();
+                    })
                     .then((o) => {
                       this.getView()
                         .getModel("Metrics")
@@ -327,9 +347,7 @@ sap.ui.define(
                         });
                     });
                 })
-          ).then((x) => {
-             this.removeBoxBorders();
-           });
+          );
         },
         getEntityName: function () {
           return "RuntimeConfig";
