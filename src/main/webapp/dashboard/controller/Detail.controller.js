@@ -1,5 +1,6 @@
 sap.ui.define(
-  ["./AbstractDetailController",
+  [
+  "./AbstractDetailController",
   "sap/ui/model/json/JSONModel",
   "sap/m/MessageToast",
   "sap/ui/core/Fragment",
@@ -55,6 +56,9 @@ sap.ui.define(
 
           const oCertSubjectModel = new JSONModel();
           this.getView().setModel(oCertSubjectModel, "CertSubject");
+
+
+
         },
         onVerifyPinCh: function (oEvent) {
           const sPath = "/RuntimeConfigs('" + this._entity + "')";
@@ -276,7 +280,6 @@ sap.ui.define(
           }
         },
         reloadModels: function (oRuntimeConfig) {
-
           this.handleFullScreen();
 
           const mHeaders = {
@@ -292,7 +295,6 @@ sap.ui.define(
             "x-host": oRuntimeConfig.Url,
             Accept: "application/json",
           };
-
 
           this.getView()
             .getModel("PINStatus")
@@ -498,7 +500,7 @@ sap.ui.define(
           fetch("connector/sds/file", {
             headers: oHeaders
           }).then((response) => response.blob())
-          .then((xBlob) =>
+          .then((xBlob) => 
             File.save(xBlob, "Connector", "sds", "application/octet-stream", null, false)
           );
         },
