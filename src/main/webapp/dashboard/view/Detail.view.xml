@@ -36,12 +36,12 @@
                     <uxap:ObjectPageSection id="connectorVersion" title="{i18n>AboutThisConnector}">
                         <uxap:subSections>
                             <uxap:ObjectPageSubSection>
-                                <uxap:blocks>
-                                    <Text text="{i18n>ConnectorType}: {ProductID>/fullConnectorName}" />
-                                </uxap:blocks>
-                                <uxap:blocks>
-                                    <Text text="{i18n>Version} {ProductInformation>/productTypeVersion}" />
-                                </uxap:blocks>
+                                    <uxap:blocks>
+                                        <VBox>
+                                            <Text text="{ProductID>/fullConnectorName} {i18n>Connector}" />
+                                            <Text text="{i18n>Version} {ProductInformation>/productTypeVersion}" />
+                                        </VBox>
+                                    </uxap:blocks>
                                 <uxap:blocks>
                                     <Button id="buttonDownloadSDS" text="{i18n>DownloadSDS}" press="onDownloadSDS"/>
                                 </uxap:blocks>
