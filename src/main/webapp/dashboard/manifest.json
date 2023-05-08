@@ -2,7 +2,7 @@
 	"_version": "1.1.0",
 	"sap.app": {
 		"_version": "1.1.0",
-		"id": "frontend",
+		"id": "dashboard",
 		"type": "application",
 		"title": "{{appTitle}}",
 		"description": "{{appDescription}}",
@@ -45,6 +45,7 @@
 				"sap.m": {},
 				"sap.f": {},
 				"sap.ui.layout": {},
+				"sap.ui.integration": {},
 				"sap.uxap": {}
 			}
 		},
@@ -76,7 +77,15 @@
 			},
 			"routes": [
 				{
-					"pattern": ":layout:",
+					"pattern": "",
+					"name": "dashboard",
+					"target": [
+						"master",
+						"dashboard"
+					]
+				},
+				{
+					"pattern": "management",
 					"name": "master",
 					"target": [
 						"master"
@@ -102,6 +111,11 @@
 			"targets": {
 				"master": {
 					"viewName": "Master",
+					"controlAggregation": "beginColumnPages",
+					"clearControlAggregation": true
+				},
+				"dashboard": {
+					"viewName": "Dashboard",
 					"controlAggregation": "beginColumnPages",
 					"clearControlAggregation": true
 				},
