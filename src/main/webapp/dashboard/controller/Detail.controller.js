@@ -304,17 +304,18 @@ sap.ui.define(
                   this.certData = arrayData;
 
                   let plainList = [];
-                  for (const element of arrayData) {
-                    for (let q = 0; q < element.certInfos.length; q++) {
+                  for (let j = 0; j < arrayData.length; j++) {
+                    for (let q = 0; q < arrayData[j].certInfos.length; q++) {
                       plainList.push({
-                        cardHolderName: element.cardHolderName,
-                        certRef: element.certInfos[q].certRef,
-                        cardHandle: element.cardHandle,
+                        cardHolderName: (q == 0) ? arrayData[j].cardHolderName : "",
+                        certRef: arrayData[j].certInfos[q].certRef,
+                        cardHandle: arrayData[j].cardHandle,
+                        cardHandle: (q == 0) ? arrayData[j].cardHandle : "",
                         serial:
-                          element.certInfos[q].x509Data.x509IssuerSerial
+                          arrayData[j].certInfos[q].x509Data.x509IssuerSerial
                             .x509SerialNumber,
                         verify:
-                          element.verifyResponses[q].verificationStatus
+                          arrayData[j].verifyResponses[q].verificationStatus
                             .verificationResult,
                       });
                     }
@@ -339,7 +340,7 @@ sap.ui.define(
                     .then((r) => {
                       r.json();
                       this.removeSeparatorLines(1);
-                      this.removeSeparatorLines(3);
+                      this.removeSeparatorLines(2);
                     })
                     .then((o) => {
                       this.getView()
