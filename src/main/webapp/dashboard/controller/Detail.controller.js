@@ -337,11 +337,7 @@ sap.ui.define(
                   fetch("connector/metrics/application", {
                     headers: { Accept: "application/json" },
                   })
-                    .then((r) => {
-                      r.json();
-                      this.removeSeparatorLines(1);
-                      this.removeSeparatorLines(2);
-                    })
+                    .then((r) =>  r.json())
                     .then((o) => {
                       this.getView()
                         .getModel("Metrics")
@@ -355,6 +351,9 @@ sap.ui.define(
                           currentlyConnectedCards:
                             o["currentlyConnectedCards_" + ip],
                         });
+                    }).then((q) => {
+                                        this.removeSeparatorLines(1);
+                                        this.removeSeparatorLines(2);
                     });
                 })
           );
