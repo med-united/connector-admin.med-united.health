@@ -27,6 +27,8 @@ sap.ui.define(
 
           const oCardsModel = new JSONModel();
 
+          let currentConnector = "";
+
           oCardsModel.attachRequestSent(() => {
             this.byId("cardTable").setBusy(true);
           });
@@ -169,6 +171,12 @@ sap.ui.define(
         },
 
         pwdOnRestart: function (oEvent) {
+          let connectorTypeRestartEndpoint = {
+              "secunet":"connector/management/secunet/restart?connectorUrl=",
+              "rise":"connector/management/rise/restart?connectorUrl=",
+              "kocobox":"connector/management/kocobox/restart?connectorUrl=",
+              "kops":"connector/management/kops/restart?connectorUrl="
+          };
           const sPath = "/RuntimeConfigs('" + this._entity + "')";
           const oRuntimeConfig = this.getView().getModel().getProperty(sPath);
           const restartHeaders = {
@@ -183,16 +191,38 @@ sap.ui.define(
             username: username,
             password: password,
           };
-          fetch(
-            "connector/management/secunet/restart?connectorUrl=" +
-              oRuntimeConfig.Url +
-              "&managementPort=8500",
-            {
-              headers: restartHeaders,
-              method: "POST",
-              body: JSON.stringify(requestBody),
-            }
-          );
+
+          let currentEndpoint = "";
+
+          switch(this.currentConnector) {
+            case "Secunet":
+                connectorTypeRestartEndpoint.secunet
+            break;
+            case "RISE":
+                connectorTypeRestartEndpoint.rise
+            break;
+            case "KoPS":
+                connectorTypeRestartEndpoint.kops
+            break;
+            case "KocoBox":
+                connectorTypeRestartEndpoint.kocobox
+            break;
+            default:
+              connectorTypeRestartEndpoint.kops
+          }
+
+          if(this.currentConnector == "Secunet") {
+              fetch(
+                  currentEndpoint +
+                  oRuntimeConfig.Url +
+                  "&managementPort=8500",
+                {
+                  headers: restartHeaders,
+                  method: "POST",
+                  body: JSON.stringify(requestBody),
+                }
+              );
+          }
           oEvent.getSource().getParent().close();
           MessageToast.show(this.translate("restarting"));
           oEvent.getSource().getParent().destroy();
@@ -341,9 +371,10 @@ sap.ui.define(
              fetch("/connector/productTypeInformation/getProductIdentification", { headers: mHeaders }).then((re) => re.json()).then((da) => {
                   da.fullConnectorName = da.productCode;
                   if (da.productCode == "VCon") da.fullConnectorName = "KoPS";
-                  if (da.productCode == "RKONN") da.fullConnectorName = "RISE";
+                  if (da.productCode == "kocobox") da.fullConnectorName = "KocoBox";
                   if (da.productCode == "secu_kon") da.fullConnectorName = "Secunet";
                   if (da.productCode == "RKONN") da.fullConnectorName = "RISE";
+                  this.currentConnector = da.fullConnectorName;
                   this.getView().getModel("ProductID").setData(da);
              });
         },
