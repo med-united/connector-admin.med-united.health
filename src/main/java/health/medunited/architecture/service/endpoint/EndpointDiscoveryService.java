@@ -127,7 +127,7 @@ public class EndpointDiscoveryService {
         return certificateServiceEndpointAddress;
     }
 
-    public ProductTypeInformation ProductTypeInformation() {
+    public ProductTypeInformation getProductTypeInformation() {
         return productTypeInformation;
     }
 
