@@ -171,6 +171,9 @@
                                                 <Text text="{i18n>CardType}" />
                                             </Column>
                                             <Column>
+                                                <Text text="{i18n>PinType}" />
+                                            </Column>
+                                            <Column>
                                                 <Text text="PIN-Status" />
                                             </Column>
                                         </columns>
@@ -178,6 +181,7 @@
                                             <ColumnListItem>
                                                 <Text text="{PINStatus>cardHandle}" />
                                                 <Text text="{PINStatus>cardType}" />
+                                                <Text text="{PINStatus>pinType}"/>
                                                 <Text text="{PINStatus>status}" />
                                             </ColumnListItem>
                                         </items>

@@ -12,6 +12,8 @@ public class PINStatus {
 
     String type;
 
+    String pinType;
+
     public void setCardInfoType(CardInfoType cardInfoType) {
         this.cardInfoType = cardInfoType;
     }
@@ -29,4 +31,8 @@ public class PINStatus {
     public void setType(String type) { this.type = type;}
 
     public String getType(){return this.type;}
+
+    public void setPINType(String pinType) { this.pinType = pinType;}
+
+    public String getPINType(){return this.pinType;}
 }
