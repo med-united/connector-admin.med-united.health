@@ -103,12 +103,12 @@ public class Card {
         Collection<JsonObject> items = new ArrayList<>();
         String[] pinTypes = {"PIN.CH", "PIN.QES"};
         for (PINStatus pinStatus : result) {
-            if (pinStatus.getType() != "SMC_KT" && pinStatus.getType() != "KVK") {
-                if(pinStatus.getType() == "HBA"){
+            if (!pinStatus.getType().equals("SMC_KT") && !pinStatus.getType().equals("KVK")) {
+                if(pinStatus.getType().equals("HBA")){
                     for(int i = 0; i< 2; i++){
                         int pos = pinStatus.getStatus().indexOf("/");
                         String statusCH = pinStatus.getStatus().substring(0,pos);
-                        String statusQES = pinStatus.getStatus().substring(pos+1,pinStatus.getStatus().length());
+                        String statusQES = pinStatus.getStatus().substring(pos+1);
                         String[] status = {statusCH, statusQES};
                         JsonObject value = Json.createObjectBuilder()
                                 .add("cardHandle", pinStatus.getHandle())
@@ -143,7 +143,7 @@ public class Card {
         pinStatus.setHandle(cardInfoType.getCardHandle());
         pinStatus.setType(cardInfoType.getCardType().toString());
 
-        if (pinStatus.getType() == "HBA") {
+        if (pinStatus.getType().equals("HBA")) {
                 pinStatus.setPINType("PIN.CH");
                 try {
                     cardServicePortType.getPinStatus(
@@ -170,9 +170,9 @@ public class Card {
                     log.log(Level.SEVERE, e.getMessage());
                 }
         } else {
-            if(pinStatus.getType() == "SMC_B"){
+            if(pinStatus.getType().equals("SMC_B")){
                 pinType = "PIN.SMC";
-            } else if (pinStatus.getType() == "EGK") {
+            } else if (pinStatus.getType().equals("EGK")) {
                 pinType = "PIN.CH";
             }
             pinStatus.setPINType(pinType);
