@@ -16,6 +16,7 @@ import javax.ws.rs.client.Invocation;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 
+import de.gematik.ws._int.version.productinformation.v1.ProductIdentification;
 import de.gematik.ws._int.version.productinformation.v1.ProductTypeInformation;
 import de.gematik.ws.conn.servicedirectory.v3.ConnectorServices;
 import de.gematik.ws.conn.serviceinformation.v2.ServiceType;
@@ -38,6 +39,8 @@ public class EndpointDiscoveryService {
     private ConnectorServices connectorSds;
 
     private ProductTypeInformation connectorVersion;
+
+    private ProductIdentification productIdentification;
 
     public void setSecretsManagerService(SecretsManagerService secretsManagerService) {
         this.secretsManagerService = secretsManagerService;
@@ -68,6 +71,8 @@ public class EndpointDiscoveryService {
             connectorSds = (ConnectorServices) jaxbContext.createUnmarshaller().unmarshal(inputStream);
 
             connectorVersion = connectorSds.getProductInformation().getProductTypeInformation();
+
+            productIdentification = connectorSds.getProductInformation().getProductIdentification();
 
             List<ServiceType> services = connectorSds.getServiceInformation().getService();
 
@@ -130,6 +135,10 @@ public class EndpointDiscoveryService {
 
     public ProductTypeInformation getConnectorVersion() {
         return connectorVersion;
+    }
+
+    public ProductIdentification getProductIdentification() {
+        return productIdentification;
     }
 
     public ConnectorServices getConnectorSds() {

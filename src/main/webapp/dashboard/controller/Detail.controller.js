@@ -42,6 +42,9 @@ sap.ui.define(
           const oCardTerminalsModel = new JSONModel();
           this.getView().setModel(oCardTerminalsModel, "CardTerminals");
 
+          const oProductIDModel = new JSONModel();
+          this.getView().setModel(oProductIDModel, "ProductID");
+
           const oMetricsModel = new JSONModel();
           this.getView().setModel(oMetricsModel, "Metrics");
 
@@ -191,7 +194,7 @@ sap.ui.define(
             }
           );
           oEvent.getSource().getParent().close();
-          MessageToast.show("Der Konnektor wird jetzt neu gestartet");
+          MessageToast.show(this.translate("restarting"));
           oEvent.getSource().getParent().destroy();
         },
 
@@ -334,6 +337,15 @@ sap.ui.define(
               }
               this.getView().getModel("Cards").setData(da);
             });
+
+             fetch("/connector/productTypeInformation/getProductIdentification", { headers: mHeaders }).then((re) => re.json()).then((da) => {
+                  da.fullConnectorName = da.productCode;
+                  if (da.productCode == "VCon") da.fullConnectorName = "KoPS";
+                  if (da.productCode == "RKONN") da.fullConnectorName = "RISE";
+                  if (da.productCode == "secu_kon") da.fullConnectorName = "Secunet";
+                  if (da.productCode == "RKONN") da.fullConnectorName = "RISE";
+                  this.getView().getModel("ProductID").setData(da);
+             });
         },
 
         getEntityName: function () {

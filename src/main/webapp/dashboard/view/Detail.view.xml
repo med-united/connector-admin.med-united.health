@@ -37,6 +37,9 @@
                         <uxap:subSections>
                             <uxap:ObjectPageSubSection>
                                 <uxap:blocks>
+                                    <Text text="{i18n>ConnectorType}: {ProductID>/fullConnectorName}" />
+                                </uxap:blocks>
+                                <uxap:blocks>
                                     <Text text="{i18n>Version} {ProductInformation>/productTypeVersion}" />
                                 </uxap:blocks>
                                 <uxap:blocks>
