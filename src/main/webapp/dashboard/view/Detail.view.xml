@@ -137,10 +137,10 @@
                                         items="{VerifyAll>/certificateCollection/certificates}"
                                         class="withGrid">
                                         <columns>
-                                            <Column importance="Low">
+                                            <Column importance="Low" mergeDuplicates="true">
                                                 <Text text="Alias" />
                                             </Column>
-                                            <Column importance="Medium">
+                                            <Column importance="Medium" mergeDuplicates="true" mergeFunctionName="data#mergeKey">
                                                 <Text text="{i18n>CardOwner}" />
                                             </Column>
                                             <Column importance="High">
@@ -156,7 +156,11 @@
                                         <items>
                                             <ColumnListItem class="availableCertsClass">
                                                 <Text text="{VerifyAll>cardHandle}" />
-                                                <Text text="{VerifyAll>cardHolderName}" />
+                                                <Text text="{VerifyAll>cardHolderName}">
+                                                    <customData>
+                                                        <core:CustomData key="mergeKey" value="{VerifyAll>cardHandle}" />
+                                                    </customData>
+                                                </Text>
                                                 <Link text="{VerifyAll>certRef}"
                                                     press="handlePopoverPress" ariaHasPopup="Dialog" />
                                                 <Text text="{VerifyAll>serial}" />
