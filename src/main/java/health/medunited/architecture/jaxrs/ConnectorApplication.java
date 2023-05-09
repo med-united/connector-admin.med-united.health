@@ -21,6 +21,7 @@ public class ConnectorApplication extends Application {
 		set.add(Version.class);
 		set.add(ConnectorSds.class);
 		set.add(ConnectorManagement.class);
+		set.add(Product.class);
 		return set;
 	}
 }
