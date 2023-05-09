@@ -36,4 +36,11 @@ public class ConnectorSds {
     public byte[] connectorSdsFile(@HeaderParam("X-Host") String connectorBaseUrl) {
         return endpointDiscoveryService.obtainFile(connectorBaseUrl);
     }
+
+    @GET
+    @Path("connectorSpecifications")
+    public Response getProductTypeInformation(@HeaderParam("X-Host") String connectorUrl) {
+        endpointDiscoveryService.obtainConfiguration(connectorUrl);
+        return Response.ok(endpointDiscoveryService.getConnectorProductInformation()).build();
+    }
 }

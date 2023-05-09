@@ -16,9 +16,11 @@ import javax.ws.rs.client.Invocation;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 
+import de.gematik.ws._int.version.productinformation.v1.ProductIdentification;
 import de.gematik.ws._int.version.productinformation.v1.ProductTypeInformation;
 import de.gematik.ws.conn.servicedirectory.v3.ConnectorServices;
 import de.gematik.ws.conn.serviceinformation.v2.ServiceType;
+import health.medunited.architecture.jaxrs.resource.ConnectorProductInformation;
 import health.medunited.architecture.service.common.security.SecretsManagerService;
 
 @RequestScoped
@@ -39,6 +41,10 @@ public class EndpointDiscoveryService {
 
     private ProductTypeInformation productTypeInformation;
 
+    private ProductIdentification productIdentification;
+
+    private ConnectorProductInformation connectorProductInformation;
+
     public void setSecretsManagerService(SecretsManagerService secretsManagerService) {
         this.secretsManagerService = secretsManagerService;
     }
@@ -48,8 +54,8 @@ public class EndpointDiscoveryService {
         Invocation invocation = buildInvocation(client, connectorBaseUrl);
         try {
             return invocation
-                .invoke(InputStream.class)
-                .readAllBytes();
+                    .invoke(InputStream.class)
+                    .readAllBytes();
         } catch (IOException e) {
             log.log(Level.SEVERE, "Could not read connector.sds", e);
             return new byte[0];
@@ -76,6 +82,23 @@ public class EndpointDiscoveryService {
         connectorSds = (ConnectorServices) jaxbContext.createUnmarshaller().unmarshal(inputStream);
 
         productTypeInformation = connectorSds.getProductInformation().getProductTypeInformation();
+
+        productIdentification = connectorSds.getProductInformation().getProductIdentification();
+
+        connectorProductInformation = new ConnectorProductInformation();
+
+        connectorProductInformation.setConnectorVendor(productIdentification.getProductVendorID());
+        connectorProductInformation.setConnectorModel(productIdentification.getProductCode());
+        connectorProductInformation.setConnectorVersion(productTypeInformation.getProductTypeVersion());
+
+        if (connectorProductInformation.connectorModel.equals("VCon"))
+            connectorProductInformation.setConnectorDescription("KoPS");
+        if (connectorProductInformation.connectorModel.equals("RKONN"))
+            connectorProductInformation.setConnectorDescription("RISE");
+        if (connectorProductInformation.connectorModel.equals("secu_kon"))
+            connectorProductInformation.setConnectorDescription("Secunet");
+        if (connectorProductInformation.connectorModel.equals("kocobox"))
+            connectorProductInformation.setConnectorDescription("KocoBox");
 
         List<ServiceType> services = connectorSds.getServiceInformation().getService();
 
@@ -131,8 +154,15 @@ public class EndpointDiscoveryService {
         return productTypeInformation;
     }
 
+    public ProductIdentification getProductIdentification() {
+        return productIdentification;
+    }
+
+    public ConnectorProductInformation getConnectorProductInformation() {
+        return connectorProductInformation;
+    }
+
     public ConnectorServices getConnectorSds() {
         return connectorSds;
     }
-
 }
