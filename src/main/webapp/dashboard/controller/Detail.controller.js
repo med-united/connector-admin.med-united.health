@@ -383,7 +383,7 @@ sap.ui.define(
               this.getView().getModel("Cards").setData(da);
             });
 
-            fetch("/connector/productSpecifications/getConnectorSpecifications", { headers: mHeaders }).then((re) => re.json()).then((remoteProductData) => {
+            fetch("connector/sds/connectorSpecifications", { headers: mHeaders }).then((re) => re.json()).then((remoteProductData) => {
               this.getView().getModel("ProductID").setData(remoteProductData);
             });
         },
