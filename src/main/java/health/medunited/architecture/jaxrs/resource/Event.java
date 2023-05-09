@@ -1,7 +1,5 @@
 package health.medunited.architecture.jaxrs.resource;
 
-import static health.medunited.architecture.provider.ContextTypeProducer.copyValuesFromProxyIntoContextType;
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -18,6 +16,8 @@ import de.gematik.ws.conn.eventservice.v7.GetCardTerminalsResponse;
 import de.gematik.ws.conn.eventservice.v7.GetCards;
 import de.gematik.ws.conn.eventservice.v7.GetCardsResponse;
 import de.gematik.ws.conn.eventservice.wsdl.v7.EventServicePortType;
+
+import static health.medunited.architecture.provider.ContextTypeProducer.copyValuesFromProxyIntoContextType;
 
 @RequestScoped
 @Path("event")
