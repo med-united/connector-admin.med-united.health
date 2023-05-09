@@ -89,10 +89,10 @@ sap.ui.define(
            }
            else{
             if(aSelectedItems.length == 0){
-                MessageBox.error("Bitte wählen Sie einen Konnektor aus!");
+                MessageBox.error("Bitte wählen Sie einen Konnektor aus.");
             }
             else if(aSelectedItems.length > 1){
-                MessageBox.error("Bitte wählen Sie nur einen Konnektor aus!");
+                MessageBox.error("Bitte wählen Sie nur einen Konnektor aus.");
             }
            }
         },
