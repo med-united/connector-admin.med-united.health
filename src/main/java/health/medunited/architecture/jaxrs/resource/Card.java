@@ -103,7 +103,7 @@ public class Card {
         Collection<JsonObject> items = new ArrayList<>();
         String[] pinTypes = {"PIN.CH", "PIN.QES"};
         for (PINStatus pinStatus : result) {
-            if (!pinStatus.getType().equals("SMC_KT") && !pinStatus.getType().equals("KVK")) {
+            if ((!pinStatus.getType().equals("SMC_KT")) && (!pinStatus.getType().equals("KVK"))) {
                 if(pinStatus.getType().equals("HBA")){
                     for(int i = 0; i< 2; i++){
                         int pos = pinStatus.getStatus().indexOf("/");

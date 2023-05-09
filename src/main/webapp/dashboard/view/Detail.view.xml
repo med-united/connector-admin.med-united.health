@@ -174,10 +174,10 @@
                                 <uxap:blocks>
                                     <Table items="{PINStatus>/}" class="withGrid">
                                         <columns>
-                                            <Column>
+                                            <Column mergeDuplicates="true">
                                                 <Text text="Alias" />
                                             </Column>
-                                            <Column>
+                                            <Column mergeDuplicates="true" mergeFunctionName="data#mergeKey">
                                                 <Text text="{i18n>CardType}" />
                                             </Column>
                                             <Column>
@@ -190,7 +190,11 @@
                                         <items>
                                             <ColumnListItem>
                                                 <Text text="{PINStatus>cardHandle}" />
-                                                <Text text="{PINStatus>cardType}" />
+                                                <Text text="{PINStatus>cardType}">
+                                                 <customData>
+                                                    <core:CustomData key="mergeKey" value="{PINStatus>cardHandle}" />
+                                                 </customData>
+                                                </Text>
                                                 <Text text="{PINStatus>pinType}"/>
                                                 <Text text="{PINStatus>status}" />
                                             </ColumnListItem>
