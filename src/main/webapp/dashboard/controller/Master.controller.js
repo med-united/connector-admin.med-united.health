@@ -5,7 +5,8 @@ sap.ui.define(
     "sap/ui/model/FilterOperator",
     "sap/ui/model/Sorter",
     "sap/ui/core/Fragment",
-    "sap/m/MessageToast"
+    "sap/m/MessageToast",
+    "sap/m/MessageBox"
   ],
   function (
     AbstractMasterController,
@@ -13,7 +14,8 @@ sap.ui.define(
     FilterOperator,
     Sorter,
     Fragment,
-    MessageToast
+    MessageToast,
+    MessageBox
   ) {
     "use strict";
 
@@ -84,6 +86,14 @@ sap.ui.define(
                      } else {
                        this._openChangeDialog(this.byId("changeDialog"));
                      }
+           }
+           else{
+            if(aSelectedItems.length == 0){
+                MessageBox.error("Bitte wählen Sie einen Konnektor aus!");
+            }
+            else if(aSelectedItems.length > 1){
+                MessageBox.error("Bitte wählen Sie nur einen Konnektor aus!");
+            }
            }
         },
 
