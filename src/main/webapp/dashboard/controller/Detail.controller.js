@@ -1,11 +1,11 @@
 sap.ui.define(
   [
-  "./AbstractDetailController",
-  "sap/ui/model/json/JSONModel",
-  "sap/m/MessageToast",
-  "sap/ui/core/Fragment",
-  "sap/ui/core/util/File",
-  "../utils/formatter"
+    "./AbstractDetailController",
+    "sap/ui/model/json/JSONModel",
+    "sap/m/MessageToast",
+    "sap/ui/core/Fragment",
+    "sap/ui/core/util/File",
+    "../utils/formatter",
   ],
   function (
     AbstractDetailController,
@@ -24,6 +24,8 @@ sap.ui.define(
 
         onInit: function () {
           AbstractDetailController.prototype.onInit.apply(this, arguments);
+
+          let certData = null;
 
           const oCardsModel = new JSONModel();
 
@@ -52,30 +54,17 @@ sap.ui.define(
           this.getView().setModel(oPinStatus, "PINStatus");
 
           const oProductInformationModel = new JSONModel();
-          this.getView().setModel(oProductInformationModel, "ProductInformation");
+          this.getView().setModel(
+            oProductInformationModel,
+            "ProductInformation"
+          );
 
           const oCertSubjectModel = new JSONModel();
           this.getView().setModel(oCertSubjectModel, "CertSubject");
-
-
-
         },
+
         onVerifyPinCh: function (oEvent) {
-          const sPath = "/RuntimeConfigs('" + this._entity + "')";
-          const oRuntimeConfig = this.getView().getModel().getProperty(sPath);
-          const mHeaders = {
-            "x-client-system-id": oRuntimeConfig.ClientSystemId,
-            "x-client-certificate": oRuntimeConfig.ClientCertificate,
-            "x-client-certificate-password":
-              oRuntimeConfig.ClientCertificatePassword,
-            "x-sign-port": oRuntimeConfig.SignPort,
-            "x-vzd-port": oRuntimeConfig.VzdPort,
-            "x-mandant-id": oRuntimeConfig.MandantId,
-            "x-workplace-id": oRuntimeConfig.WorkplaceId,
-            "x-user-id": oRuntimeConfig.UserId,
-            "x-host": oRuntimeConfig.Url,
-            Accept: "application/json",
-          };
+          const mHeaders = this._getHttpHeadersFromRuntimeConfig();
 
           let pinType = "PIN.CH";
           let cardHandle = oEvent
@@ -90,23 +79,9 @@ sap.ui.define(
             { headers: mHeaders }
           );
         },
+
         onVerifyPinSmc: function (oEvent) {
-          const sPath = "/RuntimeConfigs('" + this._entity + "')";
-          debugger;
-          const oRuntimeConfig = this.getView().getModel().getProperty(sPath);
-          const mHeaders = {
-            "x-client-system-id": oRuntimeConfig.ClientSystemId,
-            "x-client-certificate": oRuntimeConfig.ClientCertificate,
-            "x-client-certificate-password":
-              oRuntimeConfig.ClientCertificatePassword,
-            "x-sign-port": oRuntimeConfig.SignPort,
-            "x-vzd-port": oRuntimeConfig.VzdPort,
-            "x-mandant-id": oRuntimeConfig.MandantId,
-            "x-workplace-id": oRuntimeConfig.WorkplaceId,
-            "x-user-id": oRuntimeConfig.UserId,
-            "x-host": oRuntimeConfig.Url,
-            Accept: "application/json",
-          };
+          const mHeaders = this._getHttpHeadersFromRuntimeConfig();
 
           let pinType = "PIN.SMC";
           let cardHandle = oEvent
@@ -121,22 +96,28 @@ sap.ui.define(
             { headers: mHeaders }
           );
         },
+
+        removeSeparatorLines: function (startBox) {
+          const nodeList = document.querySelectorAll(".availableCertsClass td");
+          if (nodeList.length > 0) {
+            let contentLength = [];
+            for (let i = 0; i < this.certData.length; i++)
+              contentLength.push(this.certData[i].certInfos.length);
+            let loopCount = 0;
+            let aux = 0;
+            let ct2 = 0;
+            for (let i = startBox; i < nodeList.length; ) {
+              aux = contentLength[ct2];
+              if (loopCount > aux) ct2++;
+              if (loopCount % aux != 0) nodeList[i].style.borderTop = 0;
+              i += 8;
+              loopCount++;
+            }
+          }
+        },
+
         onChangePinQes: function (oEvent) {
-          const sPath = "/RuntimeConfigs('" + this._entity + "')";
-          const oRuntimeConfig = this.getView().getModel().getProperty(sPath);
-          const mHeaders = {
-            "x-client-system-id": oRuntimeConfig.ClientSystemId,
-            "x-client-certificate": oRuntimeConfig.ClientCertificate,
-            "x-client-certificate-password":
-              oRuntimeConfig.ClientCertificatePassword,
-            "x-sign-port": oRuntimeConfig.SignPort,
-            "x-vzd-port": oRuntimeConfig.VzdPort,
-            "x-mandant-id": oRuntimeConfig.MandantId,
-            "x-workplace-id": oRuntimeConfig.WorkplaceId,
-            "x-user-id": oRuntimeConfig.UserId,
-            "x-host": oRuntimeConfig.Url,
-            Accept: "application/json",
-          };
+          const mHeaders = this._getHttpHeadersFromRuntimeConfig();
 
           let pinType = "PIN.QES";
           let cardHandle = oEvent
@@ -151,22 +132,9 @@ sap.ui.define(
             { headers: mHeaders }
           );
         },
+
         onChangePinCh: function (oEvent) {
-          const sPath = "/RuntimeConfigs('" + this._entity + "')";
-          const oRuntimeConfig = this.getView().getModel().getProperty(sPath);
-          const mHeaders = {
-            "x-client-system-id": oRuntimeConfig.ClientSystemId,
-            "x-client-certificate": oRuntimeConfig.ClientCertificate,
-            "x-client-certificate-password":
-              oRuntimeConfig.ClientCertificatePassword,
-            "x-sign-port": oRuntimeConfig.SignPort,
-            "x-vzd-port": oRuntimeConfig.VzdPort,
-            "x-mandant-id": oRuntimeConfig.MandantId,
-            "x-workplace-id": oRuntimeConfig.WorkplaceId,
-            "x-user-id": oRuntimeConfig.UserId,
-            "x-host": oRuntimeConfig.Url,
-            Accept: "application/json",
-          };
+          const mHeaders = this._getHttpHeadersFromRuntimeConfig();
 
           let pinType = "PIN.CH";
           let cardHandle = oEvent
@@ -181,36 +149,24 @@ sap.ui.define(
             { headers: mHeaders }
           );
         },
-        onChangePinSmc: function (oEvent) {
-                  const sPath = "/RuntimeConfigs('" + this._entity + "')";
-                  const oRuntimeConfig = this.getView().getModel().getProperty(sPath);
-                  const mHeaders = {
-                    "x-client-system-id": oRuntimeConfig.ClientSystemId,
-                    "x-client-certificate": oRuntimeConfig.ClientCertificate,
-                    "x-client-certificate-password":
-                      oRuntimeConfig.ClientCertificatePassword,
-                    "x-sign-port": oRuntimeConfig.SignPort,
-                    "x-vzd-port": oRuntimeConfig.VzdPort,
-                    "x-mandant-id": oRuntimeConfig.MandantId,
-                    "x-workplace-id": oRuntimeConfig.WorkplaceId,
-                    "x-user-id": oRuntimeConfig.UserId,
-                    "x-host": oRuntimeConfig.Url,
-                    Accept: "application/json",
-                  };
 
-                  let pinType = "PIN.SMC";
-                  let cardHandle = oEvent
-                    .getSource()
-                    .getBindingContext("Cards")
-                    .getProperty("cardHandle");
-                  fetch(
-                    "connector/card/changePin?cardHandle=" +
-                      cardHandle +
-                      "&pinType=" +
-                      pinType,
-                    { headers: mHeaders }
-                  );
-                 },
+        onChangePinSmc: function (oEvent) {
+          const mHeaders = this._getHttpHeadersFromRuntimeConfig();
+
+          let pinType = "PIN.SMC";
+          let cardHandle = oEvent
+            .getSource()
+            .getBindingContext("Cards")
+            .getProperty("cardHandle");
+          fetch(
+            "connector/card/changePin?cardHandle=" +
+              cardHandle +
+              "&pinType=" +
+              pinType,
+            { headers: mHeaders }
+          );
+        },
+
         _onMatched: function (oEvent) {
           AbstractDetailController.prototype._onMatched.apply(this, arguments);
           const sPath = "/RuntimeConfigs('" + this._entity + "')";
@@ -232,6 +188,7 @@ sap.ui.define(
           oEvent.getSource().getParent().close();
           oEvent.getSource().getParent().destroy();
         },
+
         pwdOnRestart: function (oEvent) {
           const sPath = "/RuntimeConfigs('" + this._entity + "')";
           const oRuntimeConfig = this.getView().getModel().getProperty(sPath);
@@ -261,6 +218,7 @@ sap.ui.define(
           MessageToast.show("Der Konnektor wird jetzt neu gestartet");
           oEvent.getSource().getParent().destroy();
         },
+
         restartConnector: function () {
           let oView = this.getView();
           const me = this;
@@ -279,22 +237,11 @@ sap.ui.define(
             this._openCreateDialog(this.byId("restartPasswordDialog"));
           }
         },
+
         reloadModels: function (oRuntimeConfig) {
           this.handleFullScreen();
 
-          const mHeaders = {
-            "x-client-system-id": oRuntimeConfig.ClientSystemId,
-            "x-client-certificate": oRuntimeConfig.ClientCertificate,
-            "x-client-certificate-password":
-              oRuntimeConfig.ClientCertificatePassword,
-            "x-sign-port": oRuntimeConfig.SignPort,
-            "x-vzd-port": oRuntimeConfig.VzdPort,
-            "x-mandant-id": oRuntimeConfig.MandantId,
-            "x-workplace-id": oRuntimeConfig.WorkplaceId,
-            "x-user-id": oRuntimeConfig.UserId,
-            "x-host": oRuntimeConfig.Url,
-            Accept: "application/json",
-          };
+          const mHeaders = this._getHttpHeadersFromRuntimeConfig();
 
           this.getView()
             .getModel("PINStatus")
@@ -307,8 +254,6 @@ sap.ui.define(
               true,
               mHeaders
             );
-
-
 
           this.getView()
             .getModel("CardTerminals")
@@ -356,14 +301,17 @@ sap.ui.define(
                       verifyResponses: res.data[i].verifyCertificateResponse,
                     });
                   }
+                  this.certData = arrayData;
 
                   let plainList = [];
                   for (let j = 0; j < arrayData.length; j++) {
                     for (let q = 0; q < arrayData[j].certInfos.length; q++) {
                       plainList.push({
-                        cardHolderName: arrayData[j].cardHolderName,
+                        cardHolderName:
+                          q == 0 ? arrayData[j].cardHolderName : "",
                         certRef: arrayData[j].certInfos[q].certRef,
                         cardHandle: arrayData[j].cardHandle,
+                        cardHandle: q == 0 ? arrayData[j].cardHandle : "",
                         serial:
                           arrayData[j].certInfos[q].x509Data.x509IssuerSerial
                             .x509SerialNumber,
@@ -404,22 +352,33 @@ sap.ui.define(
                           currentlyConnectedCards:
                             o["currentlyConnectedCards_" + ip],
                         });
+                    })
+                    .then((q) => {
+                      this.removeSeparatorLines(1);
+                      this.removeSeparatorLines(2);
                     });
                 })
           );
-          fetch("connector/event/get-cards", { headers: mHeaders }).then((re) => re.json()).then((da) => {
-            const cards = da.cards.card;
-            for(let i = 0; i < cards.length; i++){
-                cards[i]["option"] = (cards[i].cardType == "SMC_KT") || (cards[i].cardType == "KVK") ? false : true;
-                cards[i]["vPIN.CH"] = cards[i].cardType == "HBA" ? true : false;
-                cards[i]["vPIN.SMC"] = cards[i].cardType == "SMC_B" ? true : false;
-                cards[i]["cPIN.CH"] = (cards[i].cardType == "EGK") || (cards[i].cardType == "HBA") ? true : false;
-                cards[i]["cPIN.QES"] = cards[i].cardType == "HBA" ? true : false;
-                cards[i]["cPIN.SMC"] = cards[i].cardType == "SMC_B" ? true : false;
-            }
-            this.getView().getModel("Cards").setData(da);
-          });
-
+          fetch("connector/event/get-cards", { headers: mHeaders })
+            .then((re) => re.json())
+            .then((da) => {
+              const cards = da.cards.card;
+              for (const card of cards) {
+                card["option"] =
+                  card.cardType == "SMC_KT" || card.cardType == "KVK"
+                    ? false
+                    : true;
+                card["vPIN.CH"] = card.cardType == "HBA" ? true : false;
+                card["vPIN.SMC"] = card.cardType == "SMC_B" ? true : false;
+                card["cPIN.CH"] =
+                  card.cardType == "EGK" || card.cardType == "HBA"
+                    ? true
+                    : false;
+                card["cPIN.QES"] = card.cardType == "HBA" ? true : false;
+                card["cPIN.SMC"] = card.cardType == "SMC_B" ? true : false;
+              }
+              this.getView().getModel("Cards").setData(da);
+            });
         },
 
         getEntityName: function () {
@@ -427,10 +386,9 @@ sap.ui.define(
         },
 
         handlePopoverPress: function (oEvent) {
-          var oControl = oEvent.getSource(),
+          let oControl = oEvent.getSource(),
             oView = this.getView();
 
-          // create popover
           if (!this._pPopover) {
             this._pPopover = Fragment.load({
               id: oView.getId(),
@@ -443,7 +401,7 @@ sap.ui.define(
           }
           this._pPopover.then(
             function (oPopover) {
-              const oHeaders = this.getHttpHeadersFromRuntimeConfig();
+              const oHeaders = this._getHttpHeadersFromRuntimeConfig();
               const sCertRef = oControl
                 .getBindingContext("VerifyAll")
                 .getProperty("certRef");
@@ -477,14 +435,37 @@ sap.ui.define(
             .getText(prefix + certFieldName);
         },
 
-        getHttpHeadersFromRuntimeConfig: function () {
+        onDownloadSDS: function (oEvent) {
+          const oHeaders = this._getHttpHeadersFromRuntimeConfig();
+          fetch("connector/sds/file", {
+            headers: oHeaders,
+          })
+            .then((response) => response.blob())
+            .then((xBlob) =>
+              File.save(
+                xBlob,
+                "Connector",
+                "sds",
+                "application/octet-stream",
+                null,
+                false
+              )
+            );
+        },
+
+        _getRuntimeConfigPath: function () {
+          return "/RuntimeConfigs('" + this._entity + "')";
+        },
+
+        _getHttpHeadersFromRuntimeConfig: function () {
           const sPath = this._getRuntimeConfigPath();
           const oRuntimeConfig = this.getView().getModel().getProperty(sPath);
           return {
             Accept: "application/json",
             "x-client-system-id": oRuntimeConfig.ClientSystemId,
             "x-client-certificate": oRuntimeConfig.ClientCertificate,
-            "x-client-certificate-password": oRuntimeConfig.ClientCertificatePassword,
+            "x-client-certificate-password":
+              oRuntimeConfig.ClientCertificatePassword,
             "x-sign-port": oRuntimeConfig.SignPort,
             "x-vzd-port": oRuntimeConfig.VzdPort,
             "x-mandant-id": oRuntimeConfig.MandantId,
@@ -493,21 +474,6 @@ sap.ui.define(
             "x-host": oRuntimeConfig.Url,
           };
         },
-
-        onDownloadSDS: function (oEvent) {
-          const sPath = this._getRuntimeConfigPath();
-          const oHeaders = this.getHttpHeadersFromRuntimeConfig();
-          fetch("connector/sds/file", {
-            headers: oHeaders
-          }).then((response) => response.blob())
-          .then((xBlob) => 
-            File.save(xBlob, "Connector", "sds", "application/octet-stream", null, false)
-          );
-        },
-
-        _getRuntimeConfigPath: function () {
-          return "/RuntimeConfigs('" + this._entity + "')";
-        }
       }
     );
   },
