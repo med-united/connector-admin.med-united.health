@@ -307,10 +307,11 @@ sap.ui.define(
                   for (let j = 0; j < arrayData.length; j++) {
                     for (let q = 0; q < arrayData[j].certInfos.length; q++) {
                       plainList.push({
-                        cardHolderName: (q == 0) ? arrayData[j].cardHolderName : "",
+                        cardHolderName:
+                          q == 0 ? arrayData[j].cardHolderName : "",
                         certRef: arrayData[j].certInfos[q].certRef,
                         cardHandle: arrayData[j].cardHandle,
-                        cardHandle: (q == 0) ? arrayData[j].cardHandle : "",
+                        cardHandle: q == 0 ? arrayData[j].cardHandle : "",
                         serial:
                           arrayData[j].certInfos[q].x509Data.x509IssuerSerial
                             .x509SerialNumber,
@@ -337,7 +338,7 @@ sap.ui.define(
                   fetch("connector/metrics/application", {
                     headers: { Accept: "application/json" },
                   })
-                    .then((r) =>  r.json())
+                    .then((r) => r.json())
                     .then((o) => {
                       this.getView()
                         .getModel("Metrics")
@@ -351,9 +352,10 @@ sap.ui.define(
                           currentlyConnectedCards:
                             o["currentlyConnectedCards_" + ip],
                         });
-                    }).then((q) => {
-                                        this.removeSeparatorLines(1);
-                                        this.removeSeparatorLines(2);
+                    })
+                    .then((q) => {
+                      this.removeSeparatorLines(1);
+                      this.removeSeparatorLines(2);
                     });
                 })
           );
