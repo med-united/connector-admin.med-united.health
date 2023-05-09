@@ -11,11 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 
 import de.gematik.ws.conn.connectorcontext.v2.ContextType;
 import de.gematik.ws.conn.eventservice.v7.GetCardTerminals;
+import de.gematik.ws.conn.eventservice.v7.GetCardTerminalsResponse;
 import de.gematik.ws.conn.eventservice.v7.GetCards;
 import de.gematik.ws.conn.eventservice.v7.GetCardsResponse;
 import de.gematik.ws.conn.eventservice.wsdl.v7.EventServicePortType;
@@ -37,33 +36,27 @@ public class Event {
 
     @GET
     @Path("/get-cards")
-    public Response getCards() {
+    public GetCardsResponse getCards() throws Throwable {
         try {
             GetCards getCards = new GetCards();
             getCards.setContext(copyValuesFromProxyIntoContextType(contextType));
-            return Response.status(Response.Status.OK)
-            .entity(eventServicePortType.getCards(getCards))
-            .type(MediaType.APPLICATION_JSON_TYPE)
-            .build();
+            return eventServicePortType.getCards(getCards);
         } catch(Throwable t) {
             log.log(Level.WARNING, "Could not get cards", t);
-            return Response.status(Response.Status.NOT_FOUND).entity(new GetCardsResponse()).build();
+            throw t;
         }
     }
 
     @GET
     @Path("/get-card-terminals")
-    public Response getCardTerminals() {
+    public GetCardTerminalsResponse getCardTerminals() throws Throwable {
         try {   
             GetCardTerminals getCardTerminals = new GetCardTerminals();
             getCardTerminals.setContext(copyValuesFromProxyIntoContextType(contextType));
-            return Response.status(Response.Status.OK)
-            .entity(eventServicePortType.getCardTerminals(getCardTerminals))
-            .type(MediaType.APPLICATION_JSON_TYPE)
-            .build();
+            return eventServicePortType.getCardTerminals(getCardTerminals);
         } catch(Throwable t) {
             log.log(Level.WARNING, "Could not get card terminals", t);
-            return Response.status(Response.Status.NOT_FOUND).entity(new GetCardsResponse()).build();
+            throw t;
         }
     }
 

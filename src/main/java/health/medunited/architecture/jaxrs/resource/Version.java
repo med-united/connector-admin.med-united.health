@@ -22,8 +22,8 @@ public class Version {
 
     @GET
     @Path("/getVersion")
-    public Response getProductTypeInformation(@HeaderParam("X-Host") String connectorUrl) throws Exception {
+    public Response getProductTypeInformation(@HeaderParam("X-Host") String connectorUrl) {
         endpointDiscoveryService.obtainConfiguration(connectorUrl);
-        return Response.ok(endpointDiscoveryService.getProductTypeInformation()).build();
+        return Response.ok(endpointDiscoveryService.getConnectorVersion()).build();
     }
 }

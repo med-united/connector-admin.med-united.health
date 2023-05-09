@@ -39,7 +39,7 @@ public class EndpointDiscoveryService {
 
     private ConnectorServices connectorSds;
 
-    private ProductTypeInformation productTypeInformation;
+    private ProductTypeInformation connectorVersion;
 
     private ProductIdentification productIdentification;
 
@@ -67,57 +67,58 @@ public class EndpointDiscoveryService {
     public void obtainConfiguration(String connectorBaseUrl) {
         Client client = buildClient();
         Invocation invocation = buildInvocation(client, connectorBaseUrl);
+
         try {
             InputStream inputStream = invocation.invoke(InputStream.class);
-            parseInput(inputStream);
-        } catch (JAXBException | ProcessingException | IllegalArgumentException e) {
-            throw new IllegalStateException("Could not get or parse connector.sds from "+connectorBaseUrl, e);
-        } finally {
-            client.close();
-        }
-    }
+            JAXBContext jaxbContext = JAXBContext.newInstance(ConnectorServices.class);
+            connectorSds = (ConnectorServices) jaxbContext.createUnmarshaller().unmarshal(inputStream);
 
-    public void parseInput(InputStream inputStream) throws JAXBException {
-        JAXBContext jaxbContext = JAXBContext.newInstance(ConnectorServices.class);
-        connectorSds = (ConnectorServices) jaxbContext.createUnmarshaller().unmarshal(inputStream);
+            connectorVersion = connectorSds.getProductInformation().getProductTypeInformation();
 
-        productTypeInformation = connectorSds.getProductInformation().getProductTypeInformation();
+            productIdentification = connectorSds.getProductInformation().getProductIdentification();
 
-        productIdentification = connectorSds.getProductInformation().getProductIdentification();
+            connectorProductInformation = new ConnectorProductInformation();
 
-        connectorProductInformation = new ConnectorProductInformation();
+            connectorProductInformation.setConnectorVendor(productIdentification.getProductVendorID());
+            connectorProductInformation.setConnectorModel(productIdentification.getProductCode());
+            connectorProductInformation.setConnectorVersion(connectorVersion.getProductTypeVersion());
 
-        connectorProductInformation.setConnectorVendor(productIdentification.getProductVendorID());
-        connectorProductInformation.setConnectorModel(productIdentification.getProductCode());
-        connectorProductInformation.setConnectorVersion(productTypeInformation.getProductTypeVersion());
+            if (connectorProductInformation.connectorModel.equals("VCon"))
+                connectorProductInformation.setConnectorDescription("KoPS");
+            if (connectorProductInformation.connectorModel.equals("RKONN"))
+                connectorProductInformation.setConnectorDescription("RISE");
+            if (connectorProductInformation.connectorModel.equals("secu_kon"))
+                connectorProductInformation.setConnectorDescription("Secunet");
+            if (connectorProductInformation.connectorModel.equals("kocobox"))
+                connectorProductInformation.setConnectorDescription("KocoBox");
 
-        if (connectorProductInformation.connectorModel.equals("VCon"))
-            connectorProductInformation.setConnectorDescription("KoPS");
-        if (connectorProductInformation.connectorModel.equals("RKONN"))
-            connectorProductInformation.setConnectorDescription("RISE");
-        if (connectorProductInformation.connectorModel.equals("secu_kon"))
-            connectorProductInformation.setConnectorDescription("Secunet");
-        if (connectorProductInformation.connectorModel.equals("kocobox"))
-            connectorProductInformation.setConnectorDescription("KocoBox");
+            List<ServiceType> services = connectorSds.getServiceInformation().getService();
 
-        List<ServiceType> services = connectorSds.getServiceInformation().getService();
-
-        for (ServiceType service : services) {
-            String serviceName = service.getName();
-            switch (serviceName) {
-                case "EventService": {
-                    eventServiceEndpointAddress = service.getVersions().getVersion().get(0).getEndpointTLS().getLocation();
-                    break;
-                }
-                case "CardService": {
-                    cardServiceEndpointAddress = service.getVersions().getVersion().get(0).getEndpointTLS().getLocation();
-                    break;
-                }
-                case "CertificateService": {
-                    certificateServiceEndpointAddress = service.getVersions().getVersion().get(0).getEndpointTLS().getLocation();
-                    break;
+            for (ServiceType service : services) {
+                String serviceName = service.getName();
+                switch (serviceName) {
+                    case "EventService": {
+                        eventServiceEndpointAddress = service.getVersions().getVersion().get(0).getEndpointTLS().getLocation();
+                        break;
+                    }
+                    case "CardService": {
+                        cardServiceEndpointAddress = service.getVersions().getVersion().get(0).getEndpointTLS().getLocation();
+                        break;
+                    }
+                    case "CertificateService": {
+                        certificateServiceEndpointAddress = service.getVersions().getVersion().get(0).getEndpointTLS().getLocation();
+                        break;
+                    }
+                    default: {
+                        log.log(Level.WARNING, "Unknown service name: {}", serviceName);
+                        break;
+                    }
                 }
             }
+        } catch (JAXBException | ProcessingException | IllegalArgumentException e) {
+            throw new IllegalStateException("Could not get or parse connector.sds from " + connectorBaseUrl, e);
+        } finally {
+            client.close();
         }
     }
 
@@ -150,8 +151,8 @@ public class EndpointDiscoveryService {
         return certificateServiceEndpointAddress;
     }
 
-    public ProductTypeInformation getProductTypeInformation() {
-        return productTypeInformation;
+    public ProductTypeInformation getConnectorVersion() {
+        return connectorVersion;
     }
 
     public ProductIdentification getProductIdentification() {
