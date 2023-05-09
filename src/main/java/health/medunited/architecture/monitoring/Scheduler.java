@@ -82,7 +82,7 @@ public class Scheduler {
                     log.log(Level.SEVERE, e.getMessage());
                     continue;
                 }
-                
+
                 ConnectorServicesProducer connectorServicesProducer = new ConnectorServicesProducer();
                 connectorServicesProducer.setSecretsManagerService(secretsManagerService);
                 connectorServicesProducer.setEndpointDiscoveryService(endpointDiscoveryService);
