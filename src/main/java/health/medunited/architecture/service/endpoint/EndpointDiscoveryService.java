@@ -58,7 +58,7 @@ public class EndpointDiscoveryService {
         }
     }
 
-    public void obtainConfiguration(String connectorBaseUrl) throws Exception {
+    public void obtainConfiguration(String connectorBaseUrl) {
         Client client = buildClient();
         Invocation invocation = buildInvocation(client, connectorBaseUrl);
         try {
