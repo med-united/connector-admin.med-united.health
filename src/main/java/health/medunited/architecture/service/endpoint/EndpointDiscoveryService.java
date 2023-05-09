@@ -93,7 +93,7 @@ public class EndpointDiscoveryService {
                 }
             }
         } catch (JAXBException | ProcessingException | IllegalArgumentException e) {
-            log.log(Level.SEVERE, "Could not get or parse connector.sds", e);
+            throw new IllegalStateException("Could not get or parse connector.sds from "+connectorBaseUrl, e);
         } finally {
             client.close();
         }
