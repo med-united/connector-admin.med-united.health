@@ -16,8 +16,8 @@ import javax.ws.rs.client.Invocation;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 
-import de.gematik.ws._int.version.productinformation.v1.ProductIdentification;
 import de.gematik.ws._int.version.productinformation.v1.ProductTypeInformation;
+import de.gematik.ws._int.version.productinformation.v1.ProductIdentification;
 import de.gematik.ws.conn.servicedirectory.v3.ConnectorServices;
 import de.gematik.ws.conn.serviceinformation.v2.ServiceType;
 import health.medunited.architecture.jaxrs.resource.ConnectorProductInformation;
