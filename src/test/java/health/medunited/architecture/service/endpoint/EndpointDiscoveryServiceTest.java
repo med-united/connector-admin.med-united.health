@@ -36,7 +36,7 @@ class EndpointDiscoveryServiceTest {
 
     @Test
     @Disabled("Integration test with Kops")
-    void testObtainConfiguration() throws Exception {
+    void testObtainConfiguration() {
         EndpointDiscoveryService endpointDiscoveryService = new EndpointDiscoveryService();
         endpointDiscoveryService.secretsManagerService = secretsManagerService;
         endpointDiscoveryService.obtainConfiguration(runtimeConfig.getUrl());
