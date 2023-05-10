@@ -95,7 +95,6 @@ sap.ui.define(
                              "State": "None"
                            });
                            cardData["sap.card"].content.data.json = content;
-                           console.log(cardData);
                            Card.setManifest(cardData);
                         }
                      });
