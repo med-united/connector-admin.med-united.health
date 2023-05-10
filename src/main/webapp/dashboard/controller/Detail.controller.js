@@ -273,7 +273,7 @@ sap.ui.define(
           this.getView()
             .getModel("ProductInformation")
             .loadData(
-              "connector/productTypeInformation/getVersion",
+              "connector/sds/productTypeInformation",
               {},
               "true",
               "GET",

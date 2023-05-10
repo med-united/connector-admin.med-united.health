@@ -39,8 +39,15 @@ public class ConnectorSds {
 
     @GET
     @Path("connectorSpecifications")
-    public Response getProductTypeInformation(@HeaderParam("X-Host") String connectorUrl) {
+    public Response getConnectorProductInformation(@HeaderParam("X-Host") String connectorUrl) {
         endpointDiscoveryService.obtainConfiguration(connectorUrl);
         return Response.ok(endpointDiscoveryService.getConnectorProductInformation()).build();
+    }
+
+    @GET
+    @Path("productTypeInformation")
+    public Response getProductTypeInformation(@HeaderParam("X-Host") String connectorUrl) throws Exception {
+        endpointDiscoveryService.obtainConfiguration(connectorUrl);
+        return Response.ok(endpointDiscoveryService.getProductTypeInformation()).build();
     }
 }
