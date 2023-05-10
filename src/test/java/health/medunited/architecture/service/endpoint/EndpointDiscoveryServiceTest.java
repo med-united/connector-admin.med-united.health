@@ -46,7 +46,7 @@ class EndpointDiscoveryServiceTest {
     @Test
     void parseSecunetExampleSDS() throws JAXBException {
         EndpointDiscoveryService edService = new EndpointDiscoveryService();
-        InputStream inputStream = EndpointDiscoveryServiceTest.class.getResourceAsStream("/connectorSECUN5.53.sds");
+        InputStream inputStream = EndpointDiscoveryServiceTest.class.getResourceAsStream("/connectorSECUN5.53.0.sds");
         edService.parseInput(inputStream);
         assertEquals("5.53.0", edService.getConnectorSds().getProductInformation().getProductTypeInformation().getProductTypeVersion());
     
