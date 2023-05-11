@@ -180,66 +180,6 @@ sap.ui.define(
           }
         },
 
-        pwdOnCancel: function (oEvent) {
-          oEvent.getSource().getParent().close();
-          oEvent.getSource().getParent().destroy();
-        },
-
-        pwdOnRestart: function (oEvent) {
-          const sPath = "/RuntimeConfigs('" + this._entity + "')";
-          const oRuntimeConfig = this.getView().getModel().getProperty(sPath);
-          const restartHeaders = {
-            "x-client-certificate": oRuntimeConfig.ClientCertificate,
-            "x-client-certificate-password":
-              oRuntimeConfig.ClientCertificatePassword,
-            "Content-Type": "application/json",
-          };
-          const username = this.byId("usernameInput").getValue();
-          const password = this.byId("passwordInput").getValue();
-          const requestBody = {
-            username: username,
-            password: password,
-          };
-          this.getCurrentDeviceType()
-            .then((deviceType) =>{
-            
-              fetch(
-                "connector/management/"+deviceType+"/restart?connectorUrl=" +
-                  oRuntimeConfig.Url +
-                  "&managementPort=8500",
-                {
-                  headers: restartHeaders,
-                  method: "POST",
-                  body: JSON.stringify(requestBody),
-                }
-              );
-
-            });
-
-          oEvent.getSource().getParent().close();
-          MessageToast.show(this.translate("restarting"));
-          oEvent.getSource().getParent().destroy();
-        },
-
-        restartConnector: function () {
-          let oView = this.getView();
-          const me = this;
-
-          if (!this.byId("RestartPasswordDialog")) {
-            Fragment.load({
-              id: oView.getId(),
-              name: "sap.f.ShellBarWithFlexibleColumnLayout.view.RestartPasswordDialog",
-              controller: this,
-            }).then(function (oDialog) {
-              me.onAfterCreateOpenDialog({ dialog: oDialog });
-              oView.addDependent(oDialog);
-              me._openCreateDialog(oDialog);
-            });
-          } else {
-            this._openCreateDialog(this.byId("restartPasswordDialog"));
-          }
-        },
-
         reloadModels: function (oRuntimeConfig) {
           this.handleFullScreen();
 
@@ -371,10 +311,10 @@ sap.ui.define(
             });
 
           fetch("connector/sds/config", { headers: mHeaders })
-          .then((re) => re.json())
-          .then((remoteConfig) => {
+            .then((re) => re.json())
+            .then((remoteConfig) => {
               this.getView().getModel("ConnectorSDS").setData(remoteConfig);
-          });
+            });
         },
 
         getEntityName: function () {
@@ -471,20 +411,82 @@ sap.ui.define(
           };
         },
 
-        getCurrentDeviceType: async function() {
-            const mHeaders = this._getHttpHeadersFromRuntimeConfig();
+        getCurrentDeviceType: async function () {
+          const mHeaders = this._getHttpHeadersFromRuntimeConfig();
 
-            let promise = new Promise((resolve) => {
-               fetch("connector/sds/config", { headers: mHeaders })
-                 .then((remoteResponse) => remoteResponse.json())
-                 .then((remoteConfig) => {
-                     let currentDeviceCode = remoteConfig.productInformation.productIdentification.productCode;
-                     resolve(this.translate(currentDeviceCode));
-                 });
+          let promise = new Promise((resolve) => {
+            fetch("connector/sds/config", { headers: mHeaders })
+              .then((remoteResponse) => remoteResponse.json())
+              .then((remoteConfig) => {
+                let currentDeviceCode =
+                  remoteConfig.productInformation.productIdentification
+                    .productCode;
+                resolve(this.translate(currentDeviceCode));
+              });
+          });
+
+          return await promise;
+        },
+
+        pwdOnCancel: function (oEvent) {
+          oEvent.getSource().getParent().close();
+          oEvent.getSource().getParent().destroy();
+        },
+
+        restartConnector: function () {
+          let oView = this.getView();
+          const me = this;
+
+          if (!this.byId("RestartPasswordDialog")) {
+            Fragment.load({
+              id: oView.getId(),
+              name: "sap.f.ShellBarWithFlexibleColumnLayout.view.RestartPasswordDialog",
+              controller: this,
+            }).then(function (oDialog) {
+              me.onAfterCreateOpenDialog({ dialog: oDialog });
+              oView.addDependent(oDialog);
+              me._openCreateDialog(oDialog);
             });
+          } else {
+            this._openCreateDialog(this.byId("restartPasswordDialog"));
+          }
+        },
 
-            return await promise;
-        }
+        pwdOnRestart: function (oEvent) {
+          const sPath = "/RuntimeConfigs('" + this._entity + "')";
+          const oRuntimeConfig = this.getView().getModel().getProperty(sPath);
+          const restartHeaders = {
+            "x-client-certificate": oRuntimeConfig.ClientCertificate,
+            "x-client-certificate-password":
+              oRuntimeConfig.ClientCertificatePassword,
+            "Content-Type": "application/json",
+          };
+          const username = this.byId("usernameInput").getValue();
+          const password = this.byId("passwordInput").getValue();
+          const requestBody = {
+            username: username,
+            password: password,
+          };
+
+          oEvent.getSource().getParent().close();
+          MessageToast.show(this.translate("restarting"));
+          oEvent.getSource().getParent().destroy();
+
+          this.getCurrentDeviceType().then((deviceType) => {
+            fetch(
+              "connector/management/" +
+                deviceType +
+                "/restart?connectorUrl=" +
+                oRuntimeConfig.Url +
+                "&managementPort=8500",
+              {
+                headers: restartHeaders,
+                method: "POST",
+                body: JSON.stringify(requestBody),
+              }
+            );
+          });
+        },
       }
     );
   },
