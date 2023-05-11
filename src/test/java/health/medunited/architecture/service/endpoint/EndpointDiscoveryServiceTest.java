@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.xml.bind.JAXBException;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -20,41 +20,37 @@ import health.medunited.architecture.service.common.security.SecretsManagerServi
 
 class EndpointDiscoveryServiceTest {
 
+    EndpointDiscoveryService edService;
     private static SecretsManagerService secretsManagerService;
-    private RuntimeConfig runtimeConfig = Bootstrap.getRuntimeConfigKops();
+    private RuntimeConfig runtimeConfig;
 
-    @BeforeAll
-    public static void setup() {
+    @BeforeEach
+    void setupEach(){
         HttpServletRequest httpServletRequest = Mockito.mock(HttpServletRequest.class);
-        RuntimeConfig runtimeConfig = Bootstrap.getRuntimeConfigKops();
+        runtimeConfig = Bootstrap.getRuntimeConfigKops();
         Mockito.when(httpServletRequest.getHeader("x-client-certificate")).thenReturn(runtimeConfig.getClientCertificate());
         Mockito.when(httpServletRequest.getHeader("x-client-certificate-password")).thenReturn(runtimeConfig.getClientCertificatePassword());
         secretsManagerService = new SecretsManagerService();
         secretsManagerService.setRequest(httpServletRequest);
         secretsManagerService.createSSLContext();
+        edService = new EndpointDiscoveryService(secretsManagerService);
     }
 
     @Test
     @Disabled("Integration test with Kops")
     void testObtainConfiguration() {
-        EndpointDiscoveryService endpointDiscoveryService = new EndpointDiscoveryService();
-        endpointDiscoveryService.secretsManagerService = secretsManagerService;
-        endpointDiscoveryService.obtainConfiguration(runtimeConfig.getUrl());
-        Assertions.assertFalse(endpointDiscoveryService.getEventServiceEndpointAddress().isEmpty());
+        edService.obtainConfiguration(runtimeConfig.getUrl());
+        Assertions.assertFalse(edService.getEventServiceEndpointAddress().isEmpty());
     }
 
     @Test
     void parseSecunetExampleSDS() throws JAXBException {
-        EndpointDiscoveryService edService = new EndpointDiscoveryService();
-        InputStream inputStream = EndpointDiscoveryServiceTest.class.getResourceAsStream("/connectorSECUN5.53.0.sds");
-        edService.parseInput(inputStream);
-        assertEquals("5.53.0", edService.getConnectorSds().getProductInformation().getProductTypeInformation().getProductTypeVersion());
-    
+        InputStream inputStream = EndpointDiscoveryServiceTest.class.getResourceAsStream("/connectorSECUN5.53.sds");
+        assertEquals("5.53.0", edService.parseInput(inputStream).getProductInformation().getProductTypeInformation().getProductTypeVersion());
     }
 
     @Test
     void parseKocoboxExampleSDS() throws JAXBException {
-        EndpointDiscoveryService edService = new EndpointDiscoveryService();
         InputStream inputStream = EndpointDiscoveryServiceTest.class.getResourceAsStream("/connectorKOCOC4.80.3.sds");
         edService.parseInput(inputStream);
         assertEquals("https://192.168.50.147:443/service/cardservice", edService.getCardServiceEndpointAddress());

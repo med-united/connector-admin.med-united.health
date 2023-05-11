@@ -74,8 +74,7 @@ public class Scheduler {
                     }
                 }
 
-                EndpointDiscoveryService endpointDiscoveryService = new EndpointDiscoveryService();
-                endpointDiscoveryService.setSecretsManagerService(secretsManagerService);
+                EndpointDiscoveryService endpointDiscoveryService = new EndpointDiscoveryService(secretsManagerService);
                 try {
                     endpointDiscoveryService.obtainConfiguration(runtimeConfig.getUrl());
                 } catch (Exception e) {
@@ -145,7 +144,7 @@ public class Scheduler {
                         Long secondsDurationLefTillExpiryLng;
                         try {
                             secondsDurationLefTillExpiryLng = connectorResponseTime.time(secondsCallable);
-                            log.info("Currently connected cards: "+secondsDurationLefTillExpiryLng+" "+runtimeConfig.getUrl());
+                            log.info("Currently connected card expires in sec: "+secondsDurationLefTillExpiryLng+" "+runtimeConfig.getUrl());
                             return secondsDurationLefTillExpiryLng;
                         } catch (Exception e) {
                             log.log(Level.WARNING, "Can't measure connector", e);

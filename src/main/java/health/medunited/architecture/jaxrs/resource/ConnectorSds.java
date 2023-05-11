@@ -4,7 +4,6 @@ import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
 import javax.ws.rs.Path;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -18,17 +17,17 @@ public class ConnectorSds {
 
     @GET
     @Path("config")
-    public Response connectorSdsConfig(@QueryParam("connectorUrl") String connectorUrl) {
+    public Response connectorSdsConfig(@HeaderParam("X-Host") String connectorUrl) {
         try {
-            endpointDiscoveryService.obtainConfiguration(connectorUrl);
+            return Response
+                .status(Response.Status.OK)
+                .entity(endpointDiscoveryService.obtainConfiguration(connectorUrl))
+                .type(MediaType.APPLICATION_JSON_TYPE)
+                .build();
         } catch (Exception e) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-        return Response
-            .status(Response.Status.OK)
-            .entity(endpointDiscoveryService.getConnectorSds())
-            .type(MediaType.APPLICATION_JSON_TYPE)
-            .build();
+
     }
 
     @GET
@@ -37,17 +36,4 @@ public class ConnectorSds {
         return endpointDiscoveryService.obtainFile(connectorBaseUrl);
     }
 
-    @GET
-    @Path("connectorSpecifications")
-    public Response getConnectorProductInformation(@HeaderParam("X-Host") String connectorUrl) {
-        endpointDiscoveryService.obtainConfiguration(connectorUrl);
-        return Response.ok(endpointDiscoveryService.getConnectorProductInformation()).build();
-    }
-
-    @GET
-    @Path("productTypeInformation")
-    public Response getProductTypeInformation(@HeaderParam("X-Host") String connectorUrl) throws Exception {
-        endpointDiscoveryService.obtainConfiguration(connectorUrl);
-        return Response.ok(endpointDiscoveryService.getProductTypeInformation()).build();
-    }
 }

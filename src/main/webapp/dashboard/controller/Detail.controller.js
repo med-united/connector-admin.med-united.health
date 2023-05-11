@@ -41,9 +41,6 @@ sap.ui.define(
 
           this.getView().setModel(oCardsModel, "Cards");
 
-          const oProductIDModel = new JSONModel();
-          this.getView().setModel(oProductIDModel, "ProductID");
-
           const oCardTerminalsModel = new JSONModel();
           this.getView().setModel(oCardTerminalsModel, "CardTerminals");
 
@@ -56,14 +53,10 @@ sap.ui.define(
           const oPinStatus = new JSONModel();
           this.getView().setModel(oPinStatus, "PINStatus");
 
-          const oProductInformationModel = new JSONModel();
-          this.getView().setModel(
-            oProductInformationModel,
-            "ProductInformation"
-          );
-
           const oCertSubjectModel = new JSONModel();
           this.getView().setModel(oCertSubjectModel, "CertSubject");
+
+          this.getView().setModel(new JSONModel(), "ConnectorSDS");
         },
 
         onVerifyPinCh: function (oEvent) {
@@ -270,18 +263,6 @@ sap.ui.define(
               mHeaders
             );
 
-          this.getView()
-            .getModel("ProductInformation")
-            .loadData(
-              "connector/sds/productTypeInformation",
-              {},
-              "true",
-              "GET",
-              false,
-              true,
-              mHeaders
-            );
-
           fetch("connector/certificate/verifyAll", { headers: mHeaders }).then(
             (response) =>
               response
@@ -383,9 +364,11 @@ sap.ui.define(
               this.getView().getModel("Cards").setData(da);
             });
 
-            fetch("connector/sds/connectorSpecifications", { headers: mHeaders }).then((re) => re.json()).then((remoteProductData) => {
-              this.getView().getModel("ProductID").setData(remoteProductData);
-            });
+          fetch("connector/sds/config", { headers: mHeaders })
+          .then((re) => re.json())
+          .then((remoteConfig) => {
+              this.getView().getModel("ConnectorSDS").setData(remoteConfig);
+          });
         },
 
         getEntityName: function () {
