@@ -252,10 +252,6 @@ sap.ui.define(
                           currentlyConnectedCards:
                             o["currentlyConnectedCards_" + ip],
                         });
-                    })
-                    .then((q) => {
-                      this.removeSeparatorLines(1);
-                      this.removeSeparatorLines(2);
                     });
                 })
           );
