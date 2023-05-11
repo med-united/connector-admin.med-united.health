@@ -411,17 +411,21 @@ sap.ui.define(
           };
         },
 
-        getCurrentDeviceType: async function () {
+        _getConnectorType: async function () {
           const mHeaders = this._getHttpHeadersFromRuntimeConfig();
 
           let promise = new Promise((resolve) => {
             fetch("connector/sds/config", { headers: mHeaders })
               .then((remoteResponse) => remoteResponse.json())
               .then((remoteConfig) => {
-                let currentDeviceCode =
+                let productCode =
                   remoteConfig.productInformation.productIdentification
                     .productCode;
-                resolve(this.translate(currentDeviceCode));
+                let connectorBrand;
+                if (productCode == "secu_kon") connectorBrand = "secunet";
+                else if (productCode == "RKONN") connectorBrand = "rise";
+                else if (productCode == "kocobox") connectorBrand = "kocobox";
+                resolve(connectorBrand);
               });
           });
 
@@ -472,7 +476,7 @@ sap.ui.define(
           MessageToast.show(this.translate("restarting"));
           oEvent.getSource().getParent().destroy();
 
-          this.getCurrentDeviceType().then((deviceType) => {
+          this._getConnectorType().then((deviceType) => {
             fetch(
               "connector/management/" +
                 deviceType +
