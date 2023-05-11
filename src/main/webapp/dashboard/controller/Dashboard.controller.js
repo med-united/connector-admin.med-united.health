@@ -13,14 +13,12 @@ sap.ui.define(
 
           this.oRouter = this.getOwnerComponent().getRouter();
           this._bDescendingSort = false;
-          const oConnectorList = new JSONModel();
-          this.getView().setModel(oConnectorList, "Connectors");
           this.setCardList();
         },
 
         setCardList: function(){
              const runtimeConfigModel = new sap.ui.model.odata.v2.ODataModel("../Data.svc",true);
-             const oConnectorList = this.getView().getModel("Connectors");
+             const Card = this.getView().byId("ConnectorListCard");
              let url = document.URL;
              url = url.endsWith("#") ? url.substring(0, url.length-1) : url.substring(0, url.length);
              runtimeConfigModel.read("/RuntimeConfigs", {
@@ -96,8 +94,8 @@ sap.ui.define(
                              "Icon": url + "dashboard/images/Card.png",
                              "State": "None"
                            });
-                           cardData.connectors["sap.card"].content.data.json = content;
-                           oConnectorList.setData(cardData);
+                           cardData["sap.card"].content.data.json = content;
+                           Card.setManifest(cardData);
                         }
                      });
                    });
@@ -108,6 +106,8 @@ sap.ui.define(
                });
         },
         onBeforeRendering: function () {
+          const oCard = this.getView().byId("ConnectorListCard");
+          oCard.setManifest("./dashboard/resources/ConnectorList.json");
           this.onInit();
         },
 
