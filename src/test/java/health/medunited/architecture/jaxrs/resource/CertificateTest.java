@@ -80,7 +80,6 @@ public class CertificateTest {
 
         String s = client
             .target("http://localhost:8080/connector/sds/config")
-                .queryParam("connectorUrl", runtimeConfig.getUrl()) 
             .request()
                 .header("x-mandant-id", runtimeConfig.getMandantId())
                 .header("x-client-system-id", runtimeConfig.getClientSystemId())

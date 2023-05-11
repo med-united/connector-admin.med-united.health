@@ -37,8 +37,10 @@
                         <uxap:subSections>
                             <uxap:ObjectPageSubSection>
                                 <uxap:blocks>
-                                    <Text
-                                        text="{i18n>Version} {ProductInformation>/productTypeVersion}" />
+                                    <VBox>
+                                        <Text text="{path:'ConnectorSDS>/productInformation/productIdentification/productCode', formatter:'.translate'} {i18n>Connector}" />
+                                        <Text text="{i18n>Version} {ConnectorSDS>/productInformation/productTypeInformation/productTypeVersion}" />
+                                    </VBox>
                                 </uxap:blocks>
                                 <uxap:blocks>
                                     <Button id="buttonDownloadSDS" text="{i18n>DownloadSDS}"

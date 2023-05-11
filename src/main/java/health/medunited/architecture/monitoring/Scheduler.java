@@ -7,7 +7,8 @@ import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
 import java.text.SimpleDateFormat;
-import java.time.*;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -73,9 +74,13 @@ public class Scheduler {
                     }
                 }
 
-                EndpointDiscoveryService endpointDiscoveryService = new EndpointDiscoveryService();
-                endpointDiscoveryService.setSecretsManagerService(secretsManagerService);
-                endpointDiscoveryService.obtainConfiguration(runtimeConfig.getUrl());
+                EndpointDiscoveryService endpointDiscoveryService = new EndpointDiscoveryService(secretsManagerService);
+                try {
+                    endpointDiscoveryService.obtainConfiguration(runtimeConfig.getUrl());
+                } catch (Exception e) {
+                    log.log(Level.SEVERE, e.getMessage());
+                    continue;
+                }
 
                 ConnectorServicesProducer connectorServicesProducer = new ConnectorServicesProducer();
                 connectorServicesProducer.setSecretsManagerService(secretsManagerService);
@@ -139,7 +144,7 @@ public class Scheduler {
                         Long secondsDurationLefTillExpiryLng;
                         try {
                             secondsDurationLefTillExpiryLng = connectorResponseTime.time(secondsCallable);
-                            log.info("Currently connected cards: "+secondsDurationLefTillExpiryLng+" "+runtimeConfig.getUrl());
+                            log.info("Currently connected card expires in sec: "+secondsDurationLefTillExpiryLng+" "+runtimeConfig.getUrl());
                             return secondsDurationLefTillExpiryLng;
                         } catch (Exception e) {
                             log.log(Level.WARNING, "Can't measure connector", e);

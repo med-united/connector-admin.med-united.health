@@ -51,11 +51,10 @@ sap.ui.define(
           const oPinStatus = new JSONModel();
           this.getView().setModel(oPinStatus, "PINStatus");
 
-          const oProductInformationModel = new JSONModel();
-          this.getView().setModel(oProductInformationModel, "ProductInformation");
-
           const oCertSubjectModel = new JSONModel();
           this.getView().setModel(oCertSubjectModel, "CertSubject");
+
+          this.getView().setModel(new JSONModel(), "ConnectorSDS");
         },
 
         onVerifyPinCh: function (oEvent) {
@@ -160,60 +159,6 @@ sap.ui.define(
           }
         },
 
-        pwdOnCancel: function (oEvent) {
-          oEvent.getSource().getParent().close();
-          oEvent.getSource().getParent().destroy();
-        },
-
-        pwdOnRestart: function (oEvent) {
-          const sPath = "/RuntimeConfigs('" + this._entity + "')";
-          const oRuntimeConfig = this.getView().getModel().getProperty(sPath);
-          const restartHeaders = {
-            "x-client-certificate": oRuntimeConfig.ClientCertificate,
-            "x-client-certificate-password":
-              oRuntimeConfig.ClientCertificatePassword,
-            "Content-Type": "application/json",
-          };
-          const username = this.byId("usernameInput").getValue();
-          const password = this.byId("passwordInput").getValue();
-          const requestBody = {
-            username: username,
-            password: password,
-          };
-          fetch(
-            "connector/management/secunet/restart?connectorUrl=" +
-              oRuntimeConfig.Url +
-              "&managementPort=8500",
-            {
-              headers: restartHeaders,
-              method: "POST",
-              body: JSON.stringify(requestBody),
-            }
-          );
-          oEvent.getSource().getParent().close();
-          MessageToast.show("Der Konnektor wird jetzt neu gestartet");
-          oEvent.getSource().getParent().destroy();
-        },
-
-        restartConnector: function () {
-          let oView = this.getView();
-          const me = this;
-
-          if (!this.byId("RestartPasswordDialog")) {
-            Fragment.load({
-              id: oView.getId(),
-              name: "sap.f.ShellBarWithFlexibleColumnLayout.view.RestartPasswordDialog",
-              controller: this,
-            }).then(function (oDialog) {
-              me.onAfterCreateOpenDialog({ dialog: oDialog });
-              oView.addDependent(oDialog);
-              me._openCreateDialog(oDialog);
-            });
-          } else {
-            this._openCreateDialog(this.byId("restartPasswordDialog"));
-          }
-        },
-
         reloadModels: function (oRuntimeConfig) {
           this.handleFullScreen();
 
@@ -235,18 +180,6 @@ sap.ui.define(
             .getModel("CardTerminals")
             .loadData(
               "connector/event/get-card-terminals",
-              {},
-              "true",
-              "GET",
-              false,
-              true,
-              mHeaders
-            );
-
-          this.getView()
-            .getModel("ProductInformation")
-            .loadData(
-              "connector/productTypeInformation/getVersion",
               {},
               "true",
               "GET",
@@ -319,6 +252,10 @@ sap.ui.define(
                           currentlyConnectedCards:
                             o["currentlyConnectedCards_" + ip],
                         });
+                    })
+                    .then((q) => {
+                      this.removeSeparatorLines(1);
+                      this.removeSeparatorLines(2);
                     });
                 })
           );
@@ -333,6 +270,12 @@ sap.ui.define(
                 card["cPIN.SMC"] = card.cardType == "SMC_B" ? true : false;
               }
               this.getView().getModel("Cards").setData(da);
+            });
+
+          fetch("connector/sds/config", { headers: mHeaders })
+            .then((re) => re.json())
+            .then((remoteConfig) => {
+              this.getView().getModel("ConnectorSDS").setData(remoteConfig);
             });
         },
 
@@ -419,6 +362,87 @@ sap.ui.define(
               "x-user-id": oRuntimeConfig.UserId,
               "x-host": oRuntimeConfig.Url,
             };
+        },
+
+        _getConnectorType: async function () {
+          const mHeaders = this._getHttpHeadersFromRuntimeConfig();
+
+          let promise = new Promise((resolve) => {
+            fetch("connector/sds/config", { headers: mHeaders })
+              .then((remoteResponse) => remoteResponse.json())
+              .then((remoteConfig) => {
+                let productCode =
+                  remoteConfig.productInformation.productIdentification
+                    .productCode;
+                let connectorBrand;
+                if (productCode == "secu_kon") connectorBrand = "secunet";
+                else if (productCode == "RKONN") connectorBrand = "rise";
+                else if (productCode == "kocobox") connectorBrand = "kocobox";
+                resolve(connectorBrand);
+              });
+          });
+
+          return await promise;
+        },
+
+        pwdOnCancel: function (oEvent) {
+          oEvent.getSource().getParent().close();
+          oEvent.getSource().getParent().destroy();
+        },
+
+        restartConnector: function () {
+          let oView = this.getView();
+          const me = this;
+
+          if (!this.byId("RestartPasswordDialog")) {
+            Fragment.load({
+              id: oView.getId(),
+              name: "sap.f.ShellBarWithFlexibleColumnLayout.view.RestartPasswordDialog",
+              controller: this,
+            }).then(function (oDialog) {
+              me.onAfterCreateOpenDialog({ dialog: oDialog });
+              oView.addDependent(oDialog);
+              me._openCreateDialog(oDialog);
+            });
+          } else {
+            this._openCreateDialog(this.byId("restartPasswordDialog"));
+          }
+        },
+
+        pwdOnRestart: function (oEvent) {
+          const sPath = "/RuntimeConfigs('" + this._entity + "')";
+          const oRuntimeConfig = this.getView().getModel().getProperty(sPath);
+          const restartHeaders = {
+            "x-client-certificate": oRuntimeConfig.ClientCertificate,
+            "x-client-certificate-password":
+              oRuntimeConfig.ClientCertificatePassword,
+            "Content-Type": "application/json",
+          };
+          const username = this.byId("usernameInput").getValue();
+          const password = this.byId("passwordInput").getValue();
+          const requestBody = {
+            username: username,
+            password: password,
+          };
+
+          oEvent.getSource().getParent().close();
+          MessageToast.show(this.translate("restarting"));
+          oEvent.getSource().getParent().destroy();
+
+          this._getConnectorType().then((deviceType) => {
+            fetch(
+              "connector/management/" +
+                deviceType +
+                "/restart?connectorUrl=" +
+                oRuntimeConfig.Url +
+                "&managementPort=8500",
+              {
+                headers: restartHeaders,
+                method: "POST",
+                body: JSON.stringify(requestBody),
+              }
+            );
+          });
         },
       }
     );
