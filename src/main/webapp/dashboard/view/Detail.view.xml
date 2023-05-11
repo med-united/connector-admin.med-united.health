@@ -38,8 +38,8 @@
                             <uxap:ObjectPageSubSection>
                                 <uxap:blocks>
                                     <VBox>
-                                        <Text text="{ProductID>/connectorDescription} {i18n>Connector}" />
-                                        <Text text="{i18n>Version} {ProductInformation>/productTypeVersion}" />
+                                        <Text text="{path:'ConnectorSDS>/productInformation/productIdentification/productCode', formatter:'.translate'} {i18n>Connector}" />
+                                        <Text text="{i18n>Version} {ConnectorSDS>/productInformation/productTypeInformation/productTypeVersion}" />
                                     </VBox>
                                 </uxap:blocks>
                                 <uxap:blocks>
