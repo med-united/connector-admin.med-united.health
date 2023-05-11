@@ -200,16 +200,22 @@ sap.ui.define(
             username: username,
             password: password,
           };
-          fetch(
-            "connector/management/secunet/restart?connectorUrl=" +
-              oRuntimeConfig.Url +
-              "&managementPort=8500",
-            {
-              headers: restartHeaders,
-              method: "POST",
-              body: JSON.stringify(requestBody),
-            }
-          );
+          this.getCurrentDeviceType()
+            .then((deviceType) =>{
+            
+              fetch(
+                "connector/management/"+deviceType+"/restart?connectorUrl=" +
+                  oRuntimeConfig.Url +
+                  "&managementPort=8500",
+                {
+                  headers: restartHeaders,
+                  method: "POST",
+                  body: JSON.stringify(requestBody),
+                }
+              );
+
+            });
+
           oEvent.getSource().getParent().close();
           MessageToast.show(this.translate("restarting"));
           oEvent.getSource().getParent().destroy();
@@ -464,6 +470,21 @@ sap.ui.define(
             "x-host": oRuntimeConfig.Url,
           };
         },
+
+        getCurrentDeviceType: async function() {
+            const mHeaders = this._getHttpHeadersFromRuntimeConfig();
+
+            let promise = new Promise((resolve) => {
+               fetch("connector/sds/config", { headers: mHeaders })
+                 .then((remoteResponse) => remoteResponse.json())
+                 .then((remoteConfig) => {
+                     let currentDeviceCode = remoteConfig.productInformation.productIdentification.productCode;
+                     resolve(this.translate(currentDeviceCode));
+                 });
+            });
+
+            return await promise;
+        }
       }
     );
   },

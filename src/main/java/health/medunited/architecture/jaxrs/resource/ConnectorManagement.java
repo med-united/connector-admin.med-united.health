@@ -16,15 +16,15 @@ import java.util.Map;
 public class ConnectorManagement {
 
     @Inject
-    @Named("secunet")
+    @Named("secu_kon") // Secunet connector
     private Connector secunetConnector;
 
     @Inject
-    @Named("kocobox")
+    @Named("kocobox") // KocoBox connector
     private Connector kocoboxConnector;
 
     @Inject
-    @Named("rise")
+    @Named("RKONN") // RISE connector
     private Connector riseConnector;
 
     private Map<String, Connector> connectorMap;

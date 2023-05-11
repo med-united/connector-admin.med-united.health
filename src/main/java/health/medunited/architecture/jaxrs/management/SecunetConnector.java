@@ -15,7 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @ApplicationScoped
-@Named("secunet")
+@Named("secu_kon")
 public class SecunetConnector implements Connector {
 
     private static final Logger log = Logger.getLogger(SecunetConnector.class.getName());

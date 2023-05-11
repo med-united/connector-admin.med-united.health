@@ -8,7 +8,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @ApplicationScoped
-@Named("rise")
+@Named("RKONN")
 public class RiseConnector implements Connector{
 
     private static final Logger log = Logger.getLogger(RiseConnector.class.getName());
