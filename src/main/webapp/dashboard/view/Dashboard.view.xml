@@ -4,6 +4,8 @@
           xmlns:f="sap.f"
           xmlns:mvc="sap.ui.core.mvc"
           xmlns:w="sap.ui.integration.widgets"
+          xmlns:card="sap.f.cards"
+          xmlns:core="sap.ui.core"
 >
     <f:DynamicPage id="dynamicPageId"
                    toggleHeaderOnTitleClick="false">
@@ -28,11 +30,54 @@
                             <f:GridContainerItemLayoutData minRows="3" columns="5" />
                         </w:layoutData>
                     </w:Card>
-                    <w:Card id="CardsCard" manifest="./dashboard/resources/CardsCard.json">
-                        <w:layoutData>
-                            <f:GridContainerItemLayoutData minRows="3" columns="10" />
-                        </w:layoutData>
-                    </w:Card>
+                    <f:Card id="CardsCard">
+                        <f:layoutData>
+                            <f:GridContainerItemLayoutData columns="11" />
+                        </f:layoutData>
+                        <f:header>
+                            <card:Header
+                                    title="Kartenübersicht"
+                                    iconSrc="sap-icon://business-card"/>
+                        </f:header>
+                        <f:content>
+                            <Table items="{CardsCard>/}" class="withGrid" noDataText="Daten werden geladen...">
+                                <columns>
+                                    <Column mergeDuplicates="true">
+                                        <Text text="{i18n>CardType}" />
+                                    </Column>
+                                    <Column mergeDuplicates="true" mergeFunctionName="data#mergeKey">
+                                        <Text text="{i18n>Amount}" />
+                                    </Column>
+                                    <Column>
+                                        <Text text="{i18n>PinType}" />
+                                    </Column>
+                                    <Column>
+                                        <Text text="PIN-Status"/>
+                                    </Column>
+                                    <Column mergeDuplicates="true" mergeFunctionName="data#mergeKey">
+                                        <Text text="{i18n>Validity}" />
+                                    </Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem>
+                                        <Text text="{CardsCard>cardType}"/>
+                                        <Text text="{CardsCard>Value}">
+                                            <customData>
+                                                <core:CustomData key="mergeKey" value="{CardsCard>cardType}" />
+                                            </customData>
+                                        </Text>
+                                        <Text text="{CardsCard>pinType}"/>
+                                        <ObjectStatus text="{CardsCard>pinInfo}" state="{CardsCard>pinState}"/>
+                                        <ObjectStatus text="{CardsCard>validity}" state="{CardsCard>validityState}">
+                                            <customData>
+                                                <core:CustomData key="mergeKey" value="{CardsCard>cardType}" />
+                                            </customData>
+                                        </ObjectStatus>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+                        </f:content>
+                    </f:Card>
             </f:GridContainer>
         </f:content>
 

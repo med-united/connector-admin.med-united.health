@@ -13,13 +13,15 @@ sap.ui.define(
 
           this.oRouter = this.getOwnerComponent().getRouter();
           this._bDescendingSort = false;
+          const oCardCard = new JSONModel();
+          this.getView().setModel(oCardCard, "CardsCard")
           this.setCardList();
         },
 
         setCardList: function(){
              const runtimeConfigModel = new sap.ui.model.odata.v2.ODataModel("../Data.svc",true);
              const oConnectorList = this.getView().byId("ConnectorListCard");
-             const oCardList = this.getView().byId("CardCard");
+             const oCardList = this.getView().getModel("CardsCard");
              let url = document.URL;
              url = url.endsWith("#") ? url.substring(0, url.length-1) : url.substring(0, url.length);
              runtimeConfigModel.read("/RuntimeConfigs", {
@@ -31,7 +33,8 @@ sap.ui.define(
                  let inactiveTerminals = 0;
                  let activeConnectors= 0;
                  let activeTerminals = 0;
-                 let invalidHBA = 0;
+                 let invalidHBACH = 0;
+                 let invalidHBAQES = 0;
                  let invalidSMCB = 0;
                  let invalidEGK = 0;
                  const date = new Date().toJSON();
@@ -80,13 +83,16 @@ sap.ui.define(
                           const pinStatus = data[3];
                           for(let j = 0; j < pinStatus.length; j++)
                           {
-                            if(pinStatus[j].cardType == "SMC_B" && pinStatus[j].status!="VERIFIED"){
+                            if(pinStatus[j].cardType == "SMC_B" && pinStatus[j].status != "VERIFIED"){
                                 invalidSMCB++;
                             }
-                            else if(pinStatus[j].cardType == "HBA" && pinStatus[j].status!="VERIFIED"){
-                                invalidHBA++;
+                            else if(pinStatus[j].cardType == "HBA" && pinStatus[j].pinType == "PIN.CH" && pinStatus[j].status != "VERIFIED"){
+                                invalidHBACH++;
                             }
-                            else if(pinStatus[j].cardType =="EGK" && pinStatus[j].status!="VERIFIED"){
+                            else if(pinStatus[j].cardType == "HBA" && pinStatus[j].pinType == "PIN.QES" && pinStatus[j].status != "VERIFIED"){
+                                invalidHBAQES++;
+                            }
+                            else if(pinStatus[j].cardType == "EGK" && pinStatus[j].status != "VERIFIED"){
                                 invalidEGK++;
                             }
                           }
@@ -120,39 +126,50 @@ sap.ui.define(
                              "State": "None"
                            });
                            cardContent.push({
-                             "Name": "eGK",
+                             "cardType": "EGK",
                              "Value": cardTypes["EGK"],
-                             "PinInfo" : invalidEGK > 0 ? "Nicht verifiziert: " + invalidEGK : "Alle verifiziert",
-                             "PinStatus": invalidEGK > 0 ? "Error" : "Success",
-                             "CertInfo" : invalidCertCards["EGK"] > 0 ? "Abgelaufen: " + invalidCertCards["EGK"] : "Alle gültig",
-                             "CertStatus": invalidCertCards["EGK"] > 0 ? "Error" : "Success"
+                             "pinType": "PIN.CH",
+                             "pinInfo" : invalidEGK > 0 ? "Nicht verifiziert: " + invalidEGK : "Alle verifiziert",
+                             "pinState" : invalidEGK > 0 ? "Error" : "Success",
+                             "validity" : invalidCertCards["EGK"] > 0 ? "Abgelaufen: " + invalidCertCards["EGK"] : "Alle gültig",
+                             "validityState" : invalidCertCards["EGK"] > 0 ? "Error" : "Success"
                            });
                            cardContent.push({
-                             "Name": "HBA",
+                             "cardType": "HBA",
                              "Value": cardTypes["HBA"],
-                             "PinInfo": invalidHBA > 0 ? "Nicht verifiziert: " + invalidHBA : "Alle verifiziert",
-                             "PinStatus": invalidHBA > 0 ? "Error" : "Success",
-                             "CertInfo" : invalidCertCards["HBA"] > 0 ? "Abgelaufen: " + invalidCertCards["HBA"] : "Alle gültig",
-                             "CertStatus": invalidCertCards["HBA"] > 0 ? "Error" : "Success"
+                             "pinType": "PIN.CH",
+                             "pinInfo": invalidHBACH > 0 ? "Nicht verifiziert: " + invalidHBACH : "Alle verifiziert",
+                             "pinState": invalidHBACH > 0 ? "Error" : "Success",
+                             "validity" : invalidCertCards["HBA"] > 0 ? "Abgelaufen: " + invalidCertCards["HBA"] : "Alle gültig",
+                             "validityState" : invalidCertCards["HBA"] > 0 ? "Error" : "Success"
                            });
                            cardContent.push({
-                             "Name": "SMC-B",
+                             "cardType": "HBA",
+                             "Value": cardTypes["HBA"],
+                             "pinType": "PIN.QES",
+                             "pinInfo": invalidHBAQES > 0 ? "Nicht verifiziert: " + invalidHBAQES : "Alle verifiziert",
+                             "pinState": invalidHBAQES > 0 ? "Error" : "Success",
+                             "validity" : invalidCertCards["HBA"] > 0 ? "Abgelaufen: " + invalidCertCards["HBA"] : "Alle gültig",
+                             "validityState" : invalidCertCards["HBA"] > 0 ? "Error" : "Success"
+                           });
+                           cardContent.push({
+                             "cardType": "SMC-B",
                              "Value": cardTypes["SMC_B"],
-                             "PinInfo": invalidSMCB > 0 ? "Nicht verifiziert: " + invalidSMCB : "Alle verifiziert",
-                             "PinStatus": invalidSMCB > 0 ? "Error" : "Success",
-                             "CertInfo" : invalidCertCards["SMC_B"] > 0 ? "Abgelaufen: " + invalidCertCards["SMC_B"] : "Alle gültig",
-                             "CertStatus": invalidCertCards["SMC_B"] > 0 ? "Error" : "Success"
+                             "pinType": "PIN.SMC",
+                             "pinInfo": invalidSMCB > 0 ? "Nicht verifiziert: " + invalidSMCB : "Alle verifiziert",
+                             "pinState": invalidSMCB > 0 ? "Error" : "Success",
+                             "validity" : invalidCertCards["SMC_B"] > 0 ? "Abgelaufen: " + invalidCertCards["SMC_B"] : "Alle gültig",
+                             "validityState" : invalidCertCards["SMC_B"] > 0 ? "Error" : "Success"
                            });
                            cardContent.push({
-                             "Name" : "SMC-KT",
+                             "cardType" : "SMC-KT",
                              "Value": cardTypes["SMC_KT"],
-                             "CertInfo" : invalidCertCards["SMC_KT"] > 0 ? "Abgelaufen: " + invalidCertCards["SMC_KT"] : "Alle gültig",
-                             "CertStatus": invalidCertCards["SMC_KT"] > 0 ? "Error" : "Success"
+                             "validity" : invalidCertCards["SMC_KT"] > 0 ? "Abgelaufen: " + invalidCertCards["SMC_KT"] : "Alle gültig",
+                             "validityState" : invalidCertCards["SMC_KT"] > 0 ? "Error" : "Success"
                            });
                            connectorData["sap.card"].content.data.json = connectorContent;
                            oConnectorList.setManifest(connectorData);
-                           cardData["sap.card"].content.data.json = cardContent;
-                           oCardList.setManifest(cardData);
+                           oCardList.setData(cardContent);
                         }
                      });
                    });
@@ -165,8 +182,6 @@ sap.ui.define(
         onBeforeRendering: function () {
           const oConnectorList = this.getView().byId("ConnectorListCard");
           oConnectorList.setManifest("./dashboard/resources/ConnectorList.json");
-          const oCardCard = this.getView().byId("CardCard");
-          oCardCard.setManifest("./dashboard/resources/CardsCard.json");
           this.onInit();
         },
 
