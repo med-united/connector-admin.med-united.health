@@ -4,9 +4,9 @@ import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
 import javax.ws.rs.Path;
-import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
-import de.gematik.ws.conn.servicedirectory.v3.ConnectorServices;
 import health.medunited.architecture.service.endpoint.EndpointDiscoveryService;
 
 @Path("sds")
@@ -17,9 +17,17 @@ public class ConnectorSds {
 
     @GET
     @Path("config")
-    public ConnectorServices connectorSdsConfig(@QueryParam("connectorUrl") String connectorUrl) {
-        endpointDiscoveryService.obtainConfiguration(connectorUrl);
-        return endpointDiscoveryService.getConnectorSds();
+    public Response connectorSdsConfig(@HeaderParam("X-Host") String connectorUrl) {
+        try {
+            return Response
+                .status(Response.Status.OK)
+                .entity(endpointDiscoveryService.obtainConfiguration(connectorUrl))
+                .type(MediaType.APPLICATION_JSON_TYPE)
+                .build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+
     }
 
     @GET
@@ -27,4 +35,5 @@ public class ConnectorSds {
     public byte[] connectorSdsFile(@HeaderParam("X-Host") String connectorBaseUrl) {
         return endpointDiscoveryService.obtainFile(connectorBaseUrl);
     }
+
 }

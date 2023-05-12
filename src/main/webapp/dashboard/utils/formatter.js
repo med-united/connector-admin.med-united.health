@@ -3,7 +3,7 @@ sap.ui.define([], function () {
 	return {
 		formatDateAndTimeWithTimezone: function (inputStamp) {
 
-		    if (inputStamp.length < 4 ) return "--";
+		    if ((inputStamp == undefined) || (inputStamp.length < 4)) return "";
 
 		    function convertTZ(date, tzString) {
                 return new Date((typeof date === "string" ? new Date(date) : date).toLocaleString("en-US", {timeZone: tzString}));

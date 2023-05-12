@@ -16,7 +16,6 @@ import javax.ws.rs.client.Invocation;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 
-import de.gematik.ws._int.version.productinformation.v1.ProductTypeInformation;
 import de.gematik.ws.conn.servicedirectory.v3.ConnectorServices;
 import de.gematik.ws.conn.serviceinformation.v2.ServiceType;
 import health.medunited.architecture.service.common.security.SecretsManagerService;
@@ -26,30 +25,25 @@ public class EndpointDiscoveryService {
 
     private static final Logger log = Logger.getLogger(EndpointDiscoveryService.class.getName());
 
-    @Inject
     SecretsManagerService secretsManagerService;
-
-    private String eventServiceEndpointAddress;
-
-    private String cardServiceEndpointAddress;
-
-    private String certificateServiceEndpointAddress;
 
     private ConnectorServices connectorSds;
 
-    private ProductTypeInformation connectorVersion;
+    public EndpointDiscoveryService() {
+    }
 
-    public void setSecretsManagerService(SecretsManagerService secretsManagerService) {
+    @Inject
+    public EndpointDiscoveryService(SecretsManagerService secretsManagerService) {
         this.secretsManagerService = secretsManagerService;
     }
 
     public byte[] obtainFile(String connectorBaseUrl) {
-        Client client = buildClient();
+        Client client = buildClient(3);
         Invocation invocation = buildInvocation(client, connectorBaseUrl);
         try {
             return invocation
-                .invoke(InputStream.class)
-                .readAllBytes();
+                    .invoke(InputStream.class)
+                    .readAllBytes();
         } catch (IOException e) {
             log.log(Level.SEVERE, "Could not read connector.sds", e);
             return new byte[0];
@@ -58,45 +52,23 @@ public class EndpointDiscoveryService {
         }
     }
 
-    public void obtainConfiguration(String connectorBaseUrl) {
-        Client client = buildClient();
+    public ConnectorServices obtainConfiguration(String connectorBaseUrl) {
+        Client client = buildClient(3);
         Invocation invocation = buildInvocation(client, connectorBaseUrl);
-
         try {
             InputStream inputStream = invocation.invoke(InputStream.class);
-            JAXBContext jaxbContext = JAXBContext.newInstance(ConnectorServices.class);
-            connectorSds = (ConnectorServices) jaxbContext.createUnmarshaller().unmarshal(inputStream);
-
-            connectorVersion = connectorSds.getProductInformation().getProductTypeInformation();
-
-            List<ServiceType> services = connectorSds.getServiceInformation().getService();
-
-            for (ServiceType service : services) {
-                String serviceName = service.getName();
-                switch (serviceName) {
-                    case "EventService": {
-                        eventServiceEndpointAddress = service.getVersions().getVersion().get(0).getEndpointTLS().getLocation();
-                        break;
-                    }
-                    case "CardService": {
-                        cardServiceEndpointAddress = service.getVersions().getVersion().get(0).getEndpointTLS().getLocation();
-                        break;
-                    }
-                    case "CertificateService": {
-                        certificateServiceEndpointAddress = service.getVersions().getVersion().get(0).getEndpointTLS().getLocation();
-                        break;
-                    }
-                    default: {
-                        log.log(Level.WARNING, "Unknown service name: {}", serviceName);
-                        break;
-                    }
-                }
-            }
+            return parseInput(inputStream);
         } catch (JAXBException | ProcessingException | IllegalArgumentException e) {
-            log.log(Level.SEVERE, "Could not get or parse connector.sds", e);
+            throw new IllegalStateException("Could not get or parse connector.sds from " + connectorBaseUrl, e);
         } finally {
             client.close();
         }
+    }
+
+    public ConnectorServices parseInput(InputStream inputStream) throws JAXBException{
+        JAXBContext jaxbContext = JAXBContext.newInstance(ConnectorServices.class);
+        this.connectorSds = (ConnectorServices) jaxbContext.createUnmarshaller().unmarshal(inputStream);
+        return this.connectorSds;
     }
 
     private Invocation buildInvocation(Client client, String connectorBaseUrl) {
@@ -107,33 +79,35 @@ public class EndpointDiscoveryService {
         return builder.buildGet();
     }
 
-    private Client buildClient() {
-        ClientBuilder clientBuilder = ClientBuilder.newBuilder();
-        clientBuilder.connectTimeout(3, TimeUnit.SECONDS);
-        clientBuilder.readTimeout(3, TimeUnit.SECONDS);
-        clientBuilder.sslContext(secretsManagerService.getSslContext());
-        clientBuilder = clientBuilder.hostnameVerifier(new SSLUtilities.FakeHostnameVerifier());
-        return clientBuilder.build();
+    private Client buildClient(long timeoutSeconds) {
+        return ClientBuilder
+            .newBuilder()
+            .connectTimeout(timeoutSeconds, TimeUnit.SECONDS)
+            .readTimeout(timeoutSeconds, TimeUnit.SECONDS)
+            .sslContext(secretsManagerService.getSslContext())
+            .hostnameVerifier(new SSLUtilities.FakeHostnameVerifier())
+            .build();
     }
 
     public String getEventServiceEndpointAddress() {
-        return eventServiceEndpointAddress;
+        return getEndpointAddress("EventService");
     }
 
     public String getCardServiceEndpointAddress() {
-        return cardServiceEndpointAddress;
+        return getEndpointAddress("CardService");
     }
 
     public String getCertificateServiceEndpointAddress() {
-        return certificateServiceEndpointAddress;
+        return getEndpointAddress("CertificateService");
     }
 
-    public ProductTypeInformation getConnectorVersion() {
-        return connectorVersion;
-    }
-
-    public ConnectorServices getConnectorSds() {
-        return connectorSds;
+    private String getEndpointAddress(String serviceName) {
+        List<ServiceType> services = connectorSds.getServiceInformation().getService();
+        for (ServiceType service : services) {
+            if (service.getName().equals(serviceName))
+                return service.getVersions().getVersion().get(0).getEndpointTLS().getLocation();
+        }
+        throw new IllegalArgumentException("Service not found in connector.sds by name:" + serviceName);
     }
 
 }

@@ -13,17 +13,13 @@ sap.ui.define(
 
           this.oRouter = this.getOwnerComponent().getRouter();
           this._bDescendingSort = false;
-          const oConnectorList = new JSONModel();
-          this.getView().setModel(oConnectorList, "Connectors");
-          const oCardList = new JSONModel();
-          this.getView().setModel(oCardList, "Cards");
           this.setCardList();
         },
 
         setCardList: function(){
              const runtimeConfigModel = new sap.ui.model.odata.v2.ODataModel("../Data.svc",true);
-             const oConnectorList = this.getView().getModel("Connectors");
-             const oCardList = this.getView().getModel("Cards");
+             const oConnectorList = this.getView().byId("ConnectorListCard");
+             const oCardList = this.getView().byId("CardCard");
              let url = document.URL;
              url = url.endsWith("#") ? url.substring(0, url.length-1) : url.substring(0, url.length);
              runtimeConfigModel.read("/RuntimeConfigs", {
@@ -153,10 +149,10 @@ sap.ui.define(
                              "CertInfo" : invalidCertCards["SMC_KT"] > 0 ? "Abgelaufen: " + invalidCertCards["SMC_KT"] : "Alle gültig",
                              "CertStatus": invalidCertCards["SMC_KT"] > 0 ? "Error" : "Success"
                            });
-                           connectorData.connectors["sap.card"].content.data.json = connectorContent;
-                           oConnectorList.setData(connectorData);
-                           cardData.cards["sap.card"].content.data.json = cardContent;
-                           oCardList.setData(cardData);
+                           connectorData["sap.card"].content.data.json = connectorContent;
+                           oConnectorList.setManifest(connectorData);
+                           cardData["sap.card"].content.data.json = cardContent;
+                           oCardList.setManifest(cardData);
                         }
                      });
                    });
@@ -167,6 +163,10 @@ sap.ui.define(
                });
         },
         onBeforeRendering: function () {
+          const oConnectorList = this.getView().byId("ConnectorListCard");
+          oConnectorList.setManifest("./dashboard/resources/ConnectorList.json");
+          const oCardCard = this.getView().byId("CardCard");
+          oCardCard.setManifest("./dashboard/resources/CardsCard.json");
           this.onInit();
         },
 

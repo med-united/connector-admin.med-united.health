@@ -1,5 +1,4 @@
 {
-  "cards": {
     "sap.app": {
       "id": "ConnectorList",
       "type": "card",
@@ -17,7 +16,10 @@
       },
       "content": {
         "data": {
-          "json": [
+          "json": [{"Name": "EGK"},
+            {"Name":  "HBA"},
+            {"Name":  "SMC-B"},
+            {"Name":  "SMC-KT"}
           ]
         },
         "row": {
@@ -44,5 +46,4 @@
         }
       }
     }
-  }
 }
