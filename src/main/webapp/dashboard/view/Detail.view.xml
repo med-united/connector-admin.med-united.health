@@ -139,10 +139,10 @@
                                         items="{VerifyAll>/certificateCollection/certificates}"
                                         class="withGrid">
                                         <columns>
-                                            <Column importance="Low">
+                                            <Column importance="Low" mergeDuplicates="true">
                                                 <Text text="Alias" />
                                             </Column>
-                                            <Column importance="Medium">
+                                            <Column importance="Medium" mergeDuplicates="true" mergeFunctionName="data#mergeKey">
                                                 <Text text="{i18n>CardOwner}" />
                                             </Column>
                                             <Column importance="High">
@@ -158,7 +158,11 @@
                                         <items>
                                             <ColumnListItem class="availableCertsClass">
                                                 <Text text="{VerifyAll>cardHandle}" />
-                                                <Text text="{VerifyAll>cardHolderName}" />
+                                                <Text text="{VerifyAll>cardHolderName}">
+                                                    <customData>
+                                                        <core:CustomData key="mergeKey" value="{VerifyAll>cardHandle}" />
+                                                    </customData>
+                                                </Text>
                                                 <Link text="{VerifyAll>certRef}"
                                                     press="handlePopoverPress" ariaHasPopup="Dialog" />
                                                 <Text text="{VerifyAll>serial}" />
@@ -176,10 +180,10 @@
                                 <uxap:blocks>
                                     <Table items="{PINStatus>/}" class="withGrid">
                                         <columns>
-                                            <Column>
+                                            <Column mergeDuplicates="true">
                                                 <Text text="Alias" />
                                             </Column>
-                                            <Column>
+                                            <Column mergeDuplicates="true" mergeFunctionName="data#mergeKey">
                                                 <Text text="{i18n>CardType}" />
                                             </Column>
                                             <Column>
@@ -192,7 +196,11 @@
                                         <items>
                                             <ColumnListItem>
                                                 <Text text="{PINStatus>cardHandle}" />
-                                                <Text text="{PINStatus>cardType}" />
+                                                <Text text="{PINStatus>cardType}">
+                                                 <customData>
+                                                    <core:CustomData key="mergeKey" value="{PINStatus>cardHandle}" />
+                                                 </customData>
+                                                </Text>
                                                 <Text text="{PINStatus>pinType}"/>
                                                 <Text text="{PINStatus>status}" />
                                             </ColumnListItem>
