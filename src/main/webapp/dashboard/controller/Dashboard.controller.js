@@ -56,8 +56,7 @@ sap.ui.define(
                      fetch("connector/event/get-card-terminals", {headers : getCardsHeaders}),
                      fetch("connector/event/get-cards", {headers : getCardsHeaders}),
                      fetch("dashboard/resources/ConnectorList.json"),
-                     fetch("connector/card/pinStatus", {headers : getCardsHeaders}),
-                     fetch("dashboard/resources/CardsCard.json")
+                     fetch("connector/card/pinStatus", {headers : getCardsHeaders})
                    ]).then(function (responses) {
                      return Promise.all(responses.map(function (response) {
                        if(response.ok){
@@ -102,7 +101,6 @@ sap.ui.define(
                         }
                         if(numResponses == numConfigs){
                            const connectorData = data[2];
-                           const cardData = data[4];
                            let connectorContent = [];
                            let cardContent = [];
                            connectorContent.push({
