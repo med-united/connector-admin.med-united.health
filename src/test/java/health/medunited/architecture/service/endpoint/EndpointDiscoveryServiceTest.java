@@ -21,7 +21,6 @@ import health.medunited.architecture.service.common.security.SecretsManagerServi
 class EndpointDiscoveryServiceTest {
 
     EndpointDiscoveryService edService;
-    private static SecretsManagerService secretsManagerService;
     private RuntimeConfig runtimeConfig;
 
     @BeforeEach
@@ -30,7 +29,7 @@ class EndpointDiscoveryServiceTest {
         runtimeConfig = Bootstrap.getRuntimeConfigKops();
         Mockito.when(httpServletRequest.getHeader("x-client-certificate")).thenReturn(runtimeConfig.getClientCertificate());
         Mockito.when(httpServletRequest.getHeader("x-client-certificate-password")).thenReturn(runtimeConfig.getClientCertificatePassword());
-        secretsManagerService = new SecretsManagerService();
+        SecretsManagerService secretsManagerService = new SecretsManagerService();
         secretsManagerService.setRequest(httpServletRequest);
         secretsManagerService.createSSLContext();
         edService = new EndpointDiscoveryService(secretsManagerService);
@@ -45,7 +44,7 @@ class EndpointDiscoveryServiceTest {
 
     @Test
     void parseSecunetExampleSDS() throws JAXBException {
-        InputStream inputStream = EndpointDiscoveryServiceTest.class.getResourceAsStream("/connectorSECUN5.53.sds");
+        InputStream inputStream = EndpointDiscoveryServiceTest.class.getResourceAsStream("/connectorSECUN5.53.0.sds");
         assertEquals("5.53.0", edService.parseInput(inputStream).getProductInformation().getProductTypeInformation().getProductTypeVersion());
     }
 
