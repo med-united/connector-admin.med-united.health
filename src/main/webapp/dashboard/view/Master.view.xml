@@ -34,7 +34,7 @@
                         <OverflowToolbarButton icon="sap-icon://sort" type="Transparent"
                                                press="onSort" tooltip="{i18n>Sort}"/>
                         <OverflowToolbarButton icon="sap-icon://edit" type="Transparent"
-                                               press="onChange" tooltip="{i18n>Change}"/>
+                                               press="onEdit" tooltip="{i18n>Edit}"/>
                         <OverflowToolbarButton icon="sap-icon://delete" type="Transparent"
                                                press="onDelete" tooltip="{i18n>Delete}"/>
                     </OverflowToolbar>

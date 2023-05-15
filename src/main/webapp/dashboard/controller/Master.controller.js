@@ -68,60 +68,60 @@ sap.ui.define(
           oBinding.sort(oSorter);
         },
 
-        onChange: function(){
+        onEdit: function(){
            const oView = this.getView();
            const aSelectedItems = oView.byId("runtimeConfigTable").getSelectedItems();
-           if(aSelectedItems.length == 1){
+           if(aSelectedItems.length === 1){
              const me = this;
-             if (!this.byId("changeDialog")) {
+             if (!this.byId("editDialog")) {
                        // load asynchronous XML fragment
                        Fragment.load({
                          id: oView.getId(),
-                         name: "sap.f.ShellBarWithFlexibleColumnLayout.view.ChangeDialog",
+                         name: "sap.f.ShellBarWithFlexibleColumnLayout.view.EditDialog",
                          controller: this,
                        }).then(function (oDialog) {
                          oView.addDependent(oDialog);
-                         me._openChangeDialog(oDialog);
+                         me._openEditDialog(oDialog);
                        });
                      } else {
-                       this._openChangeDialog(this.byId("changeDialog"));
+                       this._openEditDialog(this.byId("editDialog"));
                      }
            }
            else{
-            if(aSelectedItems.length == 0){
-                MessageBox.error("Bitte wählen Sie einen Konnektor aus.");
+            if(aSelectedItems.length === 0){
+                MessageBox.error(this.translate("msgSelectOneConnector"));
             }
             else if(aSelectedItems.length > 1){
-                MessageBox.error("Bitte wählen Sie nur einen Konnektor aus.");
+                MessageBox.error(this.translate("msgSelectOnlyOneConnector"));
             }
            }
         },
 
-        _openChangeDialog: function (oDialog, sEntityName) {
+        _openEditDialog: function (oDialog) {
             oDialog.open();
             const aSelectedItems = this.getView().byId("runtimeConfigTable").getSelectedItems();
             const oItemContextPath = aSelectedItems[0].getBindingContext().getPath();
             oDialog.bindElement(oItemContextPath);
         },
 
-        onCancelChange:function(){
-            this.byId("changeDialog").close();
+        onCancelEdit:function(){
+            this.byId("editDialog").close();
         },
 
-        onSaveChange:function(){
+        onSaveEdit:function(){
             this.getView()
                .getModel()
                .submitChanges({
                  success: function () {
                     const oTable = this.getView().byId("runtimeConfigTable");
                     oTable.getBinding("items").refresh();
-                    sap.m.MessageToast.show("Daten erfolgreich geändert.");
+                    sap.m.MessageToast.show(this.translate("msgEditSuccess"));
                  }.bind(this),
                  error: function () {
-                    sap.m.MessageToast.show("Fehler beim ändern der Daten.");
+                    sap.m.MessageToast.show(this.translate("msgEditError"));
                  },
                });
-            this.byId("changeDialog").close();
+            this.byId("editDialog").close();
         },
 
         onDelete: function () {
