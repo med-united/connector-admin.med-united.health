@@ -31,6 +31,8 @@ public class RuntimeConfig {
 
     private String workplaceId;
 
+    private boolean useSSL;
+
     @Column(columnDefinition = "TEXT", length = 65535)
     private String clientCertificate;
 
@@ -40,7 +42,7 @@ public class RuntimeConfig {
     }
 
     public RuntimeConfig(String host, String signPort, String vzdPort, String mandantId, String clientSystemId, String workplaceId, String userId,
-                         String clientCertificate, String clientCertificatePassword) {
+                         boolean useSSL, String clientCertificate, String clientCertificatePassword) {
         this.url = host;
         this.signPort = signPort;
         this.vzdPort = vzdPort;
@@ -48,6 +50,7 @@ public class RuntimeConfig {
         this.clientSystemId = clientSystemId;
         this.workplaceId = workplaceId;
         this.userId = userId;
+        this.useSSL = useSSL;
         this.clientCertificate = clientCertificate;
         this.clientCertificatePassword = clientCertificatePassword;
     }
@@ -114,6 +117,14 @@ public class RuntimeConfig {
 
     public void setWorkplaceId(String workplaceId) {
         this.workplaceId = workplaceId;
+    }
+
+    public boolean getUseSSL() {
+        return useSSL;
+    }
+
+    public void setUseSSL(boolean useSSL) {
+        this.useSSL = useSSL;
     }
 
     public String getClientCertificate() {

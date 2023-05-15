@@ -357,6 +357,7 @@ sap.ui.define(
               "x-workplace-id": oRuntimeConfig.WorkplaceId,
               "x-user-id": oRuntimeConfig.UserId,
               "x-host": oRuntimeConfig.Url,
+              "x-use-ssl": oRuntimeConfig.UseSSL,
             };
         },
 

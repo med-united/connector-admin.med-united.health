@@ -20,10 +20,12 @@
                 <Input type="Text" value="{ClientSystemId}" />
                 <Label text="Arbeitsplatz-ID" />
                 <Input type="Text" value="{WorkplaceId}" />
+                <Label text="{i18n>SecureCommunicationUsingSSL/TLS}" />
+                <CheckBox text="{i18n>CertificateBasedAuthentication}" selected="{UseSSL}" />
                 <Label text="Kundenzertifikat" />
-                <Input type="Text" value="{ClientCertificate}" />
+                <Input type="Text" value="{ClientCertificate}" visible="{= ${UseSSL} ? true : false}" />
                 <Label text="Kennwort Kundenzertifikat" />
-                <Input type="Text" value="{ClientCertificatePassword}" />
+                <Input type="Text" value="{ClientCertificatePassword}" visible="{= ${UseSSL} ? true : false}" />
             </form:content>
         </form:SimpleForm>
         <beginButton>
