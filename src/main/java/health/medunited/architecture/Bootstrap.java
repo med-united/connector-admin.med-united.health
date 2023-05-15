@@ -21,6 +21,8 @@ public class Bootstrap {
         em.persist(runtimeConfigSecunet);
         RuntimeConfig runtimeConfigKops = getRuntimeConfigKops();
         em.persist(runtimeConfigKops);
+        RuntimeConfig runtimeConfigRise = getRuntimeConfigRise();
+        em.persist(runtimeConfigRise);
     }
 
     public static RuntimeConfig getRuntimeConfigKops() {
@@ -54,4 +56,16 @@ public class Bootstrap {
         return runtimeConfig;
     }
 
+    public static RuntimeConfig getRuntimeConfigRise() {
+        RuntimeConfig runtimeConfig = new RuntimeConfig();
+        runtimeConfig.setUserId("rise-id");
+        runtimeConfig.setUrl("https://192.168.178.75/");
+        runtimeConfig.setMandantId("m");
+        runtimeConfig.setClientSystemId("c");
+        runtimeConfig.setWorkplaceId("a");
+        runtimeConfig.setUseSSL(true);
+        runtimeConfig.setClientCertificate("data:application/x-pkcs12;base64,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");
+        runtimeConfig.setClientCertificatePassword("Uq>nn#L_/z[._XjA");
+        return runtimeConfig;
+    }
 }
