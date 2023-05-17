@@ -21,6 +21,7 @@ sap.ui.define(
         setCardList: function(){
              const runtimeConfigModel = new sap.ui.model.odata.v2.ODataModel("../Data.svc",true);
              const oConnectorList = this.getView().byId("ConnectorListCard");
+             const oTable = this.getView().byId("cardsTable");
              const oCardList = this.getView().getModel("CardsCard");
              let url = document.URL;
              url = url.endsWith("#") ? url.substring(0, url.length-1) : url.substring(0, url.length);
@@ -37,7 +38,12 @@ sap.ui.define(
                  const cardTypes = {"SMC_KT" : 0, "SMC_B" : 0, "HBA": 0, "EGK": 0};
                  const invalidCertCards = {"SMC_KT" : 0, "SMC_B" : 0, "HBA": 0, "EGK": 0};
                  const verifiedPinStatus = {"SMC_B" : 0, "HBA_CH": 0, "HBA_QES" : 0, "EGK": 0};
-                 const verifiablePinStatus = {"SMC_B" : 0, "HBA_CH": 0, "HBA_QES" : 0, "EGK": 0}
+                 const verifiablePinStatus = {"SMC_B" : 0, "HBA_CH": 0, "HBA_QES" : 0, "EGK": 0};
+                 const transportPinStatus = {"SMC_B" : 0, "HBA_CH": 0, "HBA_QES" : 0, "EGK": 0};
+                 const blockedPinStatus = {"SMC_B" : 0, "HBA_CH": 0, "HBA_QES" : 0, "EGK": 0};
+                 const emptyPinStatus = {"SMC_B" : 0, "HBA_CH": 0, "HBA_QES" : 0, "EGK": 0};
+                 const disabledPinStatus = {"SMC_B" : 0, "HBA_CH": 0, "HBA_QES" : 0, "EGK": 0};
+                 const stats = {"VERIFIED" : verifiedPinStatus, "VERIFIABLE" : verifiablePinStatus, "TRANSPORT_PIN" : transportPinStatus, "BLOCKED" : blockedPinStatus, "EMPTY_PIN": emptyPinStatus, "DISABLED": disabledPinStatus};
                  const numConfigs = configs.length;
                  let numResponses = 0;
                  configs.forEach(function (config) {
@@ -79,24 +85,26 @@ sap.ui.define(
                           activeConnectors++;
                           const pinStatus = data[3];
                           for(let j = 0; j < pinStatus.length; j++){
-                            if(pinStatus[j].cardType == "SMC_B"){
-                               verifiedPinStatus["SMC_B"] = pinStatus[j].status == "VERIFIED" ?  verifiedPinStatus["SMC_B"] + 1 : verifiedPinStatus["SMC_B"];
-                               verifiablePinStatus["SMC_B"] = pinStatus[j].status == "VERIFIABLE" ?  verifiablePinStatus["SMC_B"] + 1 : verifiablePinStatus["SMC_B"];
-                            }
-                            else if(pinStatus[j].cardType == "HBA" && pinStatus[j].pinType == "PIN.CH")
+                                let type = pinStatus[j].cardType;
+                                if (type == "HBA"){
+                                    type = pinStatus[j].pinType == "PIN.CH" ? "HBA_CH" : "HBA_QES";
+                                }
+                                stats[pinStatus[j].status][type] = stats[pinStatus[j].status][type] + 1;
+                          }
+                          let column = 3;
+                          for(let status in stats)
+                          {
+                            let sum = 0;
+                            for(let typ in stats[status])
                             {
-                                verifiedPinStatus["HBA_CH"] = pinStatus[j].status == "VERIFIED" ?  verifiedPinStatus["HBA_CH"] + 1 : verifiedPinStatus["HBA_CH"];
-                                verifiablePinStatus["HBA_CH"] = pinStatus[j].status == "VERIFIABLE" ?  verifiablePinStatus["HBA_CH"] + 1 : verifiablePinStatus["HBA_CH"];
+                                sum = sum + stats[status][typ];
+                                stats[status][typ] = stats[status][typ] === 0 ? "-" : stats[status][typ];
                             }
-                            else if(pinStatus[j].cardType == "HBA" && pinStatus[j].pinType == "PIN.QES")
-                            {
-                                verifiedPinStatus["HBA_QES"] = pinStatus[j].status == "VERIFIED" ?  verifiedPinStatus["HBA_QES"] + 1 : verifiedPinStatus["HBA_QES"];
-                                verifiablePinStatus["HBA_QES"] = pinStatus[j].status == "VERIFIABLE" ?  verifiablePinStatus["HBA_QES"] + 1 : verifiablePinStatus["HBA_QES"];
-                            }
-                            else if(pinStatus[j].cardType == "EGK"){
-                                verifiedPinStatus["EGK"] = pinStatus[j].status == "VERIFIED" ?  verifiedPinStatus["EGK"] + 1 : verifiedPinStatus["EGK"];
-                                verifiablePinStatus["EGK"] = pinStatus[j].status == "VERIFIABLE" ?  verifiablePinStatus["EGK"] + 1 : verifiablePinStatus["EGK"];
-                            }
+                            if(sum === 0)
+                             {
+                                oTable.getColumns()[column].setVisible(false);
+                             }
+                            column++;
                           }
                         }
                         else{
@@ -130,7 +138,12 @@ sap.ui.define(
                              "cardType": "EGK",
                              "Value": cardTypes["EGK"],
                              "pinType": "PIN.CH",
-                             "pinInfo" : cardTypes["EGK"] > 0 ? "Verifiziert: " + verifiedPinStatus["EGK"] + " Verifizierbar: " + verifiablePinStatus["EGK"] : "-",
+                             "pinVerified" : cardTypes["EGK"] > 0 ? stats["VERIFIED"]["EGK"] : "-",
+                             "pinVerifiable" : cardTypes["EGK"] > 0 ? stats["VERIFIABLE"]["EGK"] : "-",
+                             "pinTransport" : cardTypes["EGK"] > 0 ? stats["TRANSPORT_PIN"]["EGK"] : "-",
+                             "pinBlocked" : cardTypes["EGK"] > 0 ? stats["BLOCKED"]["EGK"] : "-",
+                             "pinDisabled" : cardTypes["EGK"] > 0 ? stats["DISABLED"]["EGK"] : "-",
+                             "pinEmpty" : cardTypes["EGK"] > 0 ? stats["EMPTY_PIN"]["EGK"] : "-",
                              "validity" : cardTypes["EGK"] > 0 ? invalidCertCards["EGK"] > 0 ? "Abgelaufen: " + invalidCertCards["EGK"] : "Alle gültig" : "-",
                              "validityState" : invalidCertCards["EGK"] > 0 ? "Error" : "Success"
                            });
@@ -138,7 +151,12 @@ sap.ui.define(
                              "cardType": "HBA",
                              "Value": cardTypes["HBA"],
                              "pinType": "PIN.CH",
-                             "pinInfo": cardTypes["HBA"] > 0 ? "Verifiziert: " + verifiedPinStatus["HBA_CH"] + " Verifizierbar: " + verifiablePinStatus["HBA_CH"] : "-",
+                             "pinVerified" : cardTypes["HBA"] > 0 ? stats["VERIFIED"]["HBA_CH"] : "-",
+                             "pinVerifiable" : cardTypes["HBA"] > 0 ? stats["VERIFIABLE"]["HBA_CH"] : "-",
+                             "pinTransport" : cardTypes["HBA"] > 0 ? stats["TRANSPORT_PIN"]["HBA_CH"] : "-",
+                             "pinBlocked" : cardTypes["HBA"] > 0 ? stats["BLOCKED"]["HBA_CH"] : "-",
+                             "pinDisabled" : cardTypes["HBA"] > 0 ? stats["DISABLED"]["HBA_CH"] : "-",
+                             "pinEmpty" : cardTypes["HBA"] > 0 ? stats["EMPTY_PIN"]["HBA_CH"] : "-",
                              "validity" : cardTypes["HBA"] > 0 ? invalidCertCards["HBA"] > 0 ? "Abgelaufen: " + invalidCertCards["HBA"] : "Alle gültig" : "-",
                              "validityState" : invalidCertCards["HBA"] > 0 ? "Error" : "Success"
                            });
@@ -146,7 +164,12 @@ sap.ui.define(
                              "cardType": "HBA",
                              "Value": cardTypes["HBA"],
                              "pinType": "PIN.QES",
-                             "pinInfo": cardTypes["HBA"] > 0 ? "Verifiziert: " + verifiedPinStatus["HBA_QES"] + " Verifizierbar: " + verifiablePinStatus["HBA_QES"] : "-",
+                             "pinVerified" : cardTypes["HBA"] > 0 ? stats["VERIFIED"]["HBA_QES"] : "-",
+                             "pinVerifiable" : cardTypes["HBA"] > 0 ? stats["VERIFIABLE"]["HBA_QES"] : "-",
+                             "pinTransport" : cardTypes["HBA"] > 0 ? stats["TRANSPORT_PIN"]["HBA_QES"] : "-",
+                             "pinBlocked" : cardTypes["HBA"] > 0 ? stats["BLOCKED"]["HBA_QES"] : "-",
+                             "pinDisabled" : cardTypes["HBA"] > 0 ? stats["DISABLED"]["HBA_QES"] : "-",
+                             "pinEmpty" : cardTypes["HBA"] > 0 ? stats["EMPTY_PIN"]["HBA_QES"] : "-",
                              "validity" : cardTypes["HBA"] > 0 ? invalidCertCards["HBA"] > 0 ? "Abgelaufen: " + invalidCertCards["HBA"] : "Alle gültig" : "-",
                              "validityState" : invalidCertCards["HBA"] > 0 ? "Error" : "Success"
                            });
@@ -154,7 +177,12 @@ sap.ui.define(
                              "cardType": "SMC-B",
                              "Value": cardTypes["SMC_B"],
                              "pinType": "PIN.SMC",
-                             "pinInfo": cardTypes["SMC_B"] > 0 ? "Verifiziert: " + verifiedPinStatus["SMC_B"] + " Verifizierbar: " + verifiablePinStatus["SMC_B"] : "-",
+                             "pinVerified" : cardTypes["SMC_B"] > 0 ? stats["VERIFIED"]["SMC_B"] : "-",
+                             "pinVerifiable" : cardTypes["SMC_B"] > 0 ? stats["VERIFIABLE"]["SMC_B"] : "-",
+                             "pinTransport" : cardTypes["SMC_B"] > 0 ? stats["TRANSPORT_PIN"]["SMC_B"] : "-",
+                             "pinBlocked" : cardTypes["SMC_B"] > 0 ? stats["BLOCKED"]["SMC_B"] : "-",
+                             "pinDisabled" : cardTypes["SMC_B"] > 0 ? stats["DISABLED"]["SMC_B"] : "-",
+                             "pinEmpty" : cardTypes["SMC_B"] > 0 ? stats["EMPTY_PIN"]["SMC_B"] : "-",
                              "validity" : cardTypes["SMC_B"] > 0 ? invalidCertCards["SMC_B"] > 0 ? "Abgelaufen: " + invalidCertCards["SMC_B"] : "Alle gültig" : "-",
                              "validityState" : invalidCertCards["SMC_B"] > 0 ? "Error" : "Success"
                            });
@@ -162,9 +190,14 @@ sap.ui.define(
                              "cardType" : "SMC-KT",
                              "Value": cardTypes["SMC_KT"],
                              "pinType": "-",
-                             "pinInfo": "-",
+                             "pinVerified" : "-",
+                             "pinVerifiable" : "-",
+                             "pinTransport" : "-",
+                             "pinBlocked" : "-",
+                             "pinDisabled" : "-",
+                             "pinEmpty" : "-",
                              "validity" : cardTypes["SMC_KT"] > 0 ? invalidCertCards["SMC_KT"] > 0 ? "Abgelaufen: " + invalidCertCards["SMC_KT"] : "Alle gültig" : "-",
-                             "validityState" : invalidCertCards["SMC_KT"] > 0 ? "Error" : "Success"
+                             "validityState" : invalidCertCards["SMC_KT"] > 0 ? "Error" : "Success",
                            });
                            connectorData["sap.card"].content.data.json = connectorContent;
                            oConnectorList.setManifest(connectorData);

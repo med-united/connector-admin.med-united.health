@@ -32,7 +32,7 @@
                     </w:Card>
                     <f:Card id="CardsCard">
                         <f:layoutData>
-                            <f:GridContainerItemLayoutData columns="12" />
+                            <f:GridContainerItemLayoutData columns="22" />
                         </f:layoutData>
                         <f:header>
                             <card:Header
@@ -40,7 +40,7 @@
                                     iconSrc="sap-icon://business-card"/>
                         </f:header>
                         <f:content>
-                            <Table items="{CardsCard>/}" class="withGrid" noDataText="{i18n>NoData}">
+                            <Table id="cardsTable" items="{CardsCard>/}" class="withGrid" noDataText="{i18n>NoData}">
                                 <columns>
                                     <Column mergeDuplicates="true">
                                         <Text text="{i18n>CardType}" />
@@ -53,6 +53,21 @@
                                     </Column>
                                     <Column>
                                         <Text text="PIN-Status VERIFIED"/>
+                                    </Column>
+                                    <Column>
+                                        <Text text="PIN-Status VERIFIABLE"/>
+                                    </Column>
+                                    <Column>
+                                        <Text text="PIN-Status TRANSPORT_PIN"/>
+                                    </Column>
+                                    <Column>
+                                        <Text text="PIN-Status BLOCKED"/>
+                                    </Column>
+                                    <Column>
+                                        <Text text="PIN-Status EMPTY_PIN"/>
+                                    </Column>
+                                    <Column>
+                                        <Text text="PIN-Status DISABLED"/>
                                     </Column>
                                     <Column mergeDuplicates="true" mergeFunctionName="data#mergeKey">
                                         <Text text="{i18n>Validity}" />
@@ -67,7 +82,12 @@
                                             </customData>
                                         </Text>
                                         <Text text="{CardsCard>pinType}"/>
-                                        <ObjectStatus text="{CardsCard>pinInfo}" />
+                                        <ObjectStatus text="{CardsCard>pinVerified}" state="Success" />
+                                        <ObjectStatus text="{CardsCard>pinVerifiable}" state="Success" />
+                                        <ObjectStatus text="{CardsCard>pinTransport}" state="Error" />
+                                        <ObjectStatus text="{CardsCard>pinBlocked}" state="Error" />
+                                        <ObjectStatus text="{CardsCard>pinEmpty}" state="Error" />
+                                        <ObjectStatus text="{CardsCard>pinDisabled}" state="Error" />
                                         <ObjectStatus text="{CardsCard>validity}" state="{CardsCard>validityState}">
                                             <customData>
                                                 <core:CustomData key="mergeKey" value="{CardsCard>cardType}" />
