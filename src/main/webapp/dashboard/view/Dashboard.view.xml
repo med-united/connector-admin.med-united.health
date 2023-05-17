@@ -32,7 +32,7 @@
                     </w:Card>
                     <f:Card id="CardsCard">
                         <f:layoutData>
-                            <f:GridContainerItemLayoutData columns="11" />
+                            <f:GridContainerItemLayoutData columns="12" />
                         </f:layoutData>
                         <f:header>
                             <card:Header
@@ -40,7 +40,7 @@
                                     iconSrc="sap-icon://business-card"/>
                         </f:header>
                         <f:content>
-                            <Table items="{CardsCard>/}" class="withGrid" noDataText="Daten werden geladen...">
+                            <Table items="{CardsCard>/}" class="withGrid" noDataText="{i18n>NoData}">
                                 <columns>
                                     <Column mergeDuplicates="true">
                                         <Text text="{i18n>CardType}" />
@@ -52,7 +52,7 @@
                                         <Text text="{i18n>PinType}" />
                                     </Column>
                                     <Column>
-                                        <Text text="PIN-Status"/>
+                                        <Text text="PIN-Status VERIFIED"/>
                                     </Column>
                                     <Column mergeDuplicates="true" mergeFunctionName="data#mergeKey">
                                         <Text text="{i18n>Validity}" />
@@ -67,7 +67,7 @@
                                             </customData>
                                         </Text>
                                         <Text text="{CardsCard>pinType}"/>
-                                        <ObjectStatus text="{CardsCard>pinInfo}" state="{CardsCard>pinState}"/>
+                                        <ObjectStatus text="{CardsCard>pinInfo}" />
                                         <ObjectStatus text="{CardsCard>validity}" state="{CardsCard>validityState}">
                                             <customData>
                                                 <core:CustomData key="mergeKey" value="{CardsCard>cardType}" />

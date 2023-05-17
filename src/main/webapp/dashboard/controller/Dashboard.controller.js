@@ -33,13 +33,11 @@ sap.ui.define(
                  let inactiveTerminals = 0;
                  let activeConnectors= 0;
                  let activeTerminals = 0;
-                 let invalidHBACH = 0;
-                 let invalidHBAQES = 0;
-                 let invalidSMCB = 0;
-                 let invalidEGK = 0;
                  const date = new Date().toJSON();
                  const cardTypes = {"SMC_KT" : 0, "SMC_B" : 0, "HBA": 0, "EGK": 0};
                  const invalidCertCards = {"SMC_KT" : 0, "SMC_B" : 0, "HBA": 0, "EGK": 0};
+                 const verifiedPinStatus = {"SMC_B" : 0, "HBA_CH": 0, "HBA_QES" : 0, "EGK": 0};
+                 const verifiablePinStatus = {"SMC_B" : 0, "HBA_CH": 0, "HBA_QES" : 0, "EGK": 0}
                  const numConfigs = configs.length;
                  let numResponses = 0;
                  configs.forEach(function (config) {
@@ -80,19 +78,24 @@ sap.ui.define(
                           }
                           activeConnectors++;
                           const pinStatus = data[3];
-                          for(let j = 0; j < pinStatus.length; j++)
-                          {
-                            if(pinStatus[j].cardType == "SMC_B" && pinStatus[j].status != "VERIFIED"){
-                                invalidSMCB++;
+                          for(let j = 0; j < pinStatus.length; j++){
+                            if(pinStatus[j].cardType == "SMC_B"){
+                               verifiedPinStatus["SMC_B"] = pinStatus[j].status == "VERIFIED" ?  verifiedPinStatus["SMC_B"] + 1 : verifiedPinStatus["SMC_B"];
+                               verifiablePinStatus["SMC_B"] = pinStatus[j].status == "VERIFIABLE" ?  verifiablePinStatus["SMC_B"] + 1 : verifiablePinStatus["SMC_B"];
                             }
-                            else if(pinStatus[j].cardType == "HBA" && pinStatus[j].pinType == "PIN.CH" && pinStatus[j].status != "VERIFIED"){
-                                invalidHBACH++;
+                            else if(pinStatus[j].cardType == "HBA" && pinStatus[j].pinType == "PIN.CH")
+                            {
+                                verifiedPinStatus["HBA_CH"] = pinStatus[j].status == "VERIFIED" ?  verifiedPinStatus["HBA_CH"] + 1 : verifiedPinStatus["HBA_CH"];
+                                verifiablePinStatus["HBA_CH"] = pinStatus[j].status == "VERIFIABLE" ?  verifiablePinStatus["HBA_CH"] + 1 : verifiablePinStatus["HBA_CH"];
                             }
-                            else if(pinStatus[j].cardType == "HBA" && pinStatus[j].pinType == "PIN.QES" && pinStatus[j].status != "VERIFIED"){
-                                invalidHBAQES++;
+                            else if(pinStatus[j].cardType == "HBA" && pinStatus[j].pinType == "PIN.QES")
+                            {
+                                verifiedPinStatus["HBA_QES"] = pinStatus[j].status == "VERIFIED" ?  verifiedPinStatus["HBA_QES"] + 1 : verifiedPinStatus["HBA_QES"];
+                                verifiablePinStatus["HBA_QES"] = pinStatus[j].status == "VERIFIABLE" ?  verifiablePinStatus["HBA_QES"] + 1 : verifiablePinStatus["HBA_QES"];
                             }
-                            else if(pinStatus[j].cardType == "EGK" && pinStatus[j].status != "VERIFIED"){
-                                invalidEGK++;
+                            else if(pinStatus[j].cardType == "EGK"){
+                                verifiedPinStatus["EGK"] = pinStatus[j].status == "VERIFIED" ?  verifiedPinStatus["EGK"] + 1 : verifiedPinStatus["EGK"];
+                                verifiablePinStatus["EGK"] = pinStatus[j].status == "VERIFIABLE" ?  verifiablePinStatus["EGK"] + 1 : verifiablePinStatus["EGK"];
                             }
                           }
                         }
@@ -127,42 +130,40 @@ sap.ui.define(
                              "cardType": "EGK",
                              "Value": cardTypes["EGK"],
                              "pinType": "PIN.CH",
-                             "pinInfo" : invalidEGK > 0 ? "Nicht verifiziert: " + invalidEGK : "Alle verifiziert",
-                             "pinState" : invalidEGK > 0 ? "Error" : "Success",
-                             "validity" : invalidCertCards["EGK"] > 0 ? "Abgelaufen: " + invalidCertCards["EGK"] : "Alle gültig",
+                             "pinInfo" : cardTypes["EGK"] > 0 ? "Verifiziert: " + verifiedPinStatus["EGK"] + " Verifizierbar: " + verifiablePinStatus["EGK"] : "-",
+                             "validity" : cardTypes["EGK"] > 0 ? invalidCertCards["EGK"] > 0 ? "Abgelaufen: " + invalidCertCards["EGK"] : "Alle gültig" : "-",
                              "validityState" : invalidCertCards["EGK"] > 0 ? "Error" : "Success"
                            });
                            cardContent.push({
                              "cardType": "HBA",
                              "Value": cardTypes["HBA"],
                              "pinType": "PIN.CH",
-                             "pinInfo": invalidHBACH > 0 ? "Nicht verifiziert: " + invalidHBACH : "Alle verifiziert",
-                             "pinState": invalidHBACH > 0 ? "Error" : "Success",
-                             "validity" : invalidCertCards["HBA"] > 0 ? "Abgelaufen: " + invalidCertCards["HBA"] : "Alle gültig",
+                             "pinInfo": cardTypes["HBA"] > 0 ? "Verifiziert: " + verifiedPinStatus["HBA_CH"] + " Verifizierbar: " + verifiablePinStatus["HBA_CH"] : "-",
+                             "validity" : cardTypes["HBA"] > 0 ? invalidCertCards["HBA"] > 0 ? "Abgelaufen: " + invalidCertCards["HBA"] : "Alle gültig" : "-",
                              "validityState" : invalidCertCards["HBA"] > 0 ? "Error" : "Success"
                            });
                            cardContent.push({
                              "cardType": "HBA",
                              "Value": cardTypes["HBA"],
                              "pinType": "PIN.QES",
-                             "pinInfo": invalidHBAQES > 0 ? "Nicht verifiziert: " + invalidHBAQES : "Alle verifiziert",
-                             "pinState": invalidHBAQES > 0 ? "Error" : "Success",
-                             "validity" : invalidCertCards["HBA"] > 0 ? "Abgelaufen: " + invalidCertCards["HBA"] : "Alle gültig",
+                             "pinInfo": cardTypes["HBA"] > 0 ? "Verifiziert: " + verifiedPinStatus["HBA_QES"] + " Verifizierbar: " + verifiablePinStatus["HBA_QES"] : "-",
+                             "validity" : cardTypes["HBA"] > 0 ? invalidCertCards["HBA"] > 0 ? "Abgelaufen: " + invalidCertCards["HBA"] : "Alle gültig" : "-",
                              "validityState" : invalidCertCards["HBA"] > 0 ? "Error" : "Success"
                            });
                            cardContent.push({
                              "cardType": "SMC-B",
                              "Value": cardTypes["SMC_B"],
                              "pinType": "PIN.SMC",
-                             "pinInfo": invalidSMCB > 0 ? "Nicht verifiziert: " + invalidSMCB : "Alle verifiziert",
-                             "pinState": invalidSMCB > 0 ? "Error" : "Success",
-                             "validity" : invalidCertCards["SMC_B"] > 0 ? "Abgelaufen: " + invalidCertCards["SMC_B"] : "Alle gültig",
+                             "pinInfo": cardTypes["SMC_B"] > 0 ? "Verifiziert: " + verifiedPinStatus["SMC_B"] + " Verifizierbar: " + verifiablePinStatus["SMC_B"] : "-",
+                             "validity" : cardTypes["SMC_B"] > 0 ? invalidCertCards["SMC_B"] > 0 ? "Abgelaufen: " + invalidCertCards["SMC_B"] : "Alle gültig" : "-",
                              "validityState" : invalidCertCards["SMC_B"] > 0 ? "Error" : "Success"
                            });
                            cardContent.push({
                              "cardType" : "SMC-KT",
                              "Value": cardTypes["SMC_KT"],
-                             "validity" : invalidCertCards["SMC_KT"] > 0 ? "Abgelaufen: " + invalidCertCards["SMC_KT"] : "Alle gültig",
+                             "pinType": "-",
+                             "pinInfo": "-",
+                             "validity" : cardTypes["SMC_KT"] > 0 ? invalidCertCards["SMC_KT"] > 0 ? "Abgelaufen: " + invalidCertCards["SMC_KT"] : "Alle gültig" : "-",
                              "validityState" : invalidCertCards["SMC_KT"] > 0 ? "Error" : "Success"
                            });
                            connectorData["sap.card"].content.data.json = connectorContent;
