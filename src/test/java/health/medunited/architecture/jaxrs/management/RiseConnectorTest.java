@@ -3,6 +3,7 @@ package health.medunited.architecture.jaxrs.management;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
+import health.medunited.architecture.model.RestartRequestBodyRISE;
 import org.junit.jupiter.api.Test;
 
 import health.medunited.architecture.jaxrs.LoggingFilter;
@@ -26,7 +27,7 @@ public class RiseConnectorTest {
             clientBuilder.connectTimeout(10, TimeUnit.SECONDS);
             clientBuilder.readTimeout(10, TimeUnit.SECONDS);
         };
-        riseConnector.restart(host, "8443", new RestartRequestBody("superadmin", "Pwdpwd2"));
+        riseConnector.restartRISE(host, "8443", new RestartRequestBodyRISE("superadmin", "Pwdpwd12"));
 
     }
 

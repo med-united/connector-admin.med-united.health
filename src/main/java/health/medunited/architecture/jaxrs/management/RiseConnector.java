@@ -14,6 +14,7 @@ import javax.ws.rs.core.NewCookie;
 import javax.ws.rs.core.Response;
 
 import health.medunited.architecture.model.RestartRequestBody;
+import health.medunited.architecture.model.RestartRequestBodyRISE;
 
 @ApplicationScoped
 @Named("rise")
@@ -21,14 +22,17 @@ public class RiseConnector extends AbstractConnector {
 
     private static final Logger log = Logger.getLogger(SecunetConnector.class.getName());
 
-    @Override
     public void restart(String connectorUrl, String managementPort, RestartRequestBody managementCredentials) {
+
+    }
+
+    public void restartRISE(String connectorUrl, String managementPort, RestartRequestBodyRISE managementCredentials) {
         log.log(Level.INFO, "Restarting RISE connector");
-        
+
         Client client = buildClient();
         Response sessionCookieResponse = client.target(connectorUrl + ":" + managementPort)
-            .path("/api/v1/users/current").request(MediaType.APPLICATION_JSON)
-            .header("Referer", connectorUrl + ":" + managementPort).get();
+                .path("/api/v1/users/current").request(MediaType.APPLICATION_JSON)
+                .header("Referer", connectorUrl + ":" + managementPort).get();
 
         String cookie = "";
         if(sessionCookieResponse.getStatus() == Response.Status.NO_CONTENT.getStatusCode()) {
@@ -47,13 +51,13 @@ public class RiseConnector extends AbstractConnector {
         login.close();
 
 
-       // Response restart = performRestart(client, connectorUrl, managementPort, cookie, managementCredentials);
+        // Response restart = performRestart(client, connectorUrl, managementPort, cookie, managementCredentials);
 
         //log.info("Restart status: "+restart.getStatus());
 
     }
 
-    Response loginManagementConsole(Client client, String connectorUrl, String managementPort, String cookie, RestartRequestBody managementCredentials) {
+    Response loginManagementConsole(Client client, String connectorUrl, String managementPort, String cookie, RestartRequestBodyRISE managementCredentials) {
         WebTarget loginTarget = client.target(connectorUrl + ":" + managementPort)
                 .path("/api/v1/auth/login");
 
@@ -81,9 +85,11 @@ public class RiseConnector extends AbstractConnector {
                 .header("X-Requested-With", "RISEHttpRequest")
                 .header("If-Modified-Since", "Thu, 01 Jan 1970 00:00:00 GMT")
                 .header("Referer", connectorUrl + ":" + managementPort);
-         return loginBuilder.post(Entity.json(managementCredentials));
+        return loginBuilder.post(Entity.json(managementCredentials));
 
     }
+
+
 
     Response performRestart(Client client, String connectorUrl, String managementPort, String cookie, RestartRequestBody managementCredentials) {
         WebTarget loginTarget = client.target(connectorUrl + ":" + managementPort)
