@@ -41,6 +41,10 @@ public class RiseConnector extends AbstractConnector {
         
         log.info("Login status: "+login.getStatus());
 
+        Response restart = performRestart(client, connectorUrl, managementPort, cookie, managementCredentials);
+
+        log.info("Restart status: "+restart.getStatus());
+
     }
 
     Response loginManagementConsole(Client client, String connectorUrl, String managementPort, String cookie, RestartRequestBody managementCredentials) {
@@ -51,5 +55,16 @@ public class RiseConnector extends AbstractConnector {
         .header("Cookie", cookie)
         .header("Referer", connectorUrl + ":" + managementPort);
         return loginBuilder.post(Entity.json(managementCredentials));
+    }
+
+    Response performRestart(Client client, String connectorUrl, String managementPort, String cookie, RestartRequestBody managementCredentials) {
+        WebTarget loginTarget = client.target(connectorUrl + ":" + managementPort)
+                .path("/api/v1/mgm/reboot");
+
+        Invocation.Builder restartBuilder = loginTarget.request(MediaType.APPLICATION_JSON)
+                .header("Cookie", cookie)
+                .header("Referer", connectorUrl + ":" + managementPort);
+        return restartBuilder.post(Entity.json(managementCredentials));
+
     }
 }
