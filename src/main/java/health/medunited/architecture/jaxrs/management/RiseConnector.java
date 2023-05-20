@@ -10,6 +10,7 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.Invocation;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.NewCookie;
 import javax.ws.rs.core.Response;
 
 import health.medunited.architecture.model.RestartRequestBody;
@@ -56,16 +57,19 @@ public class RiseConnector extends AbstractConnector {
         WebTarget loginTarget = client.target(connectorUrl + ":" + managementPort)
                 .path("/api/v1/auth/login");
 
-        String cookieSubstr = cookie;
+        String cookieSubstr = cookie.substring(cookie.indexOf("=")+1,cookie.indexOf(";"));
+
+        NewCookie sessionCookie = new NewCookie("JSESSIONID", cookieSubstr);
 
         Invocation.Builder loginBuilder = loginTarget.request(MediaType.APPLICATION_JSON)
+                .cookie(sessionCookie)
                 .header("User-Agent", "PostmanRuntime/7.32.2")
                 .header("Accept", "*/*")
                 .header("Accept-Encoding", "gzip, deflate, br")
                 .header("Connection", "keep-alive")
-                .header("Cookie", cookieSubstr)
-                .header("Host", connectorUrl + ":" + managementPort)
-                .header("Sec-Fetch-Mode", "cors")
+                //.header("Cookie", cookieSubstr)
+                //.header("Host", connectorUrl + ":" + managementPort)
+                //.header("Sec-Fetch-Mode", "cors")
                 .header("Pragma", "no-cache")
                 .header("sec-ch-ua", "'Microsoft Edge';v='113', 'Chromium';v='113', 'Not-A.Brand';v='24'")
                 .header("sec-ch-ua-platform", "Windows")
