@@ -29,6 +29,8 @@ public class ConnectorManagement {
 
     private String managementPort;
 
+    private RestartRequestBody managementCredentials;
+
     private Map<String, Connector> connectorMap;
 
     @PostConstruct
@@ -37,6 +39,7 @@ public class ConnectorManagement {
         connectorMap.put(ConnectorBrands.SECUNET.getValue(), secunetConnector);
         connectorMap.put(ConnectorBrands.KOCOBOX.getValue(), kocoboxConnector);
         connectorMap.put(ConnectorBrands.RISE.getValue(), riseConnector);
+        managementCredentials = new RestartRequestBody("superadmin", "Pwdpwd12");
     }
 
     @POST
@@ -55,6 +58,6 @@ public class ConnectorManagement {
         }
         if (connector == riseConnector) this.managementPort = "8443";
         else this.managementPort = "8500";
-        connector.restart(connectorUrl, this.managementPort, managementCredentials);
+        connector.restart(connectorUrl, this.managementPort, this.managementCredentials);
     }
 }

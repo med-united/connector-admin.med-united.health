@@ -1,5 +1,6 @@
 package health.medunited.architecture.jaxrs.management;
 
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -14,6 +15,7 @@ import javax.ws.rs.core.NewCookie;
 import javax.ws.rs.core.Response;
 
 import health.medunited.architecture.model.RestartRequestBody;
+import health.medunited.architecture.LoggingFilter;
 
 @ApplicationScoped
 @Named("rise")
@@ -24,6 +26,13 @@ public class RiseConnector extends AbstractConnector {
 
     public void restart(String connectorUrl, String managementPort, RestartRequestBody managementCredentials) {
         log.log(Level.INFO, "Restarting RISE connector");
+
+        AbstractConnector.modifyClientBuilder = (clientBuilder) -> {
+            // This will print URL and Header of request
+            clientBuilder.register(LoggingFilter.class);
+            clientBuilder.connectTimeout(10, TimeUnit.SECONDS);
+            clientBuilder.readTimeout(10, TimeUnit.SECONDS);
+        };
 
         Client client = buildClient();
         Response sessionCookieResponse = client.target(connectorUrl + ":" + managementPort)
@@ -38,8 +47,10 @@ public class RiseConnector extends AbstractConnector {
                     cookie.substring(cookie.indexOf("=") + 1, cookie.indexOf(";")));
             log.log(Level.INFO, "Status for retrieving Session Cookie: " + sessionCookieResponse.getStatus());
 
+            sessionCookieResponse.close();
             Response login = loginManagementConsole(client, connectorUrl, managementPort, cookie, managementCredentials);
             log.info("Login status: " + login.getStatus());
+
             login.close();
 
             Response restart = performRestart(client, connectorUrl, managementPort, cookie, managementCredentials);
@@ -47,6 +58,7 @@ public class RiseConnector extends AbstractConnector {
             restart.close();
         } else {
             log.warning("Unable to restart connector");
+            log.warning("Connection attempt to "+connectorUrl + ":" + managementPort+" failed");
             log.warning("Could not connect. Status: " + sessionCookieResponse.getStatus());
         }
 
