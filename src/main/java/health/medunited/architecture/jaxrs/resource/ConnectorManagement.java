@@ -27,6 +27,8 @@ public class ConnectorManagement {
     @Named("rise")
     private Connector riseConnector;
 
+    private String managementPort;
+
     private Map<String, Connector> connectorMap;
 
     @PostConstruct
@@ -42,14 +44,17 @@ public class ConnectorManagement {
     @Consumes(MediaType.APPLICATION_JSON)
     public void restart(@PathParam("connectorType") String connectorType,
                         @QueryParam("connectorUrl") String connectorUrl,
-                        @QueryParam("managementPort") String managementPort,
+                        String managementPort,
                         RestartRequestBody managementCredentials
     ) {
+
 
         Connector connector = connectorMap.get(connectorType);
         if (connector == null) {
             throw new IllegalArgumentException("Unknown connector type: " + connectorType);
         }
-        connector.restart(connectorUrl, managementPort, managementCredentials);
+        if (connector == riseConnector) this.managementPort = "8443";
+        else this.managementPort = "8500";
+        connector.restart(connectorUrl, this.managementPort, managementCredentials);
     }
 }

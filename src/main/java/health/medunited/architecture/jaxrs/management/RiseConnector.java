@@ -14,19 +14,15 @@ import javax.ws.rs.core.NewCookie;
 import javax.ws.rs.core.Response;
 
 import health.medunited.architecture.model.RestartRequestBody;
-import health.medunited.architecture.model.RestartRequestBodyRISE;
 
 @ApplicationScoped
 @Named("rise")
 public class RiseConnector extends AbstractConnector {
 
     private static final Logger log = Logger.getLogger(SecunetConnector.class.getName());
+    private NewCookie sessionCookie;
 
     public void restart(String connectorUrl, String managementPort, RestartRequestBody managementCredentials) {
-
-    }
-
-    public void restartRISE(String connectorUrl, String managementPort, RestartRequestBodyRISE managementCredentials) {
         log.log(Level.INFO, "Restarting RISE connector");
 
         Client client = buildClient();
@@ -34,36 +30,31 @@ public class RiseConnector extends AbstractConnector {
                 .path("/api/v1/users/current").request(MediaType.APPLICATION_JSON)
                 .header("Referer", connectorUrl + ":" + managementPort).get();
 
-        String cookie = "";
-        if(sessionCookieResponse.getStatus() == Response.Status.NO_CONTENT.getStatusCode()) {
+        String cookie;
+
+        if (sessionCookieResponse.getStatus() == Response.Status.NO_CONTENT.getStatusCode()) {
             cookie = sessionCookieResponse.getHeaderString("Set-Cookie");
-            log.info("Set-Cookie: "+cookie);
+            sessionCookie = new NewCookie("JSESSIONID",
+                    cookie.substring(cookie.indexOf("=") + 1, cookie.indexOf(";")));
+            log.log(Level.INFO, "Status for retrieving Session Cookie: " + sessionCookieResponse.getStatus());
+
+            Response login = loginManagementConsole(client, connectorUrl, managementPort, cookie, managementCredentials);
+            log.info("Login status: " + login.getStatus());
+            login.close();
+
+            Response restart = performRestart(client, connectorUrl, managementPort, cookie, managementCredentials);
+            log.info("Restart status: " + restart.getStatus());
+            restart.close();
         } else {
-            log.warning("Could not connect status: "+sessionCookieResponse.getStatus());
+            log.warning("Unable to restart connector");
+            log.warning("Could not connect. Status: " + sessionCookieResponse.getStatus());
         }
-
-        Response login = loginManagementConsole(client, connectorUrl, managementPort, cookie, managementCredentials);
-
-        String responseString = login.readEntity(String.class);
-        log.info("resp"+responseString);
-
-        log.info("Login status: "+login.getStatus());
-        login.close();
-
-
-        Response restart = performRestart(client, connectorUrl, managementPort, cookie, managementCredentials);
-
-        log.info("Restart status: "+restart.getStatus());
 
     }
 
-    Response loginManagementConsole(Client client, String connectorUrl, String managementPort, String cookie, RestartRequestBodyRISE managementCredentials) {
+    Response loginManagementConsole(Client client, String connectorUrl, String managementPort, String cookie, RestartRequestBody managementCredentials) {
         WebTarget loginTarget = client.target(connectorUrl + ":" + managementPort)
                 .path("/api/v1/auth/login");
-
-        String cookieSubstr = cookie.substring(cookie.indexOf("=")+1,cookie.indexOf(";"));
-
-        NewCookie sessionCookie = new NewCookie("JSESSIONID", cookieSubstr);
 
         Invocation.Builder loginBuilder = loginTarget.request(MediaType.APPLICATION_JSON)
                 .cookie(sessionCookie)
@@ -71,9 +62,6 @@ public class RiseConnector extends AbstractConnector {
                 .header("Accept", "*/*")
                 .header("Accept-Encoding", "gzip, deflate, br")
                 .header("Connection", "keep-alive")
-                //.header("Cookie", cookieSubstr)
-                //.header("Host", connectorUrl + ":" + managementPort)
-                //.header("Sec-Fetch-Mode", "cors")
                 .header("Pragma", "no-cache")
                 .header("sec-ch-ua", "'Microsoft Edge';v='113', 'Chromium';v='113', 'Not-A.Brand';v='24'")
                 .header("sec-ch-ua-platform", "Windows")
@@ -90,14 +78,9 @@ public class RiseConnector extends AbstractConnector {
     }
 
 
-
-    Response performRestart(Client client, String connectorUrl, String managementPort, String cookie, RestartRequestBodyRISE managementCredentials) {
+    Response performRestart(Client client, String connectorUrl, String managementPort, String cookie, RestartRequestBody managementCredentials) {
         WebTarget loginTarget = client.target(connectorUrl + ":" + managementPort)
                 .path("/api/v1/mgm/reboot");
-
-        String cookieSubstr = cookie.substring(cookie.indexOf("=")+1,cookie.indexOf(";"));
-
-        NewCookie sessionCookie = new NewCookie("JSESSIONID", cookieSubstr);
 
         Invocation.Builder loginBuilder = loginTarget.request(MediaType.APPLICATION_JSON)
                 .cookie(sessionCookie)
@@ -105,9 +88,6 @@ public class RiseConnector extends AbstractConnector {
                 .header("Accept", "*/*")
                 .header("Accept-Encoding", "gzip, deflate, br")
                 .header("Connection", "keep-alive")
-                //.header("Cookie", cookieSubstr)
-                //.header("Host", connectorUrl + ":" + managementPort)
-                //.header("Sec-Fetch-Mode", "cors")
                 .header("Pragma", "no-cache")
                 .header("sec-ch-ua", "'Microsoft Edge';v='113', 'Chromium';v='113', 'Not-A.Brand';v='24'")
                 .header("sec-ch-ua-platform", "Windows")

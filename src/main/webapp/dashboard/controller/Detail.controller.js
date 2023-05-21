@@ -404,14 +404,6 @@ sap.ui.define(
           return await promise;
         },
 
-        _getConnectorPort: function (connectorBrand) {
-          let connectorPort;
-          if (connectorBrand == "secunet") connectorPort = "8500";
-          else if (connectorBrand == "rise") connectorPort = "8443";
-          else if (connectorBrand == "kocobox") connectorPort = "8500";
-          return connectorPort;
-        },
-
         pwdOnCancel: function (oEvent) {
           oEvent.getSource().getParent().close();
           oEvent.getSource().getParent().destroy();
@@ -461,9 +453,7 @@ sap.ui.define(
               "connector/management/" +
               connectorBrand +
               "/restart?connectorUrl=" +
-              oRuntimeConfig.Url +
-              "&managementPort=" +
-              this._getConnectorPort(connectorBrand);
+              oRuntimeConfig.Url;
             fetch(restartUrl, {
               headers: restartHeaders,
               method: "POST",
