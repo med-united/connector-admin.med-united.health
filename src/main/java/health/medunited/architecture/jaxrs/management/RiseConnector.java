@@ -90,20 +90,20 @@ public class RiseConnector extends AbstractConnector {
                 .header("X-Requested-With", "RISEHttpRequest")
                 .header("If-Modified-Since", "Thu, 01 Jan 1970 00:00:00 GMT")
                 .header("Referer", connectorUrl + ":" + managementPort);
-        return loginBuilder.post(Entity.json(new RestartCredentialsRISE(managementCredentials.getUsername(), managementCredentials.getPassword())));
+        return loginBuilder.post(Entity.json(new ManagementCredentialsRISE(managementCredentials.getUsername(), managementCredentials.getPassword())));
 
     }
 
 
-    public static class RestartCredentialsRISE {
+    public static class ManagementCredentialsRISE {
         String user;
         String password;
 
-        public RestartCredentialsRISE() {
+        public ManagementCredentialsRISE() {
 
         }
 
-        public RestartCredentialsRISE(String user, String password) {
+        public ManagementCredentialsRISE(String user, String password) {
             this.user = user;
             this.password = password;
         }
