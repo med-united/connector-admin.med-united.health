@@ -59,7 +59,7 @@ public class Bootstrap {
     public static RuntimeConfig getRuntimeConfigRise() {
         RuntimeConfig runtimeConfig = new RuntimeConfig();
         runtimeConfig.setUserId("rise-id");
-        runtimeConfig.setUrl("https://192.168.178.75/");
+        runtimeConfig.setUrl("https://192.168.178.75");
         runtimeConfig.setMandantId("m");
         runtimeConfig.setClientSystemId("c");
         runtimeConfig.setWorkplaceId("a");
