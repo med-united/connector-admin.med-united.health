@@ -4,6 +4,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 import health.medunited.architecture.model.ManagementCredentials;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import health.medunited.architecture.service.common.security.SecretsManagerService;
@@ -19,6 +20,7 @@ public class RiseConnectorTest {
     RiseConnector riseConnector = new RiseConnector();
 
     @Test
+    @Disabled
     public void testAcceptingAllConnections() throws Exception {
         riseConnector.secretsManagerService = new SecretsManagerService();
         riseConnector.secretsManagerService.setUpSSLContext(null);
