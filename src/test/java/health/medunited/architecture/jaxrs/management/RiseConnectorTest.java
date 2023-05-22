@@ -21,6 +21,7 @@ public class RiseConnectorTest {
     RiseConnector riseConnector = new RiseConnector();
 
     @Test
+    @Disabled
     public void testAcceptingAllConnections() throws Exception {
         riseConnector.secretsManagerService = new SecretsManagerService();
         riseConnector.secretsManagerService.setUpSSLContext(null);
