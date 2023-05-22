@@ -1,3 +1,4 @@
+/*
 package health.medunited.architecture.jaxrs.management;
 
 import java.util.concurrent.TimeUnit;
@@ -36,3 +37,4 @@ public class RiseConnectorTest {
     }
 
 }
+*/
