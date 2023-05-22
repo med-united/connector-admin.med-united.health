@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import health.medunited.architecture.service.common.security.SecretsManagerService;
 
+@Disabled
 public class RiseConnectorTest {
 
     String host = "https://192.168.178.75";
@@ -20,7 +21,6 @@ public class RiseConnectorTest {
     RiseConnector riseConnector = new RiseConnector();
 
     @Test
-    @Disabled
     public void testAcceptingAllConnections() throws Exception {
         riseConnector.secretsManagerService = new SecretsManagerService();
         riseConnector.secretsManagerService.setUpSSLContext(null);
