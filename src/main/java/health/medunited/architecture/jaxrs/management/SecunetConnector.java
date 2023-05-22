@@ -12,7 +12,7 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import health.medunited.architecture.model.RestartRequestBody;
+import health.medunited.architecture.model.ManagementCredentials;
 
 @ApplicationScoped
 @Named("secunet")
@@ -21,7 +21,12 @@ public class SecunetConnector extends AbstractConnector {
     private static final Logger log = Logger.getLogger(SecunetConnector.class.getName());
 
     @Override
-    public void restart(String connectorUrl, String managementPort, RestartRequestBody managementCredentials) {
+    public void restart(String connectorUrl, ManagementCredentials managementCredentials) {
+        restart(connectorUrl, "8500", managementCredentials);
+    }
+
+    @Override
+    public void restart(String connectorUrl, String managementPort, ManagementCredentials managementCredentials) {
         log.log(Level.INFO, "Restarting Secunet connector");
 
         Client client = buildClient();
@@ -35,7 +40,7 @@ public class SecunetConnector extends AbstractConnector {
         restartBuilder.post(Entity.json(""));
     }
 
-    private Response loginManagementConsole(Client client, String connectorUrl, String managementPort, RestartRequestBody managementCredentials) {
+    private Response loginManagementConsole(Client client, String connectorUrl, String managementPort, ManagementCredentials managementCredentials) {
         WebTarget loginTarget = client.target(connectorUrl + ":" + managementPort)
                 .path("/rest/mgmt/ak/konten/login");
 

@@ -14,7 +14,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.NewCookie;
 import javax.ws.rs.core.Response;
 
-import health.medunited.architecture.model.RestartRequestBody;
+import health.medunited.architecture.model.ManagementCredentials;
 import health.medunited.architecture.LoggingFilter;
 
 @ApplicationScoped
@@ -24,7 +24,13 @@ public class RiseConnector extends AbstractConnector {
     private static final Logger log = Logger.getLogger(SecunetConnector.class.getName());
     private NewCookie sessionCookie;
 
-    public void restart(String connectorUrl, String managementPort, RestartRequestBody managementCredentials) {
+    @Override
+    public void restart(String connectorUrl, ManagementCredentials managementCredentials) {
+        restart(connectorUrl, "8500", managementCredentials);
+    }
+
+    @Override
+    public void restart(String connectorUrl, String managementPort, ManagementCredentials managementCredentials) {
         log.log(Level.INFO, "Restarting RISE connector");
 
         AbstractConnector.modifyClientBuilder = (clientBuilder) -> {
@@ -58,13 +64,13 @@ public class RiseConnector extends AbstractConnector {
             restart.close();
         } else {
             log.warning("Unable to restart connector");
-            log.warning("Connection attempt to "+connectorUrl + ":" + managementPort+" failed");
+            log.warning("Connection attempt to " + connectorUrl + ":" + managementPort + " failed");
             log.warning("Could not connect. Status: " + sessionCookieResponse.getStatus());
         }
 
     }
 
-    Response loginManagementConsole(Client client, String connectorUrl, String managementPort, String cookie, RestartRequestBody managementCredentials) {
+    Response loginManagementConsole(Client client, String connectorUrl, String managementPort, String cookie, ManagementCredentials managementCredentials) {
         WebTarget loginTarget = client.target(connectorUrl + ":" + managementPort)
                 .path("/api/v1/auth/login");
 
@@ -85,16 +91,16 @@ public class RiseConnector extends AbstractConnector {
                 .header("X-Requested-With", "RISEHttpRequest")
                 .header("If-Modified-Since", "Thu, 01 Jan 1970 00:00:00 GMT")
                 .header("Referer", connectorUrl + ":" + managementPort);
-        return loginBuilder.post(Entity.json(managementCredentials));
+        return loginBuilder.post(Entity.json(new RestartCredentialsRISE(managementCredentials.getUsername(), managementCredentials.getPassword())));
 
     }
 
 
-    Response performRestart(Client client, String connectorUrl, String managementPort, String cookie, RestartRequestBody managementCredentials) {
+    Response performRestart(Client client, String connectorUrl, String managementPort, String cookie, ManagementCredentials managementCredentials) {
         WebTarget loginTarget = client.target(connectorUrl + ":" + managementPort)
                 .path("/api/v1/mgm/reboot");
 
-        Invocation.Builder loginBuilder = loginTarget.request(MediaType.APPLICATION_JSON)
+        Invocation.Builder restartBuilder = loginTarget.request(MediaType.APPLICATION_JSON)
                 .cookie(sessionCookie)
                 .header("User-Agent", "PostmanRuntime/7.32.2")
                 .header("Accept", "*/*")
@@ -111,7 +117,30 @@ public class RiseConnector extends AbstractConnector {
                 .header("X-Requested-With", "RISEHttpRequest")
                 .header("If-Modified-Since", "Thu, 01 Jan 1970 00:00:00 GMT")
                 .header("Referer", connectorUrl + ":" + managementPort);
-        return loginBuilder.post(Entity.json(managementCredentials));
+        return restartBuilder.post(Entity.json(new RestartCredentialsRISE(managementCredentials.getUsername(), managementCredentials.getPassword())));
 
     }
+
+    public static class RestartCredentialsRISE {
+        String user;
+        String password;
+
+        public RestartCredentialsRISE() {
+
+        }
+
+        public RestartCredentialsRISE(String user, String password) {
+            this.user = user;
+            this.password = password;
+        }
+
+        public String getUser() {
+            return user;
+        }
+
+        public String getPassword() {
+            return password;
+        }
+    }
+
 }
