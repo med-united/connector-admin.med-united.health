@@ -53,15 +53,7 @@ public class ConnectorManagement {
         if (connector == null) {
             throw new IllegalArgumentException("Unknown connector type: " + connectorType);
         }
-
-        System.out.println(managementCredentials);
-        System.out.println(managementCredentials.getPassword());
-        System.out.println(managementCredentials.getPassword());
-        System.out.println(managementCredentials.getPassword());
-        System.out.println(managementCredentials.getPassword());
-        System.out.println(managementCredentials.getPassword());
-        System.out.println(managementCredentials.getPassword());
-
+        
         connector.restart(connectorUrl, managementCredentials);
 
     }

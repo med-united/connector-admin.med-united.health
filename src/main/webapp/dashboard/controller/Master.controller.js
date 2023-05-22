@@ -5,7 +5,8 @@ sap.ui.define(
     "sap/ui/model/FilterOperator",
     "sap/ui/model/Sorter",
     "sap/ui/core/Fragment",
-    "sap/m/MessageToast"
+    "sap/m/MessageToast",
+    "sap/m/MessageBox"
   ],
   function (
     AbstractMasterController,
@@ -13,7 +14,8 @@ sap.ui.define(
     FilterOperator,
     Sorter,
     Fragment,
-    MessageToast
+    MessageToast,
+    MessageBox
   ) {
     "use strict";
 
@@ -66,10 +68,65 @@ sap.ui.define(
           oBinding.sort(oSorter);
         },
 
+        onEdit: function(){
+           const oView = this.getView();
+           const aSelectedItems = oView.byId("runtimeConfigTable").getSelectedItems();
+           if(aSelectedItems.length === 1){
+             const me = this;
+             if (!this.byId("editDialog")) {
+                       // load asynchronous XML fragment
+                       Fragment.load({
+                         id: oView.getId(),
+                         name: "sap.f.ShellBarWithFlexibleColumnLayout.view.EditDialog",
+                         controller: this,
+                       }).then(function (oDialog) {
+                         oView.addDependent(oDialog);
+                         me._openEditDialog(oDialog);
+                       });
+                     } else {
+                       this._openEditDialog(this.byId("editDialog"));
+                     }
+           }
+           else{
+            if(aSelectedItems.length === 0){
+                MessageBox.error(this.translate("msgSelectOneConnector"));
+            }
+            else if(aSelectedItems.length > 1){
+                MessageBox.error(this.translate("msgSelectOnlyOneConnector"));
+            }
+           }
+        },
+
+        _openEditDialog: function (oDialog) {
+            oDialog.open();
+            const aSelectedItems = this.getView().byId("runtimeConfigTable").getSelectedItems();
+            const oItemContextPath = aSelectedItems[0].getBindingContext().getPath();
+            oDialog.bindElement(oItemContextPath);
+        },
+
+        onCancelEdit:function(){
+            this.byId("editDialog").close();
+        },
+
+        onSaveEdit:function(){
+            this.getView()
+               .getModel()
+               .submitChanges({
+                 success: function () {
+                    const oTable = this.getView().byId("runtimeConfigTable");
+                    oTable.getBinding("items").refresh();
+                    sap.m.MessageToast.show(this.translate("msgEditSuccess"));
+                 }.bind(this),
+                 error: function () {
+                    sap.m.MessageToast.show(this.translate("msgEditError"));
+                 },
+               });
+            this.byId("editDialog").close();
+        },
+
         onDelete: function () {
           let oView = this.getView();
           let dialog;
-
           if (!this.byId("deleteConfirmationDialog")) {
             // load asynchronous XML fragment
             Fragment.load({

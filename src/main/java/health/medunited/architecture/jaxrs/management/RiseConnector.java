@@ -26,7 +26,7 @@ public class RiseConnector extends AbstractConnector {
 
     @Override
     public void restart(String connectorUrl, ManagementCredentials managementCredentials) {
-        restart(connectorUrl, "8500", managementCredentials);
+        restart(connectorUrl, "8443", managementCredentials);
     }
 
     @Override
@@ -54,12 +54,12 @@ public class RiseConnector extends AbstractConnector {
             log.log(Level.INFO, "Status for retrieving Session Cookie: " + sessionCookieResponse.getStatus());
 
             sessionCookieResponse.close();
-            Response login = loginManagementConsole(client, connectorUrl, managementPort, cookie, managementCredentials);
+            Response login = connectorCommunication("/api/v1/auth/login", client, connectorUrl, managementPort, cookie, managementCredentials);
             log.info("Login status: " + login.getStatus());
 
             login.close();
 
-            Response restart = performRestart(client, connectorUrl, managementPort, cookie, managementCredentials);
+            Response restart = connectorCommunication("/api/v1/mgm/reboot", client, connectorUrl, managementPort, cookie, managementCredentials);
             log.info("Restart status: " + restart.getStatus());
             restart.close();
         } else {
@@ -70,13 +70,12 @@ public class RiseConnector extends AbstractConnector {
 
     }
 
-    Response loginManagementConsole(Client client, String connectorUrl, String managementPort, String cookie, ManagementCredentials managementCredentials) {
+    Response connectorCommunication(String path, Client client, String connectorUrl, String managementPort, String cookie, ManagementCredentials managementCredentials) {
         WebTarget loginTarget = client.target(connectorUrl + ":" + managementPort)
-                .path("/api/v1/auth/login");
+                .path(path);
 
         Invocation.Builder loginBuilder = loginTarget.request(MediaType.APPLICATION_JSON)
                 .cookie(sessionCookie)
-                .header("User-Agent", "PostmanRuntime/7.32.2")
                 .header("Accept", "*/*")
                 .header("Accept-Encoding", "gzip, deflate, br")
                 .header("Connection", "keep-alive")
@@ -95,31 +94,6 @@ public class RiseConnector extends AbstractConnector {
 
     }
 
-
-    Response performRestart(Client client, String connectorUrl, String managementPort, String cookie, ManagementCredentials managementCredentials) {
-        WebTarget loginTarget = client.target(connectorUrl + ":" + managementPort)
-                .path("/api/v1/mgm/reboot");
-
-        Invocation.Builder restartBuilder = loginTarget.request(MediaType.APPLICATION_JSON)
-                .cookie(sessionCookie)
-                .header("User-Agent", "PostmanRuntime/7.32.2")
-                .header("Accept", "*/*")
-                .header("Accept-Encoding", "gzip, deflate, br")
-                .header("Connection", "keep-alive")
-                .header("Pragma", "no-cache")
-                .header("sec-ch-ua", "'Microsoft Edge';v='113', 'Chromium';v='113', 'Not-A.Brand';v='24'")
-                .header("sec-ch-ua-platform", "Windows")
-                .header("sec-ch-ua-mobile", "?0")
-                .header("Cache-Control", "no-cache")
-                .header("Accept", "application/json, text/plain, */*")
-                .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36 Edg/113.0.1774.42")
-                .header("Content-Type", "application/json")
-                .header("X-Requested-With", "RISEHttpRequest")
-                .header("If-Modified-Since", "Thu, 01 Jan 1970 00:00:00 GMT")
-                .header("Referer", connectorUrl + ":" + managementPort);
-        return restartBuilder.post(Entity.json(new RestartCredentialsRISE(managementCredentials.getUsername(), managementCredentials.getPassword())));
-
-    }
 
     public static class RestartCredentialsRISE {
         String user;

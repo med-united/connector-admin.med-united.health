@@ -22,11 +22,4 @@ public class ManagementCredentials {
         return password;
     }
 
-    @Override
-    public String toString() {
-        return "ManagementCredentials{" +
-                "username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                '}';
-    }
 }

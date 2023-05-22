@@ -67,9 +67,9 @@ sap.ui.define(
             .getProperty("cardHandle");
           fetch(
             "connector/card/verifyPin?cardHandle=" +
-              cardHandle +
-              "&pinType=" +
-              pinType,
+            cardHandle +
+            "&pinType=" +
+            pinType,
             { headers: mHeaders }
           );
         },
@@ -84,9 +84,9 @@ sap.ui.define(
             .getProperty("cardHandle");
           fetch(
             "connector/card/verifyPin?cardHandle=" +
-              cardHandle +
-              "&pinType=" +
-              pinType,
+            cardHandle +
+            "&pinType=" +
+            pinType,
             { headers: mHeaders }
           );
         },
@@ -101,9 +101,9 @@ sap.ui.define(
             .getProperty("cardHandle");
           fetch(
             "connector/card/changePin?cardHandle=" +
-              cardHandle +
-              "&pinType=" +
-              pinType,
+            cardHandle +
+            "&pinType=" +
+            pinType,
             { headers: mHeaders }
           );
         },
@@ -118,9 +118,9 @@ sap.ui.define(
             .getProperty("cardHandle");
           fetch(
             "connector/card/changePin?cardHandle=" +
-              cardHandle +
-              "&pinType=" +
-              pinType,
+            cardHandle +
+            "&pinType=" +
+            pinType,
             { headers: mHeaders }
           );
         },
@@ -135,9 +135,9 @@ sap.ui.define(
             .getProperty("cardHandle");
           fetch(
             "connector/card/changePin?cardHandle=" +
-              cardHandle +
-              "&pinType=" +
-              pinType,
+            cardHandle +
+            "&pinType=" +
+            pinType,
             { headers: mHeaders }
           );
         },
@@ -380,6 +380,7 @@ sap.ui.define(
             "x-workplace-id": oRuntimeConfig.WorkplaceId,
             "x-user-id": oRuntimeConfig.UserId,
             "x-host": oRuntimeConfig.Url,
+            "x-use-ssl": oRuntimeConfig.UseSSL,
           };
         },
 

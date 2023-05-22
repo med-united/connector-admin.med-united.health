@@ -11,8 +11,8 @@ import health.medunited.architecture.service.common.security.SecretsManagerServi
 public class RiseConnectorTest {
 
     String host = "https://192.168.178.75";
-    String user = "superadmin"; //specify before the test
-    String password = "Pwdpwd12"; //specify before the test
+    String user = ""; //specify before the test
+    String password = ""; //specify before the test
 
     private static Logger log = Logger.getLogger(RiseConnectorTest.class.getName());
 
@@ -28,7 +28,7 @@ public class RiseConnectorTest {
             clientBuilder.connectTimeout(10, TimeUnit.SECONDS);
             clientBuilder.readTimeout(10, TimeUnit.SECONDS);
         };
-        riseConnector.restart(host, "8443", new ManagementCredentials(user,password));
+        riseConnector.restart(host, new ManagementCredentials(user,password));
 
     }
 
