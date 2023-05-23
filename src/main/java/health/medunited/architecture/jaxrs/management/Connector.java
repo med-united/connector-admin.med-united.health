@@ -8,5 +8,7 @@ public interface Connector {
 
     void restart(String connectorUrl, ManagementCredentials managementCredentials);
 
+    String availableUpdate(String connectorUrl, ManagementCredentials managementCredentials);
 
+    String availableUpdate(String connectorUrl, String managementPort, ManagementCredentials managementCredentials);
 }

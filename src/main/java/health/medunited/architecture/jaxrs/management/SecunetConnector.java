@@ -10,6 +10,7 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.Invocation;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
 import health.medunited.architecture.model.ManagementCredentials;
@@ -46,5 +47,23 @@ public class SecunetConnector extends AbstractConnector {
 
         Invocation.Builder loginBuilder = loginTarget.request(MediaType.APPLICATION_JSON);
         return loginBuilder.post(Entity.json(managementCredentials));
+    }
+
+    @Override
+    public String availableUpdate(String connectorUrl, ManagementCredentials managementCredentials){
+       return availableUpdate(connectorUrl, "8500", managementCredentials);
+    }
+
+    @Override
+    public String availableUpdate(String connectorUrl, String managementPort, ManagementCredentials managementCredentials){
+        log.log(Level.INFO, "Updating Secunet connector");
+
+        Client client = buildClient();
+
+        Response loginResponse = loginManagementConsole(client, connectorUrl, managementPort, managementCredentials);
+        Response updateResponse = client.target(connectorUrl + ":" + managementPort)
+                .path("/rest/mgmt/ak/dienste/ksr/informationen/updates-terminal/INGHC/ORGA6100/1.2.0/3.8.1").request(MediaType.APPLICATION_JSON)
+                .header("Authorization", loginResponse.getHeaders().get("Authorization").get(0)).get();
+        return updateResponse.readEntity(String.class);
     }
 }

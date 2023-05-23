@@ -58,4 +58,21 @@ public class ConnectorManagement {
 
     }
 
+    @POST
+    @Path("/{connectorType}/availableUpdate")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String availableUpdate(
+            @PathParam("connectorType") String connectorType,
+            @QueryParam("connectorUrl") String connectorUrl,
+            ManagementCredentials managementCredentials
+    ) {
+
+        Connector connector = connectorMap.get(connectorType);
+        if (connector == null) {
+            throw new IllegalArgumentException("Unknown connector type: " + connectorType);
+        }
+
+       return connector.availableUpdate(connectorUrl, managementCredentials);
+    }
+
 }

@@ -117,4 +117,15 @@ public class RiseConnector extends AbstractConnector {
         }
     }
 
+    @Override
+    public String availableUpdate(String connectorUrl, ManagementCredentials managementCredentials){
+        return availableUpdate(connectorUrl, "8443", managementCredentials);
+
+    }
+
+    @Override
+    public String availableUpdate(String connectorUrl, String managementPort, ManagementCredentials managementCredentials){
+        return "";
+    }
+
 }

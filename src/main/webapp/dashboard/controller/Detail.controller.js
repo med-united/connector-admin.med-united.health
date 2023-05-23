@@ -462,6 +462,64 @@ sap.ui.define(
             });
           });
         },
+
+        updateCardTerminal: function()
+        {
+            let oView = this.getView();
+            const me = this;
+
+            if (!this.byId("UpdatePasswordDialog")) {
+              Fragment.load({
+                 id: oView.getId(),
+                 name: "sap.f.ShellBarWithFlexibleColumnLayout.view.UpdatePasswordDialog",
+                 controller: this,
+              }).then(function (oDialog) {
+                 me.onAfterCreateOpenDialog({ dialog: oDialog });
+                 oView.addDependent(oDialog);
+                 me._openCreateDialog(oDialog);
+              });
+            } else {
+               this._openCreateDialog(this.byId("updatePasswordDialog"));
+            }
+        },
+
+        updateOnCancel: function(oEvent){
+            oEvent.getSource().getParent().close();
+            oEvent.getSource().getParent().destroy();
+        },
+
+        updateOnAccept: function(oEvent){
+            const sPath = "/RuntimeConfigs('" + this._entity + "')";
+            const oRuntimeConfig = this.getView().getModel().getProperty(sPath);
+            const updateHeaders = {
+               "x-client-certificate": oRuntimeConfig.ClientCertificate,
+               "x-client-certificate-password":oRuntimeConfig.ClientCertificatePassword,
+               "Content-Type": "application/json",
+            };
+            const username = this.byId("usernameInput").getValue();
+            const password = this.byId("passwordInput").getValue();
+            const requestBody = {
+               username: username,
+               password: password,
+            };
+            oEvent.getSource().getParent().close();
+            oEvent.getSource().getParent().destroy();
+            this._getConnectorType().then((connectorBrand) => {
+                let updateUrl =
+                   "connector/management/" +
+                   connectorBrand +
+                   "/availableUpdate?connectorUrl=" +
+                   oRuntimeConfig.Url;
+                   fetch(updateUrl, {
+                     headers: updateHeaders,
+                     method: "POST",
+                     body: JSON.stringify(requestBody),
+                }).then((response) => response.json()).then((data) => {
+                    console.log(data.cardTerminalUpdateInformation[0].fwVersion);
+                });
+            });
+        }
+
       }
     );
   },

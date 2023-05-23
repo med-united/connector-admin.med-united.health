@@ -210,8 +210,7 @@
                             </uxap:ObjectPageSubSection>
                         </uxap:subSections>
                     </uxap:ObjectPageSection>
-                    <uxap:ObjectPageSection id="cardTerminalSection"
-                        title="{i18n>AvailableCardterminals}">
+                    <uxap:ObjectPageSection id="cardTerminalSection">
                         <uxap:subSections>
                             <uxap:ObjectPageSubSection id="cardTerminalSubSection"
                                 title="{i18n>AvailableCardterminals}">
@@ -232,14 +231,21 @@
                                             <Column importance="High">
                                                 <Text text="{i18n>Connection}" />
                                             </Column>
+                                            <Column>
+                                                <Text text="Firmware" />
+                                            </Column>
+                                            <Column>
+                                                <Button text="Verfügbare Version" press="updateCardTerminal"/>
+                                            </Column>
                                         </columns>
                                         <items>
                                             <ColumnListItem>
                                                 <Text text="{CardTerminals>IPAddress/IPV4Address}" />
                                                 <Text text="{CardTerminals>name}" />
-                                                <Text
-                                                    text="{CardTerminals>productInformation/productIdentification/productCode} {CardTerminals>productInformation/productIdentification/productVendorID} {CardTerminals>productInformation/productIdentification/productVersion/local/FWVersion}" />
+                                                <Text text="{CardTerminals>productInformation/productIdentification/productCode} {CardTerminals>productInformation/productIdentification/productVendorID} " />
                                                 <Text text="{CardTerminals>connected}" />
+                                                <Text text="{CardTerminals>productInformation/productIdentification/productVersion/local/FWVersion}" />
+                                                <Text text="{CardTerminals>availableVersion}" />
                                             </ColumnListItem>
                                         </items>
                                     </Table>
