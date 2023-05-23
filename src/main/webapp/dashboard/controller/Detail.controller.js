@@ -67,9 +67,9 @@ sap.ui.define(
             .getProperty("cardHandle");
           fetch(
             "connector/card/verifyPin?cardHandle=" +
-              cardHandle +
-              "&pinType=" +
-              pinType,
+            cardHandle +
+            "&pinType=" +
+            pinType,
             { headers: mHeaders }
           );
         },
@@ -84,9 +84,9 @@ sap.ui.define(
             .getProperty("cardHandle");
           fetch(
             "connector/card/verifyPin?cardHandle=" +
-              cardHandle +
-              "&pinType=" +
-              pinType,
+            cardHandle +
+            "&pinType=" +
+            pinType,
             { headers: mHeaders }
           );
         },
@@ -101,9 +101,9 @@ sap.ui.define(
             .getProperty("cardHandle");
           fetch(
             "connector/card/changePin?cardHandle=" +
-              cardHandle +
-              "&pinType=" +
-              pinType,
+            cardHandle +
+            "&pinType=" +
+            pinType,
             { headers: mHeaders }
           );
         },
@@ -118,9 +118,9 @@ sap.ui.define(
             .getProperty("cardHandle");
           fetch(
             "connector/card/changePin?cardHandle=" +
-              cardHandle +
-              "&pinType=" +
-              pinType,
+            cardHandle +
+            "&pinType=" +
+            pinType,
             { headers: mHeaders }
           );
         },
@@ -135,9 +135,9 @@ sap.ui.define(
             .getProperty("cardHandle");
           fetch(
             "connector/card/changePin?cardHandle=" +
-              cardHandle +
-              "&pinType=" +
-              pinType,
+            cardHandle +
+            "&pinType=" +
+            pinType,
             { headers: mHeaders }
           );
         },
@@ -204,7 +204,9 @@ sap.ui.define(
                     arrayData.push({
                       cardHandle: res.data[i].cardInfoType.cardHandle,
                       cardHolderName: res.data[i].cardInfoType.cardHolderName,
-                      certInfos: res.data[i].readCardCertificateResponse.x509DataInfoList.x509DataInfo,
+                      certInfos:
+                        res.data[i].readCardCertificateResponse.x509DataInfoList
+                          .x509DataInfo,
                       verifyResponses: res.data[i].verifyCertificateResponse,
                     });
                   }
@@ -216,8 +218,12 @@ sap.ui.define(
                         cardHolderName: element.cardHolderName,
                         certRef: element.certInfos[q].certRef,
                         cardHandle: element.cardHandle,
-                        serial: element.certInfos[q].x509Data.x509IssuerSerial.x509SerialNumber,
-                        verify: element.verifyResponses[q].verificationStatus.verificationResult,
+                        serial:
+                          element.certInfos[q].x509Data.x509IssuerSerial
+                            .x509SerialNumber,
+                        verify:
+                          element.verifyResponses[q].verificationStatus
+                            .verificationResult,
                       });
                     }
                   }
@@ -255,13 +261,21 @@ sap.ui.define(
                     });
                 })
           );
-          fetch("connector/event/get-cards", { headers: mHeaders }).then((re) => re.json()).then((da) => {
+          fetch("connector/event/get-cards", { headers: mHeaders })
+            .then((re) => re.json())
+            .then((da) => {
               const cards = da.cards.card;
               for (const card of cards) {
-                card["option"] = card.cardType == "SMC_KT" || card.cardType == "KVK" ? false : true;
+                card["option"] =
+                  card.cardType == "SMC_KT" || card.cardType == "KVK"
+                    ? false
+                    : true;
                 card["vPIN.CH"] = card.cardType == "HBA" ? true : false;
                 card["vPIN.SMC"] = card.cardType == "SMC_B" ? true : false;
-                card["cPIN.CH"] = card.cardType == "EGK" || card.cardType == "HBA" ? true : false;
+                card["cPIN.CH"] =
+                  card.cardType == "EGK" || card.cardType == "HBA"
+                    ? true
+                    : false;
                 card["cPIN.QES"] = card.cardType == "HBA" ? true : false;
                 card["cPIN.SMC"] = card.cardType == "SMC_B" ? true : false;
               }
@@ -333,9 +347,17 @@ sap.ui.define(
           const oHeaders = this._getHttpHeadersFromRuntimeConfig();
           fetch("connector/sds/file", {
             headers: oHeaders,
-          }).then((response) => response.blob())
+          })
+            .then((response) => response.blob())
             .then((xBlob) =>
-              File.save(xBlob, "Connector", "sds", "application/octet-stream", null, false)
+              File.save(
+                xBlob,
+                "Connector",
+                "sds",
+                "application/octet-stream",
+                null,
+                false
+              )
             );
         },
 
@@ -344,20 +366,22 @@ sap.ui.define(
         },
 
         _getHttpHeadersFromRuntimeConfig: function () {
-            const sPath = this._getRuntimeConfigPath();
-            const oRuntimeConfig = this.getView().getModel().getProperty(sPath);
-            return {
-              Accept: "application/json",
-              "x-client-system-id": oRuntimeConfig.ClientSystemId,
-              "x-client-certificate": oRuntimeConfig.ClientCertificate,
-              "x-client-certificate-password": oRuntimeConfig.ClientCertificatePassword,
-              "x-sign-port": oRuntimeConfig.SignPort,
-              "x-vzd-port": oRuntimeConfig.VzdPort,
-              "x-mandant-id": oRuntimeConfig.MandantId,
-              "x-workplace-id": oRuntimeConfig.WorkplaceId,
-              "x-user-id": oRuntimeConfig.UserId,
-              "x-host": oRuntimeConfig.Url,
-            };
+          const sPath = this._getRuntimeConfigPath();
+          const oRuntimeConfig = this.getView().getModel().getProperty(sPath);
+          return {
+            Accept: "application/json",
+            "x-client-system-id": oRuntimeConfig.ClientSystemId,
+            "x-client-certificate": oRuntimeConfig.ClientCertificate,
+            "x-client-certificate-password":
+              oRuntimeConfig.ClientCertificatePassword,
+            "x-sign-port": oRuntimeConfig.SignPort,
+            "x-vzd-port": oRuntimeConfig.VzdPort,
+            "x-mandant-id": oRuntimeConfig.MandantId,
+            "x-workplace-id": oRuntimeConfig.WorkplaceId,
+            "x-user-id": oRuntimeConfig.UserId,
+            "x-host": oRuntimeConfig.Url,
+            "x-use-ssl": oRuntimeConfig.UseSSL,
+          };
         },
 
         _getConnectorType: async function () {
@@ -425,19 +449,17 @@ sap.ui.define(
           MessageToast.show(this.translate("restarting"));
           oEvent.getSource().getParent().destroy();
 
-          this._getConnectorType().then((deviceType) => {
-            fetch(
+          this._getConnectorType().then((connectorBrand) => {
+            let restartUrl =
               "connector/management/" +
-                deviceType +
-                "/restart?connectorUrl=" +
-                oRuntimeConfig.Url +
-                "&managementPort=8500",
-              {
-                headers: restartHeaders,
-                method: "POST",
-                body: JSON.stringify(requestBody),
-              }
-            );
+              connectorBrand +
+              "/restart?connectorUrl=" +
+              oRuntimeConfig.Url;
+            fetch(restartUrl, {
+              headers: restartHeaders,
+              method: "POST",
+              body: JSON.stringify(requestBody),
+            });
           });
         },
       }

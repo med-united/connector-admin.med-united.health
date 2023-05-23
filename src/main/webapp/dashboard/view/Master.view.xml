@@ -33,6 +33,8 @@
                                                press="onAdd" tooltip="{i18n>AddNewConnector}"/>
                         <OverflowToolbarButton icon="sap-icon://sort" type="Transparent"
                                                press="onSort" tooltip="{i18n>Sort}"/>
+                        <OverflowToolbarButton icon="sap-icon://edit" type="Transparent"
+                                               press="onEdit" tooltip="{i18n>Edit}"/>
                         <OverflowToolbarButton icon="sap-icon://delete" type="Transparent"
                                                press="onDelete" tooltip="{i18n>Delete}"/>
                     </OverflowToolbar>

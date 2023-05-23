@@ -49,6 +49,7 @@ sap.ui.define(
                      "x-mandant-id": config.MandantId,
                      "x-workplace-id": config.WorkplaceId,
                      "x-host": config.Url,
+                     "x-use-ssl": config.UseSSL,
                      Accept: "application/json",
                    };
                    Promise.all([
