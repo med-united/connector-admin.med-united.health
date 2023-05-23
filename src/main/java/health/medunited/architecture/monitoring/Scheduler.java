@@ -1,6 +1,7 @@
 package health.medunited.architecture.monitoring;
 
 import java.io.IOException;
+import java.math.BigInteger;
 import java.net.URISyntaxException;
 import java.security.KeyManagementException;
 import java.security.KeyStoreException;
@@ -9,8 +10,7 @@ import java.security.cert.CertificateException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.Instant;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.Callable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,10 +21,11 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.xml.ws.Holder;
 
-import org.eclipse.microprofile.metrics.Gauge;
-import org.eclipse.microprofile.metrics.Metadata;
-import org.eclipse.microprofile.metrics.MetricRegistry;
+import de.gematik.ws.conn.cardservice.v8.PinStatusEnum;
+import de.gematik.ws.conn.connectorcommon.v5.Status;
+import org.eclipse.microprofile.metrics.*;
 import org.eclipse.microprofile.metrics.Timer;
 import org.eclipse.microprofile.metrics.annotation.RegistryType;
 
@@ -156,7 +157,12 @@ public class Scheduler {
                 }
 
 
-
+                addMetricsPinStatusSMCB("VERIFIABLE", runtimeConfig, eventServicePortType, cardServicePortType);
+                addMetricsPinStatusSMCB("VERIFIED", runtimeConfig, eventServicePortType, cardServicePortType);
+                addMetricsPinStatusSMCB("BLOCKED", runtimeConfig, eventServicePortType, cardServicePortType);
+                addMetricsPinStatusSMCB("DISABLED", runtimeConfig, eventServicePortType, cardServicePortType);
+                addMetricsPinStatusSMCB("EMPTY_PIN", runtimeConfig, eventServicePortType, cardServicePortType);
+                addMetricsPinStatusSMCB("TRANSPORT_PIN", runtimeConfig, eventServicePortType, cardServicePortType);
 
 
                 Callable<Integer> callable = () -> {
@@ -191,9 +197,65 @@ public class Scheduler {
                 } catch (Exception e) {
                     log.log(Level.WARNING, "Can't measure connector", e);
                 }
+
+
             } catch(Throwable t) {
                 log.log(Level.INFO, "Error while contacting connector", t);
             }
         }
+    }
+
+    private void addMetricsPinStatusSMCB(String typeOfStatus, RuntimeConfig runtimeConfig, EventServicePortType eventServicePortType, CardServicePortType cardServicePortType) {
+        try {
+            Gauge<Integer> metricPinStatusSMCB = applicationRegistry.register(
+                    Metadata.builder()
+                            .withName("pinStatus_SMC-B_" + typeOfStatus + "_" + runtimeConfig.getUrl())
+                            .withDescription("pinStatus_SMC-B_" + typeOfStatus + "_" + runtimeConfig.getUrl())
+                            .withType(MetricType.GAUGE)
+                            .build(),
+                    () -> getNumberOfSMCBCardsWithStatus(typeOfStatus, runtimeConfig, eventServicePortType, cardServicePortType)
+            );
+        } catch (Exception e) {
+            log.log(Level.WARNING, "Can't measure connector", e);
+        }
+    }
+
+    private Integer getNumberOfSMCBCardsWithStatus(String typeOfStatus, RuntimeConfig runtimeConfig, EventServicePortType eventServicePortType, CardServicePortType cardServicePortType) {
+        try {
+            int nrOfCardsWithStatus = 0;
+
+            GetCards getCards = new GetCards();
+            ContextType contextType = new ContextType();
+            contextType.setMandantId(runtimeConfig.getMandantId());
+            contextType.setClientSystemId(runtimeConfig.getClientSystemId());
+            contextType.setWorkplaceId(runtimeConfig.getWorkplaceId());
+            contextType.setUserId(runtimeConfig.getUserId());
+            getCards.setContext(contextType);
+            GetCardsResponse getCardsResponse = eventServicePortType.getCards(getCards);
+
+            int numberOfCards = getCardsResponse.getCards().getCard().size();
+
+            for (int i = 0; i < numberOfCards; i++) {
+                String cardType = getCardsResponse.getCards().getCard().get(i).getCardType().toString();
+                String cardHandle = getCardsResponse.getCards().getCard().get(i).getCardHandle();
+                if (Objects.equals(cardType, "SMC_B")) {
+                    String pinType = "PIN.SMC";
+                    Holder<Status> status = new Holder<>();
+                    Holder<PinStatusEnum> pinStatusEnum = new Holder<>();
+                    Holder<BigInteger> leftTries = new Holder<>();
+
+                    cardServicePortType.getPinStatus(contextType, cardHandle, pinType, status, pinStatusEnum, leftTries);
+                    String pinStatus = pinStatusEnum.value.toString();
+
+                    if (pinStatus.equals(typeOfStatus)) {
+                        nrOfCardsWithStatus += 1;
+                    }
+                }
+            }
+            return nrOfCardsWithStatus;
+        } catch (Exception e) {
+            log.log(Level.WARNING, "Can't measure connector", e);
+        }
+        return null;
     }
 }
