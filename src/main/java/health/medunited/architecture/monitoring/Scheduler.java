@@ -111,13 +111,12 @@ public class Scheduler {
 
                 addMetricCurrentlyConnectedCards(connectorResponseTime, runtimeConfig, eventServicePortType);
 
-                HashMap<String, Integer> dictWithSMCBCardsStatus = createDictWithSMCBCardsStatus(runtimeConfig, eventServicePortType, cardServicePortType);
-                addMetricPinStatusSMCB(VERIFIABLE, dictWithSMCBCardsStatus, runtimeConfig);
-                addMetricPinStatusSMCB(VERIFIED, dictWithSMCBCardsStatus, runtimeConfig);
-                addMetricPinStatusSMCB(BLOCKED, dictWithSMCBCardsStatus, runtimeConfig);
-                addMetricPinStatusSMCB(DISABLED, dictWithSMCBCardsStatus, runtimeConfig);
-                addMetricPinStatusSMCB(EMPTY_PIN, dictWithSMCBCardsStatus, runtimeConfig);
-                addMetricPinStatusSMCB(TRANSPORT_PIN, dictWithSMCBCardsStatus, runtimeConfig);
+                addMetricPinStatusSMCB(VERIFIABLE, connectorResponseTime, runtimeConfig, eventServicePortType, cardServicePortType);
+                addMetricPinStatusSMCB(VERIFIED, connectorResponseTime, runtimeConfig, eventServicePortType, cardServicePortType);
+                addMetricPinStatusSMCB(BLOCKED, connectorResponseTime, runtimeConfig, eventServicePortType, cardServicePortType);
+                addMetricPinStatusSMCB(DISABLED, connectorResponseTime, runtimeConfig, eventServicePortType, cardServicePortType);
+                addMetricPinStatusSMCB(EMPTY_PIN, connectorResponseTime, runtimeConfig, eventServicePortType, cardServicePortType);
+                addMetricPinStatusSMCB(TRANSPORT_PIN, connectorResponseTime, runtimeConfig, eventServicePortType, cardServicePortType);
 
             } catch(Throwable t) {
                 log.log(Level.INFO, "Error while contacting connector", t);
@@ -132,11 +131,11 @@ public class Scheduler {
                     .withName("secondsDurationLeftUntilSMC_KTexpiry_" + runtimeConfig.getUrl())
                     .withDescription("duration of seconds until the SMC_KT card expires " + runtimeConfig.getUrl())
                     .build(), () -> {
-                Long secondsDurationLefTillExpiryLng;
+                Long secondsDurationLeftUntilExpiryLng;
                 try {
-                    secondsDurationLefTillExpiryLng = connectorResponseTime.time(secondsCallable);
-                    log.info("Currently connected card expires in sec: " + secondsDurationLefTillExpiryLng + " "+runtimeConfig.getUrl());
-                    return secondsDurationLefTillExpiryLng;
+                    secondsDurationLeftUntilExpiryLng = connectorResponseTime.time(secondsCallable);
+                    log.info("Currently connected card expires in sec: " + secondsDurationLeftUntilExpiryLng + " "+runtimeConfig.getUrl());
+                    return secondsDurationLeftUntilExpiryLng;
                 } catch (Exception e) {
                     log.log(Level.WARNING, "Cannot measure connector", e);
                 }
@@ -217,31 +216,31 @@ public class Scheduler {
         };
     }
 
-    private void addMetricPinStatusSMCB(String typeOfStatus, HashMap<String, Integer> dictWithSMCBCardsStatus, RuntimeConfig runtimeConfig) {
+    private void addMetricPinStatusSMCB(String typeOfStatus, Timer connectorResponseTime, RuntimeConfig runtimeConfig, EventServicePortType eventServicePortType, CardServicePortType cardServicePortType) {
         try {
-            Gauge<Integer> metricPinStatusSMCB = applicationRegistry.register(
+            Callable<Integer> callable = getNrOfCardsWithStatus(typeOfStatus, runtimeConfig, eventServicePortType, cardServicePortType);
+            Gauge<Integer> metricPinStatusSMCB = applicationRegistry.gauge(
                     Metadata.builder()
                             .withName("pinStatus_SMC_B_" + typeOfStatus + "_" + runtimeConfig.getUrl())
                             .withDescription("SMC_B cards with PinStatus " + typeOfStatus + " for " + runtimeConfig.getUrl())
-                            .withType(MetricType.GAUGE)
-                            .build(),
-                    () -> dictWithSMCBCardsStatus.get(typeOfStatus)
-            );
+                            .build(), () -> {
+                        Integer nrOfCardsWithStatus;
+                        try {
+                            nrOfCardsWithStatus = connectorResponseTime.time(callable);
+                            log.info("Cards with pin status " + typeOfStatus + " : " + nrOfCardsWithStatus + " " + runtimeConfig.getUrl());
+                            return nrOfCardsWithStatus;
+                        } catch (Exception e) {
+                            log.log(Level.WARNING, "Cannot measure connector", e);
+                        }
+                        return null;
+                    });
         } catch (Exception e) {
-            log.log(Level.WARNING, "Can't measure connector", e);
+            log.log(Level.WARNING, "Cannot measure connector", e);
         }
     }
 
-    private HashMap<String, Integer> createDictWithSMCBCardsStatus(RuntimeConfig runtimeConfig, EventServicePortType eventServicePortType, CardServicePortType cardServicePortType) {
-        try {
-            HashMap<String, Integer> statusOfSMCBCards = new HashMap<>();
-            statusOfSMCBCards.put(VERIFIABLE, 0);
-            statusOfSMCBCards.put(VERIFIED, 0);
-            statusOfSMCBCards.put(BLOCKED, 0);
-            statusOfSMCBCards.put(DISABLED, 0);
-            statusOfSMCBCards.put(EMPTY_PIN, 0);
-            statusOfSMCBCards.put(TRANSPORT_PIN, 0);
-
+    private Callable<Integer> getNrOfCardsWithStatus(String typeOfStatus, RuntimeConfig runtimeConfig, EventServicePortType eventServicePortType, CardServicePortType cardServicePortType) {
+        return () -> {
             GetCards getCards = new GetCards();
             ContextType contextType = new ContextType();
             contextType.setMandantId(runtimeConfig.getMandantId());
@@ -252,6 +251,7 @@ public class Scheduler {
             GetCardsResponse getCardsResponse = eventServicePortType.getCards(getCards);
 
             int numberOfCards = getCardsResponse.getCards().getCard().size();
+            int nrOfCardsWithStatus = 0;
 
             for (int i = 0; i < numberOfCards; i++) {
                 String cardType = getCardsResponse.getCards().getCard().get(i).getCardType().toString();
@@ -259,40 +259,13 @@ public class Scheduler {
                 if (Objects.equals(cardType, "SMC_B")) {
                     String pinType = "PIN.SMC";
                     String pinStatus = getPinStatus(cardServicePortType, contextType, cardHandle, pinType);
-
-                    switch (pinStatus) {
-                        case VERIFIABLE:
-                            statusOfSMCBCards.put(VERIFIABLE, statusOfSMCBCards.get(VERIFIABLE) + 1);
-                            break;
-                        case VERIFIED:
-                            statusOfSMCBCards.put(VERIFIED, statusOfSMCBCards.get(VERIFIED) + 1);
-                            break;
-                        case BLOCKED:
-                            statusOfSMCBCards.put(BLOCKED, statusOfSMCBCards.get(BLOCKED) + 1);
-                            break;
-                        case DISABLED:
-                            statusOfSMCBCards.put(DISABLED, statusOfSMCBCards.get(DISABLED) + 1);
-                            break;
-                        case EMPTY_PIN:
-                            statusOfSMCBCards.put(EMPTY_PIN, statusOfSMCBCards.get(EMPTY_PIN) + 1);
-                            break;
-                        case TRANSPORT_PIN:
-                            statusOfSMCBCards.put(TRANSPORT_PIN, statusOfSMCBCards.get(TRANSPORT_PIN) + 1);
-                            break;
-                        default:
-                            break;
+                    if(pinStatus.equals(typeOfStatus)) {
+                        nrOfCardsWithStatus += 1;
                     }
                 }
             }
-            log.info("Pin status of SMC_B cards on " + runtimeConfig.getUrl() + ":");
-            for (Map.Entry<String, Integer> entry : statusOfSMCBCards.entrySet()) {
-                log.info(entry.getKey() + " : " + entry.getValue());
-            }
-            return statusOfSMCBCards;
-        } catch (Exception e) {
-            log.log(Level.WARNING, "Cannot measure connector", e);
-        }
-        return new HashMap<>();
+            return nrOfCardsWithStatus;
+        };
     }
 
     private String getPinStatus(CardServicePortType cardServicePortType, ContextType contextType, String cardHandle, String pinType) throws FaultMessage {
