@@ -43,6 +43,7 @@ sap.ui.define(
                  let numCards = 0;
                  configs.forEach(function (config) {
                    let getCardsHeaders = {
+                     "x-user-id": config.UserId,
                      "x-client-system-id": config.ClientSystemId,
                      "x-client-certificate": config.ClientCertificate,
                      "x-client-certificate-password": config.ClientCertificatePassword,
@@ -73,13 +74,13 @@ sap.ui.define(
                           self.readCertData(cards, cardTypes, invalidCertCards, date);
                           const pinStatus = data[3];
                           self.getStatus(pinStatus, stats);
-                          self.excludeColumns(stats);
                         }
                         else{
                            connectorData["Inactive"] = connectorData["Inactive"] + 1;
                         }
                         if(numResponses == numConfigs){
                            const oConnectors = data[2];
+                           self.excludeColumns(stats);
                            self.writeConnectorData(oConnectors, numConfigs, url, terminalData, numCards, connectorData);
                            self.writeCardData(cardTypes, invalidCertCards, stats);
                         }
@@ -101,8 +102,8 @@ sap.ui.define(
         },
 
         readTerminalData: function(terminals, terminalData){
-          terminalData["Amount"] = terminals.length;
           for(let i = 0; i< terminals.length; i++){
+            terminalData["Amount"] = terminalData["Amount"] + 1;
             terminalData["Inactive"] = terminals[i].connected ? terminalData["Inactive"] : terminalData["Inactive"] + 1
           }
         },
