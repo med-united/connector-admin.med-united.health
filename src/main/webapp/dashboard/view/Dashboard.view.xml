@@ -28,6 +28,11 @@
                         <f:GridContainerItemLayoutData minRows="3" columns="5" />
                     </w:layoutData>
                 </w:Card>
+                <w:Card id="UpdateCard" manifest="./dashboard/resources/UpdateCard.json">
+                    <w:layoutData>
+                        <f:GridContainerItemLayoutData columns="5" />
+                    </w:layoutData>
+                </w:Card>
             </f:GridContainer>
         </f:content>
 

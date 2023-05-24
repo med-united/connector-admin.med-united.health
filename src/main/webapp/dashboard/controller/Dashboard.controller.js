@@ -19,6 +19,7 @@ sap.ui.define(
         setCardList: function(){
              const runtimeConfigModel = new sap.ui.model.odata.v2.ODataModel("../Data.svc",true);
              const Card = this.getView().byId("ConnectorListCard");
+             const UpdateCard = this.getView().byId("UpdateCard");
              let url = document.URL;
              url = url.endsWith("#") ? url.substring(0, url.length-1) : url.substring(0, url.length);
              runtimeConfigModel.read("/RuntimeConfigs", {
@@ -46,7 +47,9 @@ sap.ui.define(
                    Promise.all([
                      fetch("connector/event/get-card-terminals", {headers : getCardsHeaders}),
                      fetch("connector/event/get-cards", {headers : getCardsHeaders}),
-                     fetch("dashboard/resources/ConnectorList.json")
+                     fetch("dashboard/resources/ConnectorList.json"),
+                     fetch("dashboard/resources/UpdateCard.json"),
+                     fetch("connector/sds/config", { headers: getCardsHeaders })
                    ]).then(function (responses) {
                      return Promise.all(responses.map(function (response) {
                        if(response.ok){
@@ -58,8 +61,42 @@ sap.ui.define(
                         if(data[0]!=null){
                           let terminals = data[0].cardTerminals.cardTerminal;
                           numTerminals = numTerminals + terminals.length;
+                          let productCode = data[4].productInformation.productIdentification.productCode;
+                          let connectorBrand;
+                          if (productCode == "secu_kon") connectorBrand = "secunet";
+                          else if (productCode == "RKONN") connectorBrand = "rise";
+                          else if (productCode == "kocobox") connectorBrand = "kocobox";
+                          let requestBody = {
+                            username: "",
+                            password: "",
+                          };
+                          let updateUrl = "connector/management/" + connectorBrand + "/availableUpdate?connectorUrl=" + config.Url;
+                           const updateHeaders = {
+                                         "x-client-certificate": config.ClientCertificate,
+                                         "x-client-certificate-password":config.ClientCertificatePassword,
+                                         "Content-Type": "application/json",
+                           };
                           for(let i = 0; i< terminals.length; i++){
                              terminals[i].connected ? activeTerminals++ : inactiveTerminals++;
+                             if (connectorBrand =="secunet")
+                             {
+                                requestBody = {
+                                    username: "super",
+                                    password: "konnektor3$",
+                                    productCode: terminals[i].productInformation.productIdentification.productCode,
+                                    productVendorID: terminals[i].productInformation.productIdentification.productVendorID,
+                                    HWVersion: terminals[i].productInformation.productIdentification.productVersion.local.HWVersion,
+                                    FWVersion: terminals[i].productInformation.productIdentification.productVersion.local.FWVersion
+                                }
+                                fetch(updateUrl, {
+                                                              headers: updateHeaders,
+                                                              method: "POST",
+                                                              body: JSON.stringify(requestBody),
+                                                          }).then((response) => response.json()).then((data) => {
+                                                             console.log(data.cardTerminalUpdateInformation[0].fwVersion);
+                                                          });
+                             }
+                             console.log(requestBody);
                           }
                           let cards = data[1].cards.card;
                           numCards = numCards + cards.length;

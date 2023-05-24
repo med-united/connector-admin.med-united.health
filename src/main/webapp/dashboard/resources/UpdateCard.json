@@ -1,0 +1,43 @@
+{
+  "sap.app": {
+    "id": "ConnectorList",
+    "type": "card",
+    "applicationVersion": {
+      "version": "1.0.0"
+    }
+  },
+  "sap.card": {
+    "type": "List",
+    "header": {
+      "title": "Verfügbare Updates",
+      "icon": {
+        "src": "sap-icon://download"
+      },
+      "actions": [
+        {
+          "type": "Navigation",
+          "url": "./#/management",
+          "target": "_self"
+        }
+      ]
+    },
+    "content": {
+      "data": {
+        "json": [{"Name": "Konnektoren", "Icon" :  "../images/Connector.png"},
+          {"Name":  "Kartenterminals",  "Icon" :  "../images/CardTerminal.png"}]
+      },
+      "item": {
+        "title": "{Name}",
+        "description": "{Value}",
+        "icon": {
+          "src": "{Icon}"
+        },
+        "highlight": "{State}",
+        "info": {
+          "value": "{Info}",
+          "state": "{State}"
+        }
+      }
+    }
+  }
+}
