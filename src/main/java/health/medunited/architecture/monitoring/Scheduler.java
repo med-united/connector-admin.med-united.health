@@ -42,7 +42,7 @@ import health.medunited.architecture.service.endpoint.EndpointDiscoveryService;
 
 @Singleton
 public class Scheduler {
-    
+
     @Inject
     @RegistryType(type = MetricRegistry.Type.APPLICATION)
     private MetricRegistry applicationRegistry;
@@ -64,21 +64,22 @@ public class Scheduler {
         log.info("Scanning Connectors");
 
         TypedQuery<RuntimeConfig> query =
-            entityManager.createNamedQuery("RuntimeConfig.findAll",
-                RuntimeConfig.class);
+                entityManager.createNamedQuery("RuntimeConfig.findAll",
+                        RuntimeConfig.class);
 
         List<RuntimeConfig> runtimeConfigs = query.getResultList();
-        for(RuntimeConfig runtimeConfig : runtimeConfigs) {
+        for (RuntimeConfig runtimeConfig : runtimeConfigs) {
 
             try {
                 SecretsManagerService secretsManagerService = new SecretsManagerService();
-                if(runtimeConfig.getClientCertificate() != null) {
+                if (runtimeConfig.getClientCertificate() != null) {
                     String keystore = runtimeConfig.getClientCertificate();
                     String keystorePassword = runtimeConfig.getClientCertificatePassword();
                     try {
                         secretsManagerService.setUpSSLContext(secretsManagerService.getKeyFromKeyStoreUri(keystore, keystorePassword));
-                    } catch (KeyManagementException | NoSuchAlgorithmException | KeyStoreException | CertificateException
-                            | URISyntaxException | IOException e) {
+                    } catch (KeyManagementException | NoSuchAlgorithmException | KeyStoreException |
+                             CertificateException
+                             | URISyntaxException | IOException e) {
                         log.log(Level.WARNING, "Could not create SSL context", e);
                     }
                 }
@@ -103,9 +104,9 @@ public class Scheduler {
 
                 // register a new application scoped metric
                 Timer connectorResponseTime = applicationRegistry.timer(Metadata.builder()
-                    .withName("connectorResponseTime_"+runtimeConfig.getUrl())
-                    .withDescription("Timer for measuring response times for "+runtimeConfig.getUrl())
-                    .build());
+                        .withName("connectorResponseTime_" + runtimeConfig.getUrl())
+                        .withDescription("Timer for measuring response times for " + runtimeConfig.getUrl())
+                        .build());
 
                 addMetricTimeInSecondsUntilSMCKTCardExpires(connectorResponseTime, runtimeConfig, eventServicePortType);
 
@@ -118,7 +119,7 @@ public class Scheduler {
                 addMetricPinStatusSMCB(EMPTY_PIN, connectorResponseTime, runtimeConfig, eventServicePortType, cardServicePortType);
                 addMetricPinStatusSMCB(TRANSPORT_PIN, connectorResponseTime, runtimeConfig, eventServicePortType, cardServicePortType);
 
-            } catch(Throwable t) {
+            } catch (Throwable t) {
                 log.log(Level.INFO, "Error while contacting connector", t);
             }
         }
@@ -127,14 +128,14 @@ public class Scheduler {
     private void addMetricTimeInSecondsUntilSMCKTCardExpires(Timer connectorResponseTime, RuntimeConfig runtimeConfig, EventServicePortType eventServicePortType) {
         try {
             Callable<Long> secondsCallable = getTimeInSecondsUntilSMCKTCardExpires(runtimeConfig, eventServicePortType);
-            Gauge<Long> timeInSecondsUntilSMCKTCardExpires  = applicationRegistry.gauge(Metadata.builder()
+            Gauge<Long> timeInSecondsUntilSMCKTCardExpires = applicationRegistry.gauge(Metadata.builder()
                     .withName("secondsDurationLeftUntilSMC_KTexpiry_" + runtimeConfig.getUrl())
                     .withDescription("duration of seconds until the SMC_KT card expires " + runtimeConfig.getUrl())
                     .build(), () -> {
                 Long secondsDurationLeftUntilExpiryLng;
                 try {
                     secondsDurationLeftUntilExpiryLng = connectorResponseTime.time(secondsCallable);
-                    log.info("Currently connected card expires in sec: " + secondsDurationLeftUntilExpiryLng + " "+runtimeConfig.getUrl());
+                    log.info("Currently connected card expires in sec: " + secondsDurationLeftUntilExpiryLng + " " + runtimeConfig.getUrl());
                     return secondsDurationLeftUntilExpiryLng;
                 } catch (Exception e) {
                     log.log(Level.WARNING, "Cannot measure connector", e);
@@ -158,12 +159,12 @@ public class Scheduler {
             GetCardsResponse getCardsResponse = eventServicePortType.getCards(getCards);
             int numberOfCards = getCardsResponse.getCards().getCard().size();
             String expirationString;
-            for(int i=0; i < numberOfCards; i++){
+            for (int i = 0; i < numberOfCards; i++) {
                 String cardType = getCardsResponse.getCards().getCard().get(i).getCardType().toString();
                 if (Objects.equals(cardType, "SMC_KT")) {
-                    expirationString  = getCardsResponse.getCards().getCard().get(i).getCertificateExpirationDate().toString();
+                    expirationString = getCardsResponse.getCards().getCard().get(i).getCertificateExpirationDate().toString();
 
-                    String expStr = expirationString.substring(0,expirationString.length()-1);
+                    String expStr = expirationString.substring(0, expirationString.length() - 1);
 
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                     Date future = sdf.parse(expStr);
@@ -183,7 +184,7 @@ public class Scheduler {
     private void addMetricCurrentlyConnectedCards(Timer connectorResponseTime, RuntimeConfig runtimeConfig, EventServicePortType eventServicePortType) {
         try {
             Callable<Integer> callable = getCurrentlyConnectedCards(runtimeConfig, eventServicePortType);
-            Gauge<Integer> currentlyConnectedCards  = applicationRegistry.gauge(Metadata.builder()
+            Gauge<Integer> currentlyConnectedCards = applicationRegistry.gauge(Metadata.builder()
                     .withName("currentlyConnectedCards_" + runtimeConfig.getUrl())
                     .withDescription("Currently connected cards for " + runtimeConfig.getUrl())
                     .build(), () -> {
@@ -259,7 +260,7 @@ public class Scheduler {
                 if (Objects.equals(cardType, "SMC_B")) {
                     String pinType = "PIN.SMC";
                     String pinStatus = getPinStatus(cardServicePortType, contextType, cardHandle, pinType);
-                    if(pinStatus.equals(typeOfStatus)) {
+                    if (pinStatus.equals(typeOfStatus)) {
                         nrOfCardsWithStatus += 1;
                     }
                 }
