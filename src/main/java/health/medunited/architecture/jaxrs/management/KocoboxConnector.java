@@ -26,7 +26,7 @@ public class KocoboxConnector extends AbstractConnector {
 
     @Override
     public String availableUpdate(String connectorUrl, ManagementCredentials managementCredentials){
-        return availableUpdate(connectorUrl, "8500", managementCredentials);
+        return availableUpdate(connectorUrl, "8500",  managementCredentials);
 
     }
 

@@ -33,6 +33,8 @@ sap.ui.define(
                  let activeTerminals = 0;
                  const numConfigs = configs.length;
                  let numResponses = 0;
+                 let updatesCardTerminal = 0;
+                 let updatesConnectors = 0;
                  configs.forEach(function (config) {
                    let getCardsHeaders = {
                      "x-client-system-id": config.ClientSystemId,
@@ -72,9 +74,9 @@ sap.ui.define(
                           };
                           let updateUrl = "connector/management/" + connectorBrand + "/availableUpdate?connectorUrl=" + config.Url;
                            const updateHeaders = {
-                                         "x-client-certificate": config.ClientCertificate,
-                                         "x-client-certificate-password":config.ClientCertificatePassword,
-                                         "Content-Type": "application/json",
+                               "x-client-certificate": config.ClientCertificate,
+                               "x-client-certificate-password":config.ClientCertificatePassword,
+                               "Content-Type": "application/json",
                            };
                           for(let i = 0; i< terminals.length; i++){
                              terminals[i].connected ? activeTerminals++ : inactiveTerminals++;
@@ -89,14 +91,13 @@ sap.ui.define(
                                     FWVersion: terminals[i].productInformation.productIdentification.productVersion.local.FWVersion
                                 }
                                 fetch(updateUrl, {
-                                                              headers: updateHeaders,
-                                                              method: "POST",
-                                                              body: JSON.stringify(requestBody),
-                                                          }).then((response) => response.json()).then((data) => {
-                                                             console.log(data.cardTerminalUpdateInformation[0].fwVersion);
-                                                          });
+                                    headers: updateHeaders,
+                                    method: "POST",
+                                    body: JSON.stringify(requestBody),
+                                }).then((response) => response.json()).then((data) => {
+                                    updatesCardTerminal = data.cardTerminalUpdateInformation[0].upgradeVersion ? updatesCardTerminal + 1 : updatesCardTerminal;
+                                });
                              }
-                             console.log(requestBody);
                           }
                           let cards = data[1].cards.card;
                           numCards = numCards + cards.length;
@@ -111,7 +112,23 @@ sap.ui.define(
                            const infoConnectors = inactiveConnectors > 0 ? "Offline: " + inactiveConnectors : "Alles Online";
                            const infoTerminals = inactiveTerminals > 0 ? "Offline: " + inactiveTerminals : "Alles Online";
                            const cardData = data[2];
+                           const updateData = data[3];
+                           let updateContent = [];
                            let content = [];
+                           updateContent.push({
+                              "Name" : "Konnektoren",
+                              "Value": configs.length,
+                              "Icon": url + "dashboard/images/Connector.png",
+                              "State" : updatesConnectors > 0 ? "Error" : "Success",
+                              "Info": updatesConnectors > 0 ? "Updates: " + updatesConnectors : "Alles aktuell"
+                           });
+                           updateContent.push({
+                              "Name" : "Kartenterminals",
+                              "Value" : numTerminals,
+                              "Icon": url + "dashboard/images/CardTerminal.png",
+                              "State" : updatesCardTerminal > 0 ? "Error" : "Success",
+                              "Info": updatesCardTerminal > 0 ? "Updates: " + updatesCardTerminal : "Alles aktuell"
+                           });
                            content.push({
                              "Name" : "Konnektoren",
                              "Value": configs.length,
@@ -134,6 +151,8 @@ sap.ui.define(
                            });
                            cardData["sap.card"].content.data.json = content;
                            Card.setManifest(cardData);
+                           updateData["sap.card"].content.data.json = updateContent;
+                           UpdateCard.setManifest(updateData);
                         }
                      });
                    });

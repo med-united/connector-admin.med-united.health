@@ -64,7 +64,7 @@ public class ConnectorManagement {
     public String availableUpdate(
             @PathParam("connectorType") String connectorType,
             @QueryParam("connectorUrl") String connectorUrl,
-            ManagementCredentials managementCredentials
+             ManagementCredentials managementCredentials
     ) {
 
         Connector connector = connectorMap.get(connectorType);
