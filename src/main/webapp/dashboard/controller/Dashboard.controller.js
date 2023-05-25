@@ -76,7 +76,6 @@ sap.ui.define(
                           const terminals = data[0].cardTerminals.cardTerminal;
                           self.readTerminalData(terminals, terminalData);
                           const cards = data[1].cards.card;
-                          numTerminals = numTerminals + terminals.length;
                           let productCode = data[4].productInformation.productIdentification.productCode;
                           let connectorBrand;
                           if (productCode == "secu_kon") connectorBrand = "secunet";
@@ -93,7 +92,6 @@ sap.ui.define(
                                "Content-Type": "application/json",
                            };
                           for(let i = 0; i< terminals.length; i++){
-                             terminals[i].connected ? activeTerminals++ : inactiveTerminals++;
                              if (connectorBrand =="secunet")
                              {
                                 requestBody = {
@@ -113,10 +111,9 @@ sap.ui.define(
                                 });
                              }
                           }
-                          let cards = data[1].cards.card;
                           numCards = numCards + cards.length;
                           self.readCertData(cards, cardTypes, invalidCertCards, date);
-                          const pinStatus = data[3];
+                          const pinStatus = data[5];
                           self.getStatus(pinStatus, stats);
                         }
                         else{
@@ -127,22 +124,24 @@ sap.ui.define(
                            self.excludeColumns(stats);
                            self.writeConnectorData(oConnectors, numConfigs, url, terminalData, numCards, connectorData);
                            self.writeCardData(cardTypes, invalidCertCards, stats);
-                                                      const updateData = data[3];
-                                                      let updateContent = [];
-                                                      updateContent.push({
-                                                         "Name" : "Konnektoren",
-                                                         "Value": configs.length,
-                                                         "Icon": url + "dashboard/images/Connector.png",
-                                                         "State" : updatesConnectors > 0 ? "Error" : "Success",
-                                                         "Info": updatesConnectors > 0 ? "Updates: " + updatesConnectors : "Alles aktuell"
-                                                      });
-                                                      updateContent.push({
-                                                         "Name" : "Kartenterminals",
-                                                         "Value" : numTerminals,
-                                                         "Icon": url + "dashboard/images/CardTerminal.png",
-                                                         "State" : updatesCardTerminal > 0 ? "Error" : "Success",
-                                                         "Info": updatesCardTerminal > 0 ? "Updates: " + updatesCardTerminal : "Alles aktuell"
-                                                      });
+                           const updateData = data[3];
+                           let updateContent = [];
+                           updateContent.push({
+                               "Name" : "Konnektoren",
+                               "Value": configs.length,
+                               "Icon": url + "dashboard/images/Connector.png",
+                               "State" : updatesConnectors > 0 ? "Error" : "Success",
+                               "Info": updatesConnectors > 0 ? "Updates: " + updatesConnectors : "Alles aktuell"
+                           });
+                           updateContent.push({
+                              "Name" : "Kartenterminals",
+                              "Value" : terminalData["Amount"],
+                              "Icon": url + "dashboard/images/CardTerminal.png",
+                              "State" : updatesCardTerminal > 0 ? "Error" : "Success",
+                              "Info": updatesCardTerminal > 0 ? "Updates: " + updatesCardTerminal : "Alles aktuell"
+                           });
+                           updateData["sap.card"].content.data.json = updateContent;
+                           UpdateCard.setManifest(updateData);
                         }
                      });
                    });
@@ -293,21 +292,13 @@ sap.ui.define(
             "validityState" : invalidCertCards["SMC_KT"] > 0 ? "Error" : "Success",
           });
           oCardList.setData(cardContent);
-
-
-                        }
-                     });
-                   });
-                 },
-                 error: function (error) {
-                    console.log(error);
-                 },
-               });
         },
 
         onBeforeRendering: function () {
           const oConnectorList = this.getView().byId("ConnectorListCard");
           oConnectorList.setManifest("./dashboard/resources/ConnectorList.json");
+          const oUpdateCard = this.getView().byId("UpdateCard");
+          oUpdateCard.setManifest("./dashboard/resources/UpdateCard.json");
           this.onInit();
         },
 

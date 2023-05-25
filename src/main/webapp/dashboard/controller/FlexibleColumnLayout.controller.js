@@ -39,7 +39,10 @@ sap.ui.define(
 
           if(sRouteName === "master") {
              this.getView().byId("shellbar").setShowNavButton(true)
-          } else {
+          } else if (sRouteName === "update"){
+             this.getView().byId("shellbar").setShowNavButton(true)
+          }
+          else{
              this.getView().byId("shellbar").setShowNavButton(false)
           }
         },

@@ -1,0 +1,131 @@
+<mvc:View
+        xmlns:core="sap.ui.core"
+        xmlns:mvc="sap.ui.core.mvc"
+        xmlns="sap.m"
+        xmlns:uxap="sap.uxap"
+        controllerName="sap.f.ShellBarWithFlexibleColumnLayout.controller.Update"
+
+>
+    <Page showHeader="false">
+        <content>
+            <uxap:ObjectPageLayout id="objectPageLayout" showTitleInHeaderContent="true">
+                <uxap:headerTitle>
+                    <uxap:ObjectPageHeader objectImageShape="Circle" objectImageAlt="Profile"
+                                           objectTitle="{i18n>UpdateOverview}" isObjectIconAlwaysVisible="false"
+                                           isObjectTitleAlwaysVisible="false" isObjectSubtitleAlwaysVisible="false">
+                        <uxap:actions>
+                            <uxap:ObjectPageHeaderActionButton type="Emphasized"
+                                                               icon="sap-icon://download" tooltip="Update"
+                                                               text="Update" visible="true" press="" />
+                        </uxap:actions>
+                    </uxap:ObjectPageHeader>
+                </uxap:headerTitle>
+                <uxap:sections>
+                    <uxap:ObjectPageSection id="updateOverview" title="{i18n>Connectors}">
+                        <uxap:subSections>
+                            <uxap:ObjectPageSubSection title="{i18n>Connectors}">
+                                <Table
+                                        id="updateConnectors"
+                                        inset="false"
+                                        items="{}"
+                                        growing="true" growingScrollToLoad="true" growingThreshold="25" autoPopinMode="true"
+                                        mode="MultiSelect">
+                                    <columns>
+                                        <Column>
+                                            <Text text="{i18n>UserID}"/>
+                                        </Column>
+                                        <Column>
+                                            <Text text="URL"/>
+                                        </Column>
+                                        <Column>
+                                            <Text text="{i18n>Brand}"/>
+                                        </Column>
+                                        <Column>
+                                            <Text text="{i18n>Product}"/>
+                                        </Column>
+                                        <Column>
+                                            <Text text="{i18n>HWVersion}"/>
+                                        </Column>
+                                        <Column>
+                                            <Text text="{i18n>FWVersion}"/>
+                                        </Column>
+                                        <Column>
+                                            <Text text="Update"/>
+                                        </Column>
+                                    </columns>
+                                    <items>
+                                        <ColumnListItem>
+                                            <cells>
+                                                <ObjectIdentifier text="{}"/>
+                                                <ObjectIdentifier text="{}"/>
+                                                <ObjectIdentifier text="{}"/>
+                                                <ObjectIdentifier text="{}"/>
+                                                <ObjectIdentifier text="{}"/>
+                                                <ObjectIdentifier text="{}"/>
+                                                <ObjectIdentifier text="{}"/>
+                                            </cells>
+                                        </ColumnListItem>
+                                    </items>
+                                </Table>
+                            </uxap:ObjectPageSubSection>
+                        </uxap:subSections>
+                    </uxap:ObjectPageSection>
+                    <uxap:ObjectPageSection id="cardSection" title="{i18n>CardTerminal}">
+                        <uxap:subSections>
+                            <uxap:ObjectPageSubSection id="cardSubSection"
+                                                       title="{i18n>CardTerminal}">
+                                <Table
+                                        id="updateCardTerminals"
+                                        inset="false"
+                                        items="{CardTerminals>/}"
+                                        growing="true" growingScrollToLoad="true" growingThreshold="25" autoPopinMode="true"
+                                        mode="MultiSelect">
+                                    <columns>
+                                        <Column>
+                                            <Text text="{i18n>Connector}"/>
+                                        </Column>
+                                        <Column>
+                                            <Text text="URL"/>
+                                        </Column>
+                                        <Column>
+                                            <Text text="IP"/>
+                                        </Column>
+                                        <Column>
+                                            <Text text="Name"/>
+                                        </Column>
+                                        <Column>
+                                            <Text text="{i18n>Product}"/>
+                                        </Column>
+                                        <Column>
+                                            <Text text="{i18n>HWVersion}"/>
+                                        </Column>
+                                        <Column>
+                                            <Text text="{i18n>FWVersion}"/>
+                                        </Column>
+                                        <Column>
+                                            <Text text="Update"/>
+                                        </Column>
+                                    </columns>
+                                    <items>
+                                        <ColumnListItem>
+                                            <cells>
+                                                <ObjectIdentifier text="{CardTerminals>Connector}"/>
+                                                <ObjectIdentifier text="{CardTerminals>URL}"/>
+                                                <ObjectIdentifier text="{CardTerminals>IP}"/>
+                                                <ObjectIdentifier text="{CardTerminals>Name}"/>
+                                                <ObjectIdentifier text="{CardTerminals>Product}"/>
+                                                <ObjectIdentifier text="{CardTerminals>HWVersion}"/>
+                                                <ObjectIdentifier text="{CardTerminals>FWVersion}"/>
+                                                <ObjectIdentifier text="{CardTerminals>Update}"/>
+                                            </cells>
+                                        </ColumnListItem>
+                                    </items>
+                                </Table>
+                            </uxap:ObjectPageSubSection>
+                        </uxap:subSections>
+                    </uxap:ObjectPageSection>
+                </uxap:sections>
+            </uxap:ObjectPageLayout>
+        </content>
+    </Page>
+</mvc:View>

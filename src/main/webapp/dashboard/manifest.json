@@ -80,7 +80,6 @@
 					"pattern": "",
 					"name": "dashboard",
 					"target": [
-						"master",
 						"dashboard"
 					]
 				},
@@ -89,6 +88,13 @@
 					"name": "master",
 					"target": [
 						"master"
+					]
+				},
+				{
+					"pattern": "update",
+					"name": "update",
+					"target": [
+						"update"
 					]
 				},
 				{
@@ -116,6 +122,11 @@
 				},
 				"dashboard": {
 					"viewName": "Dashboard",
+					"controlAggregation": "beginColumnPages",
+					"clearControlAggregation": true
+				},
+				"update": {
+					"viewName": "Update",
 					"controlAggregation": "beginColumnPages",
 					"clearControlAggregation": true
 				},
