@@ -1,34 +1,35 @@
 <mvc:View
-    xmlns:core="sap.ui.core"
-    xmlns:mvc="sap.ui.core.mvc"
-    xmlns="sap.m"
-    xmlns:uxap="sap.uxap"
-    xmlns:medunited="medunited.base.control"
-    xmlns:name="medunited.care.SharedBlocks.name"
-    xmlns:address="medunited.care.SharedBlocks.address"
-    xmlns:biological="medunited.care.SharedBlocks.biological"
-    xmlns:generalPractitioner="medunited.care.SharedBlocks.generalPractitioner"
-    xmlns:defaultOrganization="medunited.care.SharedBlocks.defaultOrganization"
-    xmlns:insurance="medunited.care.SharedBlocks.insurance"
-    xmlns:medication="medunited.care.SharedBlocks.medication"
-    controllerName="sap.f.ShellBarWithFlexibleColumnLayout.controller.Detail"
-    xmlns:html="http://www.w3.org/1999/xhtml"
+        xmlns:core="sap.ui.core"
+        xmlns:mvc="sap.ui.core.mvc"
+        xmlns="sap.m"
+        xmlns:uxap="sap.uxap"
+        xmlns:medunited="medunited.base.control"
+        xmlns:name="medunited.care.SharedBlocks.name"
+        xmlns:address="medunited.care.SharedBlocks.address"
+        xmlns:biological="medunited.care.SharedBlocks.biological"
+        xmlns:generalPractitioner="medunited.care.SharedBlocks.generalPractitioner"
+        xmlns:defaultOrganization="medunited.care.SharedBlocks.defaultOrganization"
+        xmlns:insurance="medunited.care.SharedBlocks.insurance"
+        xmlns:medication="medunited.care.SharedBlocks.medication"
+        controllerName="sap.f.ShellBarWithFlexibleColumnLayout.controller.Detail"
+        xmlns:html="http://www.w3.org/1999/xhtml"
 >
     <Page showHeader="false">
         <content>
             <uxap:ObjectPageLayout id="objectPageLayout" showTitleInHeaderContent="true">
                 <uxap:headerTitle>
                     <uxap:ObjectPageHeader objectImageShape="Circle" objectImageAlt="Profile"
-                        objectTitle="{Url}" isObjectIconAlwaysVisible="false"
-                        isObjectTitleAlwaysVisible="false" isObjectSubtitleAlwaysVisible="false">
+                                           objectTitle="{Url}" isObjectIconAlwaysVisible="false"
+                                           isObjectTitleAlwaysVisible="false" isObjectSubtitleAlwaysVisible="false">
                         <uxap:actions>
                             <uxap:ObjectPageHeaderActionButton type="Emphasized"
-                                icon="sap-icon://restart" tooltip="{i18n>RestartConnector}"
-                                text="Restart" visible="true" press="restartConnector" />
+                                                               icon="sap-icon://restart"
+                                                               tooltip="{i18n>RestartConnector}"
+                                                               text="Restart" visible="true" press="restartConnector"/>
                             <uxap:ObjectPageHeaderActionButton type="Transparent"
-                                icon="sap-icon://decline" press="handleClose"
-                                tooltip="{i18n>CloseConnectorDetails}"
-                                visible="{= ${Layout>/actionButtonsInfo/midColumn/closeColumn} !== null }" />
+                                                               icon="sap-icon://decline" press="handleClose"
+                                                               tooltip="{i18n>CloseConnectorDetails}"
+                                                               visible="{= ${Layout>/actionButtonsInfo/midColumn/closeColumn} !== null }"/>
                         </uxap:actions>
                     </uxap:ObjectPageHeader>
                 </uxap:headerTitle>
@@ -37,89 +38,100 @@
                         <uxap:subSections>
                             <uxap:ObjectPageSubSection>
                                 <uxap:blocks>
-                                    <VBox>
-                                        <Text text="{path:'ConnectorSDS>/productInformation/productIdentification/productCode', formatter:'.translate'} {i18n>Connector}" />
-                                        <Text text="{i18n>Version} {ConnectorSDS>/productInformation/productTypeInformation/productTypeVersion}" />
-                                    </VBox>
-                                </uxap:blocks>
-                                <uxap:blocks>
-                                    <Button id="buttonDownloadSDS" text="{i18n>DownloadSDS}"
-                                        press="onDownloadSDS" />
+                                    <Table autoPopinMode="true" contextualWidth="Auto" class="withGrid">
+                                        <columns>
+                                            <Column importance="High">
+                                                <Text text="{i18n>Product}"/>
+                                            </Column>
+                                            <Column importance="Medium">
+                                                <Text text="Hardware Version"/>
+                                            </Column>
+                                            <Column importance="Medium">
+                                                <Text text="Firmware Version"/>
+                                            </Column>
+                                        </columns>
+                                        <headerToolbar>
+                                            <Toolbar>
+                                                <Label text=""/>
+                                                <ToolbarSpacer/>
+                                                <Button id="buttonDownloadSDS" text="{i18n>DownloadSDS}"
+                                                        type="Emphasized" press="onDownloadSDS"/>
+                                            </Toolbar>
+                                        </headerToolbar>
+                                        <items>
+                                            <ColumnListItem>
+                                                <Text text="{path:'ConnectorSDS>/productInformation/productIdentification/productCode', formatter:'.translate'} {i18n>Connector} - {i18n>Version} {ConnectorSDS>/productInformation/productTypeInformation/productTypeVersion}"/>
+                                                <Text text="{ConnectorSDS>/productInformation/productIdentification/productVersion/local/HWVersion}"/>
+                                                <Text text="{ConnectorSDS>/productInformation/productIdentification/productVersion/local/FWVersion}"/>
+                                            </ColumnListItem>
+                                        </items>
+                                    </Table>
                                 </uxap:blocks>
                             </uxap:ObjectPageSubSection>
                         </uxap:subSections>
                     </uxap:ObjectPageSection>
-                    <!-- <uxap:ObjectPageSection id="personalSection"
-                    title="{i18n>titleSectionPersonal}">
-                        <uxap:subSections>
-                            <uxap:ObjectPageSubSection id="nameSubSection" title="{i18n>titleSubSectionName}">
-                                <uxap:blocks>
-                                    <name:NameBlock id="nameBlock" showSubSectionMore="true" columnLayout="1" />
-                                </uxap:blocks>
-                            </uxap:ObjectPageSubSection>
-                        </uxap:subSections>
-                    </uxap:ObjectPageSection> -->
+
                     <uxap:ObjectPageSection id="cardSection" title="{i18n>InsertedCards}">
                         <uxap:subSections>
                             <uxap:ObjectPageSubSection id="cardSubSection"
-                                title="{i18n>InsertedCards}">
+                                                       title="{i18n>InsertedCards}">
                                 <uxap:blocks>
                                     <Table id="cardTable" autoPopinMode="true"
-                                        contextualWidth="Auto" items="{Cards>/cards/card}"
-                                        class="withGrid">
+                                           contextualWidth="Auto" items="{Cards>/cards/card}"
+                                           class="withGrid">
                                         <columns>
                                             <Column importance="Low">
-                                                <Text text="Alias" />
+                                                <Text text="Alias"/>
                                             </Column>
                                             <Column importance="High">
-                                                <Text text="{i18n>CardOwner}" />
+                                                <Text text="{i18n>CardOwner}"/>
                                             </Column>
                                             <Column importance="Medium">
-                                                <Text text="{i18n>CardType}" />
+                                                <Text text="{i18n>CardType}"/>
                                             </Column>
                                             <Column importance="High">
-                                                <Text text="{i18n>ExpirationDateCert}" />
+                                                <Text text="{i18n>ExpirationDateCert}"/>
                                             </Column>
                                             <Column importance="Medium">
-                                                <Text text="ICCSN" />
+                                                <Text text="ICCSN"/>
                                             </Column>
                                             <Column importance="Low">
-                                                <Text text="{i18n>InsertionTime}" />
+                                                <Text text="{i18n>InsertionTime}"/>
                                             </Column>
                                             <Column importance="Low">
-                                                <Text text="{i18n>SlotId}" />
+                                                <Text text="{i18n>SlotId}"/>
                                             </Column>
-                                            <Column />
+                                            <Column/>
                                         </columns>
                                         <items>
                                             <ColumnListItem>
-                                                <Text text="{Cards>cardHandle}" />
-                                                <Text text="{Cards>cardHolderName}" />
-                                                <Text text="{Cards>cardType}" />
+                                                <Text text="{Cards>cardHandle}"/>
+                                                <Text text="{Cards>cardHolderName}"/>
+                                                <Text text="{Cards>cardType}"/>
                                                 <Text
-                                                    text="{path: 'Cards>certificateExpirationDate', formatter: '.formatter.formatDateAndTimeWithTimezone'}" />
-                                                <Text text="{Cards>iccsn}" />
+                                                        text="{path: 'Cards>certificateExpirationDate', formatter: '.formatter.formatDateAndTimeWithTimezone'}"/>
+                                                <Text text="{Cards>iccsn}"/>
                                                 <Text
-                                                    text="{path: 'Cards>insertTime', formatter: '.formatter.formatDateAndTimeWithTimezone'}" />
-                                                <Text text="{Cards>slotId}" />
-                                                <MenuButton text="Aktion ..."
-                                                    visible="{Cards>option}">
+                                                        text="{path: 'Cards>insertTime', formatter: '.formatter.formatDateAndTimeWithTimezone'}"/>
+                                                <Text text="{Cards>slotId}"/>
+                                                <MenuButton text="{i18n>Action...}"
+                                                            visible="{Cards>option}">
                                                     <Menu>
                                                         <MenuItem text="PIN.CH {i18n>change}"
-                                                            press="onChangePinCh"
-                                                            visible="{Cards>cPIN.CH}" />
+                                                                  press="onChangePinCh"
+                                                                  visible="{Cards>cPIN.CH}"/>
                                                         <MenuItem text="PIN.CH {i18n>verify}"
-                                                            press="onVerifyPinCh"
-                                                            visible="{Cards>vPIN.CH}" />
+                                                                  press="onVerifyPinCh"
+                                                                  visible="{Cards>vPIN.CH}"/>
                                                         <MenuItem text="PIN.SMC {i18n>change}"
-                                                            press="onChangePinSmc"
-                                                            visible="{Cards>cPIN.SMC}" />
+                                                                  press="onChangePinSmc"
+                                                                  visible="{Cards>cPIN.SMC}"/>
                                                         <MenuItem text="PIN.SMC {i18n>verify}"
-                                                            press="onVerifyPinSmc"
-                                                            visible="{Cards>vPIN.SMC}" />
+                                                                  press="onVerifyPinSmc"
+                                                                  visible="{Cards>vPIN.SMC}"/>
                                                         <MenuItem text="PIN.QES {i18n>change}"
-                                                            press="onChangePinQes"
-                                                            visible="{Cards>cPIN.QES}" />
+                                                                  press="onChangePinQes"
+                                                                  visible="{Cards>cPIN.QES}"/>
                                                     </Menu>
                                                 </MenuButton>
                                             </ColumnListItem>
@@ -133,40 +145,41 @@
                     <uxap:ObjectPageSection id="certificatesSection" title="{i18n>Certificates}">
                         <uxap:subSections>
                             <uxap:ObjectPageSubSection id="certificatesSubsection"
-                                title="{i18n>Certificates}">
+                                                       title="{i18n>Certificates}">
                                 <uxap:blocks>
                                     <Table autoPopinMode="true" contextualWidth="Auto"
-                                        items="{VerifyAll>/certificateCollection/certificates}"
-                                        class="withGrid">
+                                           items="{VerifyAll>/certificateCollection/certificates}"
+                                           class="withGrid">
                                         <columns>
                                             <Column importance="Low" mergeDuplicates="true">
-                                                <Text text="Alias" />
+                                                <Text text="Alias"/>
                                             </Column>
-                                            <Column importance="Medium" mergeDuplicates="true" mergeFunctionName="data#mergeKey">
-                                                <Text text="{i18n>CardOwner}" />
-                                            </Column>
-                                            <Column importance="High">
-                                                <Text text="CertRef" />
+                                            <Column importance="Medium" mergeDuplicates="true"
+                                                    mergeFunctionName="data#mergeKey">
+                                                <Text text="{i18n>CardOwner}"/>
                                             </Column>
                                             <Column importance="High">
-                                                <Text text="{i18n>SerialNumber}" />
+                                                <Text text="CertRef"/>
                                             </Column>
                                             <Column importance="High">
-                                                <Text text="{i18n>Verification}" />
+                                                <Text text="{i18n>SerialNumber}"/>
+                                            </Column>
+                                            <Column importance="High">
+                                                <Text text="{i18n>Verification}"/>
                                             </Column>
                                         </columns>
                                         <items>
                                             <ColumnListItem class="availableCertsClass">
-                                                <Text text="{VerifyAll>cardHandle}" />
+                                                <Text text="{VerifyAll>cardHandle}"/>
                                                 <Text text="{VerifyAll>cardHolderName}">
                                                     <customData>
-                                                        <core:CustomData key="mergeKey" value="{VerifyAll>cardHandle}" />
+                                                        <core:CustomData key="mergeKey" value="{VerifyAll>cardHandle}"/>
                                                     </customData>
                                                 </Text>
                                                 <Link text="{VerifyAll>certRef}"
-                                                    press="handlePopoverPress" ariaHasPopup="Dialog" />
-                                                <Text text="{VerifyAll>serial}" />
-                                                <Text text="{VerifyAll>verify}" />
+                                                      press="handlePopoverPress" ariaHasPopup="Dialog"/>
+                                                <Text text="{VerifyAll>serial}"/>
+                                                <Text text="{VerifyAll>verify}"/>
                                             </ColumnListItem>
                                         </items>
                                     </Table>
@@ -174,6 +187,7 @@
                             </uxap:ObjectPageSubSection>
                         </uxap:subSections>
                     </uxap:ObjectPageSection>
+
                     <uxap:ObjectPageSection id="statusPinSection" title="PIN-Status">
                         <uxap:subSections>
                             <uxap:ObjectPageSubSection id="statusPinSubsection" title="PIN-Status">
@@ -181,28 +195,28 @@
                                     <Table items="{PINStatus>/}" class="withGrid">
                                         <columns>
                                             <Column mergeDuplicates="true">
-                                                <Text text="Alias" />
+                                                <Text text="Alias"/>
                                             </Column>
                                             <Column mergeDuplicates="true" mergeFunctionName="data#mergeKey">
-                                                <Text text="{i18n>CardType}" />
+                                                <Text text="{i18n>CardType}"/>
                                             </Column>
                                             <Column>
-                                                <Text text="{i18n>PinType}" />
+                                                <Text text="{i18n>PinType}"/>
                                             </Column>
                                             <Column>
-                                                <Text text="PIN-Status" />
+                                                <Text text="PIN-Status"/>
                                             </Column>
                                         </columns>
                                         <items>
                                             <ColumnListItem>
-                                                <Text text="{PINStatus>cardHandle}" />
+                                                <Text text="{PINStatus>cardHandle}"/>
                                                 <Text text="{PINStatus>cardType}">
-                                                 <customData>
-                                                    <core:CustomData key="mergeKey" value="{PINStatus>cardHandle}" />
-                                                 </customData>
+                                                    <customData>
+                                                        <core:CustomData key="mergeKey" value="{PINStatus>cardHandle}"/>
+                                                    </customData>
                                                 </Text>
                                                 <Text text="{PINStatus>pinType}"/>
-                                                <Text text="{PINStatus>status}" />
+                                                <Text text="{PINStatus>status}"/>
                                             </ColumnListItem>
                                         </items>
                                     </Table>
@@ -210,36 +224,37 @@
                             </uxap:ObjectPageSubSection>
                         </uxap:subSections>
                     </uxap:ObjectPageSection>
+
                     <uxap:ObjectPageSection id="cardTerminalSection"
-                        title="{i18n>AvailableCardterminals}">
+                                            title="{i18n>AvailableCardterminals}">
                         <uxap:subSections>
                             <uxap:ObjectPageSubSection id="cardTerminalSubSection"
-                                title="{i18n>AvailableCardterminals}">
+                                                       title="{i18n>AvailableCardterminals}">
                                 <uxap:blocks>
                                     <Table autoPopinMode="true" contextualWidth="Auto"
-                                        items="{CardTerminals>/cardTerminals/cardTerminal}"
-                                        class="withGrid">
+                                           items="{CardTerminals>/cardTerminals/cardTerminal}"
+                                           class="withGrid">
                                         <columns>
                                             <Column importance="High">
-                                                <Text text="IP" />
+                                                <Text text="IP"/>
                                             </Column>
                                             <Column importance="Low">
-                                                <Text text="Name" />
+                                                <Text text="Name"/>
                                             </Column>
                                             <Column importance="Medium">
-                                                <Text text="Produkt" />
+                                                <Text text="Produkt"/>
                                             </Column>
                                             <Column importance="High">
-                                                <Text text="{i18n>Connection}" />
+                                                <Text text="{i18n>Connection}"/>
                                             </Column>
                                         </columns>
                                         <items>
                                             <ColumnListItem>
-                                                <Text text="{CardTerminals>IPAddress/IPV4Address}" />
-                                                <Text text="{CardTerminals>name}" />
+                                                <Text text="{CardTerminals>IPAddress/IPV4Address}"/>
+                                                <Text text="{CardTerminals>name}"/>
                                                 <Text
-                                                    text="{CardTerminals>productInformation/productIdentification/productCode} {CardTerminals>productInformation/productIdentification/productVendorID} {CardTerminals>productInformation/productIdentification/productVersion/local/FWVersion}" />
-                                                <Text text="{CardTerminals>connected}" />
+                                                        text="{CardTerminals>productInformation/productIdentification/productCode} {CardTerminals>productInformation/productIdentification/productVendorID} {CardTerminals>productInformation/productIdentification/productVersion/local/FWVersion}"/>
+                                                <Text text="{CardTerminals>connected}"/>
                                             </ColumnListItem>
                                         </items>
                                     </Table>
@@ -249,49 +264,49 @@
                     </uxap:ObjectPageSection>
 
                     <uxap:ObjectPageSection id="metricsSection"
-                        title="{i18n>MetricsForThisConnector}">
+                                            title="{i18n>MetricsForThisConnector}">
                         <uxap:subSections>
                             <uxap:ObjectPageSubSection id="metricsSubSection"
-                                title="{i18n>CurrentData}">
+                                                       title="{i18n>CurrentData}">
                                 <uxap:blocks>
                                     <Table autoPopinMode="true" contextualWidth="Auto"
-                                        class="withGrid">
+                                           class="withGrid">
                                         <columns>
                                             <Column importance="High">
-                                                <Text text="Parameter" />
+                                                <Text text="{i18n>Metric}"/>
                                             </Column>
                                             <Column importance="High">
-                                                <Text text="{i18n>Value}" />
+                                                <Text text="{i18n>Value}"/>
                                             </Column>
                                             <Column importance="Medium">
-                                                <Text text="{i18n>Amount}" />
+                                                <Text text="{i18n>Count}"/>
                                             </Column>
                                             <Column importance="Low">
-                                                <Text text="Min" />
+                                                <Text text="Min"/>
                                             </Column>
                                             <Column importance="Low">
-                                                <Text text="Max" />
+                                                <Text text="Max"/>
                                             </Column>
                                             <Column importance="Medium">
-                                                <Text text="{i18n>Average}" />
+                                                <Text text="{i18n>Average}"/>
                                             </Column>
                                         </columns>
                                         <items>
                                             <ColumnListItem>
-                                                <Text text="{i18n>ConnectorResponsetime}" />
-                                                <Text text="" />
-                                                <Text text="{Metrics>/connectorResponseTime/count}" />
-                                                <Text text="{Metrics>/connectorResponseTime/min}" />
-                                                <Text text="{Metrics>/connectorResponseTime/max}" />
-                                                <Text text="{Metrics>/connectorResponseTime/mean}" />
+                                                <Text text="{i18n>ConnectorResponseTime}"/>
+                                                <Text text=""/>
+                                                <Text text="{Metrics>/connectorResponseTime/count}"/>
+                                                <Text text="{Metrics>/connectorResponseTime/min}"/>
+                                                <Text text="{Metrics>/connectorResponseTime/max}"/>
+                                                <Text text="{Metrics>/connectorResponseTime/mean}"/>
                                             </ColumnListItem>
                                             <ColumnListItem>
-                                                <Text text="{i18n>CurrentlyInsertedCards}" />
-                                                <Text text="{Metrics>/currentlyConnectedCards}" />
-                                                <Text text="" />
-                                                <Text text="" />
-                                                <Text text="" />
-                                                <Text text="" />
+                                                <Text text="{i18n>CurrentlyInsertedCards}"/>
+                                                <Text text="{Metrics>/currentlyConnectedCards}"/>
+                                                <Text text=""/>
+                                                <Text text=""/>
+                                                <Text text=""/>
+                                                <Text text=""/>
                                             </ColumnListItem>
                                         </items>
                                     </Table>
