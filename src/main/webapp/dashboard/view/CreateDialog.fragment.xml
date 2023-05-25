@@ -1,38 +1,38 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:form="sap.ui.layout.form"
-    xmlns:core="sap.ui.core">
+                         xmlns:core="sap.ui.core">
     <Dialog id="createDialog" title="{i18n>dialogTitleCreate}" contentWidth="40rem">
         <form:SimpleForm editable="false" layout="ResponsiveGridLayout" labelSpanXL="4"
-            labelSpanL="4" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0"
-            emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2"
-            singleContainerFullSize="true">
+                         labelSpanL="4" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0"
+                         emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2"
+                         singleContainerFullSize="true">
             <form:content>
-                <Label text="{i18n>UserID}" />
-                <Input type="Text" value="{UserId}" />
-                <Label text="URL" />
-                <Input type="Text" value="{Url}" />
-                <Label text="{i18n>SignPort}"  />
-                <Input type="Text" value="{SignPort}" />
-                <Label text="VZD-Port" />
-                <Input type="Text" value="{VzdPort}" />
-                <Label text="Mandant-ID" />
-                <Input type="Text" value="{MandantId}" />
-                <Label text="{i18n>ClientSystemID}" />
-                <Input type="Text" value="{ClientSystemId}" />
-                <Label text="{i18n>WorkplaceID}" />
-                <Input type="Text" value="{WorkplaceId}" />
-                <Label text="{i18n>SecureCommunicationUsingSSL/TLS}" />
-                <CheckBox text="{i18n>CertificateBasedAuthentication}" selected="{UseSSL}" />
-                <Label text="{i18n>ClientCertificate}" />
-                <Input type="Text" value="{ClientCertificate}" visible="{= ${UseSSL} ? true : false}" />
-                <Label text="{i18n>ClientCertificatePassword}" />
-                <Input type="Text" value="{ClientCertificatePassword}" visible="{= ${UseSSL} ? true : false}" />
+                <Label text="{i18n>UserID}"/>
+                <Input type="Text" value="{UserId}"/>
+                <Label text="URL"/>
+                <Input type="Text" value="{Url}"/>
+                <Label text="{i18n>SignPort}"/>
+                <Input type="Text" value="{SignPort}"/>
+                <Label text="VZD-Port"/>
+                <Input type="Text" value="{VzdPort}"/>
+                <Label text="Mandant-ID"/>
+                <Input type="Text" value="{MandantId}"/>
+                <Label text="{i18n>ClientSystemID}"/>
+                <Input type="Text" value="{ClientSystemId}"/>
+                <Label text="{i18n>WorkplaceID}"/>
+                <Input type="Text" value="{WorkplaceId}"/>
+                <Label text="{i18n>SecureCommunicationUsingSSL/TLS}"/>
+                <CheckBox text="{i18n>CertificateBasedAuthentication}" selected="{UseSSL}"/>
+                <Label text="{i18n>ClientCertificate}"/>
+                <Input type="Text" value="{ClientCertificate}" visible="{= ${UseSSL} ? true : false}"/>
+                <Label text="{i18n>ClientCertificatePassword}"/>
+                <Input type="Password" value="{ClientCertificatePassword}" visible="{= ${UseSSL} ? true : false}"/>
             </form:content>
         </form:SimpleForm>
         <beginButton>
-            <Button type="Reject" text="{i18n>buttonCancel}" press="onCancel" />
+            <Button type="Reject" text="{i18n>buttonCancel}" press="onCancel"/>
         </beginButton>
         <endButton>
-            <Button type="Accept" text="{i18n>buttonCreate}" press="onSave" />
+            <Button type="Accept" text="{i18n>buttonCreate}" press="onSave"/>
         </endButton>
     </Dialog>
 </core:FragmentDefinition>
