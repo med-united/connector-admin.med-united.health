@@ -374,8 +374,6 @@ sap.ui.define(
             "x-client-certificate": oRuntimeConfig.ClientCertificate,
             "x-client-certificate-password":
               oRuntimeConfig.ClientCertificatePassword,
-            "x-sign-port": oRuntimeConfig.SignPort,
-            "x-vzd-port": oRuntimeConfig.VzdPort,
             "x-mandant-id": oRuntimeConfig.MandantId,
             "x-workplace-id": oRuntimeConfig.WorkplaceId,
             "x-user-id": oRuntimeConfig.UserId,

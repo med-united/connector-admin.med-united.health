@@ -47,12 +47,6 @@
                         <Text text="URL"/>
                     </Column>
                     <Column width="12em">
-                        <Text text="{i18n>SignPort}"/>
-                    </Column>
-                    <Column width="12em">
-                        <Text text="VZD-Port"/>
-                    </Column>
-                    <Column width="12em">
                         <Text text="Mandant-ID"/>
                     </Column>
                     <Column width="12em">
@@ -67,8 +61,6 @@
                         <cells>
                             <ObjectIdentifier text="{UserId}"/>
                             <ObjectIdentifier text="{Url}"/>
-                            <ObjectIdentifier text="{SignPort}"/>
-                            <ObjectIdentifier text="{VzdPort}"/>
                             <ObjectIdentifier text="{MandantId}"/>
                             <ObjectIdentifier text="{ClientSystemId}"/>
                             <ObjectIdentifier text="{WorkplaceId}"/>
