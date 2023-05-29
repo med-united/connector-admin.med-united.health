@@ -45,8 +45,6 @@ public class Bootstrap {
         runtimeConfig.setId("a2f8d25b-a239-4b9f-945c-1e693c81e4ec");
         runtimeConfig.setUserId("secunet-id");
         runtimeConfig.setUrl("https://192.168.178.42");
-        runtimeConfig.setSignPort("443");
-        runtimeConfig.setVzdPort("636");
         runtimeConfig.setMandantId("Incentergy");
         runtimeConfig.setClientSystemId("Incentergy");
         runtimeConfig.setWorkplaceId("1786_A1");
