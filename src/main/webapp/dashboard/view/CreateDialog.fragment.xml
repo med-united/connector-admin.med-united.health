@@ -20,6 +20,10 @@
                 <Input type="Text" value="{ClientSystemId}"/>
                 <Label text="{i18n>WorkplaceID}"/>
                 <Input type="Text" value="{WorkplaceId}"/>
+                <Label text="{i18n>Username}"/>
+                <Input type="Text" value="{Username}"/>
+                <Label text="{i18n>Password}"/>
+                <Input type="Password" value="{Password}"/>
                 <Label text="{i18n>SecureCommunicationUsingSSL/TLS}"/>
                 <CheckBox text="{i18n>CertificateBasedAuthentication}" selected="{UseSSL}"/>
                 <Label text="{i18n>ClientCertificate}"/>
