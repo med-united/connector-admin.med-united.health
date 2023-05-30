@@ -160,7 +160,6 @@ sap.ui.define(
         },
 
         reloadModels: function (oRuntimeConfig) {
-          this.handleFullScreen();
 
           const mHeaders = this._getHttpHeadersFromRuntimeConfig();
 

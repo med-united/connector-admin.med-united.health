@@ -12,9 +12,6 @@ sap.ui.define([
 
 			this.oRouter.getRoute("detail").attachPatternMatched(this._onMatched, this);
 		},
-		handleFullScreen: function () {
-			this.navToLayoutProperty("/actionButtonsInfo/midColumn/fullScreen");
-		},
         onAfterCreateOpenDialog: function () {},
         _openCreateDialog: function (oDialog, sEntityName) {
                     oDialog.open();
