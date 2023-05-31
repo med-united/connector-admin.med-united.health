@@ -21,10 +21,6 @@ public class RuntimeConfig {
 
     private String url;
 
-    private String signPort;
-
-    private String vzdPort;
-
     private String mandantId;
 
     private String clientSystemId;
@@ -45,13 +41,9 @@ public class RuntimeConfig {
     public RuntimeConfig() {
     }
 
-    public RuntimeConfig(String host, String signPort, String vzdPort, String mandantId, String clientSystemId,
-                         String workplaceId, String userId,
-                         String username, String password,
+    public RuntimeConfig(String host, String mandantId, String clientSystemId, String workplaceId, String userId,
                          boolean useSSL, String clientCertificate, String clientCertificatePassword) {
         this.url = host;
-        this.signPort = signPort;
-        this.vzdPort = vzdPort;
         this.mandantId = mandantId;
         this.clientSystemId = clientSystemId;
         this.workplaceId = workplaceId;
@@ -101,22 +93,6 @@ public class RuntimeConfig {
 
     public void setUrl(String url) {
         this.url = url;
-    }
-
-    public String getSignPort() {
-        return signPort;
-    }
-
-    public void setSignPort(String signPort) {
-        this.signPort = signPort;
-    }
-
-    public String getVzdPort() {
-        return vzdPort;
-    }
-
-    public void setVzdPort(String vzdPort) {
-        this.vzdPort = vzdPort;
     }
 
     public String getMandantId() {
