@@ -46,7 +46,7 @@
                                         <Text text="{i18n>CardType}" />
                                     </Column>
                                     <Column mergeDuplicates="true" mergeFunctionName="data#mergeKey">
-                                        <Text text="{i18n>Amount}" />
+                                        <Text text="{i18n>Count}" />
                                     </Column>
                                     <Column>
                                         <Text text="{i18n>PinType}" />
