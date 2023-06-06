@@ -85,7 +85,7 @@
 					]
 				},
 				{
-					"pattern": "",
+					"pattern": "enabledavailable",
 					"name": "enabledavailable",
 					"target": [
 						"enabledavailable"
