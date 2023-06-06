@@ -1,14 +1,11 @@
-<mvc:View displayBlock="true"
-          controllerName="sap.f.ShellBarWithFlexibleColumnLayout.controller.Dashboard" height="100%"
-          xmlns="sap.m"
-          xmlns:f="sap.f"
-          xmlns:mvc="sap.ui.core.mvc"
-          xmlns:w="sap.ui.integration.widgets"
-          xmlns:card="sap.f.cards"
-          xmlns:core="sap.ui.core"
->
-    <f:DynamicPage id="dynamicPageId"
-                   toggleHeaderOnTitleClick="false">
+<mvc:View displayBlock="true" controllerName="sap.f.ShellBarWithFlexibleColumnLayout.controller.Dashboard" height="100%"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:w="sap.ui.integration.widgets"
+    xmlns:card="sap.f.cards"
+    xmlns:core="sap.ui.core">
+    <f:DynamicPage id="dynamicPageId" toggleHeaderOnTitleClick="false">
         <!-- DynamicPage Title -->
         <f:title>
             <f:DynamicPageTitle>
@@ -25,79 +22,82 @@
                 <f:layout>
                     <f:GridContainerSettings rowSize="50px" columnSize="50px" gap="10px" />
                 </f:layout>
-                    <w:Card id="ConnectorListCard" manifest="./dashboard/resources/ConnectorList.json">
-                        <w:layoutData>
-                            <f:GridContainerItemLayoutData minRows="3" columns="5" />
-                        </w:layoutData>
-                    </w:Card>
-                    <f:Card id="CardsCard">
-                        <f:layoutData>
-                            <f:GridContainerItemLayoutData columns="22" />
-                        </f:layoutData>
-                        <f:header>
-                            <card:Header
-                                    title="Kartenübersicht"
-                                    iconSrc="sap-icon://business-card"/>
-                        </f:header>
-                        <f:content>
-                            <Table id="cardsTable" items="{CardsCard>/}" class="withGrid" noDataText="{i18n>NoData}">
-                                <columns>
-                                    <Column mergeDuplicates="true">
-                                        <Text text="{i18n>CardType}" />
-                                    </Column>
-                                    <Column mergeDuplicates="true" mergeFunctionName="data#mergeKey">
-                                        <Text text="{i18n>Count}" />
-                                    </Column>
-                                    <Column>
-                                        <Text text="{i18n>PinType}" />
-                                    </Column>
-                                    <Column>
-                                        <Text text="PIN-Status VERIFIED"/>
-                                    </Column>
-                                    <Column>
-                                        <Text text="PIN-Status VERIFIABLE"/>
-                                    </Column>
-                                    <Column>
-                                        <Text text="PIN-Status TRANSPORT_PIN"/>
-                                    </Column>
-                                    <Column>
-                                        <Text text="PIN-Status BLOCKED"/>
-                                    </Column>
-                                    <Column>
-                                        <Text text="PIN-Status EMPTY_PIN"/>
-                                    </Column>
-                                    <Column>
-                                        <Text text="PIN-Status DISABLED"/>
-                                    </Column>
-                                    <Column mergeDuplicates="true" mergeFunctionName="data#mergeKey">
-                                        <Text text="{i18n>Validity}" />
-                                    </Column>
-                                </columns>
-                                <items>
-                                    <ColumnListItem>
-                                        <Text text="{CardsCard>cardType}"/>
-                                        <Text text="{CardsCard>Value}">
-                                            <customData>
-                                                <core:CustomData key="mergeKey" value="{CardsCard>cardType}" />
-                                            </customData>
-                                        </Text>
-                                        <Text text="{CardsCard>pinType}"/>
-                                        <ObjectStatus text="{CardsCard>pinVerified}" state="Success" />
-                                        <ObjectStatus text="{CardsCard>pinVerifiable}" state="Success" />
-                                        <ObjectStatus text="{CardsCard>pinTransport}" state="Error" />
-                                        <ObjectStatus text="{CardsCard>pinBlocked}" state="Error" />
-                                        <ObjectStatus text="{CardsCard>pinEmpty}" state="Error" />
-                                        <ObjectStatus text="{CardsCard>pinDisabled}" state="Error" />
-                                        <ObjectStatus text="{CardsCard>validity}" state="{CardsCard>validityState}">
-                                            <customData>
-                                                <core:CustomData key="mergeKey" value="{CardsCard>cardType}" />
-                                            </customData>
-                                        </ObjectStatus>
-                                    </ColumnListItem>
-                                </items>
-                            </Table>
-                        </f:content>
-                    </f:Card>
+                <w:Card id="ConnectorListCard" manifest="./dashboard/resources/ConnectorList.json">
+                    <w:layoutData>
+                        <f:GridContainerItemLayoutData minRows="3" columns="5" />
+                    </w:layoutData>
+                </w:Card>
+                <w:Card id="ConnectorSupervision" manifest="./dashboard/resources/ConnectorSupervision.json">
+                    <w:layoutData>
+                        <f:GridContainerItemLayoutData minRows="3" columns="5" />
+                    </w:layoutData>
+                </w:Card>
+                <f:Card id="CardsCard">
+                    <f:layoutData>
+                        <f:GridContainerItemLayoutData columns="22" />
+                    </f:layoutData>
+                    <f:header>
+                        <card:Header title="Kartenübersicht" iconSrc="sap-icon://business-card"/>
+                    </f:header>
+                    <f:content>
+                        <Table id="cardsTable" items="{CardsCard>/}" class="withGrid" noDataText="{i18n>NoData}">
+                            <columns>
+                                <Column mergeDuplicates="true">
+                                    <Text text="{i18n>CardType}" />
+                                </Column>
+                                <Column mergeDuplicates="true" mergeFunctionName="data#mergeKey">
+                                    <Text text="{i18n>Count}" />
+                                </Column>
+                                <Column>
+                                    <Text text="{i18n>PinType}" />
+                                </Column>
+                                <Column>
+                                    <Text text="PIN-Status VERIFIED"/>
+                                </Column>
+                                <Column>
+                                    <Text text="PIN-Status VERIFIABLE"/>
+                                </Column>
+                                <Column>
+                                    <Text text="PIN-Status TRANSPORT_PIN"/>
+                                </Column>
+                                <Column>
+                                    <Text text="PIN-Status BLOCKED"/>
+                                </Column>
+                                <Column>
+                                    <Text text="PIN-Status EMPTY_PIN"/>
+                                </Column>
+                                <Column>
+                                    <Text text="PIN-Status DISABLED"/>
+                                </Column>
+                                <Column mergeDuplicates="true" mergeFunctionName="data#mergeKey">
+                                    <Text text="{i18n>Validity}" />
+                                </Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem>
+                                    <Text text="{CardsCard>cardType}"/>
+                                    <Text text="{CardsCard>Value}">
+                                        <customData>
+                                            <core:CustomData key="mergeKey" value="{CardsCard>cardType}" />
+                                        </customData>
+                                    </Text>
+                                    <Text text="{CardsCard>pinType}"/>
+                                    <ObjectStatus text="{CardsCard>pinVerified}" state="Success" />
+                                    <ObjectStatus text="{CardsCard>pinVerifiable}" state="Success" />
+                                    <ObjectStatus text="{CardsCard>pinTransport}" state="Error" />
+                                    <ObjectStatus text="{CardsCard>pinBlocked}" state="Error" />
+                                    <ObjectStatus text="{CardsCard>pinEmpty}" state="Error" />
+                                    <ObjectStatus text="{CardsCard>pinDisabled}" state="Error" />
+                                    <ObjectStatus text="{CardsCard>validity}" state="{CardsCard>validityState}">
+                                        <customData>
+                                            <core:CustomData key="mergeKey" value="{CardsCard>cardType}" />
+                                        </customData>
+                                    </ObjectStatus>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </f:content>
+                </f:Card>
             </f:GridContainer>
         </f:content>
 

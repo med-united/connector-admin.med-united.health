@@ -1,0 +1,23 @@
+{
+  "sap.app": {
+    "id": "ConnectorSupervision",
+    "type": "card",
+    "applicationVersion": {
+      "version": "1.0.0"
+    }
+  },
+  "sap.card": {
+    "type": "List",
+    "header": {
+      "title": "Konnektor Ueberwachung",
+      "actions": [
+        {
+          "type": "Navigation",
+          "url": "./#/supervision",
+          "target": "_self"
+        }
+      ]
+    }
+    
+  }
+}
