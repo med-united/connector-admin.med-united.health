@@ -13,7 +13,7 @@
       "actions": [
         {
           "type": "Navigation",
-          "url": "./#/supervision",
+          "url": "./#/enabledavailable",
           "target": "_self"
         }
       ]

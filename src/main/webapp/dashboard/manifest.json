@@ -78,6 +78,14 @@
 			"routes": [
 				{
 					"pattern": "",
+					"name": "enabledavailable",
+					"target": [
+						"master",
+						"enabledavailable"
+					]
+				},
+				{
+					"pattern": "",
 					"name": "dashboard",
 					"target": [
 						"master",
@@ -116,6 +124,11 @@
 				},
 				"dashboard": {
 					"viewName": "Dashboard",
+					"controlAggregation": "beginColumnPages",
+					"clearControlAggregation": true
+				},
+				"enabledavailable": {
+					"viewName": "EnabledAvailable",
 					"controlAggregation": "beginColumnPages",
 					"clearControlAggregation": true
 				},
