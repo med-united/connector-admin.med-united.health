@@ -78,18 +78,17 @@
 			"routes": [
 				{
 					"pattern": "",
-					"name": "enabledavailable",
-					"target": [
-						"master",
-						"enabledavailable"
-					]
-				},
-				{
-					"pattern": "",
 					"name": "dashboard",
 					"target": [
 						"master",
 						"dashboard"
+					]
+				},
+				{
+					"pattern": "",
+					"name": "enabledavailable",
+					"target": [
+						"enabledavailable"
 					]
 				},
 				{
