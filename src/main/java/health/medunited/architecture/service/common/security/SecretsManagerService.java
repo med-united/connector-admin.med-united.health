@@ -43,13 +43,30 @@ public class SecretsManagerService {
 
     @PostConstruct
     public void createSSLContext() {
-        try {
+        if (Boolean.parseBoolean(request.getHeader("x-use-ssl"))) {
+            // Authenticate with certificate
+            try {
             String keystore = request.getHeader("x-client-certificate");
             String keystorePassword = request.getHeader("x-client-certificate-password");
             setUpSSLContext(getKeyFromKeyStoreUri(keystore, keystorePassword));
-        } catch (KeyStoreException | NoSuchAlgorithmException | CertificateException | URISyntaxException | IOException
+            } catch (KeyStoreException | NoSuchAlgorithmException | CertificateException | URISyntaxException | IOException
                 | KeyManagementException e) {
-            log.severe("There was a problem when unpacking key from ClientCertificateKeyStore: " + e.getMessage());
+                log.severe("There was a problem when unpacking key from ClientCertificateKeyStore: " + e.getMessage());
+            }
+        } else {
+            // Trust all certificates
+            acceptAllCertificates();
+        }
+    }
+
+    public void acceptAllCertificates() {
+        try {
+            sslContext = SSLContext.getInstance(SslContextType.TLS.getSslContextType());
+            sslContext.init(null, new TrustManager[]{new SSLUtilities.FakeX509TrustManager()},
+                    null);
+        } catch (NoSuchAlgorithmException | KeyManagementException e) {
+            log.severe("There was a problem when creating the SSLContext:");
+            e.printStackTrace();
         }
     }
 

@@ -24,13 +24,14 @@ public class CertificateTest {
     void testGetCardHandle() throws Throwable {
         Client client = ClientBuilder.newClient();
 
-        RuntimeConfig runtimeConfig = Bootstrap.getRuntimeConfig();
+        RuntimeConfig runtimeConfig = Bootstrap.getRuntimeConfigSecunet();
 
         String s = client.target("http://localhost:8080/connector/certificate/verifyAll").request()
             .header("X-Mandant-Id", runtimeConfig.getMandantId())
             .header("X-Client-System-Id", runtimeConfig.getClientSystemId())
             .header("X-Workplace-Id", runtimeConfig.getWorkplaceId())
             .header("X-User-Id", runtimeConfig.getUserId())
+            .header("X-Use-SSL", runtimeConfig.getUseSSL())
             .header("X-Client-Certificate", runtimeConfig.getClientCertificate())
             .header("X-Client-Certificate-Password", runtimeConfig.getClientCertificatePassword())
             .header("X-Host", runtimeConfig.getUrl())
@@ -48,7 +49,7 @@ public class CertificateTest {
 
         RuntimeConfig runtimeConfig = Bootstrap.getRuntimeConfigKops();
 
-        String cardHandle = "90bee54a-0568-4fda-9389-5b3762384190";
+        String cardHandle = "90bee54a-0568-4fda-9389-5b3762384190"; // needs to be adjusted to pass the test
         CertRefEnum certType = CertRefEnum.C_ENC;
 
         String s = client
@@ -61,6 +62,7 @@ public class CertificateTest {
                 .header("x-client-system-id", runtimeConfig.getClientSystemId())
                 .header("x-workplace-id", runtimeConfig.getWorkplaceId())
                 .header("x-user-id", runtimeConfig.getUserId())
+                .header("x-use-ssl", runtimeConfig.getUseSSL())
                 .header("x-client-certificate", runtimeConfig.getClientCertificate())
                 .header("x-client-certificate-password", runtimeConfig.getClientCertificatePassword())
                 .header("x-host", runtimeConfig.getUrl())
@@ -85,6 +87,7 @@ public class CertificateTest {
                 .header("x-client-system-id", runtimeConfig.getClientSystemId())
                 .header("x-workplace-id", runtimeConfig.getWorkplaceId())
                 .header("x-user-id", runtimeConfig.getUserId())
+                .header("x-use-ssl", runtimeConfig.getUseSSL())
                 .header("x-client-certificate", runtimeConfig.getClientCertificate())
                 .header("x-client-certificate-password", runtimeConfig.getClientCertificatePassword())
                 .header("x-host", runtimeConfig.getUrl())
@@ -108,6 +111,7 @@ public class CertificateTest {
                 .header("x-client-system-id", runtimeConfig.getClientSystemId())
                 .header("x-workplace-id", runtimeConfig.getWorkplaceId())
                 .header("x-user-id", runtimeConfig.getUserId())
+                .header("x-use-ssl", runtimeConfig.getUseSSL())
                 .header("x-client-certificate", runtimeConfig.getClientCertificate())
                 .header("x-client-certificate-password", runtimeConfig.getClientCertificatePassword())
                 .header("x-host", runtimeConfig.getUrl())

@@ -10,6 +10,7 @@ import javax.net.ssl.SSLSession;
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
 
+
 import health.medunited.architecture.service.common.security.SecretsManagerService;
 
 public abstract class AbstractConnector implements Connector {

@@ -1,6 +1,7 @@
 package health.medunited.architecture.monitoring;
 
 import java.io.IOException;
+import java.math.BigInteger;
 import java.net.URISyntaxException;
 import java.security.KeyManagementException;
 import java.security.KeyStoreException;
@@ -9,8 +10,7 @@ import java.security.cert.CertificateException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.Instant;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.Callable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,9 +22,10 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
 
-import org.eclipse.microprofile.metrics.Gauge;
-import org.eclipse.microprofile.metrics.Metadata;
-import org.eclipse.microprofile.metrics.MetricRegistry;
+import de.gematik.ws.conn.cardservice.v8.PinStatusEnum;
+import de.gematik.ws.conn.cardservice.wsdl.v8.FaultMessage;
+import de.gematik.ws.conn.connectorcommon.v5.Status;
+import org.eclipse.microprofile.metrics.*;
 import org.eclipse.microprofile.metrics.Timer;
 import org.eclipse.microprofile.metrics.annotation.RegistryType;
 
@@ -40,6 +41,7 @@ import health.medunited.architecture.service.endpoint.EndpointDiscoveryService;
 
 @Singleton
 public class Scheduler {
+
 //    
 //    @Inject
 //    @RegistryType(type = MetricRegistry.Type.APPLICATION)
@@ -196,4 +198,5 @@ public class Scheduler {
 //            }
 //        }
 //    }
+
 }

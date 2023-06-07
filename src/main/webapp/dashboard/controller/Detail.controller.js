@@ -374,12 +374,11 @@ sap.ui.define(
             "x-client-certificate": oRuntimeConfig.ClientCertificate,
             "x-client-certificate-password":
               oRuntimeConfig.ClientCertificatePassword,
-            "x-sign-port": oRuntimeConfig.SignPort,
-            "x-vzd-port": oRuntimeConfig.VzdPort,
             "x-mandant-id": oRuntimeConfig.MandantId,
             "x-workplace-id": oRuntimeConfig.WorkplaceId,
             "x-user-id": oRuntimeConfig.UserId,
             "x-host": oRuntimeConfig.Url,
+            "x-use-ssl": oRuntimeConfig.UseSSL
           };
         },
 
@@ -421,18 +420,28 @@ sap.ui.define(
           let oView = this.getView();
           const me = this;
 
-          if (!this.byId("RestartPasswordDialog")) {
-            Fragment.load({
-              id: oView.getId(),
-              name: "sap.f.ShellBarWithFlexibleColumnLayout.view.RestartPasswordDialog",
-              controller: this,
-            }).then(function (oDialog) {
-              me.onAfterCreateOpenDialog({ dialog: oDialog });
-              oView.addDependent(oDialog);
-              me._openCreateDialog(oDialog);
-            });
+          const sPath = "/RuntimeConfigs('" + this._entity + "')";
+          const oRuntimeConfig = this.getView().getModel().getProperty(sPath);
+
+          let username = oRuntimeConfig.Username;
+          let password = oRuntimeConfig.Password;
+
+          if (username && password) {
+            this.pwdOnRestart();
           } else {
-            this._openCreateDialog(this.byId("restartPasswordDialog"));
+            if (!this.byId("RestartPasswordDialog")) {
+              Fragment.load({
+                id: oView.getId(),
+                name: "sap.f.ShellBarWithFlexibleColumnLayout.view.RestartPasswordDialog",
+                controller: this,
+              }).then(function (oDialog) {
+                me.onAfterCreateOpenDialog({ dialog: oDialog });
+                oView.addDependent(oDialog);
+                me._openCreateDialog(oDialog);
+              });
+            } else {
+              this._openCreateDialog(this.byId("restartPasswordDialog"));
+            }
           }
         },
 
@@ -445,29 +454,37 @@ sap.ui.define(
               oRuntimeConfig.ClientCertificatePassword,
             "Content-Type": "application/json",
           };
-          const username = this.byId("usernameInput").getValue();
-          const password = this.byId("passwordInput").getValue();
+
+          let username = oRuntimeConfig.Username;
+          let password = oRuntimeConfig.Password;
+
+          if (!username || !password) {
+            username = this.byId("usernameInput").getValue();
+            password = this.byId("passwordInput").getValue();
+            oEvent.getSource().getParent().close();
+            oEvent.getSource().getParent().destroy();
+          }
+
           const requestBody = {
             username: username,
             password: password,
           };
 
-          oEvent.getSource().getParent().close();
           MessageToast.show(this.translate("restarting"));
-          oEvent.getSource().getParent().destroy();
 
           this._getConnectorType().then((connectorBrand) => {
             let restartUrl =
               "connector/management/" +
               connectorBrand +
               "/restart?connectorUrl=" +
-              oRuntimeConfig.Url +
-              "&managementPort=" +
-              this._getConnectorPort(connectorBrand);
+              oRuntimeConfig.Url;
             fetch(restartUrl, {
               headers: restartHeaders,
               method: "POST",
               body: JSON.stringify(requestBody),
+            }).then(function (response) {
+              // MessageToast.show(this.translate("RestartError")); //translate function not working
+              if(!response.ok) MessageToast.show("Fehler beim Neustart. Bitte Verbindung und Kennwort pr\u00FCfen");
             });
           });
         },
