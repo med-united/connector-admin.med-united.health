@@ -42,6 +42,28 @@
                         />
                     </w:layoutData>
                 </w:Card>
+                <w:Card
+                    id="Card2"
+                    manifest="./dashboard/resources/Card2.json"
+                >
+                    <w:layoutData>
+                        <f:GridContainerItemLayoutData
+                            minRows="3"
+                            columns="5"
+                        />
+                    </w:layoutData>
+                </w:Card>
+                <w:Card
+                    id="Card3"
+                    manifest="./dashboard/resources/Card3.json"
+                >
+                    <w:layoutData>
+                        <f:GridContainerItemLayoutData
+                            minRows="3"
+                            columns="5"
+                        />
+                    </w:layoutData>
+                </w:Card>
             </f:GridContainer>
         </f:content>
     </f:DynamicPage>
