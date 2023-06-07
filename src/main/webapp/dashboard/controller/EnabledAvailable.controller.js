@@ -15,6 +15,12 @@ sap.ui.define([
 	var DropPosition = coreLibrary.dnd.DropPosition;
 
 	return Controller.extend("sap.f.ShellBarWithFlexibleColumnLayout.controller.AbstractController", {
+		onInit: function () {
 
+		},
+
+        attachDragAndDrop: function () {
+
+		}
     })
 });
