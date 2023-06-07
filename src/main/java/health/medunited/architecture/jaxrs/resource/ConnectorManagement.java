@@ -4,11 +4,11 @@ import health.medunited.architecture.jaxrs.management.Connector;
 import health.medunited.architecture.jaxrs.management.ConnectorBrands;
 import health.medunited.architecture.model.RestartRequestBody;
 
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
-import javax.inject.Named;
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
+import jakarta.annotation.PostConstruct;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
+import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.MediaType;
 import java.util.HashMap;
 import java.util.Map;
 

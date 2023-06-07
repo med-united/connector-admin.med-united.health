@@ -1,9 +1,9 @@
 package health.medunited.architecture.provider;
 
-import javax.enterprise.context.RequestScoped;
-import javax.enterprise.inject.Produces;
-import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.enterprise.inject.Produces;
+import jakarta.inject.Inject;
+import jakarta.servlet.http.HttpServletRequest;
 
 import de.gematik.ws.conn.connectorcontext.v2.ContextType;
 
