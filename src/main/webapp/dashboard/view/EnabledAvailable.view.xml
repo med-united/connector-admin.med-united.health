@@ -1,70 +1,66 @@
 <mvc:View
-    displayBlock="true"
     controllerName="sap.f.ShellBarWithFlexibleColumnLayout.controller.EnabledAvailable"
-    height="100%"
     xmlns="sap.m"
-    xmlns:f="sap.f"
     xmlns:mvc="sap.ui.core.mvc"
-    xmlns:w="sap.ui.integration.widgets"
+    xmlns:f="sap.f"
     xmlns:card="sap.f.cards"
-    xmlns:core="sap.ui.core"
+    displayBlock="true"
+    height="100%"
 >
-    <f:DynamicPage
-        id="dynamicPageId"
-        toggleHeaderOnTitleClick="false"
+    <ScrollContainer
+        height="100%"
+        width="100%"
+        vertical="true"
     >
-        <!-- DynamicPage Title -->
-        <f:title>
-            <f:DynamicPageTitle>
-                <f:heading>
-                    <Title text="Konnektor Ueberwachung" />
-                </f:heading>
-            </f:DynamicPageTitle>
-        </f:title>
-
-        <f:content>
-            <f:GridContainer id="CardContainer">
+        <ToggleButton
+            id="revealGrid"
+            text="Reveal Grid"
+            press="onRevealGrid"
+            class="sapUiSmallMarginBegin sapUiSmallMarginTop sapUiTinyMarginBottom"
+        />
+        <HBox renderType="Bare">
+            <List
+                id="list1"
+                class="sapUiSmallMargin"
+                width="400px"
+                items="{ path: '/' }"
+            >
+                <StandardListItem title="{title}" />
+            </List>
+            <f:GridContainer
+                id="grid1"
+                class="sapUiSmallMargin"
+                width="100%"
+                snapToRow="true"
+                items="{ path: '/' }"
+            >
                 <f:layout>
                     <f:GridContainerSettings
-                        rowSize="50px"
-                        columnSize="50px"
-                        gap="10px"
+                        rowSize="84px"
+                        columnSize="84px"
+                        gap="8px"
                     />
                 </f:layout>
-                <w:Card
-                    id="Card1"
-                    manifest="./dashboard/resources/Card1.json"
-                >
-                    <w:layoutData>
+                <f:layoutXS>
+                    <f:GridContainerSettings
+                        rowSize="70px"
+                        columnSize="70px"
+                        gap="8px"
+                    />
+                </f:layoutXS>
+
+                <f:Card>
+                    <f:layoutData>
                         <f:GridContainerItemLayoutData
-                            minRows="3"
-                            columns="5"
+                            minRows="{rows}"
+                            columns="{columns}"
                         />
-                    </w:layoutData>
-                </w:Card>
-                <w:Card
-                    id="Card2"
-                    manifest="./dashboard/resources/Card2.json"
-                >
-                    <w:layoutData>
-                        <f:GridContainerItemLayoutData
-                            minRows="3"
-                            columns="5"
-                        />
-                    </w:layoutData>
-                </w:Card>
-                <w:Card
-                    id="Card3"
-                    manifest="./dashboard/resources/Card3.json"
-                >
-                    <w:layoutData>
-                        <f:GridContainerItemLayoutData
-                            minRows="3"
-                            columns="5"
-                        />
-                    </w:layoutData>
-                </w:Card>
+                    </f:layoutData>
+                    <f:header>
+                        <card:Header title="{title}" />
+                    </f:header>
+                </f:Card>
             </f:GridContainer>
-        </f:content>
-    </f:DynamicPage>
+        </HBox>
+    </ScrollContainer>
 </mvc:View>
