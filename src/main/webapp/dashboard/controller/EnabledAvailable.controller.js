@@ -14,7 +14,7 @@ sap.ui.define([
 	// shortcut for sap.ui.core.dnd.DropPosition
 	var DropPosition = coreLibrary.dnd.DropPosition;
 
-	return Controller.extend("sap.f.sample.GridContainerDragAndDropFromList.C", {
+	return Controller.extend("sap.f.ShellBarWithFlexibleColumnLayout.controller.AbstractController", {
 
     })
 });
