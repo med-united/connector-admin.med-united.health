@@ -13,6 +13,6 @@ public class Scheduler {
     @GET
     @Path("/monitorConnectors")
     public void monitorConnectors() {
-        scheduler.monitorConnectors();
+        // scheduler.monitorConnectors();
     }
 }
