@@ -1,18 +1,48 @@
-<mvc:View displayBlock="true" controllerName="sap.f.ShellBarWithFlexibleColumnLayout.controller.EnabledAvailable" height="100%"
+<mvc:View
+    displayBlock="true"
+    controllerName="sap.f.ShellBarWithFlexibleColumnLayout.controller.EnabledAvailable"
+    height="100%"
     xmlns="sap.m"
     xmlns:f="sap.f"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns:w="sap.ui.integration.widgets"
     xmlns:card="sap.f.cards"
-    xmlns:core="sap.ui.core">
-    <f:DynamicPage id="dynamicPageId" toggleHeaderOnTitleClick="false">
+    xmlns:core="sap.ui.core"
+>
+    <f:DynamicPage
+        id="dynamicPageId"
+        toggleHeaderOnTitleClick="false"
+    >
         <!-- DynamicPage Title -->
         <f:title>
             <f:DynamicPageTitle>
                 <f:heading>
-                    <Title text="HalloHallo" />
+                    <Title text="Konnektor Ueberwachung" />
                 </f:heading>
             </f:DynamicPageTitle>
         </f:title>
+
+        <f:content>
+            <f:GridContainer id="CardContainer">
+                <f:layout>
+                    <f:GridContainerSettings
+                        rowSize="50px"
+                        columnSize="50px"
+                        gap="10px"
+                    />
+                </f:layout>
+                <w:Card
+                    id="Card1"
+                    manifest="./dashboard/resources/Card1.json"
+                >
+                    <w:layoutData>
+                        <f:GridContainerItemLayoutData
+                            minRows="3"
+                            columns="5"
+                        />
+                    </w:layoutData>
+                </w:Card>
+            </f:GridContainer>
+        </f:content>
     </f:DynamicPage>
 </mvc:View>
