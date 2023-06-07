@@ -16,11 +16,14 @@ sap.ui.define([
 
 	return Controller.extend("sap.f.ShellBarWithFlexibleColumnLayout.controller.AbstractController", {
 		onInit: function () {
-
+            this.attachDragAndDrop();
 		},
 
         attachDragAndDrop: function () {
-
+			var oList = this.byId("CardContainer");
+			oList.addDragDropConfig(new DragInfo({
+				sourceAggregation: "items"
+			}));
 		}
     })
 });
