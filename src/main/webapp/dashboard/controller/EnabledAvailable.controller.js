@@ -15,7 +15,7 @@ sap.ui.define([
 	// shortcut for sap.ui.core.dnd.DropPosition
 	var DropPosition = coreLibrary.dnd.DropPosition;
 
-	return Controller.extend("sap.f.sample.GridContainerDragAndDropFromList.C", {
+	return Controller.extend("sap.f.ShellBarWithFlexibleColumnLayout.controller.Detail", {
 
 		onInit: function () {
 			this.initData();
@@ -23,7 +23,7 @@ sap.ui.define([
 		},
 
 		initData: function () {
-			this.byId("list1").setModel(new JSONModel([
+			this.byId("grid0").setModel(new JSONModel([
 				{ title: "Card1", rows: 2, columns: 2 },
 				{ title: "Card2", rows: 2, columns: 2 }
 			]));
@@ -35,16 +35,16 @@ sap.ui.define([
 
 		onRevealGrid: function () {
 			RevealGrid.toggle("grid1", this.getView());
-			RevealGrid.toggle("list1", this.getView());
+			RevealGrid.toggle("grid0", this.getView());
 		},
 
 		onExit: function () {
 			RevealGrid.destroy("grid1", this.getView());
-			RevealGrid.destroy("list1", this.getView());
+			RevealGrid.destroy("grid0", this.getView());
 		},
 
 		attachDragAndDrop: function () {
-			var oList = this.byId("list1");
+			var oList = this.byId("grid0");
 			oList.addDragDropConfig(new DragInfo({
 				sourceAggregation: "items"
 			}));
@@ -53,6 +53,7 @@ sap.ui.define([
 				targetAggregation: "items",
 				dropPosition: DropPosition.Between,
 				dropLayout: DropLayout.Vertical,
+				dropIndicatorSize: this.onDropIndicatorSize.bind(this),
 				drop: this.onDrop.bind(this)
 			}));
 
@@ -73,7 +74,7 @@ sap.ui.define([
 		onDropIndicatorSize: function (oDraggedControl) {
 			var oBindingContext = oDraggedControl.getBindingContext(),
 				oData = oBindingContext.getModel().getProperty(oBindingContext.getPath());
-
+			
 			if (oDraggedControl.isA("sap.m.StandardListItem")) {
 				return {
 					rows: oData.rows,

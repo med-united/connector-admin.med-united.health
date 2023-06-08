@@ -21,8 +21,9 @@
         />
             <Label text=" " />
             <Label text="    Enabled" design="Bold"/>
+            
             <f:GridContainer
-                id="list1"
+                id="grid0"
                 class="sapUiSmallMargin"
                 width="100%"
                 snapToRow="true"
@@ -48,7 +49,7 @@
                         <card:Header title="{title}" />
                     </f:header>
                 </f:Card>
-            </f:GridContainer>
+            </f:GridContainer> 
 
 
             <Label text="    Available" design="Bold"/>
