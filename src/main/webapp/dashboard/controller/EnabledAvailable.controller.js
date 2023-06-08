@@ -4,9 +4,8 @@ sap.ui.define([
 	"sap/ui/core/dnd/DragInfo",
 	"sap/ui/core/dnd/DropInfo",
 	"sap/f/dnd/GridDropInfo",
-	"../utils/RevealGrid/RevealGrid",
 	"sap/ui/core/library"
-], function (Controller, JSONModel, DragInfo, DropInfo, GridDropInfo, RevealGrid, coreLibrary) {
+], function (Controller, JSONModel, DragInfo, DropInfo, GridDropInfo, coreLibrary) {
 	"use strict";
 
 	// shortcut for sap.ui.core.dnd.DropLayout
@@ -24,11 +23,6 @@ sap.ui.define([
 		},
 
 		initData: function () {
-			/*
-			this.byId("grid0").setModel(new JSONModel([
-				{ title: "Card1", rows: 2, columns: 2 },
-				{ title: "Card2", rows: 2, columns: 2 }
-			]));*/
 
 			this.byId("grid1").setModel(new JSONModel([
 				{ title: "Card1", rows: 2, columns: 2 },
@@ -38,18 +32,6 @@ sap.ui.define([
 			this.byId("grid2").setModel(new JSONModel([
 				{ title: "Card3", rows: 2, columns: 2 }
 			]));
-		},
-
-		onRevealGrid: function () {
-			RevealGrid.toggle("grid1", this.getView());
-			RevealGrid.toggle("grid0", this.getView());
-			RevealGrid.toggle("grid2", this.getView());
-		},
-
-		onExit: function () {
-			RevealGrid.destroy("grid1", this.getView());
-			RevealGrid.destroy("grid0", this.getView());
-			RevealGrid.destroy("grid2", this.getView());
 		},
 
 		attachDragAndDrop: function () {

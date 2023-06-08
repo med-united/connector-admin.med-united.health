@@ -13,20 +13,15 @@
         vertical="true"
     >
     
-        <VBox renderType="Bare">
-            <ToggleButton
-            id="revealGrid"
-            text="Reveal Grid"
-            press="onRevealGrid"
-            class="sapUiSmallMarginBegin sapUiSmallMarginTop sapUiTinyMarginBottom"
-        />
+        <VBox renderType="Bare" width="90%">
+            
             <Label text=" " />
             <Label text="    Enabled" design="Bold"/>
             
             <f:GridContainer
                 id="grid0"
                 class="sapUiSmallMargin"
-                width="1%"
+                width="10%"
                 snapToRow="true"
             >
                 <f:layoutXS>
@@ -44,7 +39,7 @@
                         />
                     </f:layoutData>
                     <f:header>
-                        <card:Header title="gossip" />
+                        <card:Header title="SAP UI5 takes Grid0 as a list. This is why it is hidden. We need grids not lists" />
                     </f:header>
                 </f:Card>
             </f:GridContainer> 
