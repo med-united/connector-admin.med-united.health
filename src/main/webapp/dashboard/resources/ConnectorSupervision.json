@@ -9,7 +9,7 @@
   "sap.card": {
     "type": "List",
     "header": {
-      "title": "Konnektor Ueberwachung",
+      "title": "Konnektor Überwachung",
       "actions": [
         {
           "type": "Navigation",
