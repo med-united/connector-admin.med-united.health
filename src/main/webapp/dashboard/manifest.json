@@ -49,6 +49,13 @@
 				"sap.uxap": {}
 			}
 		},
+		"resources": {
+			"css": [
+				{
+					"uri": "/dashboard/utils/RevealGrid/RevealGrid.css"
+				}
+			]
+		},
 		"models": {
 			"i18n": {
 				"type": "sap.ui.model.resource.ResourceModel",
