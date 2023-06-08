@@ -20,15 +20,22 @@ sap.ui.define([
 		onInit: function () {
 			this.initData();
 			this.attachDragAndDrop();
+			this.byId('grid0').addStyleClass('forget');
 		},
 
 		initData: function () {
+			/*
 			this.byId("grid0").setModel(new JSONModel([
+				{ title: "Card1", rows: 2, columns: 2 },
+				{ title: "Card2", rows: 2, columns: 2 }
+			]));*/
+
+			this.byId("grid1").setModel(new JSONModel([
 				{ title: "Card1", rows: 2, columns: 2 },
 				{ title: "Card2", rows: 2, columns: 2 }
 			]));
 
-			this.byId("grid1").setModel(new JSONModel([
+			this.byId("grid2").setModel(new JSONModel([
 				{ title: "Card3", rows: 2, columns: 2 }
 			]));
 		},
@@ -36,11 +43,13 @@ sap.ui.define([
 		onRevealGrid: function () {
 			RevealGrid.toggle("grid1", this.getView());
 			RevealGrid.toggle("grid0", this.getView());
+			RevealGrid.toggle("grid2", this.getView());
 		},
 
 		onExit: function () {
 			RevealGrid.destroy("grid1", this.getView());
 			RevealGrid.destroy("grid0", this.getView());
+			RevealGrid.destroy("grid2", this.getView());
 		},
 
 		attachDragAndDrop: function () {
@@ -63,6 +72,19 @@ sap.ui.define([
 			}));
 
 			oGrid.addDragDropConfig(new GridDropInfo({
+				targetAggregation: "items",
+				dropPosition: DropPosition.Between,
+				dropLayout: DropLayout.Horizontal,
+				dropIndicatorSize: this.onDropIndicatorSize.bind(this),
+				drop: this.onDrop.bind(this)
+			}));
+
+			var oGrid2 = this.byId("grid2");
+			oGrid2.addDragDropConfig(new DragInfo({
+				sourceAggregation: "items"
+			}));
+
+			oGrid2.addDragDropConfig(new GridDropInfo({
 				targetAggregation: "items",
 				dropPosition: DropPosition.Between,
 				dropLayout: DropLayout.Horizontal,

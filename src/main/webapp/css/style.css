@@ -1,3 +1,11 @@
 .withGrid .sapMListTblCell:not(:first-child) {
     border-left: 2px solid #d5dadc;
 }
+
+
+.forget {
+    visibility: hidden;
+	position:absolute !important;
+	top:9999;
+	z-index:-50;
+}

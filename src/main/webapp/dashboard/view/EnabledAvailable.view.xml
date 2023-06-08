@@ -12,6 +12,7 @@
         width="100%"
         vertical="true"
     >
+    
         <VBox renderType="Bare">
             <ToggleButton
             id="revealGrid"
@@ -24,6 +25,32 @@
             
             <f:GridContainer
                 id="grid0"
+                class="sapUiSmallMargin"
+                width="1%"
+                snapToRow="true"
+            >
+                <f:layoutXS>
+                    <f:GridContainerSettings
+                        rowSize="1px"
+                        columnSize="1px"
+                    />
+                </f:layoutXS>
+
+                <f:Card>
+                    <f:layoutData>
+                        <f:GridContainerItemLayoutData
+                            minRows="0"
+                            columns="0"
+                        />
+                    </f:layoutData>
+                    <f:header>
+                        <card:Header title="gossip" />
+                    </f:header>
+                </f:Card>
+            </f:GridContainer> 
+
+            <f:GridContainer
+                id="grid1"
                 class="sapUiSmallMargin"
                 width="100%"
                 snapToRow="true"
@@ -49,12 +76,11 @@
                         <card:Header title="{title}" />
                     </f:header>
                 </f:Card>
-            </f:GridContainer> 
-
+            </f:GridContainer>
 
             <Label text="    Available" design="Bold"/>
             <f:GridContainer
-                id="grid1"
+                id="grid2"
                 class="sapUiSmallMargin"
                 width="100%"
                 snapToRow="true"
