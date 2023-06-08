@@ -19,28 +19,40 @@
             class="sapUiSmallMarginBegin sapUiSmallMarginTop sapUiTinyMarginBottom"
         />
         <HBox renderType="Bare">
-            <List
+            <f:GridContainer
                 id="list1"
                 class="sapUiSmallMargin"
-                width="400px"
-                items="{ path: '/' }"
-            >
-                <StandardListItem title="{title}" />
-            </List>
-            <f:GridContainer
-                id="grid1"
-                class="sapUiSmallMargin"
-                width="100%"
+                width="20%"
                 snapToRow="true"
                 items="{ path: '/' }"
             >
-                <f:layout>
+                <f:layoutXS>
                     <f:GridContainerSettings
-                        rowSize="84px"
-                        columnSize="84px"
+                        rowSize="70px"
+                        columnSize="70px"
                         gap="8px"
                     />
-                </f:layout>
+                </f:layoutXS>
+
+                <f:Card>
+                    <f:layoutData>
+                        <f:GridContainerItemLayoutData
+                            minRows="{rows}"
+                            columns="{columns}"
+                        />
+                    </f:layoutData>
+                    <f:header>
+                        <card:Header title="{title}" />
+                    </f:header>
+                </f:Card>
+            </f:GridContainer>
+            <f:GridContainer
+                id="grid1"
+                class="sapUiSmallMargin"
+                width="80%"
+                snapToRow="true"
+                items="{ path: '/' }"
+            >
                 <f:layoutXS>
                     <f:GridContainerSettings
                         rowSize="70px"
