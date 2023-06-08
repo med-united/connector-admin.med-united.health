@@ -12,17 +12,13 @@
         width="100%"
         vertical="true"
     >
-        <ToggleButton
-            id="revealGrid"
-            text="Reveal Grid"
-            press="onRevealGrid"
-            class="sapUiSmallMarginBegin sapUiSmallMarginTop sapUiTinyMarginBottom"
-        />
-        <HBox renderType="Bare">
+        <VBox renderType="Bare">
+            <Label text=" " />
+            <Label text="Enabled" />
             <f:GridContainer
                 id="list1"
                 class="sapUiSmallMargin"
-                width="20%"
+                width="100%"
                 snapToRow="true"
                 items="{ path: '/' }"
             >
@@ -46,10 +42,11 @@
                     </f:header>
                 </f:Card>
             </f:GridContainer>
+            <Label text="Disabled" />
             <f:GridContainer
                 id="grid1"
                 class="sapUiSmallMargin"
-                width="80%"
+                width="100%"
                 snapToRow="true"
                 items="{ path: '/' }"
             >
@@ -73,6 +70,6 @@
                     </f:header>
                 </f:Card>
             </f:GridContainer>
-        </HBox>
+        </VBox>
     </ScrollContainer>
 </mvc:View>

@@ -24,24 +24,23 @@ sap.ui.define([
 
 		initData: function () {
 			this.byId("list1").setModel(new JSONModel([
-				{ title: "Open SAP Homepage 2x2", rows: 2, columns: 2 },
-				{ title: "Your personal information 3x3", rows: 3, columns: 3 },
-				{ title: "Appointments management 2x4", rows: 2, columns: 4 }
+				{ title: "Card1", rows: 2, columns: 2 },
+				{ title: "Card2", rows: 2, columns: 2 }
 			]));
 
 			this.byId("grid1").setModel(new JSONModel([
-				{ title: "Sales Fulfillment Application Title 4x2", rows: 4, columns: 2 },
-				{ title: "Manage Activity Master Data Type 2x3", rows: 2, columns: 3 },
-				{ title: "Success Map 2x2", rows: 2, columns: 2 }
+				{ title: "Card3", rows: 2, columns: 2 }
 			]));
 		},
 
 		onRevealGrid: function () {
 			RevealGrid.toggle("grid1", this.getView());
+			RevealGrid.toggle("list1", this.getView());
 		},
 
 		onExit: function () {
 			RevealGrid.destroy("grid1", this.getView());
+			RevealGrid.destroy("list1", this.getView());
 		},
 
 		attachDragAndDrop: function () {
