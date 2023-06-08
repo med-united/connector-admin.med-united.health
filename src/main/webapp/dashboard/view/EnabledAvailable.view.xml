@@ -14,7 +14,7 @@
     >
         <VBox renderType="Bare">
             <Label text=" " />
-            <Label text="Enabled" />
+            <Label text="    Enabled" design="Bold"/>
             <f:GridContainer
                 id="list1"
                 class="sapUiSmallMargin"
@@ -42,7 +42,7 @@
                     </f:header>
                 </f:Card>
             </f:GridContainer>
-            <Label text="Disabled" />
+            <Label text="    Disabled" design="Bold"/>
             <f:GridContainer
                 id="grid1"
                 class="sapUiSmallMargin"
