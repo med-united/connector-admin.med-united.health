@@ -33,7 +33,7 @@
                 >
                     <Label text=" " />
                     <Label
-                        text="    Enabled"
+                        text="    {i18n>enabled}"
                         design="Bold"
                     />
 
@@ -95,7 +95,7 @@
                     </f:GridContainer>
 
                     <Label
-                        text="    Available"
+                        text="    {i18n>available}"
                         design="Bold"
                     />
                     <f:GridContainer
