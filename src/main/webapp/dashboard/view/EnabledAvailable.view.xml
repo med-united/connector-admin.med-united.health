@@ -13,6 +13,12 @@
         vertical="true"
     >
         <VBox renderType="Bare">
+            <ToggleButton
+            id="revealGrid"
+            text="Reveal Grid"
+            press="onRevealGrid"
+            class="sapUiSmallMarginBegin sapUiSmallMarginTop sapUiTinyMarginBottom"
+        />
             <Label text=" " />
             <Label text="    Enabled" design="Bold"/>
             <f:GridContainer
@@ -20,6 +26,7 @@
                 class="sapUiSmallMargin"
                 width="100%"
                 snapToRow="true"
+                minHeight="230px"
                 items="{ path: '/' }"
             >
                 <f:layoutXS>
@@ -42,12 +49,15 @@
                     </f:header>
                 </f:Card>
             </f:GridContainer>
-            <Label text="    Disabled" design="Bold"/>
+
+
+            <Label text="    Available" design="Bold"/>
             <f:GridContainer
                 id="grid1"
                 class="sapUiSmallMargin"
                 width="100%"
                 snapToRow="true"
+                minHeight="230px"
                 items="{ path: '/' }"
             >
                 <f:layoutXS>
