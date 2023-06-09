@@ -22,126 +22,114 @@
 
         <!-- DynamicPage Content -->
         <f:content>
-                <VBox
-                    renderType="Bare"
-                    width="90%"
+            <VBox
+                renderType="Bare"
+                width="90%"
+            >
+                <Label
+                    text="    {i18n>introText}"
+                    design="Bold"
+                />
+                <Label text=" " />
+                <Label text=" " />
+                <Label
+                    text="    {i18n>enabled}"
+                    design="Bold"
+                />
+
+                <!-- SAP UI5 internally takes Grid0 (the first grid) as a list. 
+                         This is why it is hidden. We need grids not lists -->
+                <f:GridContainer
+                    id="grid0"
+                    class="sapUiSmallMargin"
+                    width="10%"
+                    snapToRow="true"
                 >
-                    <Label
-                        text="    {i18n>introText}"
-                        design="Bold"
-                    />
-                    <Label text=" " />
-                    <Label text=" " />
-                    <Label
-                        text="    {i18n>enabled}"
-                        design="Bold"
-                    />
+                    <f:layoutXS>
+                        <f:GridContainerSettings
+                            rowSize="1px"
+                            columnSize="1px"
+                        />
+                    </f:layoutXS>
 
-                    <f:GridContainer
-                        id="grid0"
-                        class="sapUiSmallMargin"
-                        width="10%"
-                        snapToRow="true"
-                    >
-                        <f:layoutXS>
-                            <f:GridContainerSettings
-                                rowSize="1px"
-                                columnSize="1px"
+                    <f:Card>
+                        <f:layoutData>
+                            <f:GridContainerItemLayoutData
+                                minRows="0"
+                                columns="0"
                             />
-                        </f:layoutXS>
+                        </f:layoutData>
+                        <f:header>
+                            <card:Header title=" " />
+                        </f:header>
+                    </f:Card>
+                </f:GridContainer>
 
-                        <f:Card>
-                            <f:layoutData>
-                                <f:GridContainerItemLayoutData
-                                    minRows="0"
-                                    columns="0"
-                                />
-                            </f:layoutData>
-                            <f:header>
-                                <card:Header
-                                    title="SAP UI5 takes Grid0 as a list. This is why it is hidden. We need grids not lists"
-                                />
-                            </f:header>
-                        </f:Card>
-                    </f:GridContainer>
+                <f:GridContainer
+                    id="grid1"
+                    class="sapUiSmallMargin"
+                    width="100%"
+                    snapToRow="true"
+                    minHeight="230px"
+                    items="{ path: '/' }"
+                >
+                    <f:layoutXS>
+                        <f:GridContainerSettings
+                            rowSize="70px"
+                            columnSize="70px"
+                            gap="8px"
+                        />
+                    </f:layoutXS>
 
-                    <f:GridContainer
-                        id="grid1"
-                        class="sapUiSmallMargin"
-                        width="100%"
-                        snapToRow="true"
-                        minHeight="230px"
-                        items="{ path: '/' }"
-                    >
-                        <f:layoutXS>
-                            <f:GridContainerSettings
-                                rowSize="70px"
-                                columnSize="70px"
-                                gap="8px"
+                    <f:Card>
+                        <f:layoutData>
+                            <f:GridContainerItemLayoutData
+                                minRows="{rows}"
+                                columns="{columns}"
                             />
-                        </f:layoutXS>
+                        </f:layoutData>
+                        <f:header>
+                            <card:Header title="{title}" />
+                        </f:header>
+                    </f:Card>
+                </f:GridContainer>
 
-                        <f:Card>
-                            <f:layoutData>
-                                <f:GridContainerItemLayoutData
-                                    minRows="{rows}"
-                                    columns="{columns}"
-                                />
-                            </f:layoutData>
-                            <f:header>
-                                <card:Header title="{title}" />
-                            </f:header>
-                        </f:Card>
-                    </f:GridContainer>
+                <Label
+                    text="    {i18n>available}"
+                    design="Bold"
+                />
+                <f:GridContainer
+                    id="grid2"
+                    class="sapUiSmallMargin"
+                    width="100%"
+                    snapToRow="true"
+                    minHeight="230px"
+                    items="{ path: '/' }"
+                >
+                    <f:layoutXS>
+                        <f:GridContainerSettings
+                            rowSize="70px"
+                            columnSize="70px"
+                            gap="8px"
+                        />
+                    </f:layoutXS>
 
-                    <Label
-                        text="    {i18n>available}"
-                        design="Bold"
-                    />
-                    <f:GridContainer
-                        id="grid2"
-                        class="sapUiSmallMargin"
-                        width="100%"
-                        snapToRow="true"
-                        minHeight="230px"
-                        items="{ path: '/' }"
-                    >
-                        <f:layoutXS>
-                            <f:GridContainerSettings
-                                rowSize="70px"
-                                columnSize="70px"
-                                gap="8px"
+                    <f:Card>
+                        <f:layoutData>
+                            <f:GridContainerItemLayoutData
+                                minRows="{rows}"
+                                columns="{columns}"
                             />
-                        </f:layoutXS>
-
-                        <f:Card>
-                            <f:layoutData>
-                                <f:GridContainerItemLayoutData
-                                    minRows="{rows}"
-                                    columns="{columns}"
-                                />
-                            </f:layoutData>
-                            <f:header>
-                                <card:Header title="{title}" />
-                            </f:header>
-                        </f:Card>
-                    </f:GridContainer>
-                </VBox>
+                        </f:layoutData>
+                        <f:header>
+                            <card:Header title="{title}" />
+                        </f:header>
+                    </f:Card>
+                </f:GridContainer>
+            </VBox>
         </f:content>
 
         <!-- DynamicPage Footer -->
-        <f:footer>
-            <OverflowToolbar>
-                <ToolbarSpacer />
-                <Button
-                    type="Accept"
-                    text="Accept"
-                />
-                <Button
-                    type="Reject"
-                    text="Reject"
-                />
-            </OverflowToolbar>
-        </f:footer>
+        <f:footer />
     </f:DynamicPage>
 </mvc:View>

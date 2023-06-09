@@ -43,7 +43,7 @@ sap.ui.define(
           this.byId("grid2").setModel(
             new JSONModel([
               {
-                title: "\u00DCberpr\u00FCfung Onlinestatus TI ",
+                title: "\u00DCberpr\u00FCfung Onlinestatus TI",
                 rows: 2,
                 columns: 2,
               },
