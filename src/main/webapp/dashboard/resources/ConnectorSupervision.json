@@ -9,15 +9,14 @@
   "sap.card": {
     "type": "List",
     "header": {
-      "title": "Konnektor Überwachung",
+      "title": "Automatische Konnektor\u00FCberwachung",
       "actions": [
         {
           "type": "Navigation",
-          "url": "./#/enabledavailable",
+          "url": "./#/automaticmonitoring",
           "target": "_self"
         }
       ]
     }
-    
   }
 }

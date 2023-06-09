@@ -85,10 +85,10 @@
 					]
 				},
 				{
-					"pattern": "enabledavailable",
-					"name": "enabledavailable",
+					"pattern": "automaticmonitoring",
+					"name": "automaticmonitoring",
 					"target": [
-						"enabledavailable"
+						"automaticmonitoring"
 					]
 				},
 				{
@@ -126,8 +126,8 @@
 					"controlAggregation": "beginColumnPages",
 					"clearControlAggregation": true
 				},
-				"enabledavailable": {
-					"viewName": "EnabledAvailable",
+				"automaticmonitoring": {
+					"viewName": "AutomaticMonitoring",
 					"controlAggregation": "beginColumnPages",
 					"clearControlAggregation": true
 				},

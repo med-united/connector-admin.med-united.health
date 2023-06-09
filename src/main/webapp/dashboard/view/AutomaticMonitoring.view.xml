@@ -1,5 +1,5 @@
 <mvc:View
-    controllerName="sap.f.ShellBarWithFlexibleColumnLayout.controller.EnabledAvailable"
+    controllerName="sap.f.ShellBarWithFlexibleColumnLayout.controller.AutomaticMonitoring"
     xmlns="sap.m"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns:f="sap.f"
@@ -31,6 +31,13 @@
                     renderType="Bare"
                     width="90%"
                 >
+                    <Label text=" " />
+                    <Label
+                        text="    {i18n>introText}"
+                        design="Bold"
+                    />
+                    <Label text=" " />
+                    <Label text=" " />
                     <Label text=" " />
                     <Label
                         text="    {i18n>enabled}"
