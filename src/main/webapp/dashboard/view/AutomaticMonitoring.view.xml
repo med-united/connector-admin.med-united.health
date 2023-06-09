@@ -8,7 +8,7 @@
     height="100%"
 >
     <f:DynamicPage
-        id="dynamicPageId"
+        id="amDynamicPage"
         toggleHeaderOnTitleClick="false"
     >
         <!-- DynamicPage Title -->
@@ -22,21 +22,14 @@
 
         <!-- DynamicPage Content -->
         <f:content>
-            <ScrollContainer
-                height="100%"
-                width="100%"
-                vertical="true"
-            >
                 <VBox
                     renderType="Bare"
                     width="90%"
                 >
-                    <Label text=" " />
                     <Label
                         text="    {i18n>introText}"
                         design="Bold"
                     />
-                    <Label text=" " />
                     <Label text=" " />
                     <Label text=" " />
                     <Label
@@ -134,7 +127,6 @@
                         </f:Card>
                     </f:GridContainer>
                 </VBox>
-            </ScrollContainer>
         </f:content>
 
         <!-- DynamicPage Footer -->
