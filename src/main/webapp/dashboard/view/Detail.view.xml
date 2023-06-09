@@ -370,6 +370,12 @@
                                                     text="{i18n>Connection}"
                                                 />
                                             </Column>
+                                            <Column importance="Medium">
+                                                <Text text="HW Version" />
+                                            </Column>
+                                            <Column importance="Medium">
+                                                <Text text="FW Version" />
+                                            </Column>
                                         </columns>
                                         <items>
                                             <ColumnListItem>
@@ -384,6 +390,12 @@
                                                 />
                                                 <Text
                                                     text="{CardTerminals>connected}"
+                                                />
+                                                <Text
+                                                text="{ConnectorSDS>/productInformation/productIdentification/productVersion/local/HWVersion}"
+                                                />
+                                                <Text
+                                                text="{ConnectorSDS>/productInformation/productIdentification/productVersion/local/FWVersion}"
                                                 />
                                             </ColumnListItem>
                                         </items>
