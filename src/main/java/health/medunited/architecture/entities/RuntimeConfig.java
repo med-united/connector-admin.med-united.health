@@ -21,13 +21,13 @@ public class RuntimeConfig {
 
     private String url;
 
-    private String signPort;
-
-    private String vzdPort;
-
     private String mandantId;
 
     private String clientSystemId;
+
+    private String username;
+
+    private String password;
 
     private String workplaceId;
 
@@ -41,14 +41,14 @@ public class RuntimeConfig {
     public RuntimeConfig() {
     }
 
-    public RuntimeConfig(String host, String signPort, String vzdPort, String mandantId, String clientSystemId, String workplaceId, String userId,
+    public RuntimeConfig(String host, String mandantId, String clientSystemId, String workplaceId, String userId,
                          boolean useSSL, String clientCertificate, String clientCertificatePassword) {
         this.url = host;
-        this.signPort = signPort;
-        this.vzdPort = vzdPort;
         this.mandantId = mandantId;
         this.clientSystemId = clientSystemId;
         this.workplaceId = workplaceId;
+        this.username = username;
+        this.password = password;
         this.userId = userId;
         this.useSSL = useSSL;
         this.clientCertificate = clientCertificate;
@@ -61,6 +61,22 @@ public class RuntimeConfig {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public String getUserId() {
@@ -77,22 +93,6 @@ public class RuntimeConfig {
 
     public void setUrl(String url) {
         this.url = url;
-    }
-
-    public String getSignPort() {
-        return signPort;
-    }
-
-    public void setSignPort(String signPort) {
-        this.signPort = signPort;
-    }
-
-    public String getVzdPort() {
-        return vzdPort;
-    }
-
-    public void setVzdPort(String vzdPort) {
-        this.vzdPort = vzdPort;
     }
 
     public String getMandantId() {
