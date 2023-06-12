@@ -23,9 +23,11 @@
     },
     "content": {
       "data": {
-        "json": [{"Name": "Konnektoren", "Icon" :  "../images/Connector.png"},
-          {"Name":  "Kartenterminals",  "Icon" :  "../images/CardTerminal.png"},
-          {"Name":  "Karten",  "Icon" :  "../images/Card.png"}]
+        "json": [
+          { "Name": "Konnektoren", "Icon": "../images/Connector.png" },
+          { "Name": "Kartenterminals", "Icon": "../images/CardTerminal.png" },
+          { "Name": "Karten", "Icon": "../images/Card.png" }
+        ]
       },
       "item": {
         "title": "{Name}",
