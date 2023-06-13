@@ -10,6 +10,9 @@
     "type": "List",
     "header": {
       "title": "Automatische Konnektor\u00FCberwachung",
+      "icon": {
+        "src": "sap-icon://sys-monitor"
+      },
       "actions": [
         {
           "type": "Navigation",
