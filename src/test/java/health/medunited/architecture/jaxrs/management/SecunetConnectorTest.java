@@ -22,7 +22,7 @@ public class SecunetConnectorTest {
 
     @Test
     @Disabled
-    public void testAcceptingAllConnections() throws Exception {
+    public void testRestart() throws Exception {
         secunetConnector.secretsManagerService = new SecretsManagerService();
         secunetConnector.secretsManagerService.setUpSSLContext(null);
         AbstractConnector.modifyClientBuilder = (clientBuilder) -> {
