@@ -55,7 +55,23 @@ public class ConnectorManagement {
         }
         
         connector.restart(connectorUrl, managementCredentials);
+    }
 
+    @GET
+    @Path("/{connectorType}/checkTIStatus")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void checkTIStatus(
+            @PathParam("connectorType") String connectorType,
+            @QueryParam("connectorUrl") String connectorUrl,
+            ManagementCredentials managementCredentials
+    ) {
+
+        Connector connector = connectorMap.get(connectorType);
+        if (connector == null) {
+            throw new IllegalArgumentException("Unknown connector type: " + connectorType);
+        }
+
+        connector.isTIOnline(connectorUrl, managementPort, managementCredentials);
     }
 
 }

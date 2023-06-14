@@ -94,6 +94,10 @@ public class RiseConnector extends AbstractConnector {
 
     }
 
+    @Override
+    public boolean isTIOnline(String connectorUrl, String managementPort, ManagementCredentials managementCredentials) {
+        return false;
+    }
 
     public static class ManagementCredentialsRISE {
         String user;
