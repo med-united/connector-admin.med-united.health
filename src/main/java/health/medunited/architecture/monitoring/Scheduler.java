@@ -119,6 +119,8 @@ public class Scheduler {
                 addMetricPinStatusSMCB(EMPTY_PIN, connectorResponseTime, runtimeConfig, eventServicePortType, cardServicePortType);
                 addMetricPinStatusSMCB(TRANSPORT_PIN, connectorResponseTime, runtimeConfig, eventServicePortType, cardServicePortType);
 
+                addMetricIsKonnektorUpdated();
+
             } catch (Throwable t) {
                 log.log(Level.INFO, "Error while contacting connector", t);
             }
@@ -237,6 +239,44 @@ public class Scheduler {
                     });
         } catch (Exception e) {
             log.log(Level.WARNING, "Cannot measure connector", e);
+        }
+    }
+
+    int getIsConnectorUpdated() {
+        return 5;
+    }
+
+
+    private void addMetricIsKonnektorUpdated() {
+        System.out.println("-*-*-*-*-*-*-*--*--*-*-*-*-*-");
+        System.out.println("-*-*-*-*-*-*-*--*--*-*-*-*-*-");
+        System.out.println("-*-*-*-*-*-*-*--*--*-*-*-*-*-");
+        System.out.println("-*-*-*-*-*-*-*--*--*-*-*-*-*-");
+        System.out.println("-*-*-*-*-*-*-*--*--*-*-*-*-*-");
+        System.out.println("-*-*-*-*-*-*-*--*--*-*-*-*-*-");
+        System.out.println("-*-*-*-*-*-*-*--*--*-*-*-*-*-");
+        System.out.println("-*-*-*-*-*-*-*--*--*-*-*-*-*-");
+        try {
+            int callable = getIsConnectorUpdated();
+            Gauge<Integer> isConnectorUpdated = applicationRegistry
+                    .gauge(
+                            Metadata.builder()
+                                    .withName("isConnectorCurrentlyUpdated_")
+                                    .withDescription("Shows if the Connector is updated to the newest possible Firmware version")
+                                    .build(), () -> {
+                                Integer isUpdated;
+                                try {
+                                    isUpdated = callable;
+                                    System.out.println("iud"+isUpdated);
+                                    log.info("Is the connector currently updated?: " + isUpdated);
+                                    return isUpdated;
+                                } catch (Exception e) {
+                                    log.log(Level.WARNING, "Cannot measure connector", e);
+                                }
+                                return null;
+                            });
+        } catch (Exception e) {
+            log.log(Level.WARNING, "Cannot measure if connector is updated", e);
         }
     }
 
