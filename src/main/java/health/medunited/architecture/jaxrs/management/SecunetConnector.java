@@ -48,7 +48,21 @@ public class SecunetConnector extends AbstractConnector {
         return loginBuilder.post(Entity.json(managementCredentials));
     }
 
-    public void checkUpdate(String connectorUrl, ManagementCredentials managementCredentials) {
+    public void checkUpdate(String connectorUrl, String managementPort, ManagementCredentials managementCredentials) {
+        log.log(Level.INFO, "Checking the Update Version of the Secunet Connector");
 
+        Client client = buildClient();
+
+        Response loginResponse = loginManagementConsole(client, connectorUrl, managementPort, managementCredentials);
+
+        WebTarget updateTarget = client.target(connectorUrl + ":" + managementPort)
+                .path("/management/home/system/aktualisierung/konnektor");
+
+        Invocation.Builder updateBuilder = updateTarget.request(MediaType.APPLICATION_JSON);
+        Response updateResponse = updateBuilder.post(Entity.json(managementCredentials));
+
+        Object log2 = updateResponse.getHeaders();
+
+        System.out.println(log2);
     }
 }

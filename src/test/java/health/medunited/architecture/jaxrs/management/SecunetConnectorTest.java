@@ -14,8 +14,8 @@ import java.util.logging.Logger;
 public class SecunetConnectorTest {
 
     String host = "https://192.168.178.42";
-    String username = ""; //specify before the test
-    String password = ""; //specify before the test
+    String username = "super"; //specify before the test
+    String password = "konnektor3$"; //specify before the test
 
     private static Logger log = Logger.getLogger(SecunetConnectorTest.class.getName());
 
@@ -40,6 +40,8 @@ public class SecunetConnectorTest {
     @Disabled
     public void testCheckUpdate() throws Exception {
 
+        String port = "8500";
+
         secunetConnector.secretsManagerService = new SecretsManagerService();
         secunetConnector.secretsManagerService.setUpSSLContext(null);
         AbstractConnector.modifyClientBuilder = (clientBuilder) -> {
@@ -48,7 +50,7 @@ public class SecunetConnectorTest {
             clientBuilder.connectTimeout(10, TimeUnit.SECONDS);
             clientBuilder.readTimeout(10, TimeUnit.SECONDS);
         };
-        secunetConnector.checkUpdate(host, new ManagementCredentials(username, password));
+        secunetConnector.checkUpdate(host, port, new ManagementCredentials(username, password));
 
     }
 }
