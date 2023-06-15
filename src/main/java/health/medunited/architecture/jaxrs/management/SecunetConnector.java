@@ -50,7 +50,7 @@ public class SecunetConnector extends AbstractConnector {
     }
 
 
-    public void checkUpdate(String connectorUrl, String managementPort, ManagementCredentials managementCredentials) {
+    public int checkUpdate(String connectorUrl, String managementPort, ManagementCredentials managementCredentials) {
         log.log(Level.INFO, "Checking the Update Version of the Secunet Connector");
         System.out.println(" ");
 
@@ -86,8 +86,14 @@ public class SecunetConnector extends AbstractConnector {
 
         System.out.println("Latest possible update version: "+latestVersion);
         System.out.println(" ");
-        if (fwVersion == latestVersion) System.out.println("Connector updated to latest version: true");
-        else System.out.println("Connector updated to latest version: false");
+        if (fwVersion.equals(latestVersion)) {
+            System.out.println("Connector updated to latest version: true");
+            return 1;
+        }
+        else {
+            System.out.println("Connector updated to latest version: false");
+            return 0;
+        }
 
     }
 }
