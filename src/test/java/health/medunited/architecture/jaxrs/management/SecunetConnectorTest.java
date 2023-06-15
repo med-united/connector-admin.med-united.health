@@ -14,8 +14,8 @@ import java.util.logging.Logger;
 public class SecunetConnectorTest {
 
     String host = "https://192.168.178.42";
-    String username = "super"; //specify before the test
-    String password = "konnektor3$"; //specify before the test
+    String username = ""; //specify before the test
+    String password = ""; //specify before the test
 
     private static Logger log = Logger.getLogger(SecunetConnectorTest.class.getName());
 
