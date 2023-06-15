@@ -47,4 +47,8 @@ public class SecunetConnector extends AbstractConnector {
         Invocation.Builder loginBuilder = loginTarget.request(MediaType.APPLICATION_JSON);
         return loginBuilder.post(Entity.json(managementCredentials));
     }
+
+    public void checkUpdate(String connectorUrl, ManagementCredentials managementCredentials) {
+
+    }
 }

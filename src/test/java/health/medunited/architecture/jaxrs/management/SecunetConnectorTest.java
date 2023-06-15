@@ -1,4 +1,4 @@
-/*
+
 package health.medunited.architecture.jaxrs.management;
 
 import health.medunited.architecture.model.ManagementCredentials;
@@ -35,5 +35,20 @@ public class SecunetConnectorTest {
         secunetConnector.restart(host, new ManagementCredentials(username, password));
 
     }
+
+    @Test
+    @Disabled
+    public void testCheckUpdate() throws Exception {
+
+        secunetConnector.secretsManagerService = new SecretsManagerService();
+        secunetConnector.secretsManagerService.setUpSSLContext(null);
+        AbstractConnector.modifyClientBuilder = (clientBuilder) -> {
+            // This will print URL and Header of request
+            // clientBuilder.register(LoggingFilter.class);
+            clientBuilder.connectTimeout(10, TimeUnit.SECONDS);
+            clientBuilder.readTimeout(10, TimeUnit.SECONDS);
+        };
+        secunetConnector.checkUpdate(host, new ManagementCredentials(username, password));
+
+    }
 }
-*/
