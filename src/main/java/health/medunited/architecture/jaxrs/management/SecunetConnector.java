@@ -12,6 +12,7 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.google.gson.JsonObject;
 import health.medunited.architecture.model.ManagementCredentials;
 
 @ApplicationScoped
@@ -48,6 +49,7 @@ public class SecunetConnector extends AbstractConnector {
         return loginBuilder.post(Entity.json(managementCredentials));
     }
 
+
     public void checkUpdate(String connectorUrl, String managementPort, ManagementCredentials managementCredentials) {
         log.log(Level.INFO, "Checking the Update Version of the Secunet Connector");
 
@@ -55,14 +57,18 @@ public class SecunetConnector extends AbstractConnector {
 
         Response loginResponse = loginManagementConsole(client, connectorUrl, managementPort, managementCredentials);
 
+
         WebTarget updateTarget = client.target(connectorUrl + ":" + managementPort)
-                .path("/management/home/system/aktualisierung/konnektor");
-
+                .path("/rest/mgmt/ak/dienste/status/version");
         Invocation.Builder updateBuilder = updateTarget.request(MediaType.APPLICATION_JSON);
-        Response updateResponse = updateBuilder.post(Entity.json(managementCredentials));
+        updateBuilder.header("Authorization", loginResponse.getHeaders().get("Authorization").get(0));
+        Response updateResponse = updateBuilder.get();
 
-        Object log2 = updateResponse.getHeaders();
+        String log2 = updateResponse.readEntity(String.class);
+        //String log3 = log2.getAsString();
 
-        System.out.println(log2);
+        System.out.println("l2:"+log2);
+        //System.out.println("l3:"+log3);
+
     }
 }
