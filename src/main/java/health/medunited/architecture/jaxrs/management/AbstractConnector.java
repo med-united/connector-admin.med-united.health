@@ -15,11 +15,12 @@ import health.medunited.architecture.service.common.security.SecretsManagerServi
 public abstract class AbstractConnector implements Connector {
 
     @Inject
+    static
     SecretsManagerService secretsManagerService;
 
     static Consumer<ClientBuilder> modifyClientBuilder = null;
 
-    Client buildClient() {
+    static Client buildClient() {
         ClientBuilder clientBuilder = ClientBuilder.newBuilder();
 
         clientBuilder.connectTimeout(3, TimeUnit.SECONDS);
