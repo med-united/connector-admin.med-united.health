@@ -1,16 +1,15 @@
 
 package health.medunited.architecture.jaxrs.management;
 
-import health.medunited.architecture.model.ManagementCredentials;
-import health.medunited.architecture.service.common.security.SecretsManagerService;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Logger;
+
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import java.util.concurrent.TimeUnit;
+import health.medunited.architecture.model.ManagementCredentials;
+import health.medunited.architecture.service.common.security.SecretsManagerService;
 
-import java.util.logging.Logger;
-
-@Disabled
 public class SecunetConnectorTest {
 
     String host = "https://192.168.178.42";
@@ -37,7 +36,6 @@ public class SecunetConnectorTest {
     }
 
     @Test
-    @Disabled
     public void testCheckUpdate() throws Exception {
 
         String port = "8500";
