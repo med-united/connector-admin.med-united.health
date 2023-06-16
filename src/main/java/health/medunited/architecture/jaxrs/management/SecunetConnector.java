@@ -11,6 +11,8 @@ import javax.ws.rs.client.Invocation;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
+import health.medunited.architecture.service.common.security.SecretsManagerService;
 import org.json.*;
 
 import health.medunited.architecture.model.ManagementCredentials;
@@ -20,6 +22,11 @@ import health.medunited.architecture.model.ManagementCredentials;
 public class SecunetConnector extends AbstractConnector {
 
     private static final Logger log = Logger.getLogger(SecunetConnector.class.getName());
+     SecretsManagerService secretsManagerService;
+
+    public void setSecretsManagerService(SecretsManagerService secretsManagerService) {
+        this.secretsManagerService = secretsManagerService;
+    }
 
     @Override
     public void restart(String connectorUrl, ManagementCredentials managementCredentials) {

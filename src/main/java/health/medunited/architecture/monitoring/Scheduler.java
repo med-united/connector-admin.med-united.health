@@ -26,6 +26,8 @@ import javax.xml.ws.Holder;
 import de.gematik.ws.conn.cardservice.v8.PinStatusEnum;
 import de.gematik.ws.conn.cardservice.wsdl.v8.FaultMessage;
 import de.gematik.ws.conn.connectorcommon.v5.Status;
+import health.medunited.architecture.jaxrs.management.SecunetConnector;
+import health.medunited.architecture.model.ManagementCredentials;
 import org.eclipse.microprofile.metrics.*;
 import org.eclipse.microprofile.metrics.Timer;
 import org.eclipse.microprofile.metrics.annotation.RegistryType;
@@ -243,6 +245,14 @@ public class Scheduler {
     }
 
     int getIsConnectorUpdated() {
+        String host = "https://192.168.178.42";
+        String username = "super"; //specify before the test
+        String password = "konnektor3$"; //specify before the test
+        String port = "8500";
+
+        SecunetConnector secunetConnector = new SecunetConnector();
+        secunetConnector.setSecretsManagerService(new SecretsManagerService());
+        // secunetConnector.checkUpdate(host, port, new ManagementCredentials(username,password));
         return 5;
     }
 
@@ -267,7 +277,7 @@ public class Scheduler {
                                 Integer isUpdated;
                                 try {
                                     isUpdated = callable;
-                                    System.out.println("iud"+isUpdated);
+                                    System.out.println("iud" + isUpdated);
                                     log.info("Is the connector currently updated?: " + isUpdated);
                                     return isUpdated;
                                 } catch (Exception e) {
