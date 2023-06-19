@@ -37,7 +37,7 @@ sap.ui.define(
           this.currentRouteName = sRouteName;
           this.currentProduct = oArguments.product;
 
-          if(sRouteName === "master") {
+          if(sRouteName === "master" || sRouteName == 'automaticmonitoring') {
              this.getView().byId("shellbar").setShowNavButton(true)
           } else {
              this.getView().byId("shellbar").setShowNavButton(false)

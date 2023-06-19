@@ -1,0 +1,135 @@
+<mvc:View
+    controllerName="sap.f.ShellBarWithFlexibleColumnLayout.controller.AutomaticMonitoring"
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:f="sap.f"
+    xmlns:card="sap.f.cards"
+    displayBlock="true"
+    height="100%"
+>
+    <f:DynamicPage
+        id="amDynamicPage"
+        toggleHeaderOnTitleClick="false"
+    >
+        <!-- DynamicPage Title -->
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:heading>
+                    <Title text="{i18n>connectorAutomate}" />
+                </f:heading>
+            </f:DynamicPageTitle>
+        </f:title>
+
+        <!-- DynamicPage Content -->
+        <f:content>
+            <VBox
+                renderType="Bare"
+                width="90%"
+            >
+                <Label
+                    text="    {i18n>introText}"
+                    design="Bold"
+                />
+                <Label text=" " />
+                <Label text=" " />
+                <Label
+                    text="    {i18n>enabled}"
+                    design="Bold"
+                />
+
+                <!-- SAP UI5 internally takes Grid0 (the first grid) as a list. 
+                         This is why it is hidden. We need grids not lists -->
+                <f:GridContainer
+                    id="grid0"
+                    class="sapUiSmallMargin"
+                    width="10%"
+                    snapToRow="true"
+                >
+                    <f:layoutXS>
+                        <f:GridContainerSettings
+                            rowSize="1px"
+                            columnSize="1px"
+                        />
+                    </f:layoutXS>
+
+                    <f:Card>
+                        <f:layoutData>
+                            <f:GridContainerItemLayoutData
+                                minRows="0"
+                                columns="0"
+                            />
+                        </f:layoutData>
+                        <f:header>
+                            <card:Header title=" " />
+                        </f:header>
+                    </f:Card>
+                </f:GridContainer>
+
+                <f:GridContainer
+                    id="grid1"
+                    class="sapUiSmallMargin"
+                    width="100%"
+                    snapToRow="true"
+                    minHeight="230px"
+                    items="{ path: '/' }"
+                >
+                    <f:layoutXS>
+                        <f:GridContainerSettings
+                            rowSize="70px"
+                            columnSize="70px"
+                            gap="8px"
+                        />
+                    </f:layoutXS>
+
+                    <f:Card>
+                        <f:layoutData>
+                            <f:GridContainerItemLayoutData
+                                minRows="{rows}"
+                                columns="{columns}"
+                            />
+                        </f:layoutData>
+                        <f:header>
+                            <card:Header title="{title}" />
+                        </f:header>
+                    </f:Card>
+                </f:GridContainer>
+
+                <Label
+                    text="    {i18n>available}"
+                    design="Bold"
+                />
+                <f:GridContainer
+                    id="grid2"
+                    class="sapUiSmallMargin"
+                    width="100%"
+                    snapToRow="true"
+                    minHeight="230px"
+                    items="{ path: '/' }"
+                >
+                    <f:layoutXS>
+                        <f:GridContainerSettings
+                            rowSize="70px"
+                            columnSize="70px"
+                            gap="8px"
+                        />
+                    </f:layoutXS>
+
+                    <f:Card>
+                        <f:layoutData>
+                            <f:GridContainerItemLayoutData
+                                minRows="{rows}"
+                                columns="{columns}"
+                            />
+                        </f:layoutData>
+                        <f:header>
+                            <card:Header title="{title}" />
+                        </f:header>
+                    </f:Card>
+                </f:GridContainer>
+            </VBox>
+        </f:content>
+
+        <!-- DynamicPage Footer -->
+        <f:footer />
+    </f:DynamicPage>
+</mvc:View>

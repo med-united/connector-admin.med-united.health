@@ -52,7 +52,7 @@ public class Bootstrap {
         RuntimeConfig runtimeConfig = new RuntimeConfig();
         runtimeConfig.setId("94310cf3-1bc0-403a-8c2e-44ae2472f0d2");
         runtimeConfig.setUserId("kops-id");
-        runtimeConfig.setUrl("http://172.31.26.17");
+        runtimeConfig.setUrl("http://172.31.23.80");
         // runtimeConfig.setUrl("https://localhost");
         runtimeConfig.setMandantId("Mandant1");
         runtimeConfig.setClientSystemId("ClientID1");
