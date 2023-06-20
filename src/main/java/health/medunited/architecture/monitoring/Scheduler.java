@@ -52,6 +52,9 @@ public class Scheduler {
     @PersistenceContext
     EntityManager entityManager;
 
+    @Inject
+    SecunetConnector secunetConnector;
+
     private static final Logger log = Logger.getLogger(Scheduler.class.getName());
 
     private static final String VERIFIABLE = "VERIFIABLE";
@@ -80,8 +83,8 @@ public class Scheduler {
                     try {
                         secretsManagerService.setUpSSLContext(secretsManagerService.getKeyFromKeyStoreUri(keystore, keystorePassword));
                     } catch (KeyManagementException | NoSuchAlgorithmException | KeyStoreException |
-                             CertificateException
-                             | URISyntaxException | IOException e) {
+                            CertificateException
+                            | URISyntaxException | IOException e) {
                         log.log(Level.WARNING, "Could not create SSL context", e);
                     }
                 }
@@ -103,6 +106,9 @@ public class Scheduler {
 
                 EventServicePortType eventServicePortType = connectorServicesProducer.getEventServicePortType();
                 CardServicePortType cardServicePortType = connectorServicesProducer.getCardServicePortType();
+
+                secunetConnector.setSecretsManagerService(secretsManagerService);
+                secunetConnector.checkUpdate("https://192.168.178.42", "8500", new ManagementCredentials("super", "konnektor3$"));
 
                 // register a new application scoped metric
                 Timer connectorResponseTime = applicationRegistry.timer(Metadata.builder()
