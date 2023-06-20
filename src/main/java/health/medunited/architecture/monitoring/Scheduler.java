@@ -108,7 +108,6 @@ public class Scheduler {
                 CardServicePortType cardServicePortType = connectorServicesProducer.getCardServicePortType();
 
                 secunetConnector.setSecretsManagerService(secretsManagerService);
-                secunetConnector.checkUpdate("https://192.168.178.42", "8500", new ManagementCredentials("super", "konnektor3$"));
 
                 // register a new application scoped metric
                 Timer connectorResponseTime = applicationRegistry.timer(Metadata.builder()
@@ -251,27 +250,11 @@ public class Scheduler {
     }
 
     int getIsConnectorUpdated() {
-        String host = "https://192.168.178.42";
-        String username = ""; //specify before the test
-        String password = ""; //specify before the test
-        String port = "8500";
-
-        SecunetConnector secunetConnector = new SecunetConnector();
-        secunetConnector.setSecretsManagerService(new SecretsManagerService());
-        // secunetConnector.checkUpdate(host, port, new ManagementCredentials(username,password));
-        return 5;
+        return secunetConnector.checkUpdate("https://192.168.178.42", "8500", new ManagementCredentials("super", "konnektor3$"));
     }
 
 
     private void addMetricIsKonnektorUpdated() {
-        System.out.println("-*-*-*-*-*-*-*--*--*-*-*-*-*-");
-        System.out.println("-*-*-*-*-*-*-*--*--*-*-*-*-*-");
-        System.out.println("-*-*-*-*-*-*-*--*--*-*-*-*-*-");
-        System.out.println("-*-*-*-*-*-*-*--*--*-*-*-*-*-");
-        System.out.println("-*-*-*-*-*-*-*--*--*-*-*-*-*-");
-        System.out.println("-*-*-*-*-*-*-*--*--*-*-*-*-*-");
-        System.out.println("-*-*-*-*-*-*-*--*--*-*-*-*-*-");
-        System.out.println("-*-*-*-*-*-*-*--*--*-*-*-*-*-");
         try {
             int callable = getIsConnectorUpdated();
             Gauge<Integer> isConnectorUpdated = applicationRegistry
