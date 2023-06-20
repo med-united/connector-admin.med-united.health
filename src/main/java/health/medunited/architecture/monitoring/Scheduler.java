@@ -126,7 +126,7 @@ public class Scheduler {
                 addMetricPinStatusSMCB(EMPTY_PIN, connectorResponseTime, runtimeConfig, eventServicePortType, cardServicePortType);
                 addMetricPinStatusSMCB(TRANSPORT_PIN, connectorResponseTime, runtimeConfig, eventServicePortType, cardServicePortType);
 
-                addMetricIsKonnektorUpdated();
+                addMetricIsKonnektorUpdated(runtimeConfig);
 
             } catch (Throwable t) {
                 log.log(Level.INFO, "Error while contacting connector", t);
@@ -249,24 +249,22 @@ public class Scheduler {
         }
     }
 
-    int getIsConnectorUpdated() {
-        return secunetConnector.checkUpdate("https://192.168.178.42", "8500", new ManagementCredentials("super", "konnektor3$"));
+    int getIsConnectorUpdated(RuntimeConfig runtimeConfig) {
+        return secunetConnector.checkUpdate(runtimeConfig.getUrl(), "8500",
+                new ManagementCredentials(runtimeConfig.getUsername(), runtimeConfig.getPassword()));
     }
 
 
-    private void addMetricIsKonnektorUpdated() {
+    private void addMetricIsKonnektorUpdated(RuntimeConfig runtimeConfig) {
         try {
-            int callable = getIsConnectorUpdated();
-            Gauge<Integer> isConnectorUpdated = applicationRegistry
+            int isUpdated = getIsConnectorUpdated(runtimeConfig);
+            applicationRegistry
                     .gauge(
                             Metadata.builder()
                                     .withName("isConnectorCurrentlyUpdated_")
                                     .withDescription("Shows if the Connector is updated to the newest possible Firmware version")
                                     .build(), () -> {
-                                Integer isUpdated;
                                 try {
-                                    isUpdated = callable;
-                                    System.out.println("iud" + isUpdated);
                                     log.info("Is the connector currently updated?: " + isUpdated);
                                     return isUpdated;
                                 } catch (Exception e) {
