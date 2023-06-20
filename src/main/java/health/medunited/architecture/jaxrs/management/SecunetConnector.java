@@ -24,10 +24,6 @@ public class SecunetConnector extends AbstractConnector {
     private static final Logger log = Logger.getLogger(SecunetConnector.class.getName());
      SecretsManagerService secretsManagerService;
 
-    public void setSecretsManagerService(SecretsManagerService secretsManagerService) {
-        this.secretsManagerService = secretsManagerService;
-    }
-
     @Override
     public void restart(String connectorUrl, ManagementCredentials managementCredentials) {
         restart(connectorUrl, "8500", managementCredentials);
