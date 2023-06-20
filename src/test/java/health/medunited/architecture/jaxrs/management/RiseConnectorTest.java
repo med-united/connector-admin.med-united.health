@@ -23,7 +23,7 @@ public class RiseConnectorTest {
 
     @Test
     @Disabled
-    public void testAcceptingAllConnections() throws Exception {
+    public void testRestart() throws Exception {
         riseConnector.secretsManagerService = new SecretsManagerService();
         riseConnector.secretsManagerService.setUpSSLContext(null);
         AbstractConnector.modifyClientBuilder = (clientBuilder) -> {

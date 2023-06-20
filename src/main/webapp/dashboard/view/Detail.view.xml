@@ -30,6 +30,14 @@
                         isObjectSubtitleAlwaysVisible="false"
                     >
                         <uxap:actions>
+
+                            <uxap:ObjectPageHeaderActionButton
+                                type="Transparent"
+                                icon="sap-icon://exit-full-screen"
+                                press="handleExitFullScreen"
+                                tooltip="{i18n>ExitFullScreenMode}"
+                                visible="{= ${Layout>/actionButtonsInfo/midColumn/exitFullScreen} !== null }"
+                            />
                             <uxap:ObjectPageHeaderActionButton
                                 type="Emphasized"
                                 icon="sap-icon://restart"
@@ -66,7 +74,7 @@
                                                 <Text text="{i18n>Product}" />
                                             </Column>
                                             <Column importance="Medium">
-                                                <Text text="Hardware Version" />
+                                                <Text text="Firmware Version" />
                                             </Column>
                                         </columns>
                                         <headerToolbar>
@@ -88,6 +96,9 @@
                                                 />
                                                 <Text
                                                     text="{ConnectorSDS>/productInformation/productIdentification/productVersion/local/HWVersion}"
+                                                />
+                                                <Text
+                                                    text="{ConnectorSDS>/productInformation/productIdentification/productVersion/local/FWVersion}"
                                                 />
                                             </ColumnListItem>
                                         </items>

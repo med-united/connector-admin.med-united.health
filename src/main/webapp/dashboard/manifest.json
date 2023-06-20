@@ -85,6 +85,13 @@
 					]
 				},
 				{
+					"pattern": "automaticmonitoring",
+					"name": "automaticmonitoring",
+					"target": [
+						"automaticmonitoring"
+					]
+				},
+				{
 					"pattern": "management",
 					"name": "master",
 					"target": [
@@ -116,6 +123,11 @@
 				},
 				"dashboard": {
 					"viewName": "Dashboard",
+					"controlAggregation": "beginColumnPages",
+					"clearControlAggregation": true
+				},
+				"automaticmonitoring": {
+					"viewName": "AutomaticMonitoring",
 					"controlAggregation": "beginColumnPages",
 					"clearControlAggregation": true
 				},
