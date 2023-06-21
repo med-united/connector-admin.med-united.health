@@ -1,5 +1,5 @@
 {
-  "aktualisierung_konnektor": false,
+  "aktualisierung_konnektor": true,
   "aktualisierung_kartenterminals": false,
   "ueberpruefung_onlinestatusti": true
 }

@@ -175,9 +175,27 @@ sap.ui.define(
           droppedCardId =
             oDropModel.getData()[oDropModel.getData().length - 1].id + "_on";
 
-          console.log(droppedCardId);
+          if (droppedCardId == "tistat_on") {
+            this.monitoringState.ueberpruefung_onlinestatusti = true;
+          }
+            if (droppedCardId == "actKT_on") {
+              this.monitoringState.aktualisierung_kartenterminals = true;
+            }
+          if (droppedCardId == "actConn_on") {
+            this.monitoringState.aktualisierung_konnektor = true;
+          }
 
-          console.log(this.monitoringState);
+            (async () => {
+              const rawResponse = await fetch('connector/monitoring/update', {
+                method: 'POST',
+                headers: {
+                  'Accept': 'application/json',
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(this.monitoringState)
+              });
+              console.log("Settings Update Successful");
+            })();
 
           this.byId("grid1").focusItem(iDropPosition);
         },
@@ -222,7 +240,28 @@ sap.ui.define(
           droppedCardId =
             oDropModel.getData()[oDropModel.getData().length - 1].id + "_off";
 
-          console.log(droppedCardId);
+
+          if (droppedCardId == "tistat_off") {
+            this.monitoringState.ueberpruefung_onlinestatusti = false;
+          }
+            if (droppedCardId == "actKT_off") {
+              this.monitoringState.aktualisierung_kartenterminals = false;
+            }
+          if (droppedCardId == "actConn_off") {
+            this.monitoringState.aktualisierung_konnektor = false;
+          }
+
+            (async () => {
+              const rawResponse = await fetch('connector/monitoring/update', {
+                method: 'POST',
+                headers: {
+                  'Accept': 'application/json',
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(this.monitoringState)
+              });
+              console.log("Settings Update Successful");
+            })();
 
           this.byId("grid1").focusItem(iDropPosition);
         },
