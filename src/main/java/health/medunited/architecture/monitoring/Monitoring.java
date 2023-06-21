@@ -6,6 +6,18 @@ public class Monitoring {
     private boolean aktualisierung_kartenterminals;
     private boolean ueberpruefung_onlinestatusti;
 
+    public boolean isAktualisierung_konnektor() {
+        return aktualisierung_konnektor;
+    }
+
+    public boolean isAktualisierung_kartenterminals() {
+        return aktualisierung_kartenterminals;
+    }
+
+    public boolean isUeberpruefung_onlinestatusti() {
+        return ueberpruefung_onlinestatusti;
+    }
+
     public Monitoring(boolean aktualisierung_konnektor,
                       boolean aktualisierung_kartenterminals,
                       boolean ueberpruefung_onlinestatusti) {
