@@ -1,10 +1,16 @@
+
 package health.medunited.architecture.monitoring;
 
 import javax.inject.Inject;
 
-import health.medunited.architecture.monitoring.Monitoring;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import java.io.*;
+
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+
+import java.io.FileWriter;
 
 public class MonitoringTest {
     @Inject
@@ -12,9 +18,11 @@ public class MonitoringTest {
 
     @Test
     @Disabled
-    void testWriteFile() {
-        monitoring = new Monitoring();
-        monitoring.writeFile();
+    void testWriteFile() throws IOException {
+        monitoring = new Monitoring(22,185);
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        gson.toJson(monitoring, new FileWriter("./monitoring/MonitoringAspects.json"));
     }
 
 }
+
