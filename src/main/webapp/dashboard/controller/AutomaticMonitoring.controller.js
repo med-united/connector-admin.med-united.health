@@ -6,6 +6,8 @@ sap.ui.define(
     "sap/ui/core/dnd/DropInfo",
     "sap/f/dnd/GridDropInfo",
     "sap/ui/core/library",
+        "sap/m/MessageBox",
+        "sap/m/MessageToast",
   ],
   function (
     Controller,
@@ -13,7 +15,9 @@ sap.ui.define(
     DragInfo,
     DropInfo,
     GridDropInfo,
-    coreLibrary
+    coreLibrary,
+    MessageToast,
+    MessageBox
   ) {
     "use strict";
 
@@ -64,6 +68,12 @@ sap.ui.define(
               },
             ])
           );
+        },
+
+        translate: function (sKey, aArgs, bIgnoreKeyFallback) {
+            return (sKey)
+                    ? this.getOwnerComponent().getModel("i18n").getResourceBundle().getText(sKey, aArgs, bIgnoreKeyFallback)
+                    : '';
         },
 
         attachDragAndDrop: function () {
@@ -194,7 +204,10 @@ sap.ui.define(
                 },
                 body: JSON.stringify(this.monitoringState)
               });
-              console.log("Settings Update Successful");
+              //this.translate not working
+              MessageBox.show(
+                            "Der aktuelle Zustand wurde erfolgreich gespeichert"
+                          );
             })();
 
           this.byId("grid1").focusItem(iDropPosition);
@@ -260,7 +273,10 @@ sap.ui.define(
                 },
                 body: JSON.stringify(this.monitoringState)
               });
-              console.log("Settings Update Successful");
+              //this.translate not working
+                MessageBox.show(
+                  "Der aktuelle Zustand wurde erfolgreich gespeichert"
+                );
             })();
 
           this.byId("grid1").focusItem(iDropPosition);
