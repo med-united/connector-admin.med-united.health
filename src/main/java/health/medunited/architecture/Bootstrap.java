@@ -3,15 +3,9 @@ package health.medunited.architecture;
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import health.medunited.architecture.datasource.PostgreSQLDataSource;
 import health.medunited.architecture.entities.RuntimeConfig;
-
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.logging.Logger;
 
 @Singleton
@@ -23,23 +17,8 @@ public class Bootstrap {
     @PersistenceContext
     EntityManager em;
 
-    @Inject
-    PostgreSQLDataSource dataSource;
-
     @PostConstruct
     public void generateDemoData() {
-
-        log.info("Attempt to create table");
-        try (Connection connection = dataSource.getDatasource().getConnection()) {
-            try (Statement statement = connection.createStatement()) {
-                String createTableQuery = "CREATE TABLE IF NOT EXISTS test_table (number INTEGER, name VARCHAR(255))";
-                statement.executeUpdate(createTableQuery);
-                log.info("\n\ntest_table successfully created -.-.-.-.-.-");
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException("Error creating table", e);
-        }
-
         RuntimeConfig runtimeConfigSecunet = getRuntimeConfigSecunet();
         em.persist(runtimeConfigSecunet);
         RuntimeConfig runtimeConfigKops = getRuntimeConfigKops();
