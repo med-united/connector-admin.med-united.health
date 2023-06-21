@@ -6,6 +6,8 @@ sap.ui.define(
     "sap/ui/core/dnd/DropInfo",
     "sap/f/dnd/GridDropInfo",
     "sap/ui/core/library",
+        "sap/m/MessageBox",
+        "sap/m/MessageToast",
   ],
   function (
     Controller,
@@ -13,7 +15,9 @@ sap.ui.define(
     DragInfo,
     DropInfo,
     GridDropInfo,
-    coreLibrary
+    coreLibrary,
+    MessageToast,
+    MessageBox
   ) {
     "use strict";
 
@@ -33,6 +37,13 @@ sap.ui.define(
         },
 
         initData: function () {
+
+          this.monitoringState = {
+                                  "aktualisierung_konnektor": false,
+                                  "aktualisierung_kartenterminals": false,
+                                  "ueberpruefung_onlinestatusti": false
+                                };
+
           this.byId("grid1").setModel(new JSONModel([]));
 
           this.byId("grid2").setModel(
@@ -59,7 +70,15 @@ sap.ui.define(
           );
         },
 
+        translate: function (sKey, aArgs, bIgnoreKeyFallback) {
+            return (sKey)
+                    ? this.getOwnerComponent().getModel("i18n").getResourceBundle().getText(sKey, aArgs, bIgnoreKeyFallback)
+                    : '';
+        },
+
         attachDragAndDrop: function () {
+
+
           var oList = this.byId("grid0");
           oList.addDragDropConfig(
             new DragInfo({
@@ -166,7 +185,30 @@ sap.ui.define(
           droppedCardId =
             oDropModel.getData()[oDropModel.getData().length - 1].id + "_on";
 
-          console.log(droppedCardId);
+          if (droppedCardId == "tistat_on") {
+            this.monitoringState.ueberpruefung_onlinestatusti = true;
+          }
+            if (droppedCardId == "actKT_on") {
+              this.monitoringState.aktualisierung_kartenterminals = true;
+            }
+          if (droppedCardId == "actConn_on") {
+            this.monitoringState.aktualisierung_konnektor = true;
+          }
+
+            (async () => {
+              const rawResponse = await fetch('connector/monitoring/update', {
+                method: 'POST',
+                headers: {
+                  'Accept': 'application/json',
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(this.monitoringState)
+              });
+              //this.translate not working
+              MessageBox.show(
+                            "Der aktuelle Zustand wurde erfolgreich gespeichert"
+                          );
+            })();
 
           this.byId("grid1").focusItem(iDropPosition);
         },
@@ -211,7 +253,31 @@ sap.ui.define(
           droppedCardId =
             oDropModel.getData()[oDropModel.getData().length - 1].id + "_off";
 
-          console.log(droppedCardId);
+
+          if (droppedCardId == "tistat_off") {
+            this.monitoringState.ueberpruefung_onlinestatusti = false;
+          }
+            if (droppedCardId == "actKT_off") {
+              this.monitoringState.aktualisierung_kartenterminals = false;
+            }
+          if (droppedCardId == "actConn_off") {
+            this.monitoringState.aktualisierung_konnektor = false;
+          }
+
+            (async () => {
+              const rawResponse = await fetch('connector/monitoring/update', {
+                method: 'POST',
+                headers: {
+                  'Accept': 'application/json',
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(this.monitoringState)
+              });
+              //this.translate not working
+                MessageBox.show(
+                  "Der aktuelle Zustand wurde erfolgreich gespeichert"
+                );
+            })();
 
           this.byId("grid1").focusItem(iDropPosition);
         },
