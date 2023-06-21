@@ -1,4 +1,4 @@
-package health.medunited.architecture.jaxrs.resource;
+package health.medunited.architecture.monitoring;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;

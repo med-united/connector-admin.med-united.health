@@ -1,7 +1,8 @@
-package health.medunited.architecture.jaxrs.resource;
+package health.medunited.architecture.monitoring;
 
 import javax.inject.Inject;
 
+import health.medunited.architecture.monitoring.Monitoring;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
