@@ -33,25 +33,42 @@ sap.ui.define(
         },
 
         initData: function () {
-          this.byId("grid1").setModel(
-            new JSONModel([
-              { title: "Aktualisierung Konnektor", rows: 2, columns: 2 },
-              { title: "Aktualisierung Kartenterminals", rows: 2, columns: 2 },
-            ])
-          );
+
+          this.monitoringState = {
+                                  "aktualisierung_konnektor": false,
+                                  "aktualisierung_kartenterminals": false,
+                                  "ueberpruefung_onlinestatusti": false
+                                };
+
+          this.byId("grid1").setModel(new JSONModel([]));
 
           this.byId("grid2").setModel(
             new JSONModel([
               {
+                title: "Aktualisierung Konnektor",
+                rows: 2,
+                columns: 2,
+                id: "actConn",
+              },
+              {
+                title: "Aktualisierung Kartenterminals",
+                rows: 2,
+                columns: 2,
+                id: "actKT",
+              },
+              {
                 title: "\u00DCberpr\u00FCfung Onlinestatus TI",
                 rows: 2,
                 columns: 2,
+                id: "tistat",
               },
             ])
           );
         },
 
         attachDragAndDrop: function () {
+
+
           var oList = this.byId("grid0");
           oList.addDragDropConfig(
             new DragInfo({
@@ -65,7 +82,7 @@ sap.ui.define(
               dropPosition: DropPosition.Between,
               dropLayout: DropLayout.Vertical,
               dropIndicatorSize: this.onDropIndicatorSize.bind(this),
-              drop: this.onDrop.bind(this),
+              drop: this.onDrop1.bind(this),
             })
           );
 
@@ -82,7 +99,7 @@ sap.ui.define(
               dropPosition: DropPosition.Between,
               dropLayout: DropLayout.Horizontal,
               dropIndicatorSize: this.onDropIndicatorSize.bind(this),
-              drop: this.onDrop.bind(this),
+              drop: this.onDrop1.bind(this),
             })
           );
 
@@ -99,7 +116,7 @@ sap.ui.define(
               dropPosition: DropPosition.Between,
               dropLayout: DropLayout.Horizontal,
               dropIndicatorSize: this.onDropIndicatorSize.bind(this),
-              drop: this.onDrop.bind(this),
+              drop: this.onDrop2.bind(this),
             })
           );
         },
@@ -118,7 +135,7 @@ sap.ui.define(
           }
         },
 
-        onDrop: function (oInfo) {
+        onDrop1: function (oInfo) {
           var oDragged = oInfo.getParameter("draggedControl"),
             oDropped = oInfo.getParameter("droppedControl"),
             sInsertPosition = oInfo.getParameter("dropPosition"),
@@ -129,6 +146,7 @@ sap.ui.define(
             oDragModelData = oDragModel.getData(),
             oDropModelData = oDropModel.getData(),
             iDragPosition = oDragContainer.indexOfItem(oDragged),
+            droppedCardId = "",
             iDropPosition = oDropContainer.indexOfItem(oDropped);
 
           // remove the item
@@ -152,6 +170,59 @@ sap.ui.define(
           } else {
             oDropModel.setData(oDropModelData);
           }
+
+          //console.log(oDropModel.getData()[0].id);
+          droppedCardId =
+            oDropModel.getData()[oDropModel.getData().length - 1].id + "_on";
+
+          console.log(droppedCardId);
+
+          console.log(this.monitoringState);
+
+          this.byId("grid1").focusItem(iDropPosition);
+        },
+
+        onDrop2: function (oInfo) {
+          var oDragged = oInfo.getParameter("draggedControl"),
+            oDropped = oInfo.getParameter("droppedControl"),
+            sInsertPosition = oInfo.getParameter("dropPosition"),
+            oDragContainer = oDragged.getParent(),
+            oDropContainer = oInfo.getSource().getParent(),
+            oDragModel = oDragContainer.getModel(),
+            oDropModel = oDropContainer.getModel(),
+            oDragModelData = oDragModel.getData(),
+            oDropModelData = oDropModel.getData(),
+            iDragPosition = oDragContainer.indexOfItem(oDragged),
+            droppedCardId = "",
+            iDropPosition = oDropContainer.indexOfItem(oDropped);
+
+          // remove the item
+          var oItem = oDragModelData[iDragPosition];
+          oDragModelData.splice(iDragPosition, 1);
+
+          if (oDragModel === oDropModel && iDragPosition < iDropPosition) {
+            iDropPosition--;
+          }
+
+          if (sInsertPosition === "After") {
+            iDropPosition++;
+          }
+
+          // insert the control in target aggregation
+          oDropModelData.splice(iDropPosition, 0, oItem);
+
+          if (oDragModel !== oDropModel) {
+            oDragModel.setData(oDragModelData);
+            oDropModel.setData(oDropModelData);
+          } else {
+            oDropModel.setData(oDropModelData);
+          }
+
+          //console.log(oDropModel.getData()[0].id);
+          droppedCardId =
+            oDropModel.getData()[oDropModel.getData().length - 1].id + "_off";
+
+          console.log(droppedCardId);
 
           this.byId("grid1").focusItem(iDropPosition);
         },
