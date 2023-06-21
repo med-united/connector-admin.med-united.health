@@ -1,16 +1,27 @@
 package health.medunited.architecture.monitoring;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import java.io.IOException;
 
 public class Monitoring {
 
-    private int age;
-    private int height;
+    public int age;
+    public int height;
 
-    public Monitoring (int age, int height) {
+    public int getAge() {
+        return age;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public Monitoring (int age, int height) throws IOException {
         this.age = age;
         this.height = height;
+
+        System.out.println("writing file");
+
+
     }
 
 }

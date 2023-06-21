@@ -20,8 +20,12 @@ public class MonitoringTest {
     @Disabled
     void testWriteFile() throws IOException {
         monitoring = new Monitoring(22,185);
+
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        gson.toJson(monitoring, new FileWriter("./monitoring/MonitoringAspects.json"));
+        Writer writer = new FileWriter("./monitoring/MonitoringAspects.json");
+        gson.toJson(monitoring, writer);
+        writer.flush();
+        writer.close();
     }
 
 }
