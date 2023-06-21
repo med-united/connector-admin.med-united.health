@@ -1,26 +1,18 @@
 package health.medunited.architecture.monitoring;
 
-import java.io.IOException;
-
 public class Monitoring {
 
-    public int age;
-    public int height;
+    private boolean aktualisierung_konnektor;
+    private boolean aktualisierung_kartenterminals;
+    private boolean ueberpruefung_onlinestatusti;
 
-    public int getAge() {
-        return age;
-    }
+    public Monitoring(boolean aktualisierung_konnektor,
+                      boolean aktualisierung_kartenterminals,
+                      boolean ueberpruefung_onlinestatusti) {
 
-    public int getHeight() {
-        return height;
-    }
-
-    public Monitoring (int age, int height) throws IOException {
-        this.age = age;
-        this.height = height;
-
-        System.out.println("writing file");
-
+        this.aktualisierung_konnektor = aktualisierung_konnektor;
+        this.aktualisierung_kartenterminals = aktualisierung_kartenterminals;
+        this.ueberpruefung_onlinestatusti = ueberpruefung_onlinestatusti;
 
     }
 
