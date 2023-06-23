@@ -15,6 +15,7 @@ public class SecunetConnectorTest {
     String host = "https://192.168.178.42";
     String username = ""; //specify before the test
     String password = ""; //specify before the test
+    String port = "8500";
 
     private static Logger log = Logger.getLogger(SecunetConnectorTest.class.getName());
 
@@ -38,10 +39,10 @@ public class SecunetConnectorTest {
     @Test
     public void testCheckUpdate() throws Exception {
 
-        String port = "8500";
+        SecretsManagerService sms = new SecretsManagerService();
+        sms.setUpSSLContext(null);
 
-        secunetConnector.secretsManagerService = new SecretsManagerService();
-        secunetConnector.secretsManagerService.setUpSSLContext(null);
+        secunetConnector.setSecretsManagerService(sms);
         AbstractConnector.modifyClientBuilder = (clientBuilder) -> {
             // This will print URL and Header of request
             // clientBuilder.register(LoggingFilter.class);
@@ -51,4 +52,5 @@ public class SecunetConnectorTest {
         secunetConnector.checkUpdate(host, port, new ManagementCredentials(username, password));
 
     }
+}
 }
