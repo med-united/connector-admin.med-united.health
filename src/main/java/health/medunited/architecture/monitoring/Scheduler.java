@@ -135,7 +135,12 @@ public class Scheduler {
                 JsonReader reader = new JsonReader(new FileReader("./metrics/MonitoringAspects.json"));
                 Monitoring incomingMonitoring = gson.fromJson(reader, Monitoring.class);
 
-                if(incomingMonitoring.isAktualisierung_konnektor()) addMetricIsKonnektorUpdated(runtimeConfig);
+                if(incomingMonitoring.isAktualisierung_konnektor()) {
+                    log.log(Level.INFO, "checking for updates is enabled in the json config");
+                    addMetricIsKonnektorUpdated(runtimeConfig);
+                } else {
+                    log.log(Level.INFO, "checking for updates is disabled in the json config");
+                }
 
             } catch (Throwable t) {
                 log.log(Level.INFO, "Error while contacting connector", t);
