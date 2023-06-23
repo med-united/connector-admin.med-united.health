@@ -1,5 +1,6 @@
 package health.medunited.architecture.monitoring;
 
+import java.io.FileReader;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.net.URISyntaxException;
@@ -23,9 +24,14 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.xml.ws.Holder;
 
+import com.google.gson.Gson;
+import com.google.gson.stream.JsonReader;
 import de.gematik.ws.conn.cardservice.v8.PinStatusEnum;
 import de.gematik.ws.conn.cardservice.wsdl.v8.FaultMessage;
 import de.gematik.ws.conn.connectorcommon.v5.Status;
+import health.medunited.architecture.jaxrs.management.SecunetConnector;
+import health.medunited.architecture.jaxrs.resource.Monitoring;
+import health.medunited.architecture.model.ManagementCredentials;
 import org.eclipse.microprofile.metrics.*;
 import org.eclipse.microprofile.metrics.Timer;
 import org.eclipse.microprofile.metrics.annotation.RegistryType;
@@ -49,6 +55,9 @@ public class Scheduler {
 
     @PersistenceContext
     EntityManager entityManager;
+
+    @Inject
+    SecunetConnector secunetConnector;
 
     private static final Logger log = Logger.getLogger(Scheduler.class.getName());
 
@@ -78,8 +87,8 @@ public class Scheduler {
                     try {
                         secretsManagerService.setUpSSLContext(secretsManagerService.getKeyFromKeyStoreUri(keystore, keystorePassword));
                     } catch (KeyManagementException | NoSuchAlgorithmException | KeyStoreException |
-                             CertificateException
-                             | URISyntaxException | IOException e) {
+                            CertificateException
+                            | URISyntaxException | IOException e) {
                         log.log(Level.WARNING, "Could not create SSL context", e);
                     }
                 }
@@ -102,6 +111,8 @@ public class Scheduler {
                 EventServicePortType eventServicePortType = connectorServicesProducer.getEventServicePortType();
                 CardServicePortType cardServicePortType = connectorServicesProducer.getCardServicePortType();
 
+                secunetConnector.setSecretsManagerService(secretsManagerService);
+
                 // register a new application scoped metric
                 Timer connectorResponseTime = applicationRegistry.timer(Metadata.builder()
                         .withName("connectorResponseTime_" + runtimeConfig.getUrl())
@@ -118,6 +129,18 @@ public class Scheduler {
                 addMetricPinStatusSMCB(DISABLED, connectorResponseTime, runtimeConfig, eventServicePortType, cardServicePortType);
                 addMetricPinStatusSMCB(EMPTY_PIN, connectorResponseTime, runtimeConfig, eventServicePortType, cardServicePortType);
                 addMetricPinStatusSMCB(TRANSPORT_PIN, connectorResponseTime, runtimeConfig, eventServicePortType, cardServicePortType);
+
+
+                Gson gson = new Gson();
+                JsonReader reader = new JsonReader(new FileReader("./monitoring/MonitoringAspects.json"));
+                Monitoring incomingMonitoring = gson.fromJson(reader, Monitoring.class);
+
+                if(incomingMonitoring.isUpdateConnectors()) {
+                    log.log(Level.INFO, "checking for updates is enabled in the json config");
+                    addMetricIsKonnektorUpdated(runtimeConfig);
+                } else {
+                    log.log(Level.INFO, "checking for updates is disabled in the json config");
+                }
 
             } catch (Throwable t) {
                 log.log(Level.INFO, "Error while contacting connector", t);
@@ -237,6 +260,34 @@ public class Scheduler {
                     });
         } catch (Exception e) {
             log.log(Level.WARNING, "Cannot measure connector", e);
+        }
+    }
+
+    int getIsConnectorUpdated(RuntimeConfig runtimeConfig) {
+        return secunetConnector.checkUpdate(runtimeConfig.getUrl(), "8500",
+                new ManagementCredentials(runtimeConfig.getUsername(), runtimeConfig.getPassword()));
+    }
+
+
+    private void addMetricIsKonnektorUpdated(RuntimeConfig runtimeConfig) {
+        try {
+            int isUpdated = getIsConnectorUpdated(runtimeConfig);
+            applicationRegistry
+                    .gauge(
+                            Metadata.builder()
+                                    .withName("isConnectorCurrentlyUpdated_")
+                                    .withDescription("Shows if the Connector is updated to the newest possible Firmware version")
+                                    .build(), () -> {
+                                try {
+                                    log.info("Is the connector currently updated?: " + isUpdated);
+                                    return isUpdated;
+                                } catch (Exception e) {
+                                    log.log(Level.WARNING, "Cannot measure connector", e);
+                                }
+                                return null;
+                            });
+        } catch (Exception e) {
+            log.log(Level.WARNING, "Cannot measure if connector is updated", e);
         }
     }
 
