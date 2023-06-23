@@ -8,8 +8,6 @@ sap.ui.define(
     "sap/ui/core/library",
         "sap/m/MessageBox",
         "sap/m/MessageToast",
-        "sap/m/MessageBox",
-        "sap/m/MessageToast",
   ],
   function (
     Controller,
@@ -17,9 +15,6 @@ sap.ui.define(
     DragInfo,
     DropInfo,
     GridDropInfo,
-    coreLibrary,
-    MessageToast,
-    MessageBox
     coreLibrary,
     MessageToast,
     MessageBox
@@ -51,28 +46,8 @@ sap.ui.define(
 
           this.byId("grid1").setModel(new JSONModel([]));
 
-          this.monitoringState = {
-                                  "updateConnectors": false,
-                                  "updateCardTerminals": false,
-                                  "checkTIStatusOnline": false
-                                };
-
-          this.byId("grid1").setModel(new JSONModel([]));
-
           this.byId("grid2").setModel(
             new JSONModel([
-              {
-                title: "Aktualisierung Konnektor",
-                rows: 2,
-                columns: 2,
-                id: "actConn",
-              },
-              {
-                title: "Aktualisierung Kartenterminals",
-                rows: 2,
-                columns: 2,
-                id: "actKT",
-              },
               {
                 title: "Aktualisierung Konnektor",
                 rows: 2,
@@ -90,7 +65,6 @@ sap.ui.define(
                 rows: 2,
                 columns: 2,
                 id: "tistat",
-                id: "tistat",
               },
             ])
           );
@@ -102,15 +76,7 @@ sap.ui.define(
                     : '';
         },
 
-        translate: function (sKey, aArgs, bIgnoreKeyFallback) {
-            return (sKey)
-                    ? this.getOwnerComponent().getModel("i18n").getResourceBundle().getText(sKey, aArgs, bIgnoreKeyFallback)
-                    : '';
-        },
-
         attachDragAndDrop: function () {
-
-
 
 
           var oList = this.byId("grid0");
@@ -126,7 +92,6 @@ sap.ui.define(
               dropPosition: DropPosition.Between,
               dropLayout: DropLayout.Vertical,
               dropIndicatorSize: this.onDropIndicatorSize.bind(this),
-              drop: this.onDrop1.bind(this),
               drop: this.onDrop1.bind(this),
             })
           );
@@ -145,7 +110,6 @@ sap.ui.define(
               dropLayout: DropLayout.Horizontal,
               dropIndicatorSize: this.onDropIndicatorSize.bind(this),
               drop: this.onDrop1.bind(this),
-              drop: this.onDrop1.bind(this),
             })
           );
 
@@ -162,7 +126,6 @@ sap.ui.define(
               dropPosition: DropPosition.Between,
               dropLayout: DropLayout.Horizontal,
               dropIndicatorSize: this.onDropIndicatorSize.bind(this),
-              drop: this.onDrop2.bind(this),
               drop: this.onDrop2.bind(this),
             })
           );
@@ -251,7 +214,6 @@ sap.ui.define(
         },
 
         onDrop2: function (oInfo) {
-        onDrop1: function (oInfo) {
           var oDragged = oInfo.getParameter("draggedControl"),
             oDropped = oInfo.getParameter("droppedControl"),
             sInsertPosition = oInfo.getParameter("dropPosition"),
@@ -262,75 +224,6 @@ sap.ui.define(
             oDragModelData = oDragModel.getData(),
             oDropModelData = oDropModel.getData(),
             iDragPosition = oDragContainer.indexOfItem(oDragged),
-            droppedCardId = "",
-            iDropPosition = oDropContainer.indexOfItem(oDropped);
-
-          // remove the item
-          var oItem = oDragModelData[iDragPosition];
-          oDragModelData.splice(iDragPosition, 1);
-
-          if (oDragModel === oDropModel && iDragPosition < iDropPosition) {
-            iDropPosition--;
-          }
-
-          if (sInsertPosition === "After") {
-            iDropPosition++;
-          }
-
-          // insert the control in target aggregation
-          oDropModelData.splice(iDropPosition, 0, oItem);
-
-          if (oDragModel !== oDropModel) {
-            oDragModel.setData(oDragModelData);
-            oDropModel.setData(oDropModelData);
-          } else {
-            oDropModel.setData(oDropModelData);
-          }
-
-          //console.log(oDropModel.getData()[0].id);
-          droppedCardId =
-            oDropModel.getData()[oDropModel.getData().length - 1].id + "_on";
-
-          if (droppedCardId == "tistat_on") {
-            this.monitoringState.checkTIStatusOnline = true;
-          }
-            if (droppedCardId == "actKT_on") {
-              this.monitoringState.updateCardTerminals = true;
-            }
-          if (droppedCardId == "actConn_on") {
-            this.monitoringState.updateConnectors = true;
-          }
-
-            (async () => {
-              const rawResponse = await fetch('connector/monitoring/update', {
-                method: 'POST',
-                headers: {
-                  'Accept': 'application/json',
-                  'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(this.monitoringState)
-              });
-              //this.translate not working
-              MessageBox.show(
-                            "Der aktuelle Zustand wurde erfolgreich gespeichert"
-                          );
-            })();
-
-          this.byId("grid1").focusItem(iDropPosition);
-        },
-
-        onDrop2: function (oInfo) {
-          var oDragged = oInfo.getParameter("draggedControl"),
-            oDropped = oInfo.getParameter("droppedControl"),
-            sInsertPosition = oInfo.getParameter("dropPosition"),
-            oDragContainer = oDragged.getParent(),
-            oDropContainer = oInfo.getSource().getParent(),
-            oDragModel = oDragContainer.getModel(),
-            oDropModel = oDropContainer.getModel(),
-            oDragModelData = oDragModel.getData(),
-            oDropModelData = oDropModel.getData(),
-            iDragPosition = oDragContainer.indexOfItem(oDragged),
-            droppedCardId = "",
             droppedCardId = "",
             iDropPosition = oDropContainer.indexOfItem(oDropped);
 
