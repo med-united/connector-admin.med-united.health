@@ -132,7 +132,7 @@ public class Scheduler {
 
 
                 Gson gson = new Gson();
-                JsonReader reader = new JsonReader(new FileReader("./metrics/MonitoringAspects.json"));
+                JsonReader reader = new JsonReader(new FileReader("./monitoring/MonitoringAspects.json"));
                 Monitoring incomingMonitoring = gson.fromJson(reader, Monitoring.class);
 
                 if(incomingMonitoring.isAktualisierung_konnektor()) {
