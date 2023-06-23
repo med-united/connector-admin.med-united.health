@@ -1,5 +1,6 @@
 package health.medunited.architecture.monitoring;
 
+import java.io.FileReader;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.net.URISyntaxException;
@@ -23,6 +24,8 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.xml.ws.Holder;
 
+import com.google.gson.Gson;
+import com.google.gson.stream.JsonReader;
 import de.gematik.ws.conn.cardservice.v8.PinStatusEnum;
 import de.gematik.ws.conn.cardservice.wsdl.v8.FaultMessage;
 import de.gematik.ws.conn.connectorcommon.v5.Status;
@@ -125,6 +128,13 @@ public class Scheduler {
                 addMetricPinStatusSMCB(DISABLED, connectorResponseTime, runtimeConfig, eventServicePortType, cardServicePortType);
                 addMetricPinStatusSMCB(EMPTY_PIN, connectorResponseTime, runtimeConfig, eventServicePortType, cardServicePortType);
                 addMetricPinStatusSMCB(TRANSPORT_PIN, connectorResponseTime, runtimeConfig, eventServicePortType, cardServicePortType);
+
+                /*
+                Gson gson = new Gson();
+                JsonReader reader = new JsonReader(new FileReader("./monitoring/MonitoringAspects.json"));
+                Monitoring data = gson.fromJson(reader, Review.class);
+
+                 */
 
                 addMetricIsKonnektorUpdated(runtimeConfig);
 
