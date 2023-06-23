@@ -30,6 +30,7 @@ import de.gematik.ws.conn.cardservice.v8.PinStatusEnum;
 import de.gematik.ws.conn.cardservice.wsdl.v8.FaultMessage;
 import de.gematik.ws.conn.connectorcommon.v5.Status;
 import health.medunited.architecture.jaxrs.management.SecunetConnector;
+import health.medunited.architecture.jaxrs.resource.Monitoring;
 import health.medunited.architecture.model.ManagementCredentials;
 import org.eclipse.microprofile.metrics.*;
 import org.eclipse.microprofile.metrics.Timer;
@@ -129,14 +130,12 @@ public class Scheduler {
                 addMetricPinStatusSMCB(EMPTY_PIN, connectorResponseTime, runtimeConfig, eventServicePortType, cardServicePortType);
                 addMetricPinStatusSMCB(TRANSPORT_PIN, connectorResponseTime, runtimeConfig, eventServicePortType, cardServicePortType);
 
-                /*
+
                 Gson gson = new Gson();
                 JsonReader reader = new JsonReader(new FileReader("./monitoring/MonitoringAspects.json"));
-                Monitoring data = gson.fromJson(reader, Review.class);
+                Monitoring incomingMonitoring = gson.fromJson(reader, Monitoring.class);
 
-                 */
-
-                addMetricIsKonnektorUpdated(runtimeConfig);
+                if(incomingMonitoring.isAktualisierung_konnektor()) addMetricIsKonnektorUpdated(runtimeConfig);
 
             } catch (Throwable t) {
                 log.log(Level.INFO, "Error while contacting connector", t);
