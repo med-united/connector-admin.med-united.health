@@ -1,5 +1,5 @@
 {
-  "aktualisierung_konnektor": false,
-  "aktualisierung_kartenterminals": false,
-  "ueberpruefung_onlinestatusti": false
+  "updateConnectors": false,
+  "updateCardTerminals": false,
+  "checkTIStatusOnline": false
 }
