@@ -1,5 +1,5 @@
 {
-  "updateConnectors": true,
+  "updateConnectors": false,
   "updateCardTerminals": false,
   "checkTIStatusOnline": false
 }
