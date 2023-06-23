@@ -16,37 +16,36 @@ public class Monitoring {
 
     private static final Logger log = Logger.getLogger(Scheduler.class.getName());
 
-
-    private boolean aktualisierung_konnektor;
-    private boolean aktualisierung_kartenterminals;
-    private boolean ueberpruefung_onlinestatusti;
+    private boolean updateConnectors;
+    private boolean updateCardTerminals;
+    private boolean checkTIStatusOnline;
 
 
     // getters
-    public boolean isAktualisierung_konnektor() {
-        return aktualisierung_konnektor;
+    public boolean isUpdateConnectors() {
+        return updateConnectors;
     }
 
-    public boolean isAktualisierung_kartenterminals() {
-        return aktualisierung_kartenterminals;
+    public boolean isUpdateCardTerminals() {
+        return updateCardTerminals;
     }
 
-    public boolean isUeberpruefung_onlinestatusti() {
-        return ueberpruefung_onlinestatusti;
+    public boolean isCheckTIStatusOnline() {
+        return checkTIStatusOnline;
     }
 
 
     //setters
-    public void setAktualisierung_konnektor(boolean aktualisierung_konnektor) {
-        this.aktualisierung_konnektor = aktualisierung_konnektor;
+    public void setUpdateConnectors(boolean updateConnectors) {
+        this.updateConnectors = updateConnectors;
     }
 
-    public void setAktualisierung_kartenterminals(boolean aktualisierung_kartenterminals) {
-        this.aktualisierung_kartenterminals = aktualisierung_kartenterminals;
+    public void setUpdateCardTerminals(boolean updateCardTerminals) {
+        this.updateCardTerminals = updateCardTerminals;
     }
 
-    public void setUeberpruefung_onlinestatusti(boolean ueberpruefung_onlinestatusti) {
-        this.ueberpruefung_onlinestatusti = ueberpruefung_onlinestatusti;
+    public void setCheckTIStatusOnline(boolean checkTIStatusOnline) {
+        this.checkTIStatusOnline = checkTIStatusOnline;
     }
 
 
@@ -56,13 +55,13 @@ public class Monitoring {
 
     }
 
-    public Monitoring(boolean aktualisierung_konnektor,
-                      boolean aktualisierung_kartenterminals,
-                      boolean ueberpruefung_onlinestatusti) {
+    public Monitoring(boolean updateConnectors,
+                      boolean updateCardTerminals,
+                      boolean checkTIStatusOnline) {
 
-        this.aktualisierung_konnektor = aktualisierung_konnektor;
-        this.aktualisierung_kartenterminals = aktualisierung_kartenterminals;
-        this.ueberpruefung_onlinestatusti = ueberpruefung_onlinestatusti;
+        this.updateConnectors = updateConnectors;
+        this.updateCardTerminals = updateCardTerminals;
+        this.checkTIStatusOnline = checkTIStatusOnline;
 
     }
 

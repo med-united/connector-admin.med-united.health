@@ -39,9 +39,9 @@ sap.ui.define(
         initData: function () {
 
           this.monitoringState = {
-                                  "aktualisierung_konnektor": false,
-                                  "aktualisierung_kartenterminals": false,
-                                  "ueberpruefung_onlinestatusti": false
+                                  "updateConnectors": false,
+                                  "updateCardTerminals": false,
+                                  "checkTIStatusOnline": false
                                 };
 
           this.byId("grid1").setModel(new JSONModel([]));
@@ -186,13 +186,13 @@ sap.ui.define(
             oDropModel.getData()[oDropModel.getData().length - 1].id + "_on";
 
           if (droppedCardId == "tistat_on") {
-            this.monitoringState.ueberpruefung_onlinestatusti = true;
+            this.monitoringState.checkTIStatusOnline = true;
           }
             if (droppedCardId == "actKT_on") {
-              this.monitoringState.aktualisierung_kartenterminals = true;
+              this.monitoringState.updateCardTerminals = true;
             }
           if (droppedCardId == "actConn_on") {
-            this.monitoringState.aktualisierung_konnektor = true;
+            this.monitoringState.updateConnectors = true;
           }
 
             (async () => {

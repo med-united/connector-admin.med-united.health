@@ -135,7 +135,7 @@ public class Scheduler {
                 JsonReader reader = new JsonReader(new FileReader("./monitoring/MonitoringAspects.json"));
                 Monitoring incomingMonitoring = gson.fromJson(reader, Monitoring.class);
 
-                if(incomingMonitoring.isAktualisierung_konnektor()) {
+                if(incomingMonitoring.isUpdateConnectors()) {
                     log.log(Level.INFO, "checking for updates is enabled in the json config");
                     addMetricIsKonnektorUpdated(runtimeConfig);
                 } else {
