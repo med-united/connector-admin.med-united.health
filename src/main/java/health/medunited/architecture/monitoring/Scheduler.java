@@ -26,6 +26,7 @@ import javax.xml.ws.Holder;
 import de.gematik.ws.conn.cardservice.v8.PinStatusEnum;
 import de.gematik.ws.conn.cardservice.wsdl.v8.FaultMessage;
 import de.gematik.ws.conn.connectorcommon.v5.Status;
+import health.medunited.architecture.service.monitoring.TIOfflineDetector;
 import org.eclipse.microprofile.metrics.*;
 import org.eclipse.microprofile.metrics.Timer;
 import org.eclipse.microprofile.metrics.annotation.RegistryType;
@@ -49,6 +50,9 @@ public class Scheduler {
 
     @PersistenceContext
     EntityManager entityManager;
+
+    @Inject
+    TIOfflineDetector tiOfflineDetector;
 
     private static final Logger log = Logger.getLogger(Scheduler.class.getName());
 
@@ -111,6 +115,11 @@ public class Scheduler {
                 addMetricTimeInSecondsUntilSMCKTCardExpires(connectorResponseTime, runtimeConfig, eventServicePortType);
 
                 addMetricCurrentlyConnectedCards(connectorResponseTime, runtimeConfig, eventServicePortType);
+
+                // For testing
+                tiOfflineDetector.setIsTIOnline(true);
+                tiOfflineDetector.setRuntimeConfig(runtimeConfig);
+                tiOfflineDetector.performAction();
 
                 addMetricPinStatusSMCB(VERIFIABLE, connectorResponseTime, runtimeConfig, eventServicePortType, cardServicePortType);
                 addMetricPinStatusSMCB(VERIFIED, connectorResponseTime, runtimeConfig, eventServicePortType, cardServicePortType);
