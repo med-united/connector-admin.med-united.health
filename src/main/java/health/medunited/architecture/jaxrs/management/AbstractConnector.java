@@ -46,4 +46,11 @@ public abstract class AbstractConnector implements Connector {
         return client;
     }
 
+    public void setSecretsManagerService(SecretsManagerService secretsManagerService) {
+        this.secretsManagerService = secretsManagerService;
+    }
+
+    public SecretsManagerService getSecretsManagerService() {
+        return secretsManagerService;
+    }
 }
