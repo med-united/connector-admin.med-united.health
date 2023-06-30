@@ -7,6 +7,8 @@ import javax.json.bind.JsonbBuilder;
 import javax.json.bind.JsonbConfig;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.logging.Logger;
@@ -16,6 +18,8 @@ import java.util.logging.Logger;
 public class Monitoring {
 
     private static final Logger log = Logger.getLogger(Scheduler.class.getName());
+
+    private FileReader reader;
 
 
     //endpoints
@@ -36,6 +40,23 @@ public class Monitoring {
         writer.write(serialized);
         writer.close();
 
+    }
+
+    @GET
+    @Path("monitoringRequest")
+    @Produces(MediaType.APPLICATION_JSON)
+    public MonitoringRequest serveMonitoringAspects() {
+        Jsonb jsonb = JsonbBuilder.create();
+
+        try {
+            reader = new FileReader("./monitoring/MonitoringAspects.json");
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        MonitoringRequest incomingMonitoring = jsonb.fromJson(reader, MonitoringRequest.class);
+
+        return incomingMonitoring;
     }
 
 }

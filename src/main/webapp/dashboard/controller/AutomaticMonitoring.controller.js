@@ -38,37 +38,73 @@ sap.ui.define(
 
         initData: function () {
 
-          this.monitoringState = {
-                                  "updateConnectorsOn": false,
-                                  "updateCardTerminalsOn": false,
-                                  "checkTIStatusOnlineOn": false
-                                };
+        var disabledItems = [];
+        var enabledItems = [];
 
-          this.byId("grid1").setModel(new JSONModel([]));
+        //start fetch
+        fetch("/connector/monitoring/monitoringRequest")
+        .then(x => x.json())
+        .then(y => {
 
-          this.byId("grid2").setModel(
-            new JSONModel([
-              {
-                title: "Aktualisierung Konnektor",
-                rows: 2,
-                columns: 2,
-                id: "actConn",
-              },
-              {
-                title: "Aktualisierung Kartenterminals",
-                rows: 2,
-                columns: 2,
-                id: "actKT",
-              },
-              {
-                title: "\u00DCberpr\u00FCfung Onlinestatus TI",
-                rows: 2,
-                columns: 2,
-                id: "tistat",
-              },
-            ])
-          );
-        },
+        this.monitoringState = y
+
+        if (this.monitoringState.checkTIStatusOnlineOn) {
+                enabledItems.push({
+                                  title: "\u00DCberpr\u00FCfung Onlinestatus TI",
+                                  rows: 2,
+                                  columns: 2,
+                                  id: "tistat"
+                                  });
+                }
+                else {
+                disabledItems.push({
+                                  title: "\u00DCberpr\u00FCfung Onlinestatus TI",
+                                  rows: 2,
+                                  columns: 2,
+                                  id: "tistat"
+                                   });
+                }
+
+
+                if (this.monitoringState.updateCardTerminalsOn) {
+                enabledItems.push({
+                                  title: "Aktualisierung Kartenterminals",
+                                  rows: 2,
+                                  columns: 2,
+                                  id: "actKT",
+                                  });
+                }
+                else {
+                disabledItems.push({
+                                    title: "Aktualisierung Kartenterminals",
+                                    rows: 2,
+                                    columns: 2,
+                                    id: "actKT"
+                                    });
+                }
+
+                if (this.monitoringState.updateConnectorsOn) {
+                enabledItems.push({
+                                title: "Aktualisierung Konnektor",
+                                rows: 2,
+                                columns: 2,
+                                id: "actConn"
+                              });
+                }
+                else {
+                disabledItems.push({
+                                title: "Aktualisierung Konnektor",
+                                rows: 2,
+                                columns: 2,
+                                id: "actConn"
+                              });
+                }
+
+          this.byId("grid1").setModel(new JSONModel(enabledItems));
+          this.byId("grid2").setModel(new JSONModel(disabledItems));
+        }); // end fetch
+
+        }, //end initData
 
         translate: function (sKey, aArgs, bIgnoreKeyFallback) {
             return (sKey)
