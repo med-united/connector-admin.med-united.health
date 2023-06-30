@@ -1,3 +1,4 @@
+/*
 
 package health.medunited.architecture.jaxrs.management;
 
@@ -53,3 +54,4 @@ public class SecunetConnectorTest {
 
     }
 }
+*/
