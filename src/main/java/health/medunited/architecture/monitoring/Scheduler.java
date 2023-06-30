@@ -19,18 +19,17 @@ import java.util.logging.Logger;
 import javax.ejb.Schedule;
 import javax.ejb.Singleton;
 import javax.inject.Inject;
+import javax.json.bind.JsonbBuilder;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.xml.ws.Holder;
 
-import com.google.gson.Gson;
-import com.google.gson.stream.JsonReader;
 import de.gematik.ws.conn.cardservice.v8.PinStatusEnum;
 import de.gematik.ws.conn.cardservice.wsdl.v8.FaultMessage;
 import de.gematik.ws.conn.connectorcommon.v5.Status;
 import health.medunited.architecture.jaxrs.management.SecunetConnector;
-import health.medunited.architecture.jaxrs.resource.Monitoring;
+import health.medunited.architecture.jaxrs.resource.MonitoringRequest;
 import health.medunited.architecture.model.ManagementCredentials;
 import org.eclipse.microprofile.metrics.*;
 import org.eclipse.microprofile.metrics.Timer;
@@ -130,10 +129,8 @@ public class Scheduler {
                 addMetricPinStatusSMCB(EMPTY_PIN, connectorResponseTime, runtimeConfig, eventServicePortType, cardServicePortType);
                 addMetricPinStatusSMCB(TRANSPORT_PIN, connectorResponseTime, runtimeConfig, eventServicePortType, cardServicePortType);
 
-
-                Gson gson = new Gson();
-                JsonReader reader = new JsonReader(new FileReader("./monitoring/MonitoringAspects.json"));
-                Monitoring incomingMonitoring = gson.fromJson(reader, Monitoring.class);
+                FileReader reader = new FileReader("./monitoring/MonitoringAspects.json");
+                MonitoringRequest incomingMonitoring = JsonbBuilder.create().fromJson(reader, MonitoringRequest.class);
 
                 if(incomingMonitoring.isUpdateConnectors()) {
                     log.log(Level.INFO, "checking for updates is enabled in the json config");
