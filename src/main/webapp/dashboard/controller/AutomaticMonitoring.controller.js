@@ -112,6 +112,12 @@ sap.ui.define(
                     : '';
         },
 
+        translate: function (sKey, aArgs, bIgnoreKeyFallback) {
+            return (sKey)
+                    ? this.getOwnerComponent().getModel("i18n").getResourceBundle().getText(sKey, aArgs, bIgnoreKeyFallback)
+                    : '';
+        },
+
         attachDragAndDrop: function () {
 
           // This list is a placeholder. The source code of the internal UI5 required a list
