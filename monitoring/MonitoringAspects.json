@@ -1,6 +1,6 @@
 
 {
-    "checkTIStatusOnline": false,
-    "updateCardTerminals": false,
-    "updateConnectors": false
+    "checkTIStatusOnlineOn": true,
+    "updateCardTerminalsOn": true,
+    "updateConnectorsOn": true
 }

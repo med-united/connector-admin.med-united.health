@@ -132,7 +132,7 @@ public class Scheduler {
                 FileReader reader = new FileReader("./monitoring/MonitoringAspects.json");
                 MonitoringRequest incomingMonitoring = JsonbBuilder.create().fromJson(reader, MonitoringRequest.class);
 
-                if(incomingMonitoring.isUpdateConnectors()) {
+                if(incomingMonitoring.isUpdateConnectorsOn()) {
                     log.log(Level.INFO, "checking for updates is enabled in the json config");
                     addMetricIsKonnektorUpdated(runtimeConfig);
                 } else {

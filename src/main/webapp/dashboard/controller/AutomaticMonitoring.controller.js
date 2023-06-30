@@ -39,9 +39,9 @@ sap.ui.define(
         initData: function () {
 
           this.monitoringState = {
-                                  "updateConnectors": false,
-                                  "updateCardTerminals": false,
-                                  "checkTIStatusOnline": false
+                                  "updateConnectorsOn": false,
+                                  "updateCardTerminalsOn": false,
+                                  "checkTIStatusOnlineOn": false
                                 };
 
           this.byId("grid1").setModel(new JSONModel([]));
@@ -78,7 +78,8 @@ sap.ui.define(
 
         attachDragAndDrop: function () {
 
-
+          // This list is a placeholder. The source code of the internal UI5 required a list
+          // in reality we want to work with the 2 grids that appear below
           var oList = this.byId("grid0");
           oList.addDragDropConfig(
             new DragInfo({
@@ -92,7 +93,7 @@ sap.ui.define(
               dropPosition: DropPosition.Between,
               dropLayout: DropLayout.Vertical,
               dropIndicatorSize: this.onDropIndicatorSize.bind(this),
-              drop: this.onDrop1.bind(this),
+              drop: this.onDropToActivate.bind(this),
             })
           );
 
@@ -109,7 +110,7 @@ sap.ui.define(
               dropPosition: DropPosition.Between,
               dropLayout: DropLayout.Horizontal,
               dropIndicatorSize: this.onDropIndicatorSize.bind(this),
-              drop: this.onDrop1.bind(this),
+              drop: this.onDropToActivate.bind(this),
             })
           );
 
@@ -126,7 +127,7 @@ sap.ui.define(
               dropPosition: DropPosition.Between,
               dropLayout: DropLayout.Horizontal,
               dropIndicatorSize: this.onDropIndicatorSize.bind(this),
-              drop: this.onDrop2.bind(this),
+              drop: this.onDropToDisable.bind(this),
             })
           );
         },
@@ -145,7 +146,8 @@ sap.ui.define(
           }
         },
 
-        onDrop1: function (oInfo) {
+
+        onDropToActivate: function (oInfo) {
           var oDragged = oInfo.getParameter("draggedControl"),
             oDropped = oInfo.getParameter("droppedControl"),
             sInsertPosition = oInfo.getParameter("dropPosition"),
@@ -181,18 +183,17 @@ sap.ui.define(
             oDropModel.setData(oDropModelData);
           }
 
-          //console.log(oDropModel.getData()[0].id);
           droppedCardId =
             oDropModel.getData()[oDropModel.getData().length - 1].id + "_on";
 
           if (droppedCardId == "tistat_on") {
-            this.monitoringState.checkTIStatusOnline = true;
+            this.monitoringState.checkTIStatusOnlineOn = true;
           }
             if (droppedCardId == "actKT_on") {
-              this.monitoringState.updateCardTerminals = true;
+              this.monitoringState.updateCardTerminalsOn = true;
             }
           if (droppedCardId == "actConn_on") {
-            this.monitoringState.updateConnectors = true;
+            this.monitoringState.updateConnectorsOn = true;
           }
 
             (async () => {
@@ -213,7 +214,7 @@ sap.ui.define(
           this.byId("grid1").focusItem(iDropPosition);
         },
 
-        onDrop2: function (oInfo) {
+        onDropToDisable: function (oInfo) {
           var oDragged = oInfo.getParameter("draggedControl"),
             oDropped = oInfo.getParameter("droppedControl"),
             sInsertPosition = oInfo.getParameter("dropPosition"),
@@ -249,19 +250,18 @@ sap.ui.define(
             oDropModel.setData(oDropModelData);
           }
 
-          //console.log(oDropModel.getData()[0].id);
           droppedCardId =
             oDropModel.getData()[oDropModel.getData().length - 1].id + "_off";
 
 
           if (droppedCardId == "tistat_off") {
-            this.monitoringState.checkTIStatusOnline = false;
+            this.monitoringState.checkTIStatusOnlineOn = false;
           }
             if (droppedCardId == "actKT_off") {
-              this.monitoringState.updateCardTerminals = false;
+              this.monitoringState.updateCardTerminalsOn = false;
             }
           if (droppedCardId == "actConn_off") {
-            this.monitoringState.updateConnectors = false;
+            this.monitoringState.updateConnectorsOn = false;
           }
 
             (async () => {

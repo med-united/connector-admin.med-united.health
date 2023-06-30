@@ -3,36 +3,36 @@ package health.medunited.architecture.jaxrs.resource;
 public class MonitoringRequest {
 
 
-    private boolean updateConnectors;
-    private boolean updateCardTerminals;
-    private boolean checkTIStatusOnline;
+    private boolean updateConnectorsOn;
+    private boolean updateCardTerminalsOn;
+    private boolean checkTIStatusOnlineOn;
 
 
     // getters
-    public boolean isUpdateConnectors() {
-        return updateConnectors;
+    public boolean isUpdateConnectorsOn() {
+        return updateConnectorsOn;
     }
 
-    public boolean isUpdateCardTerminals() {
-        return updateCardTerminals;
+    public boolean isUpdateCardTerminalsOn() {
+        return updateCardTerminalsOn;
     }
 
-    public boolean isCheckTIStatusOnline() {
-        return checkTIStatusOnline;
+    public boolean isCheckTIStatusOnlineOn() {
+        return checkTIStatusOnlineOn;
     }
 
 
     //setters
-    public void setUpdateConnectors(boolean updateConnectors) {
-        this.updateConnectors = updateConnectors;
+    public void setUpdateConnectorsOn(boolean updateConnectorsOn) {
+        this.updateConnectorsOn = updateConnectorsOn;
     }
 
-    public void setUpdateCardTerminals(boolean updateCardTerminals) {
-        this.updateCardTerminals = updateCardTerminals;
+    public void setUpdateCardTerminalsOn(boolean updateCardTerminalsOn) {
+        this.updateCardTerminalsOn = updateCardTerminalsOn;
     }
 
-    public void setCheckTIStatusOnline(boolean checkTIStatusOnline) {
-        this.checkTIStatusOnline = checkTIStatusOnline;
+    public void setCheckTIStatusOnlineOn(boolean checkTIStatusOnlineOn) {
+        this.checkTIStatusOnlineOn = checkTIStatusOnlineOn;
     }
 
 
@@ -42,13 +42,13 @@ public class MonitoringRequest {
 
     }
 
-    public MonitoringRequest(boolean updateConnectors,
-                      boolean updateCardTerminals,
-                      boolean checkTIStatusOnline) {
+    public MonitoringRequest(boolean updateConnectorsOn,
+                      boolean updateCardTerminalsOn,
+                      boolean checkTIStatusOnlineOn) {
 
-        this.updateConnectors = updateConnectors;
-        this.updateCardTerminals = updateCardTerminals;
-        this.checkTIStatusOnline = checkTIStatusOnline;
+        this.updateConnectorsOn = updateConnectorsOn;
+        this.updateCardTerminalsOn = updateCardTerminalsOn;
+        this.checkTIStatusOnlineOn = checkTIStatusOnlineOn;
 
     }
 

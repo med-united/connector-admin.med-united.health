@@ -41,7 +41,7 @@ public class MonitoringRequestTest {
         Jsonb jsonb = JsonbBuilder.create();
         FileReader reader = new FileReader("./monitoring/MonitoringAspects.json");
         MonitoringRequest incomingMonitoring = jsonb.fromJson(reader, MonitoringRequest.class);
-        log.info("Reading a value from successful deserialization (can be true or false): "+incomingMonitoring.isCheckTIStatusOnline());
+        log.info("Reading a value from successful deserialization (can be true or false): "+incomingMonitoring.isCheckTIStatusOnlineOn());
 
     }
 
