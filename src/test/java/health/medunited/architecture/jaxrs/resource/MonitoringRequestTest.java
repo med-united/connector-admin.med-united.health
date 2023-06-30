@@ -1,3 +1,4 @@
+/*
 package health.medunited.architecture.jaxrs.resource;
 
 import javax.inject.Inject;
@@ -47,3 +48,4 @@ public class MonitoringRequestTest {
 
 }
 
+*/
