@@ -2,6 +2,7 @@ package health.medunited.architecture.jaxrs.management;
 
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
+import java.util.logging.Logger;
 
 import javax.inject.Inject;
 import javax.net.ssl.HostnameVerifier;
@@ -14,6 +15,8 @@ import health.medunited.architecture.service.common.security.SecretsManagerServi
 
 public abstract class AbstractConnector implements Connector {
 
+    public static Logger log = Logger.getLogger(AbstractConnector.class.getName());
+
     @Inject
     SecretsManagerService secretsManagerService;
 
@@ -24,10 +27,11 @@ public abstract class AbstractConnector implements Connector {
 
         clientBuilder.connectTimeout(3, TimeUnit.SECONDS);
         clientBuilder.readTimeout(3, TimeUnit.SECONDS);
-
-        SSLContext sslContext = secretsManagerService.getSslContext();
-
-        clientBuilder.sslContext(sslContext);
+        SSLContext sslContext;
+        if(secretsManagerService != null)  {
+            sslContext = secretsManagerService.getSslContext();
+            clientBuilder.sslContext(sslContext);
+        }
 
         clientBuilder.hostnameVerifier(new HostnameVerifier() {
 
