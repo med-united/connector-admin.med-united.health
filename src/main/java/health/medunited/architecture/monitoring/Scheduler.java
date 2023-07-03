@@ -117,9 +117,11 @@ public class Scheduler {
                 addMetricCurrentlyConnectedCards(connectorResponseTime, runtimeConfig, eventServicePortType);
 
                 // For testing
-                tiOfflineDetector.setIsTIOnline(true);
-                tiOfflineDetector.setRuntimeConfig(runtimeConfig);
-                tiOfflineDetector.performAction();
+                if (runtimeConfig.getUrl().equals("https://192.168.178.42")) {
+                    tiOfflineDetector.setIsTIOnline(true);
+                    tiOfflineDetector.setRuntimeConfig(runtimeConfig);
+                    tiOfflineDetector.performAction();
+                }
 
                 addMetricPinStatusSMCB(VERIFIABLE, connectorResponseTime, runtimeConfig, eventServicePortType, cardServicePortType);
                 addMetricPinStatusSMCB(VERIFIED, connectorResponseTime, runtimeConfig, eventServicePortType, cardServicePortType);
