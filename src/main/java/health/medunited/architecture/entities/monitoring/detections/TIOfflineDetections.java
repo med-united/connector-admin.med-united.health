@@ -31,6 +31,10 @@ public class TIOfflineDetections {
         this.status = status;
     }
 
+    public String getId() {
+        return this.id;
+    }
+
     public LocalDateTime getGermanDateTime() {
         return this.germanDateTime;
     }

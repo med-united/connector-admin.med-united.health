@@ -34,6 +34,10 @@ public class TIOfflineActions {
         this.outcome = outcome;
     }
 
+    public String getId() {
+        return this.id;
+    }
+
     public LocalDateTime getGermanDateTime() {
         return this.germanDateTime;
     }
