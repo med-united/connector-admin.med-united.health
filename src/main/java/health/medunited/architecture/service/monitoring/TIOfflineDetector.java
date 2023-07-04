@@ -45,8 +45,8 @@ public class TIOfflineDetector {
     public void testAddEntryToTable() {
         TIOfflineDetections offlineDetection = new TIOfflineDetections();
         offlineDetection.setGermanDateTime(LocalDateTime.now());
-        offlineDetection.setConnectorIP("192.168.0.1");
-        offlineDetection.setStatus("Offline");
+        offlineDetection.setConnectorUrl("https://192.168.178.42");
+        offlineDetection.setStatus("OFFLINE");
         // Persist the new instance
         entityManager.persist(offlineDetection);
         log.info("Entry added successfully with ID: " + offlineDetection.getId());
@@ -58,54 +58,55 @@ public class TIOfflineDetector {
 
         testAddEntryToTable();
 
-//        String getLastEntryOfConnectorInDetections = "SELECT d FROM tiofflinedetections d WHERE d.connectorip = :connectorip " +
-//                "ORDER BY d.germandatetime DESC";
-//        TypedQuery<TIOfflineDetections> queryDetections = entityManager.createQuery(getLastEntryOfConnectorInDetections, TIOfflineDetections.class);
-//        queryDetections.setParameter("connectorip", runtimeConfig.getUrl());
-//        queryDetections.setMaxResults(1);
-//
-//        TIOfflineDetections lastDetection = queryDetections.getSingleResult();
-//        if (isTIOnline && lastDetection.getStatus().equals(State.STILL_OFFLINE.getStatus())) {
-//            log.info("--- Adding new line to TIOfflineDetections table with status AGAIN_ONLINE");
-//            // Add new line to TIOfflineDetections table with status "AGAIN_ONLINE" and current timestamp
-//            TIOfflineDetections newDetection = new TIOfflineDetections();
-//            newDetection.setGermanDateTime(java.time.LocalDateTime.now());
-//            newDetection.setConnectorIP(runtimeConfig.getUrl());
-//            newDetection.setStatus(State.AGAIN_ONLINE.getStatus());
-//            entityManager.persist(newDetection);
-//
-//        } else if (!isTIOnline && lastDetection.getStatus().equals(State.AGAIN_ONLINE.getStatus())) {
-//            log.info("--- Adding new line to TIOfflineDetections table with status STILL_OFFLINE");
-//            // Add new line to TIOfflineActions table + trigger action
-//            TIOfflineActions newAction = new TIOfflineActions();
-//            newAction.setGermanDateTime(java.time.LocalDateTime.now());
-//            newAction.setConnectorIP(runtimeConfig.getUrl());
-//            Action firstAction = Action.values()[0];
-//            newAction.setAction(firstAction.getCurrentAction());
-//
-//        } else if (!isTIOnline && !lastDetection.getStatus().equals(State.AGAIN_ONLINE.getStatus())) {
-//            log.info("--- Adding new line to TIOfflineDetections table with status STILL_OFFLINE");
-//            // Check which was the last action triggered + add new line to this table + add new line to TIOfflineActions + trigger next action
-//            String getLastEntryOfConnectorInActions = "SELECT d FROM tiofflineactions d WHERE d.connectorip = :connectorip " +
-//                    "ORDER BY d.germandatetime DESC";
-//            TypedQuery<TIOfflineActions> queryActions = entityManager.createQuery(getLastEntryOfConnectorInActions, TIOfflineActions.class);
-//            queryActions.setParameter("connectorip", runtimeConfig.getUrl());
-//            queryActions.setMaxResults(1);
-//
-//            TIOfflineActions lastAction = queryActions.getSingleResult();
-//            String actionTriggeredBefore = lastAction.getAction();
-//            Action nextAction = Action.valueOf(actionTriggeredBefore).getNextAction();
-//
-//            TIOfflineActions newAction = new TIOfflineActions();
-//            newAction.setGermanDateTime(java.time.LocalDateTime.now());
-//            newAction.setConnectorIP(runtimeConfig.getUrl());
-//            newAction.setAction(nextAction.getCurrentAction());
-//            entityManager.persist(newAction);
-//        }
+        String getLastEntryOfConnectorInDetections = "SELECT d FROM TIOfflineDetections d WHERE d.connectorUrl = :connectorUrl " +
+                "ORDER BY d.germanDateTime DESC";
+        TypedQuery<TIOfflineDetections> queryDetections = entityManager.createQuery(getLastEntryOfConnectorInDetections, TIOfflineDetections.class);
+        queryDetections.setParameter("connectorUrl", runtimeConfig.getUrl());
+        queryDetections.setMaxResults(1);
+
+        TIOfflineDetections lastDetection = queryDetections.getSingleResult();
+        log.info("--- Last detection: " + lastDetection.getStatus());
+        if (isTIOnline && lastDetection.getStatus().equals(State.OFFLINE.getStatus())) {
+            log.info("--- Adding new line to TIOfflineDetections table with status AGAIN_ONLINE");
+            // Add new line to TIOfflineDetections table with status "AGAIN_ONLINE" and current timestamp
+            TIOfflineDetections newDetection = new TIOfflineDetections();
+            newDetection.setGermanDateTime(java.time.LocalDateTime.now());
+            newDetection.setConnectorUrl(runtimeConfig.getUrl());
+            newDetection.setStatus(State.AGAIN_ONLINE.getStatus());
+            entityManager.persist(newDetection);
+
+        } else if (!isTIOnline && lastDetection.getStatus().equals(State.AGAIN_ONLINE.getStatus())) {
+            log.info("--- Adding new line to TIOfflineDetections table with status OFFLINE");
+            // Add new line to TIOfflineActions table + trigger action
+            TIOfflineActions newAction = new TIOfflineActions();
+            newAction.setGermanDateTime(java.time.LocalDateTime.now());
+            newAction.setConnectorUrl(runtimeConfig.getUrl());
+            Action firstAction = Action.values()[0];
+            newAction.setAction(firstAction.getCurrentAction());
+
+        } else if (!isTIOnline && !lastDetection.getStatus().equals(State.AGAIN_ONLINE.getStatus())) {
+            log.info("--- Adding new line to TIOfflineDetections table with status OFFLINE");
+            // Check which was the last action triggered + add new line to this table + add new line to TIOfflineActions + trigger next action
+            String getLastEntryOfConnectorInActions = "SELECT d FROM TIOfflineActions d WHERE d.connectorUrl = :connectorUrl " +
+                    "ORDER BY d.germanDateTime DESC";
+            TypedQuery<TIOfflineActions> queryActions = entityManager.createQuery(getLastEntryOfConnectorInActions, TIOfflineActions.class);
+            queryActions.setParameter("connectorUrl", runtimeConfig.getUrl());
+            queryActions.setMaxResults(1);
+
+            TIOfflineActions lastAction = queryActions.getSingleResult();
+            String actionTriggeredBefore = lastAction.getAction();
+            Action nextAction = Action.valueOf(actionTriggeredBefore).getNextAction();
+
+            TIOfflineActions newAction = new TIOfflineActions();
+            newAction.setGermanDateTime(java.time.LocalDateTime.now());
+            newAction.setConnectorUrl(runtimeConfig.getUrl());
+            newAction.setAction(nextAction.getCurrentAction());
+            entityManager.persist(newAction);
+        }
     }
 
     public enum State {
-        STILL_OFFLINE("STILL_OFFLINE"),
+        OFFLINE("OFFLINE"),
         AGAIN_ONLINE("AGAIN_ONLINE");
 
         private final String status;
