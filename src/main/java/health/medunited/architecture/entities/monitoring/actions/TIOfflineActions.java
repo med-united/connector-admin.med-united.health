@@ -18,7 +18,7 @@ public class TIOfflineActions {
 
     private LocalDateTime germanDateTime;
 
-    private String connectorIP;
+    private String connectorUrl;
 
     private String action;
 
@@ -27,9 +27,9 @@ public class TIOfflineActions {
     public TIOfflineActions() {
     }
 
-    public TIOfflineActions(LocalDateTime germanDateTime, String connectorIP, String action, String outcome) {
+    public TIOfflineActions(LocalDateTime germanDateTime, String connectorUrl, String action, String outcome) {
         this.germanDateTime = germanDateTime;
-        this.connectorIP = connectorIP;
+        this.connectorUrl = connectorUrl;
         this.action = action;
         this.outcome = outcome;
     }
@@ -46,12 +46,12 @@ public class TIOfflineActions {
         this.germanDateTime = germanDateTime;
     }
 
-    public String getConnectorIP() {
-        return this.connectorIP;
+    public String getConnectorUrl() {
+        return this.connectorUrl;
     }
 
-    public void setConnectorIP(String connectorIP) {
-        this.connectorIP = connectorIP;
+    public void setConnectorUrl(String connectorUrl) {
+        this.connectorUrl = connectorUrl;
     }
 
     public String getAction() {

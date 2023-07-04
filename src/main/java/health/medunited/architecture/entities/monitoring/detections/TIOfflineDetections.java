@@ -18,16 +18,16 @@ public class TIOfflineDetections {
 
     private LocalDateTime germanDateTime;
 
-    private String connectorIP;
+    private String connectorUrl;
 
     private String status;
 
     public TIOfflineDetections() {
     }
 
-    public TIOfflineDetections(LocalDateTime germanDateTime, String connectorIP, String status) {
+    public TIOfflineDetections(LocalDateTime germanDateTime, String connectorUrl, String status) {
         this.germanDateTime = germanDateTime;
-        this.connectorIP = connectorIP;
+        this.connectorUrl = connectorUrl;
         this.status = status;
     }
 
@@ -43,12 +43,12 @@ public class TIOfflineDetections {
         this.germanDateTime = germanDateTime;
     }
 
-    public String getConnectorIP() {
-        return this.connectorIP;
+    public String getConnectorUrl() {
+        return this.connectorUrl;
     }
 
-    public void setConnectorIP(String connectorIP) {
-        this.connectorIP = connectorIP;
+    public void setConnectorUrl(String connectorIp) {
+        this.connectorUrl = connectorIp;
     }
 
     public String getStatus() {
