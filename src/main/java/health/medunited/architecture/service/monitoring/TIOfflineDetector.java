@@ -3,6 +3,7 @@ package health.medunited.architecture.service.monitoring;
 import health.medunited.architecture.entities.RuntimeConfig;
 import health.medunited.architecture.entities.monitoring.actions.TIOfflineActions;
 import health.medunited.architecture.entities.monitoring.detections.TIOfflineDetections;
+import health.medunited.architecture.jaxrs.management.Connector;
 import health.medunited.architecture.monitoring.Scheduler;
 
 import javax.ejb.Singleton;
@@ -11,6 +12,7 @@ import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.logging.Logger;
 
@@ -42,21 +44,37 @@ public class TIOfflineDetector {
         this.runtimeConfig = runtimeConfig;
     }
 
-    public void testAddEntryToTable() {
+    public void testAddEntryToTableTIOfflineDetections() {
         TIOfflineDetections offlineDetection = new TIOfflineDetections();
-        offlineDetection.setGermanDateTime(LocalDateTime.now());
+        offlineDetection.setGermanDateTime(Timestamp.valueOf(LocalDateTime.now()));
         offlineDetection.setConnectorUrl("https://192.168.178.42");
         offlineDetection.setStatus("OFFLINE");
         // Persist the new instance
         entityManager.persist(offlineDetection);
-        log.info("Entry added successfully with ID: " + offlineDetection.getId());
+        log.info("Entry successfully added to TIOfflineDetections with ID: " + offlineDetection.getId());
+    }
+
+    public void testAddEntryToTableTIOfflineActions() {
+        TIOfflineActions action = new TIOfflineActions();
+        action.setGermanDateTime(Timestamp.valueOf(LocalDateTime.now()));
+        action.setConnectorUrl("https://192.168.178.42");
+        action.setAction("CHECK_TIME_SYNCHRONIZATION");
+        // Persist the new instance
+        entityManager.persist(action);
+        log.info("Entry successfully added to TIOfflineActions with ID: " + action.getId());
+    }
+
+    public void triggerActionOnConnector() {
+        log.info("--- Trigger action on connector");
+
     }
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void performAction() {
         log.info("--- Perform action() being executed");
 
-        testAddEntryToTable();
+        testAddEntryToTableTIOfflineDetections();
+        testAddEntryToTableTIOfflineActions();
 
         String getLastEntryOfConnectorInDetections = "SELECT d FROM TIOfflineDetections d WHERE d.connectorUrl = :connectorUrl " +
                 "ORDER BY d.germanDateTime DESC";
@@ -70,7 +88,7 @@ public class TIOfflineDetector {
             log.info("--- Adding new line to TIOfflineDetections table with status AGAIN_ONLINE");
             // Add new line to TIOfflineDetections table with status "AGAIN_ONLINE" and current timestamp
             TIOfflineDetections newDetection = new TIOfflineDetections();
-            newDetection.setGermanDateTime(java.time.LocalDateTime.now());
+            newDetection.setGermanDateTime(Timestamp.valueOf(LocalDateTime.now()));
             newDetection.setConnectorUrl(runtimeConfig.getUrl());
             newDetection.setStatus(State.AGAIN_ONLINE.getStatus());
             entityManager.persist(newDetection);
@@ -79,7 +97,7 @@ public class TIOfflineDetector {
             log.info("--- Adding new line to TIOfflineDetections table with status OFFLINE");
             // Add new line to TIOfflineActions table + trigger action
             TIOfflineActions newAction = new TIOfflineActions();
-            newAction.setGermanDateTime(java.time.LocalDateTime.now());
+            newAction.setGermanDateTime(Timestamp.valueOf(LocalDateTime.now()));
             newAction.setConnectorUrl(runtimeConfig.getUrl());
             Action firstAction = Action.values()[0];
             newAction.setAction(firstAction.getCurrentAction());
@@ -98,10 +116,12 @@ public class TIOfflineDetector {
             Action nextAction = Action.valueOf(actionTriggeredBefore).getNextAction();
 
             TIOfflineActions newAction = new TIOfflineActions();
-            newAction.setGermanDateTime(java.time.LocalDateTime.now());
+            newAction.setGermanDateTime(Timestamp.valueOf(LocalDateTime.now()));
             newAction.setConnectorUrl(runtimeConfig.getUrl());
             newAction.setAction(nextAction.getCurrentAction());
             entityManager.persist(newAction);
+
+            triggerActionOnConnector();
         }
     }
 

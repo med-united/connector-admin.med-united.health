@@ -5,7 +5,7 @@ import health.medunited.architecture.odata.annotations.ODataCacheControl;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 import java.util.UUID;
 
 @Entity
@@ -16,7 +16,7 @@ public class TIOfflineDetections {
     @Id
     private final String id = UUID.randomUUID().toString();
 
-    private LocalDateTime germanDateTime;
+    private Timestamp germanDateTime;
 
     private String connectorUrl;
 
@@ -25,7 +25,7 @@ public class TIOfflineDetections {
     public TIOfflineDetections() {
     }
 
-    public TIOfflineDetections(LocalDateTime germanDateTime, String connectorUrl, String status) {
+    public TIOfflineDetections(Timestamp germanDateTime, String connectorUrl, String status) {
         this.germanDateTime = germanDateTime;
         this.connectorUrl = connectorUrl;
         this.status = status;
@@ -35,11 +35,11 @@ public class TIOfflineDetections {
         return this.id;
     }
 
-    public LocalDateTime getGermanDateTime() {
+    public Timestamp getGermanDateTime() {
         return this.germanDateTime;
     }
 
-    public void setGermanDateTime(LocalDateTime germanDateTime) {
+    public void setGermanDateTime(Timestamp germanDateTime) {
         this.germanDateTime = germanDateTime;
     }
 

@@ -16,9 +16,9 @@
 			<property name="hibernate.show_sql" value="false" />
 			<property name="hibernate.format_sql" value="true" />
 			<!-- Bind entity manager factory to JNDI at java:jboss/blueprintEntityManagerFactory -->
-<!--			<property name="jboss.entity.manager.factory.jndi.name"-->
-<!--				value="java:/blueprintEntityManagerFactory" />-->
-<!--			<property name="jboss.entity.manager.jndi.name" value="java:/blueprintEntityManager" />-->
+			<property name="jboss.entity.manager.factory.jndi.name"
+				value="java:/blueprintEntityManagerFactory" />
+			<property name="jboss.entity.manager.jndi.name" value="java:/blueprintEntityManager" />
 		</properties>
 	</persistence-unit>
 </persistence>
