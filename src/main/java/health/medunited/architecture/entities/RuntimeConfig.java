@@ -17,7 +17,7 @@ public class RuntimeConfig {
     @Id
     private String id = UUID.randomUUID().toString();
 
-    private String userId;
+    private String brand;
 
     private String url;
 
@@ -25,11 +25,13 @@ public class RuntimeConfig {
 
     private String clientSystemId;
 
+    private String workplaceId;
+
+    private String userId;
+
     private String username;
 
     private String password;
-
-    private String workplaceId;
 
     private boolean useSSL;
 
@@ -41,15 +43,16 @@ public class RuntimeConfig {
     public RuntimeConfig() {
     }
 
-    public RuntimeConfig(String host, String mandantId, String clientSystemId, String workplaceId, String userId,
-                         boolean useSSL, String clientCertificate, String clientCertificatePassword) {
-        this.url = host;
+    public RuntimeConfig(String brand, String url, String mandantId, String clientSystemId, String workplaceId, String userId,
+                         String username, String password, boolean useSSL, String clientCertificate, String clientCertificatePassword) {
+        this.brand = brand;
+        this.url = url;
         this.mandantId = mandantId;
         this.clientSystemId = clientSystemId;
         this.workplaceId = workplaceId;
+        this.userId = userId;
         this.username = username;
         this.password = password;
-        this.userId = userId;
         this.useSSL = useSSL;
         this.clientCertificate = clientCertificate;
         this.clientCertificatePassword = clientCertificatePassword;
@@ -61,6 +64,14 @@ public class RuntimeConfig {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
     }
 
     public void setUsername(String username) {

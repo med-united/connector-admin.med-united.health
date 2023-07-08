@@ -108,21 +108,88 @@ sap.ui.define(
             this.byId("editDialog").close();
         },
 
-        onSaveEdit:function(){
-            this.getView()
-               .getModel()
-               .submitChanges({
-                 success: function () {
-                    const oTable = this.getView().byId("runtimeConfigTable");
-                    oTable.getBinding("items").refresh();
-                    sap.m.MessageToast.show(this.translate("msgEditSuccess"));
-                 }.bind(this),
-                 error: function () {
-                    sap.m.MessageToast.show(this.translate("msgEditError"));
-                 },
-               });
-            this.byId("editDialog").close();
+        onSaveEdit: function() {
+          this.getView().getModel().submitChanges({
+            success: () => {
+              console.log("START");
+
+              const oTable = this.getView().byId("runtimeConfigTable");
+              console.log("oTable");
+              console.log(oTable);
+              const aSelectedItems = oTable.getSelectedItems();
+              console.log("aSelectedItems");
+              console.log(aSelectedItems);
+              const oItemContextPath = aSelectedItems[0].getBindingContext().getPath();
+              console.log("oItemContextPath");
+              console.log(oItemContextPath);
+
+              const oRuntimeConfig = this.getView().getModel().getProperty(oItemContextPath);
+              console.log("----------");
+              console.log(oRuntimeConfig);
+
+              this._getConnectorType().then((connectorBrand) => {
+                console.log("BRAND");
+                console.log(connectorBrand);
+                console.log(oItemContextPath);
+
+                const propertyPath = oItemContextPath + "/Brand";
+                this.getView().getModel().setProperty(propertyPath, connectorBrand);
+
+                console.log(this.getView().getModel().getProperty(oItemContextPath));
+
+                oTable.getBinding("items").refresh();
+              });
+
+              console.log(this.getView().getModel().getProperty(oItemContextPath));
+
+              sap.m.MessageToast.show(this.translate("msgEditSuccess"));
+            },
+            error: () => {
+              sap.m.MessageToast.show(this.translate("msgEditError"));
+            },
+          });
+          this.byId("editDialog").close();
         },
+
+        _getHttpHeadersFromRuntimeConfig: function () {
+        	const aSelectedItems = this.getView().byId("runtimeConfigTable").getSelectedItems();
+            const oItemContextPath = aSelectedItems[0].getBindingContext().getPath();
+            const oData = this.getView().getModel().getProperty(oItemContextPath);
+
+		  	return {
+				Accept: "application/json",
+				"x-client-system-id": oData.ClientSystemId,
+				"x-client-certificate": oData.ClientCertificate,
+				"x-client-certificate-password": oData.ClientCertificatePassword,
+				"x-mandant-id": oData.MandantId,
+				"x-workplace-id": oData.WorkplaceId,
+				"x-user-id": oData.UserId,
+				"x-host": oData.Url,
+				"x-use-ssl": oData.UseSSL,
+		  	};
+		},
+
+        _getConnectorType: async function () {
+        	console.log("ENTERED");
+		  	const mHeaders = this._getHttpHeadersFromRuntimeConfig();
+
+		  	let promise = new Promise((resolve) => {
+				fetch("connector/sds/config", { headers: mHeaders })
+			  	.then((remoteResponse) => remoteResponse.json())
+			  	.then((remoteConfig) => {
+					let productCode =
+				  	remoteConfig.productInformation.productIdentification
+						.productCode;
+					let connectorBrand;
+					if (productCode == "secu_kon") connectorBrand = "secunet";
+					else if (productCode == "RKONN") connectorBrand = "rise";
+					else if (productCode == "kocobox") connectorBrand = "kocobox";
+					resolve(connectorBrand);
+			  	});
+		  	});
+
+		  	return await promise;
+		},
 
         onDelete: function () {
           let oView = this.getView();
