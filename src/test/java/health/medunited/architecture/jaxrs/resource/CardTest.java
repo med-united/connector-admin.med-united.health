@@ -23,7 +23,7 @@ class CardTest {
                 .header("X-Client-System-Id", runtimeConfig.getClientSystemId())
                 .header("X-Workplace-Id", runtimeConfig.getWorkplaceId())
                 .header("X-User-Id", runtimeConfig.getUserId())
-                .header("X-Use-SSL", runtimeConfig.getUseSSL())
+                .header("X-Use-Certificate-Auth", runtimeConfig.getUseCertificateAuth())
                 .header("X-Client-Certificate", runtimeConfig.getClientCertificate())
                 .header("X-Client-Certificate-Password", runtimeConfig.getClientCertificatePassword())
                 .header("X-Host", runtimeConfig.getUrl())

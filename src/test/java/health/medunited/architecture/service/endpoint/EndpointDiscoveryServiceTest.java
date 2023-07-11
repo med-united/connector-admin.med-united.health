@@ -2,7 +2,13 @@ package health.medunited.architecture.service.endpoint;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.net.URISyntaxException;
+import java.security.KeyManagementException;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.cert.CertificateException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.bind.JAXBException;
@@ -24,7 +30,7 @@ class EndpointDiscoveryServiceTest {
     private RuntimeConfig runtimeConfig;
 
     @BeforeEach
-    void setupEach(){
+    void setupEach() throws CertificateException, URISyntaxException, KeyStoreException, NoSuchAlgorithmException, IOException, KeyManagementException {
         HttpServletRequest httpServletRequest = Mockito.mock(HttpServletRequest.class);
         runtimeConfig = Bootstrap.getRuntimeConfigKops();
         Mockito.when(httpServletRequest.getHeader("x-client-certificate")).thenReturn(runtimeConfig.getClientCertificate());

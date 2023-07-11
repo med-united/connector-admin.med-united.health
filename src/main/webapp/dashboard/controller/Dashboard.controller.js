@@ -50,9 +50,15 @@ sap.ui.define(
                      "x-mandant-id": config.MandantId,
                      "x-workplace-id": config.WorkplaceId,
                      "x-host": config.Url,
-                     "x-use-ssl": config.UseSSL,
+                     "x-use-certificate-auth": config.UseCertificateAuth,
+                     "x-use-basic-auth": config.UseBasicAuth,
                      Accept: "application/json",
                    };
+                   if (config.UseBasicAuth && config.BasicAuthUsername !== "" && config.BasicAuthPassword !== "") {
+                     const basicAuthCredentials = config.BasicAuthUsername + ":" + config.BasicAuthPassword;
+                     const encodedCredentials = btoa(basicAuthCredentials);
+                     getCardsHeaders.Authorization = "Basic " + encodedCredentials;
+                   }
                    Promise.all([
                      fetch("connector/event/get-card-terminals", {headers : getCardsHeaders}),
                      fetch("connector/event/get-cards", {headers : getCardsHeaders}),

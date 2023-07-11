@@ -42,18 +42,33 @@ public class SecretsManagerService {
     HttpServletRequest request;
 
     @PostConstruct
-    public void createSSLContext() {
-        if (Boolean.parseBoolean(request.getHeader("x-use-ssl"))) {
+    public void createSSLContext() throws CertificateException, URISyntaxException, KeyStoreException, NoSuchAlgorithmException, IOException, KeyManagementException {
+        log.info("\n\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+        if (Boolean.parseBoolean(request.getHeader("x-use-certificate-auth"))) {
+            log.info("\n\nUSE CERTIFICATES");
             // Authenticate with certificate
             try {
-            String keystore = request.getHeader("x-client-certificate");
-            String keystorePassword = request.getHeader("x-client-certificate-password");
-            setUpSSLContext(getKeyFromKeyStoreUri(keystore, keystorePassword));
-            } catch (KeyStoreException | NoSuchAlgorithmException | CertificateException | URISyntaxException | IOException
-                | KeyManagementException e) {
+                String keystore = request.getHeader("x-client-certificate");
+                String keystorePassword = request.getHeader("x-client-certificate-password");
+                setUpSSLContext(getKeyFromKeyStoreUri(keystore, keystorePassword));
+            } catch (KeyStoreException | NoSuchAlgorithmException | CertificateException | URISyntaxException |
+                     IOException
+                     | KeyManagementException e) {
                 log.severe("There was a problem when unpacking key from ClientCertificateKeyStore: " + e.getMessage());
             }
+        } else if (Boolean.parseBoolean(request.getHeader("x-use-basic-auth"))) {
+            log.info("\n\nUSE BASIC AUTH");
+            log.info("authorization: " + request.getHeader("Authorization"));
+            String[] credentials = new String(Base64.getDecoder().decode(request.getHeader("authorization").split(" ")[1])).split(":");
+            String keystore = credentials[0];
+            String keystorePassword = credentials[1];
+            log.info("keystore: " + keystore);
+            log.info("keystorePassword: " + keystorePassword);
+            sslContext = SSLContext.getInstance(SslContextType.TLS.getSslContextType());
+            KeyManager km = getKeyFromKeyStoreUri(keystore, keystorePassword);
+            sslContext.init(new KeyManager[]{km}, null, null);
         } else {
+            log.info("\n\nTRUST ALL");
             // Trust all certificates
             acceptAllCertificates();
         }
