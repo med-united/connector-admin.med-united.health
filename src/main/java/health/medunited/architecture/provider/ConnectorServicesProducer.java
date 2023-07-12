@@ -72,14 +72,10 @@ public class ConnectorServicesProducer {
         de.gematik.ws.conn.certificateservice.wsdl.v6.CertificateServicePortType service =
                 new de.gematik.ws.conn.certificateservice.wsdl.v6.CertificateService(
                         getClass().getResource("/CertificateService.wsdl")).getCertificateServicePort();
+
         BindingProvider bp = (BindingProvider) service;
-        bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY,
-                endpointDiscoveryService.getCertificateServiceEndpointAddress());
-        if (basicAuthUsername != null && basicAuthPassword != null) {
-            bp.getRequestContext().put(BindingProvider.USERNAME_PROPERTY, basicAuthUsername);
-            bp.getRequestContext().put(BindingProvider.PASSWORD_PROPERTY, basicAuthPassword);
-        }
-        configureBindingProvider(bp);
+        String endpointAddress = endpointDiscoveryService.getCertificateServiceEndpointAddress();
+        configureServicePortType(bp, endpointAddress, basicAuthUsername, basicAuthPassword);
 
         certificateServicePortType = service;
     }
@@ -88,14 +84,10 @@ public class ConnectorServicesProducer {
         de.gematik.ws.conn.eventservice.wsdl.v7.EventServicePortType service =
                 new de.gematik.ws.conn.eventservice.wsdl.v7.EventService(
                         getClass().getResource("/EventService.wsdl")).getEventServicePort();
+
         BindingProvider bp = (BindingProvider) service;
-        bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY,
-                endpointDiscoveryService.getEventServiceEndpointAddress());
-        if (basicAuthUsername != null && basicAuthPassword != null) {
-            bp.getRequestContext().put(BindingProvider.USERNAME_PROPERTY, basicAuthUsername);
-            bp.getRequestContext().put(BindingProvider.PASSWORD_PROPERTY, basicAuthPassword);
-        }
-        configureBindingProvider(bp);
+        String endpointAddress = endpointDiscoveryService.getEventServiceEndpointAddress();
+        configureServicePortType(bp, endpointAddress, basicAuthUsername, basicAuthPassword);
 
         eventServicePortType = service;
     }
@@ -104,16 +96,21 @@ public class ConnectorServicesProducer {
         de.gematik.ws.conn.cardservice.wsdl.v8.CardServicePortType service =
                 new de.gematik.ws.conn.cardservice.wsdl.v8.CardService(
                         getClass().getResource("/CardService.wsdl")).getCardServicePort();
+
         BindingProvider bp = (BindingProvider) service;
-        bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY,
-                endpointDiscoveryService.getCardServiceEndpointAddress());
-        if (basicAuthUsername != null && basicAuthPassword != null) {
-            bp.getRequestContext().put(BindingProvider.USERNAME_PROPERTY, basicAuthUsername);
-            bp.getRequestContext().put(BindingProvider.PASSWORD_PROPERTY, basicAuthPassword);
-        }
-        configureBindingProvider(bp);
+        String endpointAddress = endpointDiscoveryService.getCardServiceEndpointAddress();
+        configureServicePortType(bp, endpointAddress, basicAuthUsername, basicAuthPassword);
 
         cardServicePortType = service;
+    }
+
+    private void configureServicePortType(BindingProvider portType, String endpointAddress, String basicAuthUsername, String basicAuthPassword) {
+        portType.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, endpointAddress);
+        if (basicAuthUsername != null && basicAuthPassword != null) {
+            portType.getRequestContext().put(BindingProvider.USERNAME_PROPERTY, basicAuthUsername);
+            portType.getRequestContext().put(BindingProvider.PASSWORD_PROPERTY, basicAuthPassword);
+        }
+        configureBindingProvider(portType);
     }
 
     private void configureBindingProvider(BindingProvider bindingProvider) {
