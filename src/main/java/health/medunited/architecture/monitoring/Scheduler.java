@@ -72,7 +72,7 @@ public class Scheduler {
 
             try {
                 SecretsManagerService secretsManagerService = new SecretsManagerService();
-                boolean useBasicAuth = runtimeConfig.getUseBasicAuth();
+
                 if (runtimeConfig.getUseCertificateAuth()) {
                     String keystore = runtimeConfig.getClientCertificate();
                     String keystorePassword = runtimeConfig.getClientCertificatePassword();

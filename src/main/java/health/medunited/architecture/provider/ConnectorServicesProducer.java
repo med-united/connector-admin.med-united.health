@@ -68,7 +68,6 @@ public class ConnectorServicesProducer {
         initializeCertficateServicePortType(basicAuthUsername, basicAuthPassword);
     }
 
-
     public void initializeCertficateServicePortType(String basicAuthUsername, String basicAuthPassword) {
         de.gematik.ws.conn.certificateservice.wsdl.v6.CertificateServicePortType service =
                 new de.gematik.ws.conn.certificateservice.wsdl.v6.CertificateService(
