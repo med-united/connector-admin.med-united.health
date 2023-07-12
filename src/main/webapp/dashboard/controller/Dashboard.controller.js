@@ -56,11 +56,6 @@ sap.ui.define(
                      "x-basic-auth-password": config.BasicAuthPassword,
                      Accept: "application/json",
                    };
-//                   if (config.UseBasicAuth && config.BasicAuthUsername !== "" && config.BasicAuthPassword !== "") {
-//                     const basicAuthCredentials = config.BasicAuthUsername + ":" + config.BasicAuthPassword;
-//                     const encodedCredentials = btoa(basicAuthCredentials);
-//                     getCardsHeaders.Authorization = "Basic " + encodedCredentials;
-//                   }
                    Promise.all([
                      fetch("connector/event/get-card-terminals", {headers : getCardsHeaders}),
                      fetch("connector/event/get-cards", {headers : getCardsHeaders}),

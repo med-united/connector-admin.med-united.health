@@ -44,13 +44,11 @@ public class RuntimeConfig {
 
     private String clientCertificatePassword;
 
-    private String authorization;
-
     public RuntimeConfig() {
     }
 
     public RuntimeConfig(String host, String mandantId, String clientSystemId, String workplaceId, String userId, String username, String password,
-                         boolean useCertificateAuth, boolean useBasicAuth, String basicAuthUsername, String basicAuthPassword, String clientCertificate, String clientCertificatePassword, String authorization) {
+                         boolean useCertificateAuth, boolean useBasicAuth, String basicAuthUsername, String basicAuthPassword, String clientCertificate, String clientCertificatePassword) {
         this.url = host;
         this.mandantId = mandantId;
         this.clientSystemId = clientSystemId;
@@ -64,7 +62,6 @@ public class RuntimeConfig {
         this.basicAuthPassword = basicAuthPassword;
         this.clientCertificate = clientCertificate;
         this.clientCertificatePassword = clientCertificatePassword;
-        this.authorization = authorization;
     }
 
     public String getId() {
@@ -177,13 +174,5 @@ public class RuntimeConfig {
 
     public void setClientCertificatePassword(String clientCertificatePassword) {
         this.clientCertificatePassword = clientCertificatePassword;
-    }
-
-    public String getAuthorization() {
-        return authorization;
-    }
-
-    public void setAuthorization(String authorization) {
-        this.authorization = authorization;
     }
 }

@@ -33,8 +33,6 @@
                 <Input type="Text" value="{BasicAuthUsername}" visible="{= ${UseBasicAuth} ? true : false}"/>
                 <Label text="{i18n>BasicAuthPassword}"/>
                 <Input type="Password" value="{BasicAuthPassword}" visible="{= ${UseBasicAuth} ? true : false }"/>
-                <Label text="{i18n>Authorization}"/>
-                <Input type="Text" value="{Authorization}" visible="{= ${UseBasicAuth} ? true : false }"/>
             </form:content>
         </form:SimpleForm>
         <beginButton>
