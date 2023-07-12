@@ -56,47 +56,62 @@ public class ConnectorServicesProducer {
 
     private void initializeServices(boolean throwEndpointException) {
         try {
-            endpointDiscoveryService.obtainConfiguration(httpServletRequest.getHeader("x-host"));
+            endpointDiscoveryService.obtainConfiguration(httpServletRequest.getHeader("x-host"), httpServletRequest.getHeader("x-basic-auth-username"), httpServletRequest.getHeader("x-basic-auth-password"));
         } catch (Exception e) {
             log.log(Level.SEVERE, e.getMessage());
         }
-        initializeEventServicePortType();
-        initializeCardServicePortType();
-        initializeCertficateServicePortType();
+        String basicAuthUsername = httpServletRequest.getHeader("x-basic-auth-username");
+        String basicAuthPassword = httpServletRequest.getHeader("x-basic-auth-password");
+
+        initializeEventServicePortType(basicAuthUsername, basicAuthPassword);
+        initializeCardServicePortType(basicAuthUsername, basicAuthPassword);
+        initializeCertficateServicePortType(basicAuthUsername, basicAuthPassword);
     }
 
 
-    public void initializeCertficateServicePortType() {
+    public void initializeCertficateServicePortType(String basicAuthUsername, String basicAuthPassword) {
         de.gematik.ws.conn.certificateservice.wsdl.v6.CertificateServicePortType service =
                 new de.gematik.ws.conn.certificateservice.wsdl.v6.CertificateService(
                         getClass().getResource("/CertificateService.wsdl")).getCertificateServicePort();
         BindingProvider bp = (BindingProvider) service;
         bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY,
                 endpointDiscoveryService.getCertificateServiceEndpointAddress());
+        if (basicAuthUsername != null && basicAuthPassword != null) {
+            bp.getRequestContext().put(BindingProvider.USERNAME_PROPERTY, basicAuthUsername);
+            bp.getRequestContext().put(BindingProvider.PASSWORD_PROPERTY, basicAuthPassword);
+        }
         configureBindingProvider(bp);
 
         certificateServicePortType = service;
     }
 
-    public void initializeEventServicePortType() {
+    public void initializeEventServicePortType(String basicAuthUsername, String basicAuthPassword) {
         de.gematik.ws.conn.eventservice.wsdl.v7.EventServicePortType service =
                 new de.gematik.ws.conn.eventservice.wsdl.v7.EventService(
                         getClass().getResource("/EventService.wsdl")).getEventServicePort();
         BindingProvider bp = (BindingProvider) service;
         bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY,
                 endpointDiscoveryService.getEventServiceEndpointAddress());
+        if (basicAuthUsername != null && basicAuthPassword != null) {
+            bp.getRequestContext().put(BindingProvider.USERNAME_PROPERTY, basicAuthUsername);
+            bp.getRequestContext().put(BindingProvider.PASSWORD_PROPERTY, basicAuthPassword);
+        }
         configureBindingProvider(bp);
 
         eventServicePortType = service;
     }
 
-    public void initializeCardServicePortType() {
+    public void initializeCardServicePortType(String basicAuthUsername, String basicAuthPassword) {
         de.gematik.ws.conn.cardservice.wsdl.v8.CardServicePortType service =
                 new de.gematik.ws.conn.cardservice.wsdl.v8.CardService(
                         getClass().getResource("/CardService.wsdl")).getCardServicePort();
         BindingProvider bp = (BindingProvider) service;
         bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY,
                 endpointDiscoveryService.getCardServiceEndpointAddress());
+        if (basicAuthUsername != null && basicAuthPassword != null) {
+            bp.getRequestContext().put(BindingProvider.USERNAME_PROPERTY, basicAuthUsername);
+            bp.getRequestContext().put(BindingProvider.PASSWORD_PROPERTY, basicAuthPassword);
+        }
         configureBindingProvider(bp);
 
         cardServicePortType = service;

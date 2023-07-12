@@ -42,7 +42,7 @@ public class SecretsManagerService {
     HttpServletRequest request;
 
     @PostConstruct
-    public void createSSLContext() throws CertificateException, URISyntaxException, KeyStoreException, NoSuchAlgorithmException, IOException, KeyManagementException {
+    public void createSSLContext() {
         log.info("\n\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
         if (Boolean.parseBoolean(request.getHeader("x-use-certificate-auth"))) {
             log.info("\n\nUSE CERTIFICATES");
@@ -58,15 +58,12 @@ public class SecretsManagerService {
             }
         } else if (Boolean.parseBoolean(request.getHeader("x-use-basic-auth"))) {
             log.info("\n\nUSE BASIC AUTH");
-            log.info("authorization: " + request.getHeader("Authorization"));
-            String[] credentials = new String(Base64.getDecoder().decode(request.getHeader("authorization").split(" ")[1])).split(":");
-            String keystore = credentials[0];
-            String keystorePassword = credentials[1];
-            log.info("keystore: " + keystore);
-            log.info("keystorePassword: " + keystorePassword);
-            sslContext = SSLContext.getInstance(SslContextType.TLS.getSslContextType());
-            KeyManager km = getKeyFromKeyStoreUri(keystore, keystorePassword);
-            sslContext.init(new KeyManager[]{km}, null, null);
+//            String[] credentials = new String(Base64.getDecoder().decode(request.getHeader("authorization").split(" ")[1])).split(":");
+//            String u = credentials[0];
+//            String p = credentials[1];
+//            log.info("user: " + u);
+//            log.info("pass: " + p);
+            acceptAllCertificates();
         } else {
             log.info("\n\nTRUST ALL");
             // Trust all certificates

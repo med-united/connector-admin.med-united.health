@@ -17,11 +17,11 @@ public class ConnectorSds {
 
     @GET
     @Path("config")
-    public Response connectorSdsConfig(@HeaderParam("X-Host") String connectorUrl) {
+    public Response connectorSdsConfig(@HeaderParam("X-Host") String connectorUrl, @HeaderParam("x-basic-auth-username") String basicAuthUsername, @HeaderParam("x-basic-auth-password") String basicAuthPassword) {
         try {
             return Response
                 .status(Response.Status.OK)
-                .entity(endpointDiscoveryService.obtainConfiguration(connectorUrl))
+                .entity(endpointDiscoveryService.obtainConfiguration(connectorUrl, basicAuthUsername, basicAuthPassword))
                 .type(MediaType.APPLICATION_JSON_TYPE)
                 .build();
         } catch (Exception e) {
@@ -32,8 +32,8 @@ public class ConnectorSds {
 
     @GET
     @Path("file")
-    public byte[] connectorSdsFile(@HeaderParam("X-Host") String connectorBaseUrl) {
-        return endpointDiscoveryService.obtainFile(connectorBaseUrl);
+    public byte[] connectorSdsFile(@HeaderParam("X-Host") String connectorBaseUrl, @HeaderParam("x-basic-auth-username") String basicAuthUsername, @HeaderParam("x-basic-auth-password") String basicAuthPassword) {
+        return endpointDiscoveryService.obtainFile(connectorBaseUrl, basicAuthUsername, basicAuthPassword);
     }
 
 }

@@ -30,7 +30,7 @@ class EndpointDiscoveryServiceTest {
     private RuntimeConfig runtimeConfig;
 
     @BeforeEach
-    void setupEach() throws CertificateException, URISyntaxException, KeyStoreException, NoSuchAlgorithmException, IOException, KeyManagementException {
+    void setupEach() {
         HttpServletRequest httpServletRequest = Mockito.mock(HttpServletRequest.class);
         runtimeConfig = Bootstrap.getRuntimeConfigKops();
         Mockito.when(httpServletRequest.getHeader("x-client-certificate")).thenReturn(runtimeConfig.getClientCertificate());
@@ -44,7 +44,7 @@ class EndpointDiscoveryServiceTest {
     @Test
     @Disabled("Integration test with Kops")
     void testObtainConfiguration() {
-        edService.obtainConfiguration(runtimeConfig.getUrl());
+        edService.obtainConfiguration(runtimeConfig.getUrl(), runtimeConfig.getBasicAuthUsername(), runtimeConfig.getBasicAuthPassword());
         Assertions.assertFalse(edService.getEventServiceEndpointAddress().isEmpty());
     }
 

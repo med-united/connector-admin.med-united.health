@@ -379,7 +379,8 @@ sap.ui.define(
             "x-host": oRuntimeConfig.Url,
             "x-use-certificate-auth": oRuntimeConfig.UseCertificateAuth,
             "x-use-basic-auth": oRuntimeConfig.UseBasicAuth,
-            "Authorization" : oRuntimeConfig.Authorization,
+			"x-basic-auth-username": oRuntimeConfig.BasicAuthUsername,
+			"x-basic-auth-password": oRuntimeConfig.BasicAuthPassword,
 			};
         },
 
