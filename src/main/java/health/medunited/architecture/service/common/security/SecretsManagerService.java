@@ -43,10 +43,10 @@ public class SecretsManagerService {
 
     @PostConstruct
     public void createSSLContext() {
-        log.info("\n\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+        log.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+        // Certificate-based authentication
         if (Boolean.parseBoolean(request.getHeader("x-use-certificate-auth"))) {
-            log.info("\n\nUSE CERTIFICATES");
-            // Authenticate with certificate
+            log.info("Certificate-based auth being used");
             try {
                 String keystore = request.getHeader("x-client-certificate");
                 String keystorePassword = request.getHeader("x-client-certificate-password");
@@ -56,17 +56,13 @@ public class SecretsManagerService {
                      | KeyManagementException e) {
                 log.severe("There was a problem when unpacking key from ClientCertificateKeyStore: " + e.getMessage());
             }
+        // Basic authentication
         } else if (Boolean.parseBoolean(request.getHeader("x-use-basic-auth"))) {
-            log.info("\n\nUSE BASIC AUTH");
-//            String[] credentials = new String(Base64.getDecoder().decode(request.getHeader("authorization").split(" ")[1])).split(":");
-//            String u = credentials[0];
-//            String p = credentials[1];
-//            log.info("user: " + u);
-//            log.info("pass: " + p);
+            log.info("Basic auth being used");
             acceptAllCertificates();
+        // Trust all certificates
         } else {
-            log.info("\n\nTRUST ALL");
-            // Trust all certificates
+            log.info("Trusting all certificates");
             acceptAllCertificates();
         }
     }
