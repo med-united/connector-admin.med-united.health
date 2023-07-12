@@ -2,6 +2,7 @@ package health.medunited.architecture.service.endpoint;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Base64;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
@@ -37,9 +38,9 @@ public class EndpointDiscoveryService {
         this.secretsManagerService = secretsManagerService;
     }
 
-    public byte[] obtainFile(String connectorBaseUrl) {
+    public byte[] obtainFile(String connectorBaseUrl, String basicAuthUsername, String basicAuthPassword) {
         Client client = buildClient(3);
-        Invocation invocation = buildInvocation(client, connectorBaseUrl);
+        Invocation invocation = buildInvocation(client, connectorBaseUrl, basicAuthUsername, basicAuthPassword);
         try {
             return invocation
                     .invoke(InputStream.class)
@@ -52,9 +53,9 @@ public class EndpointDiscoveryService {
         }
     }
 
-    public ConnectorServices obtainConfiguration(String connectorBaseUrl) {
+    public ConnectorServices obtainConfiguration(String connectorBaseUrl, String basicAuthUsername, String basicAuthPassword) {
         Client client = buildClient(3);
-        Invocation invocation = buildInvocation(client, connectorBaseUrl);
+        Invocation invocation = buildInvocation(client, connectorBaseUrl, basicAuthUsername, basicAuthPassword);
         try {
             InputStream inputStream = invocation.invoke(InputStream.class);
             return parseInput(inputStream);
@@ -71,11 +72,14 @@ public class EndpointDiscoveryService {
         return this.connectorSds;
     }
 
-    private Invocation buildInvocation(Client client, String connectorBaseUrl) {
+    private Invocation buildInvocation(Client client, String connectorBaseUrl, String basicAuthUsername, String basicAuthPassword) {
         Invocation.Builder builder = client
                 .target(connectorBaseUrl)
                 .path("/connector.sds")
                 .request();
+        if (basicAuthUsername != null && basicAuthPassword != null) {
+            builder.header("Authorization", "Basic " + Base64.getEncoder().encodeToString((basicAuthUsername + ":" + basicAuthPassword).getBytes()));
+        }
         return builder.buildGet();
     }
 

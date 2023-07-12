@@ -50,7 +50,10 @@ sap.ui.define(
                      "x-mandant-id": config.MandantId,
                      "x-workplace-id": config.WorkplaceId,
                      "x-host": config.Url,
-                     "x-use-ssl": config.UseSSL,
+                     "x-use-certificate-auth": config.UseCertificateAuth,
+                     "x-use-basic-auth": config.UseBasicAuth,
+                     "x-basic-auth-username": config.BasicAuthUsername,
+                     "x-basic-auth-password": config.BasicAuthPassword,
                      Accept: "application/json",
                    };
                    Promise.all([

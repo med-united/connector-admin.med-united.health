@@ -21,11 +21,18 @@
                 <Label text="{i18n>Password}"/>
                 <Input type="Password" value="{Password}"/>
                 <Label text="{i18n>SecureCommunicationUsingSSL/TLS}"/>
-                <CheckBox text="{i18n>CertificateBasedAuthentication}" selected="{UseSSL}"/>
+                <RadioButtonGroup columns="2" >
+                    <RadioButton text="{i18n>CertificateBasedAuthentication}" selected="{UseCertificateAuth}"/>
+                    <RadioButton text="{i18n>UseBasicAuth}" selected="{UseBasicAuth}"/>
+                </RadioButtonGroup>
                 <Label text="{i18n>ClientCertificate}"/>
-                <Input type="Text" value="{ClientCertificate}" visible="{= ${UseSSL} ? true : false}"/>
+                <Input type="Text" value="{ClientCertificate}" visible="{= ${UseCertificateAuth} ? true : false}"/>
                 <Label text="{i18n>ClientCertificatePassword}"/>
-                <Input type="Password" value="{ClientCertificatePassword}" visible="{= ${UseSSL} ? true : false}"/>
+                <Input type="Password" value="{ClientCertificatePassword}" visible="{= ${UseCertificateAuth} ? true : false}"/>
+                <Label text="{i18n>BasicAuthUsername}"/>
+                <Input type="Text" value="{BasicAuthUsername}" visible="{= ${UseBasicAuth} ? true : false}"/>
+                <Label text="{i18n>BasicAuthPassword}"/>
+                <Input type="Password" value="{BasicAuthPassword}" visible="{= ${UseBasicAuth} ? true : false }"/>
             </form:content>
         </form:SimpleForm>
         <beginButton>

@@ -377,8 +377,11 @@ sap.ui.define(
             "x-workplace-id": oRuntimeConfig.WorkplaceId,
             "x-user-id": oRuntimeConfig.UserId,
             "x-host": oRuntimeConfig.Url,
-            "x-use-ssl": oRuntimeConfig.UseSSL,
-          };
+            "x-use-certificate-auth": oRuntimeConfig.UseCertificateAuth,
+            "x-use-basic-auth": oRuntimeConfig.UseBasicAuth,
+			"x-basic-auth-username": oRuntimeConfig.BasicAuthUsername,
+			"x-basic-auth-password": oRuntimeConfig.BasicAuthPassword,
+			};
         },
 
         _getConnectorType: async function () {
