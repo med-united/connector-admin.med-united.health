@@ -1,5 +1,5 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:form="sap.ui.layout.form"
-                         xmlns:core="sap.ui.core">
+                         xmlns:core="sap.ui.core" xmlns:unified="sap.ui.unified">
     <Dialog id="createDialog" title="{i18n>dialogTitleCreate}" contentWidth="40rem">
         <form:SimpleForm editable="false" layout="ResponsiveGridLayout" labelSpanXL="4"
                          labelSpanL="4" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0"
@@ -29,6 +29,10 @@
                 <Input type="Text" value="{ClientCertificate}" visible="{= ${UseCertificateAuth} ? true : false}"/>
                 <Label text="{i18n>ClientCertificatePassword}"/>
                 <Input type="Password" value="{ClientCertificatePassword}" visible="{= ${UseCertificateAuth} ? true : false}"/>
+
+                <Label text="{i18n>UploadCertificate}"/>
+                <unified:FileUploader id="certificateFileUploader" change="onFileUploaderChange"/>
+
                 <Label text="{i18n>BasicAuthUsername}"/>
                 <Input type="Text" value="{BasicAuthUsername}" visible="{= ${UseBasicAuth} ? true : false}"/>
                 <Label text="{i18n>BasicAuthPassword}"/>

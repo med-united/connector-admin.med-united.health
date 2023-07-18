@@ -6,7 +6,8 @@ sap.ui.define(
     "sap/ui/model/Sorter",
     "sap/ui/core/Fragment",
     "sap/m/MessageToast",
-    "sap/m/MessageBox"
+    "sap/m/MessageBox",
+    "../lib/pkijs/build/index",
   ],
   function (
     AbstractMasterController,
@@ -15,7 +16,8 @@ sap.ui.define(
     Sorter,
     Fragment,
     MessageToast,
-    MessageBox
+    MessageBox,
+    pkijs
   ) {
     "use strict";
 
@@ -165,6 +167,31 @@ sap.ui.define(
             }));
           this.byId("deleteConfirmationDialog").close();
 
+        },
+
+        onFileUploaderChange: function(event) {
+            var file = event.getParameter("files")[0];
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                var fileContentArrayBuffer = e.target.result;
+                var fileContentBytes = new Uint8Array(fileContentArrayBuffer);
+
+                var pkcs12Asn1 = org.pkijs.fromBER(fileContentBytes.buffer);
+                var pkcs12 = new org.pkijs.PFX({ schema: pkcs12Asn1.result });
+                pkcs12.decrypt("", { outputPrivateKey: true });
+
+                var bags = pkcs12.getBags({ bagType: org.pkijs.oids.certBag });
+                var cert = bags[org.pkijs.oids.certBag][0];
+                var privateKey = pkcs12.getPrivateKey(cert);
+
+                var clientCertPasswordInput = sap.ui.getCore().byId("clientCertPasswordInput");
+                clientCertPasswordInput.setValue(org.pkijs.pemToDer(org.pkijs.certificateToPem(cert.cert)).getBytes());
+
+                // Handle privateKey as needed
+            };
+
+            reader.readAsArrayBuffer(file);
         },
       }
     );
