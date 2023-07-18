@@ -154,8 +154,8 @@ sap.ui.define(
             "Name" : "Kartenterminals",
             "Value" : terminalData["Amount"],
             "Icon": url + "dashboard/images/CardTerminal.png",
-            "State": terminalData["Inactive"] > 0 ? "Error" : "Success",
-            "Info" : terminalData["Inactive"] > 0 ? "Offline: " + terminalData["Inactive"] : this.translate("AllOnline")
+            "State": terminalData["Inactive"] > 0 ? "Error" : (terminalData["Amount"] === 0) ? "Error" : "Success",
+            "Info" : terminalData["Inactive"] > 0 ? "Offline: " + terminalData["Inactive"] : (terminalData["Amount"] === 0) ? this.translate("NotConnected") : this.translate("AllOnline")
           });
           connectorContent.push({
             "Name" : "Karten",
