@@ -65,6 +65,13 @@
 				}
 			}
 		},
+		"resources": {
+			"js": [
+				{
+					"uri": "./lib/forge-main/dist/forge.js"
+				}
+			]
+		},
 		"routing": {
 			"config": {
 				"routerClass": "sap.m.routing.Router",
