@@ -158,7 +158,7 @@
                                                 />
                                             </Column>
                                             <Column importance="Low">
-                                                <Text text="{i18n>SlotId}" />
+                                                <Text text="{i18n>CardterminalSlotId}" />
                                             </Column>
                                             <Column />
                                         </columns>
@@ -178,7 +178,7 @@
                                                 <Text
                                                     text="{path: 'Cards>insertTime', formatter: '.formatter.formatDateAndTimeWithTimezone'}"
                                                 />
-                                                <Text text="{Cards>slotId}" />
+                                                <Text text="{Cards>cardTerminalSlotId}" />
                                                 <MenuButton
                                                     text="{i18n>Action...}"
                                                     visible="{Cards>option}"

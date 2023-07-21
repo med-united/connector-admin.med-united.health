@@ -277,6 +277,15 @@ sap.ui.define(
                     : false;
                 card["cPIN.QES"] = card.cardType == "HBA" ? true : false;
                 card["cPIN.SMC"] = card.cardType == "SMC_B" ? true : false;
+                const cardTerminals = this.getView().getModel("CardTerminals").getData().cardTerminals.cardTerminal;
+                const ctId = card.ctId;
+                var name = "Unbekannt";
+                for (const cardTerminal of cardTerminals) {
+                    if(ctId == cardTerminal.ctId){
+                        name = cardTerminal.name;
+                    }
+                }
+                card["cardTerminalSlotId"] =  name + ": " + card.slotId;
               }
               this.getView().getModel("Cards").setData(da);
             });
