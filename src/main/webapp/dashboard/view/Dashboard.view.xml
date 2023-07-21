@@ -102,6 +102,9 @@
                                 <Column>
                                     <Text text="PIN-Status DISABLED" />
                                 </Column>
+                                <Column>
+                                    <Text text="Fehler" />
+                                </Column>
                                 <Column
                                     mergeDuplicates="true"
                                     mergeFunctionName="data#mergeKey"
@@ -144,6 +147,10 @@
                                     <ObjectStatus
                                         text="{CardsCard>pinDisabled}"
                                         state="Error"
+                                    />
+                                    <ObjectStatus
+                                            text="{CardsCard>pinError}"
+                                            state="Error"
                                     />
                                     <ObjectStatus
                                         text="{CardsCard>validity}"

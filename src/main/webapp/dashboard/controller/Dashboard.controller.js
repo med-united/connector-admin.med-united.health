@@ -37,7 +37,8 @@ sap.ui.define(
                  const blockedPinStatus = {"SMC_B" : 0, "HBA_CH": 0, "HBA_QES" : 0, "EGK": 0};
                  const emptyPinStatus = {"SMC_B" : 0, "HBA_CH": 0, "HBA_QES" : 0, "EGK": 0};
                  const disabledPinStatus = {"SMC_B" : 0, "HBA_CH": 0, "HBA_QES" : 0, "EGK": 0};
-                 const stats = {"VERIFIED" : verifiedPinStatus, "VERIFIABLE" : verifiablePinStatus, "TRANSPORT_PIN" : transportPinStatus, "BLOCKED" : blockedPinStatus, "EMPTY_PIN": emptyPinStatus, "DISABLED": disabledPinStatus};
+                 const errorPinStatus = {"SMC_B" : 0, "HBA_CH": 0, "HBA_QES" : 0, "EGK": 0};
+                 const stats = {"VERIFIED" : verifiedPinStatus, "VERIFIABLE" : verifiablePinStatus, "TRANSPORT_PIN" : transportPinStatus, "BLOCKED" : blockedPinStatus, "EMPTY_PIN": emptyPinStatus, "DISABLED": disabledPinStatus, "ERROR" : errorPinStatus};
                  const numConfigs = configs.length;
                  let numResponses = 0;
                  let numCards = 0;
@@ -117,7 +118,12 @@ sap.ui.define(
              if (type == "HBA"){
                type = pinStatus[j].pinType == "PIN.CH" ? "HBA_CH" : "HBA_QES";
              }
-             stats[pinStatus[j].status][type] = stats[pinStatus[j].status][type] + 1;
+             if(pinStatus[j].status.includes("FEHLERCODE")){
+                pinStatus[j].status = "ERROR";
+             }
+             if(type != "UNKNOWN"){
+                stats[pinStatus[j].status][type] = stats[pinStatus[j].status][type] + 1;
+             }
           }
         },
 
@@ -180,6 +186,7 @@ sap.ui.define(
             "pinBlocked" : cardTypes["EGK"] > 0 ? stats["BLOCKED"]["EGK"] : "-",
             "pinDisabled" : cardTypes["EGK"] > 0 ? stats["DISABLED"]["EGK"] : "-",
             "pinEmpty" : cardTypes["EGK"] > 0 ? stats["EMPTY_PIN"]["EGK"] : "-",
+            "pinError" : cardTypes["EGK"] > 0 ? stats["ERROR"]["EGK"] : "-",
             "validity" : cardTypes["EGK"] > 0 ? invalidCertCards["EGK"] > 0 ? this.translate("Expired") + invalidCertCards["EGK"] : this.translate("AllValid") : "-",
             "validityState" : invalidCertCards["EGK"] > 0 ? "Error" : "Success"
           });
@@ -193,6 +200,7 @@ sap.ui.define(
             "pinBlocked" : cardTypes["HBA"] > 0 ? stats["BLOCKED"]["HBA_CH"] : "-",
             "pinDisabled" : cardTypes["HBA"] > 0 ? stats["DISABLED"]["HBA_CH"] : "-",
             "pinEmpty" : cardTypes["HBA"] > 0 ? stats["EMPTY_PIN"]["HBA_CH"] : "-",
+            "pinError" : cardTypes["HBA"] > 0 ? stats["ERROR"]["HBA_CH"] : "-",
             "validity" : cardTypes["HBA"] > 0 ? invalidCertCards["HBA"] > 0 ? this.translate("Expired") + invalidCertCards["HBA"] : this.translate("AllValid") : "-",
             "validityState" : invalidCertCards["HBA"] > 0 ? "Error" : "Success"
           });
@@ -206,6 +214,7 @@ sap.ui.define(
             "pinBlocked" : cardTypes["HBA"] > 0 ? stats["BLOCKED"]["HBA_QES"] : "-",
             "pinDisabled" : cardTypes["HBA"] > 0 ? stats["DISABLED"]["HBA_QES"] : "-",
             "pinEmpty" : cardTypes["HBA"] > 0 ? stats["EMPTY_PIN"]["HBA_QES"] : "-",
+            "pinError" : cardTypes["HBA"] > 0 ? stats["ERROR"]["HBA_QES"] : "-",
             "validity" : cardTypes["HBA"] > 0 ? invalidCertCards["HBA"] > 0 ? this.translate("Expired") + invalidCertCards["HBA"] : this.translate("AllValid") : "-",
             "validityState" : invalidCertCards["HBA"] > 0 ? "Error" : "Success"
           });
@@ -219,6 +228,7 @@ sap.ui.define(
             "pinBlocked" : cardTypes["SMC_B"] > 0 ? stats["BLOCKED"]["SMC_B"] : "-",
             "pinDisabled" : cardTypes["SMC_B"] > 0 ? stats["DISABLED"]["SMC_B"] : "-",
             "pinEmpty" : cardTypes["SMC_B"] > 0 ? stats["EMPTY_PIN"]["SMC_B"] : "-",
+            "pinError" : cardTypes["SMC_B"] > 0 ? stats["ERROR"]["SMC_B"] : "-",
             "validity" : cardTypes["SMC_B"] > 0 ? invalidCertCards["SMC_B"] > 0 ? this.translate("Expired") + invalidCertCards["SMC_B"] : this.translate("AllValid") : "-",
             "validityState" : invalidCertCards["SMC_B"] > 0 ? "Error" : "Success"
           });
@@ -232,6 +242,7 @@ sap.ui.define(
             "pinBlocked" : "-",
             "pinDisabled" : "-",
             "pinEmpty" : "-",
+            "pinError" : "-",
             "validity" : cardTypes["SMC_KT"] > 0 ? invalidCertCards["SMC_KT"] > 0 ? this.translate("Expired") + invalidCertCards["SMC_KT"] : this.translate("AllValid") : "-",
             "validityState" : invalidCertCards["SMC_KT"] > 0 ? "Error" : "Success",
           });
