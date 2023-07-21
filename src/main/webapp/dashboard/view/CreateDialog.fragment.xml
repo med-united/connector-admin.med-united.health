@@ -29,9 +29,8 @@
                 <Input type="Text" value="{ClientCertificate}" visible="{= ${UseCertificateAuth} ? true : false}"/>
                 <Label text="{i18n>ClientCertificatePassword}"/>
                 <Input type="Password" value="{ClientCertificatePassword}" visible="{= ${UseCertificateAuth} ? true : false}"/>
-
                 <Label text="{i18n>UploadCertificate}"/>
-                <unified:FileUploader id="certificateFileUploader" change="onFileUploaderChange"/>
+                <unified:FileUploader id="onCreateCertificateFileUploader" change="onCreateDialogFileUploaderChange" visible="{= ${UseCertificateAuth} ? true : false}"/>
 
                 <Label text="{i18n>BasicAuthUsername}"/>
                 <Input type="Text" value="{BasicAuthUsername}" visible="{= ${UseBasicAuth} ? true : false}"/>

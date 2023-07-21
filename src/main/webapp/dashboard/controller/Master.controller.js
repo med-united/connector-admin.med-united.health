@@ -7,7 +7,6 @@ sap.ui.define(
     "sap/ui/core/Fragment",
     "sap/m/MessageToast",
     "sap/m/MessageBox",
-    "../lib/forge-main/dist/forge",
   ],
   function (
     AbstractMasterController,
@@ -17,7 +16,6 @@ sap.ui.define(
     Fragment,
     MessageToast,
     MessageBox,
-    forge,
   ) {
     "use strict";
 
@@ -176,49 +174,13 @@ sap.ui.define(
 
         },
 
-        onFileUploaderChange: function(event) {
-          var file = event.getParameter("files")[0];
-          var reader = new FileReader();
-          console.log("forge", forge);
-
-          reader.onload = function(e) {
-            var fileContentArrayBuffer = e.target.result;
-            var fileContentBytes = new Uint8Array(fileContentArrayBuffer);
-
-            try {
-              // Use Forge to parse PKCS#12 file
-              var p12Asn1 = forge.asn1.fromDer(fileContentBytes);
-              var pkcs12 = forge.pkcs12.pkcs12FromAsn1(p12Asn1);
-
-              // Get bags containing the private key and certificate
-              var bags = pkcs12.getBags({ bagType: forge.pki.oids.pkcs8ShroudedKeyBag });
-              var privateKeyBag = bags[forge.pki.oids.pkcs8ShroudedKeyBag][0];
-              var certBags = pkcs12.getBags({ bagType: forge.pki.oids.certBag });
-              var certBag = certBags[forge.pki.oids.certBag][0];
-
-              if (privateKeyBag && certBag) {
-                var privateKeyPEM = forge.pki.privateKeyToPem(privateKeyBag.key);
-                var certificatePEM = forge.pki.certificateToPem(certBag.cert);
-
-                // Use the private key and certificate as needed
-                var clientCertPasswordInput = sap.ui.getCore().byId("clientCertPasswordInput");
-                clientCertPasswordInput.setValue(privateKeyPEM + '\n' + certificatePEM);
-              } else {
-                console.error("Private key or certificate not found in the PKCS#12 file.");
-              }
-            } catch (error) {
-              console.error("An error occurred while loading the PKCS#12 file:", error);
-            }
-          };
-
-          reader.readAsArrayBuffer(file);
+        onCreateDialogFileUploaderChange: function(event) {
+          this.onFileUploaderChange(event, "createDialog");
         },
 
-
-
-
-
-
+		onEditDialogFileUploaderChange: function(event) {
+          this.onFileUploaderChange(event, "editDialog");
+        },
 
       }
     );
