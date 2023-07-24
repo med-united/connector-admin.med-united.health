@@ -21,28 +21,28 @@
                 <Label text="{i18n>Password}"/>
                 <Input type="Password" value="{Password}"/>
                 <Label text="{i18n>SecureCommunicationUsingSSL/TLS}"/>
-                <RadioButtonGroup columns="2" >
+                <RadioButtonGroup columns="2" select="onEditDialogRadioButtonSelected">
                     <RadioButton text="{i18n>CertificateBasedAuthentication}" selected="{UseCertificateAuth}"/>
                     <RadioButton text="{i18n>UseBasicAuth}" selected="{UseBasicAuth}"/>
                 </RadioButtonGroup>
                 <Label text="{i18n>ClientCertificate}"/>
-                <Input type="Text" value="{ClientCertificate}" visible="{= ${UseCertificateAuth} ? true : false}"/>
+                <Input type="Text" value="{ClientCertificate}" visible="{UseCertificateAuth}"/>
                 <Label text="{i18n>ClientCertificatePassword}"/>
-                <Input type="Password" value="{ClientCertificatePassword}" visible="{= ${UseCertificateAuth} ? true : false}"/>
-                <Label text="{i18n>UploadCertificate}"/>
-                <unified:FileUploader id="onEditCertificateFileUploader" change="onEditDialogFileUploaderChange" visible="{= ${UseCertificateAuth} ? true : false}"/>
+                <Input type="Password" value="{ClientCertificatePassword}" visible="{UseCertificateAuth}"/>
+                <Label text="{i18n>UploadP12File}"/>
+                <unified:FileUploader id="onEditCertificateFileUploader" change="onEditDialogFileUploaderChange" buttonText="{i18n>Browse...}" visible="{UseCertificateAuth}"/>
 
                 <Label text="{i18n>BasicAuthUsername}"/>
-                <Input type="Text" value="{BasicAuthUsername}" visible="{= ${UseBasicAuth} ? true : false}"/>
+                <Input type="Text" value="{BasicAuthUsername}" visible="{UseBasicAuth}"/>
                 <Label text="{i18n>BasicAuthPassword}"/>
-                <Input type="Password" value="{BasicAuthPassword}" visible="{= ${UseBasicAuth} ? true : false }"/>
+                <Input type="Password" value="{BasicAuthPassword}" visible="{UseBasicAuth}"/>
             </form:content>
         </form:SimpleForm>
         <beginButton>
-            <Button type="Accept" text="{i18n>onSaveEdit}" press="onSaveEdit"/>
+            <Button type="Reject" text="{i18n>onCancelEdit}" press="onCancelEdit"/>
         </beginButton>
         <endButton>
-            <Button type="Reject" text="{i18n>onCancelEdit}" press="onCancelEdit"/>
+            <Button type="Accept" text="{i18n>onSaveEdit}" press="onSaveEdit"/>
         </endButton>
     </Dialog>
 </core:FragmentDefinition>

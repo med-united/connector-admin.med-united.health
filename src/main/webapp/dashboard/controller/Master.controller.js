@@ -19,13 +19,6 @@ sap.ui.define(
   ) {
     "use strict";
 
-    console.log("forge", forge);
-    // Check if 'forge' is now defined
-	  if (forge === undefined) {
-		// If 'forge' is still undefined, it means it's not loaded correctly
-		console.error("The 'forge' object is undefined. Check the script loading and path.");
-	  }
-
     return AbstractMasterController.extend(
       "sap.f.ShellBarWithFlexibleColumnLayout.controller.Master",
       {
@@ -181,6 +174,14 @@ sap.ui.define(
 		onEditDialogFileUploaderChange: function(event) {
           this.onFileUploaderChange(event, "editDialog");
         },
+
+        onCreateDialogRadioButtonSelected: function(event){
+        	this.onRadioButtonSelected(event, "createDialog");
+        },
+
+		onEditDialogRadioButtonSelected: function(event){
+			this.onRadioButtonSelected(event, "editDialog");
+		},
 
       }
     );

@@ -25,13 +25,18 @@ public class RuntimeConfig {
 
     private String clientSystemId;
 
+    private String workplaceId;
+
     private String username;
 
     private String password;
 
-    private String workplaceId;
-
     private boolean useCertificateAuth;
+
+    @Column(columnDefinition = "TEXT", length = 65535)
+    private String clientCertificate;
+
+    private String clientCertificatePassword;
 
     private boolean useBasicAuth;
 
@@ -39,29 +44,24 @@ public class RuntimeConfig {
 
     private String basicAuthPassword;
 
-    @Column(columnDefinition = "TEXT", length = 65535)
-    private String clientCertificate;
-
-    private String clientCertificatePassword;
-
     public RuntimeConfig() {
     }
 
-    public RuntimeConfig(String host, String mandantId, String clientSystemId, String workplaceId, String userId, String username, String password,
-                         boolean useCertificateAuth, boolean useBasicAuth, String basicAuthUsername, String basicAuthPassword, String clientCertificate, String clientCertificatePassword) {
-        this.url = host;
+    public RuntimeConfig(String userId, String url, String mandantId, String clientSystemId, String workplaceId, String username, String password,
+                         boolean useCertificateAuth, String clientCertificate, String clientCertificatePassword, boolean useBasicAuth, String basicAuthUsername, String basicAuthPassword) {
+        this.userId = userId;
+        this.url = url;
         this.mandantId = mandantId;
         this.clientSystemId = clientSystemId;
         this.workplaceId = workplaceId;
         this.username = username;
         this.password = password;
-        this.userId = userId;
         this.useCertificateAuth = useCertificateAuth;
+        this.clientCertificate = clientCertificate;
+        this.clientCertificatePassword = clientCertificatePassword;
         this.useBasicAuth = useBasicAuth;
         this.basicAuthUsername = basicAuthUsername;
         this.basicAuthPassword = basicAuthPassword;
-        this.clientCertificate = clientCertificate;
-        this.clientCertificatePassword = clientCertificatePassword;
     }
 
     public String getId() {
@@ -70,22 +70,6 @@ public class RuntimeConfig {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public String getPassword() {
-        return password;
     }
 
     public String getUserId() {
@@ -128,12 +112,44 @@ public class RuntimeConfig {
         this.workplaceId = workplaceId;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public boolean getUseCertificateAuth() {
         return useCertificateAuth;
     }
 
     public void setUseCertificateAuth(boolean useCertificateAuth) {
         this.useCertificateAuth = useCertificateAuth;
+    }
+
+    public String getClientCertificate() {
+        return clientCertificate;
+    }
+
+    public void setClientCertificate(String clientCertificate) {
+        this.clientCertificate = clientCertificate;
+    }
+
+    public String getClientCertificatePassword() {
+        return clientCertificatePassword;
+    }
+
+    public void setClientCertificatePassword(String clientCertificatePassword) {
+        this.clientCertificatePassword = clientCertificatePassword;
     }
 
     public boolean getUseBasicAuth() {
@@ -158,21 +174,5 @@ public class RuntimeConfig {
 
     public void setBasicAuthPassword(String basicAuthPassword) {
         this.basicAuthPassword = basicAuthPassword;
-    }
-
-    public String getClientCertificate() {
-        return clientCertificate;
-    }
-
-    public void setClientCertificate(String clientCertificate) {
-        this.clientCertificate = clientCertificate;
-    }
-
-    public String getClientCertificatePassword() {
-        return clientCertificatePassword;
-    }
-
-    public void setClientCertificatePassword(String clientCertificatePassword) {
-        this.clientCertificatePassword = clientCertificatePassword;
     }
 }

@@ -81,7 +81,10 @@ sap.ui.define(
         _createContextPathFromModel: function (sEntityName) {
           const oModel = this.getView().getModel();
           const sEntityId = oModel.createEntry("/RuntimeConfigs", {
-            properties: {},
+            properties: {
+              UseCertificateAuth: false,
+              UseBasicAuth: false,
+		  	},
           });
           return sEntityId;
         },
@@ -102,41 +105,42 @@ sap.ui.define(
         },
 
         onFileUploaderChange: function(event, dialogId) {
-		  var file = event.getParameter("files")[0];
-		  console.log("event", event);
-		  var reader = new FileReader();
+		  let file = event.getParameter("files")[0];
+		  let reader = new FileReader();
 
 		  reader.onload = (e) => {
-			var fileContentArrayBuffer = e.target.result;
-			var fileContentBytes = new Uint8Array(fileContentArrayBuffer);
+			let fileContentArrayBuffer = e.target.result;
+			let fileContentBytes = new Uint8Array(fileContentArrayBuffer);
+			let binaryString = this._bytesToBinaryString(fileContentBytes);
+			let base64Data = btoa(binaryString);
 
-			// Convert Uint8Array to binary string
-			var binaryString = this.bytesToBinaryString(fileContentBytes);
+			let clientCertificate = "data:application/x-pkcs12;base64," + base64Data;
 
-			// Convert binary string to Base64 using JavaScript's btoa function
-			var base64Data = btoa(binaryString);
-
-			// Get the dialog by its ID and update the ClientCertificate property
-			var dialog = this.byId(dialogId);
-
-			dialog.getModel().setProperty(dialog.getBindingContext().sPath + "/ClientCertificate", base64Data);
-
-			// Use the base64Data as needed (e.g., store it, send it to the server, etc.)
-			console.log("Base64 data:", base64Data);
-			console.log("Client Certificate:", dialog.getModel().getProperty(dialog.getBindingContext().sPath + "/ClientCertificate"));
-			console.log("Runtime item", dialog.getModel().getProperty(dialog.getBindingContext().sPath));
+			let dialog = this.byId(dialogId);
+			dialog.getModel().setProperty(dialog.getBindingContext().getPath() + "/ClientCertificate", clientCertificate);
 		  };
 
 		  reader.readAsArrayBuffer(file);
 		},
 
-		bytesToBinaryString: function(bytes) {
-		  var binaryString = '';
-		  var len = bytes.length;
-		  for (var i = 0; i < len; i++) {
+		_bytesToBinaryString: function(bytes) {
+		  let binaryString = '';
+		  let len = bytes.length;
+		  for (let i = 0; i < len; i++) {
 			binaryString += String.fromCharCode(bytes[i]);
 		  }
 		  return binaryString;
+		},
+
+		onRadioButtonSelected: function(event, dialogId) {
+			let dialog = this.byId(dialogId);
+			if (dialog.getModel().getProperty(dialog.getBindingContext().getPath() + "/UseBasicAuth")) {
+                dialog.getModel().setProperty(dialog.getBindingContext().getPath() + "/ClientCertificate", null);
+                dialog.getModel().setProperty(dialog.getBindingContext().getPath() + "/ClientCertificatePassword", null);
+			} else if (dialog.getModel().getProperty(dialog.getBindingContext().getPath() + "/UseCertificateAuth")) {
+				dialog.getModel().setProperty(dialog.getBindingContext().getPath() + "/BasicAuthUsername", null);
+                dialog.getModel().setProperty(dialog.getBindingContext().getPath() + "/BasicAuthPassword", null);
+			}
 		},
 
       }
