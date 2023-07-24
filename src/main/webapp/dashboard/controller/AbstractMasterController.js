@@ -81,7 +81,10 @@ sap.ui.define(
         _createContextPathFromModel: function (sEntityName) {
           const oModel = this.getView().getModel();
           const sEntityId = oModel.createEntry("/RuntimeConfigs", {
-            properties: {},
+            properties: {
+              UseCertificateAuth: false,
+              UseBasicAuth: false,
+		  	},
           });
           return sEntityId;
         },
@@ -100,6 +103,46 @@ sap.ui.define(
             });
           this.byId("createDialog").close();
         },
+
+        onFileUploaderChange: function(event, dialogId) {
+		  let file = event.getParameter("files")[0];
+		  let reader = new FileReader();
+
+		  reader.onload = (e) => {
+			let fileContentArrayBuffer = e.target.result;
+			let fileContentBytes = new Uint8Array(fileContentArrayBuffer);
+			let binaryString = this._bytesToBinaryString(fileContentBytes);
+			let base64Data = btoa(binaryString);
+
+			let clientCertificate = "data:application/x-pkcs12;base64," + base64Data;
+
+			let dialog = this.byId(dialogId);
+			dialog.getModel().setProperty(dialog.getBindingContext().getPath() + "/ClientCertificate", clientCertificate);
+		  };
+
+		  reader.readAsArrayBuffer(file);
+		},
+
+		_bytesToBinaryString: function(bytes) {
+		  let binaryString = '';
+		  let len = bytes.length;
+		  for (let i = 0; i < len; i++) {
+			binaryString += String.fromCharCode(bytes[i]);
+		  }
+		  return binaryString;
+		},
+
+		onRadioButtonSelected: function(event, dialogId) {
+			let dialog = this.byId(dialogId);
+			if (dialog.getModel().getProperty(dialog.getBindingContext().getPath() + "/UseBasicAuth")) {
+                dialog.getModel().setProperty(dialog.getBindingContext().getPath() + "/ClientCertificate", null);
+                dialog.getModel().setProperty(dialog.getBindingContext().getPath() + "/ClientCertificatePassword", null);
+			} else if (dialog.getModel().getProperty(dialog.getBindingContext().getPath() + "/UseCertificateAuth")) {
+				dialog.getModel().setProperty(dialog.getBindingContext().getPath() + "/BasicAuthUsername", null);
+                dialog.getModel().setProperty(dialog.getBindingContext().getPath() + "/BasicAuthPassword", null);
+			}
+		},
+
       }
     );
   },
