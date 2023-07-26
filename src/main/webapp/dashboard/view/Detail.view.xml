@@ -412,10 +412,10 @@
                                                     text="{CardTerminals>connected}"
                                                 />
                                                 <Text
-                                                    text="{CardTerminals>productInformation/productIdentification/productVersion/local/FWVersion}"
+                                                    text="{CardTerminals>productInformation/productIdentification/productVersion/local/HWVersion}"
                                                 />
                                                 <Text
-                                                    text="{CardTerminals>productInformation/productIdentification/productVersion/local/HWVersion}"
+                                                    text="{CardTerminals>productInformation/productIdentification/productVersion/local/FWVersion}"
                                                 />
                                             </ColumnListItem>
                                         </items>
