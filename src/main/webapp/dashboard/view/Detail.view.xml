@@ -386,15 +386,15 @@
                                                 <Text text="Produkt" />
                                             </Column>
                                             <Column importance="High">
-                                                <Text
-                                                    text="{i18n>Connection}"
-                                                />
-                                            </Column>
-                                            <Column importance="High">
                                                 <Text text="HW Version" />
                                             </Column>
                                             <Column importance="High">
                                                 <Text text="FW Version" />
+                                            </Column>
+                                            <Column importance="High">
+                                                <Text
+                                                    text="{i18n>Connection}"
+                                                />
                                             </Column>
                                         </columns>
                                         <items>
@@ -409,13 +409,13 @@
                                                     text="{CardTerminals>productInformation/productIdentification/productCode} {CardTerminals>productInformation/productIdentification/productVendorID}"
                                                 />
                                                 <Text
-                                                    text="{CardTerminals>connected}"
-                                                />
-                                                <Text
                                                     text="{CardTerminals>productInformation/productIdentification/productVersion/local/HWVersion}"
                                                 />
                                                 <Text
                                                     text="{CardTerminals>productInformation/productIdentification/productVersion/local/FWVersion}"
+                                                />
+                                                <Text
+                                                    text="{CardTerminals>connected}"
                                                 />
                                             </ColumnListItem>
                                         </items>
