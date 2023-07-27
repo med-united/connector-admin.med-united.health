@@ -80,7 +80,8 @@ public class Scheduler {
 
             try {
                 SecretsManagerService secretsManagerService = new SecretsManagerService();
-                if (runtimeConfig.getClientCertificate() != null) {
+
+                if (runtimeConfig.getUseCertificateAuth()) {
                     String keystore = runtimeConfig.getClientCertificate();
                     String keystorePassword = runtimeConfig.getClientCertificatePassword();
                     try {
@@ -90,11 +91,13 @@ public class Scheduler {
                             | URISyntaxException | IOException e) {
                         log.log(Level.WARNING, "Could not create SSL context", e);
                     }
+                } else {
+                    secretsManagerService.acceptAllCertificates();
                 }
 
                 EndpointDiscoveryService endpointDiscoveryService = new EndpointDiscoveryService(secretsManagerService);
                 try {
-                    endpointDiscoveryService.obtainConfiguration(runtimeConfig.getUrl());
+                    endpointDiscoveryService.obtainConfiguration(runtimeConfig.getUrl(), runtimeConfig.getBasicAuthUsername(), runtimeConfig.getBasicAuthPassword());
                 } catch (Exception e) {
                     log.log(Level.SEVERE, e.getMessage());
                     continue;
@@ -104,8 +107,8 @@ public class Scheduler {
                 connectorServicesProducer.setSecretsManagerService(secretsManagerService);
                 connectorServicesProducer.setEndpointDiscoveryService(endpointDiscoveryService);
 
-                connectorServicesProducer.initializeEventServicePortType();
-                connectorServicesProducer.initializeCardServicePortType();
+                connectorServicesProducer.initializeEventServicePortType(runtimeConfig.getBasicAuthUsername(), runtimeConfig.getBasicAuthPassword());
+                connectorServicesProducer.initializeCardServicePortType(runtimeConfig.getBasicAuthUsername(), runtimeConfig.getBasicAuthPassword());
 
                 EventServicePortType eventServicePortType = connectorServicesProducer.getEventServicePortType();
                 CardServicePortType cardServicePortType = connectorServicesProducer.getCardServicePortType();

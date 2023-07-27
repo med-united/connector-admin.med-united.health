@@ -25,34 +25,43 @@ public class RuntimeConfig {
 
     private String clientSystemId;
 
+    private String workplaceId;
+
     private String username;
 
     private String password;
 
-    private String workplaceId;
-
-    private boolean useSSL;
+    private boolean useCertificateAuth;
 
     @Column(columnDefinition = "TEXT", length = 65535)
     private String clientCertificate;
 
     private String clientCertificatePassword;
 
+    private boolean useBasicAuth;
+
+    private String basicAuthUsername;
+
+    private String basicAuthPassword;
+
     public RuntimeConfig() {
     }
 
-    public RuntimeConfig(String host, String mandantId, String clientSystemId, String workplaceId, String userId,
-                         boolean useSSL, String clientCertificate, String clientCertificatePassword) {
-        this.url = host;
+    public RuntimeConfig(String userId, String url, String mandantId, String clientSystemId, String workplaceId, String username, String password,
+                         boolean useCertificateAuth, String clientCertificate, String clientCertificatePassword, boolean useBasicAuth, String basicAuthUsername, String basicAuthPassword) {
+        this.userId = userId;
+        this.url = url;
         this.mandantId = mandantId;
         this.clientSystemId = clientSystemId;
         this.workplaceId = workplaceId;
         this.username = username;
         this.password = password;
-        this.userId = userId;
-        this.useSSL = useSSL;
+        this.useCertificateAuth = useCertificateAuth;
         this.clientCertificate = clientCertificate;
         this.clientCertificatePassword = clientCertificatePassword;
+        this.useBasicAuth = useBasicAuth;
+        this.basicAuthUsername = basicAuthUsername;
+        this.basicAuthPassword = basicAuthPassword;
     }
 
     public String getId() {
@@ -61,22 +70,6 @@ public class RuntimeConfig {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public String getPassword() {
-        return password;
     }
 
     public String getUserId() {
@@ -119,12 +112,28 @@ public class RuntimeConfig {
         this.workplaceId = workplaceId;
     }
 
-    public boolean getUseSSL() {
-        return useSSL;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUseSSL(boolean useSSL) {
-        this.useSSL = useSSL;
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public boolean getUseCertificateAuth() {
+        return useCertificateAuth;
+    }
+
+    public void setUseCertificateAuth(boolean useCertificateAuth) {
+        this.useCertificateAuth = useCertificateAuth;
     }
 
     public String getClientCertificate() {
@@ -141,5 +150,29 @@ public class RuntimeConfig {
 
     public void setClientCertificatePassword(String clientCertificatePassword) {
         this.clientCertificatePassword = clientCertificatePassword;
+    }
+
+    public boolean getUseBasicAuth() {
+        return useBasicAuth;
+    }
+
+    public void setUseBasicAuth(boolean useBasicAuth) {
+        this.useBasicAuth = useBasicAuth;
+    }
+
+    public String getBasicAuthUsername() {
+        return basicAuthUsername;
+    }
+
+    public void setBasicAuthUsername(String basicAuthUsername) {
+        this.basicAuthUsername = basicAuthUsername;
+    }
+
+    public String getBasicAuthPassword() {
+        return basicAuthPassword;
+    }
+
+    public void setBasicAuthPassword(String basicAuthPassword) {
+        this.basicAuthPassword = basicAuthPassword;
     }
 }

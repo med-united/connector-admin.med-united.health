@@ -277,6 +277,15 @@ sap.ui.define(
                     : false;
                 card["cPIN.QES"] = card.cardType == "HBA" ? true : false;
                 card["cPIN.SMC"] = card.cardType == "SMC_B" ? true : false;
+                const cardTerminals = this.getView().getModel("CardTerminals").getData().cardTerminals.cardTerminal;
+                const ctId = card.ctId;
+                var name = "Unbekannt";
+                for (const cardTerminal of cardTerminals) {
+                    if(ctId == cardTerminal.ctId){
+                        name = cardTerminal.name;
+                    }
+                }
+                card["cardTerminalSlotId"] =  name + ": " + card.slotId;
               }
               this.getView().getModel("Cards").setData(da);
             });
@@ -377,8 +386,11 @@ sap.ui.define(
             "x-workplace-id": oRuntimeConfig.WorkplaceId,
             "x-user-id": oRuntimeConfig.UserId,
             "x-host": oRuntimeConfig.Url,
-            "x-use-ssl": oRuntimeConfig.UseSSL,
-          };
+            "x-use-certificate-auth": oRuntimeConfig.UseCertificateAuth,
+            "x-use-basic-auth": oRuntimeConfig.UseBasicAuth,
+			"x-basic-auth-username": oRuntimeConfig.BasicAuthUsername,
+			"x-basic-auth-password": oRuntimeConfig.BasicAuthPassword,
+			};
         },
 
         _getConnectorType: async function () {

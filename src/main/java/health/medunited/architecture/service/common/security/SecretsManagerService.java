@@ -43,18 +43,26 @@ public class SecretsManagerService {
 
     @PostConstruct
     public void createSSLContext() {
-        if (Boolean.parseBoolean(request.getHeader("x-use-ssl"))) {
-            // Authenticate with certificate
+        log.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+        // Certificate-based authentication
+        if (Boolean.parseBoolean(request.getHeader("x-use-certificate-auth"))) {
+            log.info("Certificate-based auth being used");
             try {
-            String keystore = request.getHeader("x-client-certificate");
-            String keystorePassword = request.getHeader("x-client-certificate-password");
-            setUpSSLContext(getKeyFromKeyStoreUri(keystore, keystorePassword));
-            } catch (KeyStoreException | NoSuchAlgorithmException | CertificateException | URISyntaxException | IOException
-                | KeyManagementException e) {
+                String keystore = request.getHeader("x-client-certificate");
+                String keystorePassword = request.getHeader("x-client-certificate-password");
+                setUpSSLContext(getKeyFromKeyStoreUri(keystore, keystorePassword));
+            } catch (KeyStoreException | NoSuchAlgorithmException | CertificateException | URISyntaxException |
+                     IOException
+                     | KeyManagementException e) {
                 log.severe("There was a problem when unpacking key from ClientCertificateKeyStore: " + e.getMessage());
             }
+        // Basic authentication
+        } else if (Boolean.parseBoolean(request.getHeader("x-use-basic-auth"))) {
+            log.info("Basic auth being used");
+            acceptAllCertificates();
+        // Trust all certificates
         } else {
-            // Trust all certificates
+            log.info("Trusting all certificates");
             acceptAllCertificates();
         }
     }

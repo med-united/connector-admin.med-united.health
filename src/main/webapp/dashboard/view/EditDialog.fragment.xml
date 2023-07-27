@@ -1,5 +1,5 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:form="sap.ui.layout.form"
-                         xmlns:core="sap.ui.core">
+                         xmlns:core="sap.ui.core" xmlns:unified="sap.ui.unified">
     <Dialog id="editDialog" title="{i18n>dialogTitleEdit}" contentWidth="40rem">
         <form:SimpleForm editable="false" layout="ResponsiveGridLayout" labelSpanXL="4"
                          labelSpanL="4" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0"
@@ -21,18 +21,28 @@
                 <Label text="{i18n>Password}"/>
                 <Input type="Password" value="{Password}"/>
                 <Label text="{i18n>SecureCommunicationUsingSSL/TLS}"/>
-                <CheckBox text="{i18n>CertificateBasedAuthentication}" selected="{UseSSL}"/>
+                <RadioButtonGroup columns="2" select="onEditDialogRadioButtonSelected">
+                    <RadioButton text="{i18n>CertificateBasedAuthentication}" selected="{UseCertificateAuth}"/>
+                    <RadioButton text="{i18n>UseBasicAuth}" selected="{UseBasicAuth}"/>
+                </RadioButtonGroup>
                 <Label text="{i18n>ClientCertificate}"/>
-                <Input type="Text" value="{ClientCertificate}" visible="{= ${UseSSL} ? true : false}"/>
+                <Input type="Text" value="{ClientCertificate}" visible="{UseCertificateAuth}"/>
                 <Label text="{i18n>ClientCertificatePassword}"/>
-                <Input type="Password" value="{ClientCertificatePassword}" visible="{= ${UseSSL} ? true : false}"/>
+                <Input type="Password" value="{ClientCertificatePassword}" visible="{UseCertificateAuth}"/>
+                <Label text="{i18n>UploadP12File}"/>
+                <unified:FileUploader id="onEditCertificateFileUploader" change="onEditDialogFileUploaderChange" buttonText="{i18n>Browse...}" visible="{UseCertificateAuth}"/>
+
+                <Label text="{i18n>BasicAuthUsername}"/>
+                <Input type="Text" value="{BasicAuthUsername}" visible="{UseBasicAuth}"/>
+                <Label text="{i18n>BasicAuthPassword}"/>
+                <Input type="Password" value="{BasicAuthPassword}" visible="{UseBasicAuth}"/>
             </form:content>
         </form:SimpleForm>
         <beginButton>
-            <Button type="Accept" text="{i18n>onSaveEdit}" press="onSaveEdit"/>
+            <Button type="Reject" text="{i18n>onCancelEdit}" press="onCancelEdit"/>
         </beginButton>
         <endButton>
-            <Button type="Reject" text="{i18n>onCancelEdit}" press="onCancelEdit"/>
+            <Button type="Accept" text="{i18n>onSaveEdit}" press="onSaveEdit"/>
         </endButton>
     </Dialog>
 </core:FragmentDefinition>

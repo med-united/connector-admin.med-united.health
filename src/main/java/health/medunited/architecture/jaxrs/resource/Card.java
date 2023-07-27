@@ -188,6 +188,8 @@ public class Card {
                 pinStatus.setStatus(pinStatusEnum.value.toString());
             } catch (FaultMessage e) {
                 log.log(Level.SEVERE, e.getMessage());
+                String errorCode = String.valueOf(e.getFaultInfo().getTrace().get(0).getCode());
+                pinStatus.setStatus("FEHLERCODE: " + errorCode);
             }
         }
         return pinStatus;

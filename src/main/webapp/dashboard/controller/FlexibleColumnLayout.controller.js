@@ -9,6 +9,7 @@ sap.ui.define(
         onInit: function () {
           this.oRouter = this.getOwnerComponent().getRouter();
           this.oRouter.attachRouteMatched(this.onRouteMatched, this);
+
         },
 
         onRouteMatched: function (oEvent) {
@@ -70,6 +71,10 @@ sap.ui.define(
         },
 
         handleBackButtonPressed: function () {
+          this.oRouter.navTo("dashboard");
+        },
+
+        homeIconPressed: function () {
           this.oRouter.navTo("dashboard");
         },
 

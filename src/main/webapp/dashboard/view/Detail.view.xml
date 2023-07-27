@@ -158,7 +158,7 @@
                                                 />
                                             </Column>
                                             <Column importance="Low">
-                                                <Text text="{i18n>SlotId}" />
+                                                <Text text="{i18n>CardterminalSlotId}" />
                                             </Column>
                                             <Column />
                                         </columns>
@@ -178,7 +178,7 @@
                                                 <Text
                                                     text="{path: 'Cards>insertTime', formatter: '.formatter.formatDateAndTimeWithTimezone'}"
                                                 />
-                                                <Text text="{Cards>slotId}" />
+                                                <Text text="{Cards>cardTerminalSlotId}" />
                                                 <MenuButton
                                                     text="{i18n>Action...}"
                                                     visible="{Cards>option}"
@@ -386,6 +386,12 @@
                                                 <Text text="Produkt" />
                                             </Column>
                                             <Column importance="High">
+                                                <Text text="HW Version" />
+                                            </Column>
+                                            <Column importance="High">
+                                                <Text text="FW Version" />
+                                            </Column>
+                                            <Column importance="High">
                                                 <Text
                                                     text="{i18n>Connection}"
                                                 />
@@ -400,7 +406,13 @@
                                                     text="{CardTerminals>name}"
                                                 />
                                                 <Text
-                                                    text="{CardTerminals>productInformation/productIdentification/productCode} {CardTerminals>productInformation/productIdentification/productVendorID} {CardTerminals>productInformation/productIdentification/productVersion/local/FWVersion}"
+                                                    text="{CardTerminals>productInformation/productIdentification/productCode} {CardTerminals>productInformation/productIdentification/productVendorID}"
+                                                />
+                                                <Text
+                                                    text="{CardTerminals>productInformation/productIdentification/productVersion/local/HWVersion}"
+                                                />
+                                                <Text
+                                                    text="{CardTerminals>productInformation/productIdentification/productVersion/local/FWVersion}"
                                                 />
                                                 <Text
                                                     text="{CardTerminals>connected}"

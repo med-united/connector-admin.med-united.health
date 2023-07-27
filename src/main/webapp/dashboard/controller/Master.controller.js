@@ -6,7 +6,7 @@ sap.ui.define(
     "sap/ui/model/Sorter",
     "sap/ui/core/Fragment",
     "sap/m/MessageToast",
-    "sap/m/MessageBox"
+    "sap/m/MessageBox",
   ],
   function (
     AbstractMasterController,
@@ -15,7 +15,7 @@ sap.ui.define(
     Sorter,
     Fragment,
     MessageToast,
-    MessageBox
+    MessageBox,
   ) {
     "use strict";
 
@@ -166,6 +166,23 @@ sap.ui.define(
           this.byId("deleteConfirmationDialog").close();
 
         },
+
+        onCreateDialogFileUploaderChange: function(event) {
+          this.onFileUploaderChange(event, "createDialog");
+        },
+
+		onEditDialogFileUploaderChange: function(event) {
+          this.onFileUploaderChange(event, "editDialog");
+        },
+
+        onCreateDialogRadioButtonSelected: function(event){
+        	this.onRadioButtonSelected(event, "createDialog");
+        },
+
+		onEditDialogRadioButtonSelected: function(event){
+			this.onRadioButtonSelected(event, "editDialog");
+		},
+
       }
     );
   }

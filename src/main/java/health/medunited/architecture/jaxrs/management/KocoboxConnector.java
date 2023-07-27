@@ -17,10 +17,12 @@ public class KocoboxConnector extends AbstractConnector {
     @Override
     public void restart(String connectorUrl, ManagementCredentials managementCredentials) {
         restart(connectorUrl, "8500", managementCredentials);
+
     }
 
     @Override
     public void restart(String connectorUrl, String managementPort, ManagementCredentials managementCredentials) {
         log.log(Level.INFO, "Restarting Kocobox connector");
     }
+
 }
