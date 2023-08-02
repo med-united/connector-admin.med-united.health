@@ -39,19 +39,26 @@ sap.ui.define(
           this.oRouter.navTo("detail", oParams);
         },
         onSearch: function (oEvent) {
-          let oTableSearchState = [],
-            sQuery = oEvent.getParameter("query");
+          const sQuery = oEvent.getParameter("query");
+          const aFilters = [];
 
-          if (sQuery && sQuery.length > 0) {
-            oTableSearchState = [
-              new Filter("UserId", FilterOperator.Contains, sQuery),
-            ];
+          // Validate sQuery
+          if (!sQuery || sQuery.length === 0) {
+            return;
           }
+          // Create filters and push only if the query exists
+          aFilters.push(new Filter("UserId", sap.ui.model.FilterOperator.Contains, sQuery));
+          aFilters.push(new Filter("Url", sap.ui.model.FilterOperator.Contains, sQuery));
+          aFilters.push(new Filter("MandantId", sap.ui.model.FilterOperator.Contains, sQuery));
+          aFilters.push(new Filter("ClientSystemId", sap.ui.model.FilterOperator.Contains, sQuery));
+          aFilters.push(new Filter("WorkplaceId", sap.ui.model.FilterOperator.Contains, sQuery));
 
-          this.getView()
-            .byId("runtimeConfigTable")
-            .getBinding("items")
-            .filter(oTableSearchState, "Application");
+          const oAllFilter = new Filter({
+            filters: aFilters,
+            and: false, // Use 'or' operator between filters
+          });
+          
+          this.getView().byId("runtimeConfigTable").getBinding("items").filter(oAllFilter);
         },
 
         getEntityName: function () {
