@@ -47,17 +47,17 @@ sap.ui.define(
             return;
           }
           // Create filters and push only if the query exists
-          aFilters.push(new Filter("UserId", sap.ui.model.FilterOperator.Contains, sQuery));
-          aFilters.push(new Filter("Url", sap.ui.model.FilterOperator.Contains, sQuery));
-          aFilters.push(new Filter("MandantId", sap.ui.model.FilterOperator.Contains, sQuery));
-          aFilters.push(new Filter("ClientSystemId", sap.ui.model.FilterOperator.Contains, sQuery));
-          aFilters.push(new Filter("WorkplaceId", sap.ui.model.FilterOperator.Contains, sQuery));
+          aFilters.push(new Filter("UserId", FilterOperator.Contains, sQuery));
+          aFilters.push(new Filter("Url", FilterOperator.Contains, sQuery));
+          aFilters.push(new Filter("MandantId", FilterOperator.Contains, sQuery));
+          aFilters.push(new Filter("ClientSystemId", FilterOperator.Contains, sQuery));
+          aFilters.push(new Filter("WorkplaceId", FilterOperator.Contains, sQuery));
 
           const oAllFilter = new Filter({
             filters: aFilters,
             and: false, // Use 'or' operator between filters
           });
-          
+
           this.getView().byId("runtimeConfigTable").getBinding("items").filter(oAllFilter);
         },
 
