@@ -44,7 +44,9 @@ sap.ui.define(
 
           // Validate sQuery
           if (!sQuery || sQuery.length === 0) {
-            return;
+          // Clear filters and refresh table
+          this.getView().byId("runtimeConfigTable").getBinding("items").filter([]);
+          return;
           }
           // Create filters and push only if the query exists
           aFilters.push(new Filter("UserId", FilterOperator.Contains, sQuery));
