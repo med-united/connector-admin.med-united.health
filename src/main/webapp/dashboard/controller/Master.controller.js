@@ -69,12 +69,22 @@ sap.ui.define(
 
         onSort: function (oEvent) {
           this._bDescendingSort = !this._bDescendingSort;
-          let oView = this.getView(),
-            oTable = oView.byId("runtimeConfigTable"),
-            oBinding = oTable.getBinding("items"),
-            oSorter = new Sorter("Name", this._bDescendingSort);
 
-          oBinding.sort(oSorter);
+          const oView = this.getView();
+          const oTable = oView.byId("runtimeConfigTable");
+          const oBinding = oTable.getBinding("items");
+
+          // Define an array of sorter objects for multi-level sorting
+          const sorters = [];
+
+            // Define different sorters and push into the array
+          sorters.push(new Sorter("UserId", this._bDescendingSort));
+          sorters.push(new Sorter("Url", this._bDescendingSort));
+          sorters.push(new Sorter("MandantId", this._bDescendingSort));
+          sorters.push(new Sorter("ClientSystemId", this._bDescendingSort));
+          sorters.push(new Sorter("WorkplaceId", this._bDescendingSort));
+
+          oBinding.sort(sorters);
         },
 
         onEdit: function(){
