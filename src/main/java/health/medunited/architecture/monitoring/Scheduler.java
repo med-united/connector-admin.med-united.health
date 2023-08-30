@@ -135,7 +135,7 @@ public class Scheduler {
                 FileReader reader = new FileReader("./monitoring/MonitoringAspects.json");
                 MonitoringRequest incomingMonitoring = JsonbBuilder.create().fromJson(reader, MonitoringRequest.class);
 
-                if(incomingMonitoring.isUpdateConnectorsOn()) {
+                if (incomingMonitoring.isUpdateConnectorsOn()) {
                     log.log(Level.INFO, "checking for updates is enabled in the json config");
                     addMetricIsKonnektorUpdated(runtimeConfig);
                 } else {
@@ -151,7 +151,7 @@ public class Scheduler {
     private void addMetricTimeInSecondsUntilSMCKTCardExpires(Timer connectorResponseTime, RuntimeConfig runtimeConfig, EventServicePortType eventServicePortType) {
         try {
             Callable<Long> secondsCallable = getTimeInSecondsUntilSMCKTCardExpires(runtimeConfig, eventServicePortType);
-            Gauge<Long> timeInSecondsUntilSMCKTCardExpires = applicationRegistry.gauge(Metadata.builder()
+            applicationRegistry.gauge(Metadata.builder()
                     .withName("secondsDurationLeftUntilSMC_KTexpiry_" + runtimeConfig.getUrl())
                     .withDescription("duration of seconds until the SMC_KT card expires " + runtimeConfig.getUrl())
                     .build(), () -> {
@@ -207,7 +207,7 @@ public class Scheduler {
     private void addMetricCurrentlyConnectedCards(Timer connectorResponseTime, RuntimeConfig runtimeConfig, EventServicePortType eventServicePortType) {
         try {
             Callable<Integer> callable = getCurrentlyConnectedCards(runtimeConfig, eventServicePortType);
-            Gauge<Integer> currentlyConnectedCards = applicationRegistry.gauge(Metadata.builder()
+            applicationRegistry.gauge(Metadata.builder()
                     .withName("currentlyConnectedCards_" + runtimeConfig.getUrl())
                     .withDescription("Currently connected cards for " + runtimeConfig.getUrl())
                     .build(), () -> {
@@ -243,7 +243,7 @@ public class Scheduler {
     private void addMetricPinStatusSMCB(String typeOfStatus, Timer connectorResponseTime, RuntimeConfig runtimeConfig, EventServicePortType eventServicePortType, CardServicePortType cardServicePortType) {
         try {
             Callable<Integer> callable = getNrOfCardsWithStatus(typeOfStatus, runtimeConfig, eventServicePortType, cardServicePortType);
-            Gauge<Integer> metricPinStatusSMCB = applicationRegistry.gauge(
+            applicationRegistry.gauge(
                     Metadata.builder()
                             .withName("pinStatus_SMC_B_" + typeOfStatus + "_" + runtimeConfig.getUrl())
                             .withDescription("SMC_B cards with PinStatus " + typeOfStatus + " for " + runtimeConfig.getUrl())

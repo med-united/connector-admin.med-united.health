@@ -16,6 +16,7 @@ import javax.ws.rs.core.Response;
 
 import health.medunited.architecture.service.common.security.SecretsManagerService;
 import org.json.*;
+
 import javax.ws.rs.core.Response.Status;
 
 import health.medunited.architecture.model.ManagementCredentials;
@@ -25,7 +26,7 @@ import health.medunited.architecture.model.ManagementCredentials;
 public class SecunetConnector extends AbstractConnector {
 
     private static final Logger log = Logger.getLogger(SecunetConnector.class.getName());
-     SecretsManagerService secretsManagerService;
+    SecretsManagerService secretsManagerService;
 
     @Override
     public void restart(String connectorUrl, ManagementCredentials managementCredentials) {
@@ -70,40 +71,39 @@ public class SecunetConnector extends AbstractConnector {
         // and the following response media type: MediaType.APPLICATION_JSON
         // and the following response entity: String
         // and the following request entity: {"logSuccessfulCryptoOps":"DISABLED","logInfo":[{"fmName":"system","severity":"DEBUG","logDays":"10","performanceLog":"ENABLED"},{"fmName":"amts","severity":"WARNING","logDays":"10","performanceLog":"DISABLED"},{"fmName":"epa","severity":"WARNING","logDays":"10","performanceLog":"DISABLED"},{"fmName":"nfdm","severity":"WARNING","logDays":"10","performanceLog":"DISABLED"},{"fmName":"vsdm","severity":"WARNING","logDays":"10","performanceLog":"DISABLED"}],"securityLogDays":"10"}
-        
+
         Client client = buildClient();
         Response loginResponse = loginManagementConsole(client, connectorUrl, managementPort, managementCredentials);
-        
+
         WebTarget restartTarget = client.target(connectorUrl + ":" + managementPort)
                 .path("/rest/mgmt/nk/protokoll/einstellungen").queryParam("strict", "true");
         Invocation.Builder logSetter = restartTarget.request(MediaType.APPLICATION_JSON);
         logSetter.header("Authorization", loginResponse.getHeaders().get("Authorization").get(0));
 
-        JsonObject jsonObject = Json.createObjectBuilder().add("logSuccessfulCryptoOps", "DISABLED").add("logInfo", 
-            Json.createArrayBuilder().add(
-                Json.createObjectBuilder().add("fmName", "system").add("severity", "WARNING").add("logDays", x).add("performanceLog", "DISABLED").build()
-            ).add(
-                Json.createObjectBuilder().add("fmName", "amts").add("severity", "WARNING").add("logDays", x).add("performanceLog", "DISABLED").build()
-            ).add(
-                Json.createObjectBuilder().add("fmName", "epa").add("severity", "WARNING").add("logDays", x).add("performanceLog", "DISABLED").build()
-            ).add(
-                Json.createObjectBuilder().add("fmName", "nfdm").add("severity", "WARNING").add("logDays", x).add("performanceLog", "DISABLED").build()
-            ).add(
-                Json.createObjectBuilder().add("fmName", "vsdm").add("severity", "WARNING").add("logDays", x).add("performanceLog", "DISABLED").build()
-            ).build()
+        JsonObject jsonObject = Json.createObjectBuilder().add("logSuccessfulCryptoOps", "DISABLED").add("logInfo",
+                Json.createArrayBuilder().add(
+                        Json.createObjectBuilder().add("fmName", "system").add("severity", "WARNING").add("logDays", x).add("performanceLog", "DISABLED").build()
+                ).add(
+                        Json.createObjectBuilder().add("fmName", "amts").add("severity", "WARNING").add("logDays", x).add("performanceLog", "DISABLED").build()
+                ).add(
+                        Json.createObjectBuilder().add("fmName", "epa").add("severity", "WARNING").add("logDays", x).add("performanceLog", "DISABLED").build()
+                ).add(
+                        Json.createObjectBuilder().add("fmName", "nfdm").add("severity", "WARNING").add("logDays", x).add("performanceLog", "DISABLED").build()
+                ).add(
+                        Json.createObjectBuilder().add("fmName", "vsdm").add("severity", "WARNING").add("logDays", x).add("performanceLog", "DISABLED").build()
+                ).build()
         ).add("securityLogDays", x).build();
 
         Response response = logSetter.put(Entity.json(jsonObject.toString()));
 
-        if(response.getStatusInfo().getFamily() != Status.Family.SUCCESSFUL) {
-            throw new RuntimeException("Could not set log settings. Code: "+response.getStatus()+" Body: "+response.readEntity(String.class));
+        if (response.getStatusInfo().getFamily() != Status.Family.SUCCESSFUL) {
+            throw new RuntimeException("Could not set log settings. Code: " + response.getStatus() + " Body: " + response.readEntity(String.class));
         }
     }
 
 
     public int checkUpdate(String connectorUrl, String managementPort, ManagementCredentials managementCredentials) {
         log.log(Level.INFO, "Checking the Update Version of the Secunet Connector");
-        System.out.println(" ");
 
         Client client = buildClient();
 
@@ -121,7 +121,7 @@ public class SecunetConnector extends AbstractConnector {
 
         JSONObject jsonObject = new JSONObject(firmwareJson);
         String fwVersion = jsonObject.getString("fwVersion");
-        System.out.println("Currently installed firmware version: "+fwVersion);
+        log.log(Level.INFO, "Currently installed firmware version: {0}", fwVersion);
 
         //get latest possible Update version
         WebTarget updatesTarget = client.target(connectorUrl + ":" + managementPort)
@@ -133,16 +133,12 @@ public class SecunetConnector extends AbstractConnector {
         String updatesJson = updatesResponse.readEntity(String.class);
         int versionPosition = updatesJson.lastIndexOf("Release der Version ");
 
-        String latestVersion = updatesJson.substring(versionPosition+20,updatesJson.indexOf('"',versionPosition+2));
+        String latestVersion = updatesJson.substring(versionPosition + 20, updatesJson.indexOf('"', versionPosition + 2));
 
-        System.out.println("Latest possible update version: "+latestVersion);
-        System.out.println(" ");
+        log.log(Level.INFO, "Latest possible update version: {0}", latestVersion);
         if (fwVersion.equals(latestVersion)) {
-            System.out.println("Connector updated to latest version: true");
             return 1;
-        }
-        else {
-            System.out.println("Connector updated to latest version: false");
+        } else {
             return 0;
         }
 
