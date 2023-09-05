@@ -19,11 +19,11 @@ public class PostgreSQLDataSourceTest {
     @Before
     public void setUp() throws SQLException {
         PGSimpleDataSource pgDataSource = new PGSimpleDataSource();
-        pgDataSource.setServerNames(new String[]{"localhost"});
+        pgDataSource.setServerNames(new String[]{System.getenv("DB_HOST")});
         pgDataSource.setPortNumbers(new int[]{5432});
-        pgDataSource.setDatabaseName("postgres");
-        pgDataSource.setUser("postgres");
-        pgDataSource.setPassword("mysecretpassword");
+        pgDataSource.setDatabaseName(System.getenv("DB_NAME"));
+        pgDataSource.setUser(System.getenv("DB_USER"));
+        pgDataSource.setPassword(System.getenv("DB_PASSWORD"));
 
         dataSource = pgDataSource;
 

@@ -10,11 +10,11 @@ import javax.ws.rs.Produces;
 @DataSourceDefinition(
         name = "java:app/jdbc/primary",
         className = "org.postgresql.xa.PGXADataSource",
-        user = "postgres",
-        password = "mysecretpassword",
-        serverName = "localhost",
+        user = "${env.DB_USER}",
+        password = "${env.DB_PASSWORD}",
+        serverName = "${env.DB_HOST}",
         portNumber = 5432,
-        databaseName = "postgres"
+        databaseName = "${env.DB_NAME}"
 )
 
 public class PostgreSQLDataSource{
