@@ -8,7 +8,7 @@ import javax.ws.rs.Produces;
 
 @Singleton
 @DataSourceDefinition(
-        name = "java:app/jdbc/primary",
+        name = "java:/app/jdbc/primary",
         className = "org.postgresql.xa.PGXADataSource",
         user = "${env.DB_USER}",
         password = "${env.DB_PASSWORD}",
