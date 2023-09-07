@@ -127,7 +127,7 @@
         <subsystem xmlns="urn:jboss:domain:core-management:1.0"/>
         <subsystem xmlns="urn:jboss:domain:datasources:7.0">
             <datasources>
-                <datasource jta="true" jndi-name="java:app/jdbc/primary" pool-name="PrimaryDS" enabled="true" use-java-context="true">
+                <datasource jta="true" jndi-name="java:jboss/app/jdbc/primary" pool-name="PrimaryDS" enabled="true" use-java-context="true">
                     <connection-url>jdbc:postgresql://${env.DB_HOST}:5432/${env.DB_NAME}</connection-url>
                     <driver>postgresql</driver>
                     <security>
