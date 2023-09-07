@@ -18,7 +18,7 @@ import javax.ws.rs.Produces;
 )
 
 public class PostgreSQLDataSource{
-    @Resource(lookup = "java:app/jdbc/primary")
+    @Resource(lookup = "java:jboss/app/jdbc/primary")
     private DataSource dataSource;
 
     @Produces
