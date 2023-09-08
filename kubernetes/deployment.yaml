@@ -42,6 +42,26 @@ spec:
                 secretKeyRef:
                   name: connector-admin
                   key: wildfly-password
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: connector-admin
+                  key: DB_USER
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: connector-admin
+                  key: DB_PASSWORD
+            - name: DB_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: connector-admin
+                  key: DB_HOST
+            - name: DB_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: connector-admin
+                  key: DB_NAME
 
 ---
 
