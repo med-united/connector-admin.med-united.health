@@ -17,7 +17,7 @@
 			<property name="jboss.entity.manager.factory.jndi.name"
 				value="java:/blueprintEntityManagerFactory" />
 			<property name="jboss.entity.manager.jndi.name" value="java:/blueprintEntityManager" />
-			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" /> <!-- DB Driver -->
+			<property name="javax.persistence.jdbc.driver" value="postgresql" /> <!-- DB Driver -->
 			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://postgres.cfayfrqrsmtj.eu-central-1.rds.amazonaws.com:5432/connector" /> <!-- BD Mane -->
 			<property name="javax.persistence.jdbc.user" value="test" /> <!-- DB User -->
 			<property name="javax.persistence.jdbc.password" value="test" /> <!-- DB Password -->
