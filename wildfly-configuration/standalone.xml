@@ -127,10 +127,9 @@
         <subsystem xmlns="urn:jboss:domain:core-management:1.0"/>
         <subsystem xmlns="urn:jboss:domain:datasources:7.0">
             <datasources>
-                <datasource jndi-name="java:jboss/datasources/Postgres" pool-name="java:jboss/datasources/Postgres"
-                            enabled="true">
+                <datasource jta="true" jndi-name="java:jboss/datasources/Postgres" pool-name="PostgresDS"
+                            enabled="true" use-java-context="true">
                     <connection-url>jdbc:postgresql://postgres.cfayfrqrsmtj.eu-central-1.rds.amazonaws.com:5432/connector</connection-url>
-                    <driver-class>org.postgresql.Driver</driver-class>
                     <driver>postgresql</driver>
                     <security>
                         <user-name>test</user-name>
@@ -139,7 +138,7 @@
                 </datasource>
                 <drivers>
                     <driver name="postgresql" module="org.postgresql">
-                        <driver-class>org.postgresql.Driver</driver-class>
+                        <xa-datasource-class>org.postgresql.xa.PGXADataSource</xa-datasource-class>
                     </driver>
                 </drivers>
             </datasources>
