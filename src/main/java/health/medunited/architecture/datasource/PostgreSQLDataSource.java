@@ -8,7 +8,7 @@ import javax.ws.rs.Produces;
 
 @Singleton
 @DataSourceDefinition(
-        name = "java:jboss/app/jdbc/primary",
+        name = "java:app/jdbc/primary",
         className = "org.postgresql.xa.PGXADataSource",
         user = "${env.DB_USER}",
         password = "${env.DB_PASSWORD}",
@@ -18,7 +18,7 @@ import javax.ws.rs.Produces;
 )
 
 public class PostgreSQLDataSource{
-    @Resource(lookup = "java:jboss/app/jdbc/primary")
+    @Resource(lookup = "java:app/jdbc/primary")
     private DataSource dataSource;
 
     @Produces
