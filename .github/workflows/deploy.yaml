@@ -21,9 +21,10 @@ jobs:
 
       - name: Set environment variables
         env:
-          DB_CONNECTION_URL: ${{ secrets.DB_CONNECTION_URL }}
-          DB_USERNAME: ${{ secrets.DB_USERNAME }}
+          DB_HOST: ${{ secrets.DB_HOST }}
+          DB_USER: ${{ secrets.DB_USER }}
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          DB_NAME: ${{ secrets.DB_NAME }}
 
       - name: Login to Amazon ECR
         id: login-ecr
