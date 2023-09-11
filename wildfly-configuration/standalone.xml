@@ -128,7 +128,7 @@
         <subsystem xmlns="urn:jboss:domain:datasources:6.0">
             <datasources>
                 <datasource jndi-name="java:jboss/datasources/PostgresDS" pool-name="PostgresDS">
-                    <connection-url>${DB_HOST}:5432/${DB_NAME}</connection-url>
+                    <connection-url>${DB_HOST}</connection-url>
                     <driver-class>org.postgresql.Driver</driver-class>
                     <driver>postgresql</driver>
                     <security>
