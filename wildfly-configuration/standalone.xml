@@ -129,7 +129,6 @@
             <datasources>
                 <datasource jndi-name="java:jboss/datasources/PostgresDS" pool-name="PostgresDS">
                     <connection-url>${env.DB_HOST}</connection-url>
-                    <driver-class>org.postgresql.Driver</driver-class>
                     <driver>postgresql</driver>
                     <security>
                         <user-name>${env.DB_USER}</user-name>
