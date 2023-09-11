@@ -10,13 +10,11 @@
 
 			<property name="hibernate.show_sql" value="false" /> <!-- Show SQL in console -->
 			<property name="hibernate.format_sql" value="true" /> <!-- Show SQL formatted -->
-
 			<property name="javax.persistence.schema-generation.database.action"
-				value="drop-and-create" />
+					  value="drop-and-create" />
 			<!-- Bind entity manager factory to JNDI at java:jboss/blueprintEntityManagerFactory -->
 			<property name="jboss.entity.manager.factory.jndi.name"
-				value="java:/blueprintEntityManagerFactory" />
-			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" /> <!-- DB Driver -->
+					  value="java:/blueprintEntityManagerFactory" />
 			<property name="jboss.entity.manager.jndi.name" value="java:/blueprintEntityManager" />
 
 		</properties>
