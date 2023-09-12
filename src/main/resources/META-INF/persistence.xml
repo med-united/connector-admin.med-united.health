@@ -16,6 +16,7 @@
 			<property name="jboss.entity.manager.factory.jndi.name"
 					  value="java:/blueprintEntityManagerFactory" />
 			<property name="jboss.entity.manager.jndi.name" value="java:/blueprintEntityManager" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
 
 		</properties>
 	</persistence-unit>
