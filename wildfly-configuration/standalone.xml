@@ -125,20 +125,19 @@
         </subsystem>
         <subsystem xmlns="urn:jboss:domain:bean-validation:1.0"/>
         <subsystem xmlns="urn:jboss:domain:core-management:1.0"/>
-        <subsystem xmlns="urn:jboss:domain:datasources:7.0">
+        <subsystem xmlns="urn:jboss:domain:datasources:6.0">
             <datasources>
-                <datasource jta="true" jndi-name="java:jboss/datasources/Postgres" pool-name="PostgresDS"
-                            enabled="true" use-java-context="true">
-                    <connection-url>jdbc:postgresql://postgres.cfayfrqrsmtj.eu-central-1.rds.amazonaws.com:5432/connector</connection-url>
+                <datasource jndi-name="java:jboss/datasources/PostgresDS" pool-name="PostgresDS">
+                    <connection-url>${env.DB_HOST}</connection-url>
                     <driver>postgresql</driver>
                     <security>
-                        <user-name>test</user-name>
-                        <password>test</password>
+                        <user-name>${env.DB_USER}</user-name>
+                        <password>${env.DB_PASSWORD}</password>
                     </security>
                 </datasource>
                 <drivers>
                     <driver name="postgresql" module="org.postgresql">
-                        <xa-datasource-class>org.postgresql.xa.PGXADataSource</xa-datasource-class>
+                        <driver-class>org.postgresql.Driver</driver-class>
                     </driver>
                 </drivers>
             </datasources>

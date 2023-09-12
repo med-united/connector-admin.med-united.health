@@ -5,23 +5,18 @@
 	http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 	<!-- https://docs.jboss.org/author/display/WFLY8/JPA+Reference+Guide -->
 	<persistence-unit name="dashboard">
-		<jta-data-source>java:jboss/datasources/Postgres</jta-data-source>
+		<jta-data-source>java:jboss/datasources/PostgresDS</jta-data-source>
 		<properties>
 
 			<property name="hibernate.show_sql" value="false" /> <!-- Show SQL in console -->
 			<property name="hibernate.format_sql" value="true" /> <!-- Show SQL formatted -->
-
 			<property name="javax.persistence.schema-generation.database.action"
-				value="drop-and-create" />
+					  value="drop-and-create" />
 			<!-- Bind entity manager factory to JNDI at java:jboss/blueprintEntityManagerFactory -->
 			<property name="jboss.entity.manager.factory.jndi.name"
-				value="java:/blueprintEntityManagerFactory" />
+					  value="java:/blueprintEntityManagerFactory" />
 			<property name="jboss.entity.manager.jndi.name" value="java:/blueprintEntityManager" />
-			<property name="javax.persistence.jdbc.driver" value="postgresql" /> <!-- DB Driver -->
-			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://postgres.cfayfrqrsmtj.eu-central-1.rds.amazonaws.com:5432/connector" /> <!-- BD Mane -->
-			<property name="javax.persistence.jdbc.user" value="test" /> <!-- DB User -->
-			<property name="javax.persistence.jdbc.password" value="test" /> <!-- DB Password -->
-			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL95Dialect"/> <!-- DB Dialect -->
+			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
 
 		</properties>
 	</persistence-unit>
