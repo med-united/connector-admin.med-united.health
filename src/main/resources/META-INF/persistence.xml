@@ -15,9 +15,7 @@
 			<!-- Bind entity manager factory to JNDI at java:jboss/blueprintEntityManagerFactory -->
 			<property name="jboss.entity.manager.factory.jndi.name"
 					  value="java:/blueprintEntityManagerFactory" />
-			<property name="javax.persistence.jdbc.driver" value="postgresql" /> <!-- DB Driver -->
 			<property name="jboss.entity.manager.jndi.name" value="java:/blueprintEntityManager" />
-			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL95Dialect"/> <!-- DB Dialect -->
 
 		</properties>
 	</persistence-unit>
