@@ -180,43 +180,6 @@
                         </users>
                     </add-user>
                 </configuration>
-                <executions>
-                    <!-- <execution>
-                      <id>deploy-postgresql</id>
-                      <phase>package</phase>
-                      <goals>
-                        <goal>deploy-artifact</goal>
-                      </goals>
-                      <configuration>
-                        <groupId>org.postgresql</groupId>
-                        <artifactId>postgresql</artifactId>
-                        <name>postgresql.jar</name>
-                      </configuration>
-                    </execution>
-                    <execution>
-                      <id>add-datasource</id>
-                      <phase>package</phase>
-                      <goals>
-                        <goal>add-resource</goal>
-                      </goals>
-                      <configuration>
-                        <address>subsystem=datasources,data-source=java:jboss/datasources/Postgres</address>
-                        <resources>
-                          <resource>
-                            <properties>
-                              <jndi-name>java:jboss/datasources/Postgres</jndi-name>
-                              <enabled>true</enabled>
-                              <connection-url>jdbc:postgresql://localhost:5432/connector</connection-url>
-                              <driver-class>org.postgresql.Driver</driver-class>
-                              <driver-name>postgresql.jar</driver-name>
-                              <user-name>connector</user-name>
-                              <password>y)m.0YE}v4Jv</password>
-                            </properties>
-                          </resource>
-                        </resources>
-                      </configuration>
-                    </execution> -->
-                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
