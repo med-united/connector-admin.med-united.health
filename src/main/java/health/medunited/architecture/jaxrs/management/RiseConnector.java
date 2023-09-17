@@ -1,11 +1,15 @@
 package health.medunited.architecture.jaxrs.management;
 
+import java.io.StringReader;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonReader;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.Invocation;
@@ -21,8 +25,11 @@ import health.medunited.architecture.LoggingFilter;
 @Named("rise")
 public class RiseConnector extends AbstractConnector {
 
-    private static final Logger log = Logger.getLogger(SecunetConnector.class.getName());
+    private static final Logger log = Logger.getLogger(RiseConnector.class.getName());
     private NewCookie sessionCookie;
+
+    private static final String GET = "GET";
+    private static final String POST = "POST";
 
     @Override
     public void restart(String connectorUrl, ManagementCredentials managementCredentials) {
@@ -31,7 +38,7 @@ public class RiseConnector extends AbstractConnector {
 
     @Override
     public void restart(String connectorUrl, String managementPort, ManagementCredentials managementCredentials) {
-        log.log(Level.INFO, "Restarting RISE connector");
+        log.info("[" + connectorUrl + ":" + managementPort + "] Restarting RISE connector...");
 
         AbstractConnector.modifyClientBuilder = (clientBuilder) -> {
             // This will print URL and Header of request
@@ -41,40 +48,42 @@ public class RiseConnector extends AbstractConnector {
         };
 
         Client client = buildClient();
+        String cookie = getSessionCookie(client, connectorUrl, managementPort);
+
+        Response login = connectAndRetrieveResponse(POST, "/api/v1/auth/login", client, connectorUrl, managementPort, managementCredentials);
+        log.info("Login status: " + login.getStatus());
+        login.close();
+
+        Response restart = connectAndRetrieveResponse(POST, "/api/v1/mgm/reboot", client, connectorUrl, managementPort, managementCredentials);
+        log.info("Restart status: " + restart.getStatus());
+        restart.close();
+    }
+
+    public String getSessionCookie(Client client, String connectorUrl, String managementPort) {
         Response sessionCookieResponse = client.target(connectorUrl + ":" + managementPort)
                 .path("/api/v1/users/current").request(MediaType.APPLICATION_JSON)
                 .header("Referer", connectorUrl + ":" + managementPort).get();
 
-        String cookie;
+        log.info("Status for retrieving Session Cookie: " + sessionCookieResponse.getStatus());
+
+        String cookie = "";
+        sessionCookie = new NewCookie("JSESSIONID", "");
 
         if (sessionCookieResponse.getStatus() == Response.Status.NO_CONTENT.getStatusCode()) {
             cookie = sessionCookieResponse.getHeaderString("Set-Cookie");
-            sessionCookie = new NewCookie("JSESSIONID",
-                    cookie.substring(cookie.indexOf("=") + 1, cookie.indexOf(";")));
-            log.log(Level.INFO, "Status for retrieving Session Cookie: " + sessionCookieResponse.getStatus());
-
+            sessionCookie = new NewCookie("JSESSIONID", cookie.substring(cookie.indexOf("=") + 1, cookie.indexOf(";")));
             sessionCookieResponse.close();
-            Response login = connectorCommunication("/api/v1/auth/login", client, connectorUrl, managementPort, cookie, managementCredentials);
-            log.info("Login status: " + login.getStatus());
-
-            login.close();
-
-            Response restart = connectorCommunication("/api/v1/mgm/reboot", client, connectorUrl, managementPort, cookie, managementCredentials);
-            log.info("Restart status: " + restart.getStatus());
-            restart.close();
         } else {
-            log.warning("Unable to restart connector");
-            log.warning("Connection attempt to " + connectorUrl + ":" + managementPort + " failed");
             log.warning("Could not connect. Status: " + sessionCookieResponse.getStatus());
         }
-
+        return cookie;
     }
 
-    Response connectorCommunication(String path, Client client, String connectorUrl, String managementPort, String cookie, ManagementCredentials managementCredentials) {
-        WebTarget loginTarget = client.target(connectorUrl + ":" + managementPort)
+    Response connectAndRetrieveResponse(String httpMethod, String path, Client client, String connectorUrl, String managementPort, ManagementCredentials managementCredentials) {
+        WebTarget target = client.target(connectorUrl + ":" + managementPort)
                 .path(path);
 
-        Invocation.Builder loginBuilder = loginTarget.request(MediaType.APPLICATION_JSON)
+        Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_JSON)
                 .cookie(sessionCookie)
                 .header("Accept", "*/*")
                 .header("Accept-Encoding", "gzip, deflate, br")
@@ -90,8 +99,40 @@ public class RiseConnector extends AbstractConnector {
                 .header("X-Requested-With", "RISEHttpRequest")
                 .header("If-Modified-Since", "Thu, 01 Jan 1970 00:00:00 GMT")
                 .header("Referer", connectorUrl + ":" + managementPort);
-        return loginBuilder.post(Entity.json(new ManagementCredentialsRISE(managementCredentials.getUsername(), managementCredentials.getPassword())));
+        if (Objects.equals(httpMethod, GET)) {
+            return invocationBuilder.get();
+        } else if (Objects.equals(httpMethod, POST)) {
+            return invocationBuilder.post(Entity.json(new ManagementCredentialsRISE(managementCredentials.getUsername(), managementCredentials.getPassword())));
+        }
+        return null;
+    }
 
+    @Override
+    public boolean isTIOnline(String connectorUrl, String managementPort, ManagementCredentials managementCredentials) {
+        log.info("[" + connectorUrl + ":" + managementPort + "] Checking status of TI...");
+
+        Client client = buildClient();
+        String cookie = getSessionCookie(client, connectorUrl, managementPort);
+
+        Response login = connectAndRetrieveResponse(POST, "/api/v1/auth/login", client, connectorUrl, managementPort, managementCredentials);
+        log.info("Login response code: " + login.getStatus());
+        login.close();
+
+        Response tiStatusResponse = connectAndRetrieveResponse(GET, "/api/v1/status", client, connectorUrl, managementPort, managementCredentials);
+        log.info("[" + connectorUrl + "] TI status response code: " + tiStatusResponse.getStatus());
+
+        if (tiStatusResponse.getStatus() == Response.Status.OK.getStatusCode()) {
+            String responseBody = tiStatusResponse.readEntity(String.class);
+            tiStatusResponse.close();
+            log.info(responseBody);
+            JsonReader jsonReader = Json.createReader(new StringReader(responseBody));
+            JsonObject jsonObject = jsonReader.readObject();
+            log.info(String.valueOf(jsonObject.getJsonObject("vpnState").getBoolean("tiOnline")));
+            return jsonObject.getJsonObject("vpnState").getBoolean("tiOnline");
+        } else {
+            log.warning("[" + connectorUrl + "] Failed to check if TI is online. Response code: " + tiStatusResponse.getStatus());
+            return false;
+        }
     }
 
 
@@ -116,5 +157,4 @@ public class RiseConnector extends AbstractConnector {
             return password;
         }
     }
-
 }

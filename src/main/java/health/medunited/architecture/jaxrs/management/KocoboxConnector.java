@@ -17,7 +17,6 @@ public class KocoboxConnector extends AbstractConnector {
     @Override
     public void restart(String connectorUrl, ManagementCredentials managementCredentials) {
         restart(connectorUrl, "8500", managementCredentials);
-
     }
 
     @Override
@@ -25,4 +24,8 @@ public class KocoboxConnector extends AbstractConnector {
         log.log(Level.INFO, "Restarting Kocobox connector");
     }
 
+    @Override
+    public boolean isTIOnline(String connectorUrl, String managementPort, ManagementCredentials managementCredentials) {
+        return true;
+    }
 }
