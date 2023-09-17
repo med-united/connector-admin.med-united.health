@@ -10,6 +10,13 @@
                 <Input type="Text" value="{UserId}"/>
                 <Label text="URL"/>
                 <Input type="Text" value="{Url}"/>
+                <Label text="{i18n>Brand}"/>
+                <Select id="selectOptionEditDialog" selectedKey="{ConnectorBrand}">
+                    <core:Item key="secunet" text="Secunet"/>
+                    <core:Item key="rise" text="RISE"/>
+                    <core:Item key="kocobox" text="KocoBox"/>
+                    <core:Item key="kops" text="KoPS"/>
+                </Select>
                 <Label text="Mandant-ID"/>
                 <Input type="Text" value="{MandantId}"/>
                 <Label text="{i18n>ClientSystemID}"/>

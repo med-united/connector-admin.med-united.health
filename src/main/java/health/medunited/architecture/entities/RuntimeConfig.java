@@ -21,6 +21,8 @@ public class RuntimeConfig {
 
     private String url;
 
+    private String connectorBrand;
+
     private String mandantId;
 
     private String clientSystemId;
@@ -47,10 +49,11 @@ public class RuntimeConfig {
     public RuntimeConfig() {
     }
 
-    public RuntimeConfig(String userId, String url, String mandantId, String clientSystemId, String workplaceId, String username, String password,
+    public RuntimeConfig(String userId, String url, String connectorBrand, String mandantId, String clientSystemId, String workplaceId, String username, String password,
                          boolean useCertificateAuth, String clientCertificate, String clientCertificatePassword, boolean useBasicAuth, String basicAuthUsername, String basicAuthPassword) {
         this.userId = userId;
         this.url = url;
+        this.connectorBrand = connectorBrand;
         this.mandantId = mandantId;
         this.clientSystemId = clientSystemId;
         this.workplaceId = workplaceId;
@@ -86,6 +89,14 @@ public class RuntimeConfig {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public String getConnectorBrand() {
+        return connectorBrand;
+    }
+
+    public void setConnectorBrand(String connectorBrand) {
+        this.connectorBrand = connectorBrand;
     }
 
     public String getMandantId() {

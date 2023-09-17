@@ -46,6 +46,7 @@ sap.ui.define(
                    let getCardsHeaders = {
                      "x-user-id": config.UserId,
                      "x-host": config.Url,
+                     "x-connector-brand": config.ConnectorBrand,
                      "x-mandant-id": config.MandantId,
                      "x-client-system-id": config.ClientSystemId,
                      "x-workplace-id": config.WorkplaceId,

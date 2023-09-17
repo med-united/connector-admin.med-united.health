@@ -382,6 +382,7 @@ sap.ui.define(
             "x-client-certificate": oRuntimeConfig.ClientCertificate,
             "x-client-certificate-password":
               oRuntimeConfig.ClientCertificatePassword,
+            "x-connector-brand": oRuntimeConfig.ConnectorBrand,
             "x-mandant-id": oRuntimeConfig.MandantId,
             "x-workplace-id": oRuntimeConfig.WorkplaceId,
             "x-user-id": oRuntimeConfig.UserId,
@@ -448,48 +449,53 @@ sap.ui.define(
           }
         },
 
-        pwdOnRestart: function (oEvent) {
-          const sPath = "/RuntimeConfigs('" + this._entity + "')";
-          const oRuntimeConfig = this.getView().getModel().getProperty(sPath);
-          const restartHeaders = {
-            "x-client-certificate": oRuntimeConfig.ClientCertificate,
-            "x-client-certificate-password":
-              oRuntimeConfig.ClientCertificatePassword,
-            "Content-Type": "application/json",
-          };
+        pwdOnRestart: async function (oEvent) {
+          try {
+            const sPath = "/RuntimeConfigs('" + this._entity + "')";
+            const oRuntimeConfig = this.getView().getModel().getProperty(sPath);
+            const restartHeaders = {
+              "x-client-certificate": oRuntimeConfig.ClientCertificate,
+              "x-client-certificate-password": oRuntimeConfig.ClientCertificatePassword,
+              "Content-Type": "application/json",
+            };
 
-          let username = oRuntimeConfig.Username;
-          let password = oRuntimeConfig.Password;
+            let username = oRuntimeConfig.Username;
+            let password = oRuntimeConfig.Password;
 
-          if (!username || !password) {
-            username = this.byId("usernameInput").getValue();
-            password = this.byId("passwordInput").getValue();
-            oEvent.getSource().getParent().close();
-            oEvent.getSource().getParent().destroy();
-          }
+            if (!username || !password) {
+              username = this.byId("usernameInput").getValue();
+              password = this.byId("passwordInput").getValue();
+              oEvent.getSource().getParent().close();
+              oEvent.getSource().getParent().destroy();
+            }
 
-          const requestBody = {
-            username: username,
-            password: password,
-          };
+            const requestBody = {
+              username: username,
+              password: password,
+            };
 
-          MessageToast.show(this.translate("restarting"));
+            MessageToast.show(this.translate("restarting"));
 
-          this._getConnectorType().then((connectorBrand) => {
+            const connectorBrand = oRuntimeConfig.ConnectorBrand;
+
             let restartUrl =
               "connector/management/" +
               connectorBrand +
               "/restart?connectorUrl=" +
               oRuntimeConfig.Url;
-            fetch(restartUrl, {
+
+            const response = await fetch(restartUrl, {
               headers: restartHeaders,
               method: "POST",
               body: JSON.stringify(requestBody),
-            }).then(function (response) {
-              // MessageToast.show(this.translate("RestartError")); //translate function not working
-              if(!response.ok) MessageToast.show("Fehler beim Neustart. Bitte Verbindung und Kennwort pr\u00FCfen");
             });
-          });
+
+            if (!response.ok) {
+              MessageToast.show("Fehler beim Neustart. Bitte Verbindung und Kennwort pr\u00FCfen");
+            }
+          } catch (error) {
+            console.error(error);
+          }
         },
       }
     );
