@@ -1,0 +1,26 @@
+<mvc:View displayBlock="true"
+          controllerName="sap.f.ShellBarWithFlexibleColumnLayout.controller.UpdateKonnektor" height="100%"
+          xmlns="sap.m"
+          xmlns:f="sap.f"
+          xmlns:mvc="sap.ui.core.mvc">
+    <f:DynamicPage id="dynamicPageId"
+                   toggleHeaderOnTitleClick="false" >
+
+        <!-- DynamicPage Title -->
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:navigationActions>
+                    <Button
+                            icon="sap-icon://decline"
+                            type="Transparent" press="onBack" />
+                </f:navigationActions>
+                <f:heading>
+                    <Title text="{i18n>ConnectorUpdate}"/>
+                </f:heading>
+            </f:DynamicPageTitle>
+        </f:title>
+        <f:content>
+
+        </f:content>
+    </f:DynamicPage>
+</mvc:View>

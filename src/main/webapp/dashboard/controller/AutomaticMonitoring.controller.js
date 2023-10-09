@@ -24,7 +24,7 @@ sap.ui.define(
     var DropPosition = coreLibrary.dnd.DropPosition;
 
     return Controller.extend(
-      "sap.f.ShellBarWithFlexibleColumnLayout.controller.Detail",
+      "sap.f.ShellBarWithFlexibleColumnLayout.controller.AutomaticMonitoring",
       {
         onInit: function () {
           this.initData();
@@ -35,8 +35,8 @@ sap.ui.define(
         initData: function () {
           this.byId("grid1").setModel(
             new JSONModel([
-              { title: "Aktualisierung Konnektor", rows: 2, columns: 2 },
-              { title: "Aktualisierung Kartenterminals", rows: 2, columns: 2 },
+              { title: "Aktualisierung Konnektor", nav: "updateKonnektor", rows: 2, columns: 2 },
+              { title: "Aktualisierung Kartenterminals", nav: "updateCardTerminals", rows: 2, columns: 2 },
             ])
           );
 
@@ -155,7 +155,13 @@ sap.ui.define(
 
           this.byId("grid1").focusItem(iDropPosition);
         },
+        onHeaderPress: function (oEvent) {
+          var oHeader = oEvent.getSource();
+
+          this.getOwnerComponent().getRouter().navTo(oHeader.getBindingContext().getProperty("nav"));
+        }
       }
     );
+
   }
 );

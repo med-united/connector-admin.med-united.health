@@ -113,6 +113,13 @@
 						"master",
 						"detail"
 					]
+				},
+				{
+					"pattern": "updateKonnektor",
+					"name": "updateKonnektor",
+					"target": [
+						"updateKonnektor"
+					]
 				}
 			],
 			"targets": {
@@ -128,6 +135,11 @@
 				},
 				"automaticmonitoring": {
 					"viewName": "AutomaticMonitoring",
+					"controlAggregation": "beginColumnPages",
+					"clearControlAggregation": true
+				},
+				"updateKonnektor": {
+					"viewName": "UpdateKonnektor",
 					"controlAggregation": "beginColumnPages",
 					"clearControlAggregation": true
 				},
