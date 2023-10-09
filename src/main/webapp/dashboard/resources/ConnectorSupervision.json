@@ -16,7 +16,7 @@
       "actions": [
         {
           "type": "Navigation",
-          "url": "./#/automaticmonitoring",
+          "url": "#/automaticmonitoring",
           "target": "_self"
         }
       ]

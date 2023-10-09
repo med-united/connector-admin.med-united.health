@@ -2,7 +2,7 @@ Arguments:
   /snap/node/7026/bin/node /snap/node/7026/bin/yarn.js global dir
 
 PATH: 
-  /home/manuel/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/manuel/.dotnet/tools
+  /home/manuel/.local/bin:/home/manuel/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/manuel/.dotnet/tools
 
 Yarn version: 
   1.22.19
