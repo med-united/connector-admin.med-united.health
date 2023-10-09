@@ -10,27 +10,32 @@ import java.security.cert.CertificateException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.Instant;
-import java.util.*;
+import java.util.Date;
+import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.Callable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.ejb.Schedule;
 import javax.ejb.Singleton;
+import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.xml.ws.Holder;
 
-import de.gematik.ws.conn.cardservice.v8.PinStatusEnum;
-import de.gematik.ws.conn.cardservice.wsdl.v8.FaultMessage;
-import de.gematik.ws.conn.connectorcommon.v5.Status;
-import org.eclipse.microprofile.metrics.*;
+import org.eclipse.microprofile.metrics.Gauge;
+import org.eclipse.microprofile.metrics.Metadata;
+import org.eclipse.microprofile.metrics.MetricRegistry;
 import org.eclipse.microprofile.metrics.Timer;
 import org.eclipse.microprofile.metrics.annotation.RegistryType;
 
+import de.gematik.ws.conn.cardservice.v8.PinStatusEnum;
 import de.gematik.ws.conn.cardservice.wsdl.v8.CardServicePortType;
+import de.gematik.ws.conn.cardservice.wsdl.v8.FaultMessage;
+import de.gematik.ws.conn.connectorcommon.v5.Status;
 import de.gematik.ws.conn.connectorcontext.v2.ContextType;
 import de.gematik.ws.conn.eventservice.v7.GetCards;
 import de.gematik.ws.conn.eventservice.v7.GetCardsResponse;
@@ -49,6 +54,9 @@ public class Scheduler {
 
     @PersistenceContext
     EntityManager entityManager;
+
+    @Inject
+    Event<RuntimeConfig> runtimeConfigEvent;
 
     private static final Logger log = Logger.getLogger(Scheduler.class.getName());
 
@@ -121,7 +129,7 @@ public class Scheduler {
                 addMetricPinStatusSMCB(DISABLED, connectorResponseTime, runtimeConfig, eventServicePortType, cardServicePortType);
                 addMetricPinStatusSMCB(EMPTY_PIN, connectorResponseTime, runtimeConfig, eventServicePortType, cardServicePortType);
                 addMetricPinStatusSMCB(TRANSPORT_PIN, connectorResponseTime, runtimeConfig, eventServicePortType, cardServicePortType);
-
+                runtimeConfigEvent.fireAsync(runtimeConfig);
             } catch (Throwable t) {
                 log.log(Level.INFO, "Error while contacting connector", t);
             }
