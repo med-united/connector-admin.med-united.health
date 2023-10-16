@@ -3,6 +3,7 @@ package health.medunited.architecture.jaxrs.management;
 import java.io.StringReader;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -157,4 +158,33 @@ public class RiseConnector extends AbstractConnector {
             return password;
         }
     }
+
+
+    // Downloads update files on Connector
+    // Should be usable also for downgrades
+    @Override
+    public void downloadUpdate(String connectorUrl, ManagementCredentials managementCredentials, String UpdateID) {
+        downloadUpdate(connectorUrl, "8500", managementCredentials, UpdateID);
+    }
+
+    @Override
+    public void downloadUpdate(String connectorUrl, String managementPort, ManagementCredentials managementCredentials, String UpdateID) {
+        log.log(Level.INFO, "Downloading Update On Rise connector");
+
+    }
+
+
+    // Installs downloaded update files on Connector
+    @Override
+    public void installUpdate(String connectorUrl, ManagementCredentials managementCredentials, String updateID, String date) {
+        installUpdate(connectorUrl, "8500", managementCredentials, updateID, date);
+    }
+
+    @Override
+    public void installUpdate(String connectorUrl, String managementPort, ManagementCredentials managementCredentials, String updateID, String date) {
+        log.log(Level.INFO, "Installing Update On Rise connector");
+
+    }
+
+
 }

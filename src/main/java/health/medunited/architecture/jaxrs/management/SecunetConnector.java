@@ -123,4 +123,63 @@ public class SecunetConnector extends AbstractConnector {
             throw new RuntimeException("Could not set log settings. Code: "+response.getStatus()+" Body: "+response.readEntity(String.class));
         }
     }
+
+
+
+    // Downloads update files on Connector
+    // Should be usable also for downgrades
+    @Override
+    public void downloadUpdate(String connectorUrl, ManagementCredentials managementCredentials, String updateID) {
+        downloadUpdate(connectorUrl, "8500", managementCredentials, updateID);
+    }
+
+    @Override
+    public void downloadUpdate(String connectorUrl, String managementPort, ManagementCredentials managementCredentials, String updateID) {
+        log.info("[" + connectorUrl + ":" + managementPort + "] Downloading Update on Secunet connector...");
+
+        Client client = buildClient();
+
+        Response loginResponse = loginManagementConsole(client, connectorUrl, managementPort, managementCredentials);
+
+
+        WebTarget downloadTarget = client.target(connectorUrl + ":" + managementPort)
+                .path("/rest/mgmt/ak/dienste/ksr/download/"+updateID);
+
+        Invocation.Builder downloadBuilder = downloadTarget.request(MediaType.APPLICATION_JSON);
+        downloadBuilder.header("Authorization", loginResponse.getHeaders().get("Authorization").get(0));
+        downloadBuilder.put(Entity.json(""));
+    }
+
+
+    // Installs downloaded update files on Connector
+    // When date is set in the past it installs the update asap
+    @Override
+    public void installUpdate(String connectorUrl, ManagementCredentials managementCredentials, String updateID, String date) {
+        installUpdate(connectorUrl, "8500", managementCredentials, updateID, date);
+    }
+
+    @Override
+    public void installUpdate(String connectorUrl, String managementPort, ManagementCredentials managementCredentials, String updateID, String date) {
+        managementPort = "8500";
+        log.info("[" + connectorUrl + ":" + managementPort + "] Installing Update on  Secunet connector...");
+
+        Client client = buildClient();
+
+        Response loginResponse = loginManagementConsole(client, connectorUrl, managementPort, managementCredentials);
+
+
+        WebTarget einplanenTarget = client.target(connectorUrl + ":" + managementPort)
+                .path("/rest/mgmt/ak/dienste/ksr/einplanen");
+
+        Invocation.Builder installBuilder = einplanenTarget.request(MediaType.APPLICATION_JSON);
+        installBuilder.header("Authorization", loginResponse.getHeaders().get("Authorization").get(0));
+
+        installBuilder.put(Entity.json("{\"nachTerminals\": null, \"updateId\": \""+updateID+"\", \"schedule\": "+date+"}"));
+
+    }
+
+
+
+
+
 }

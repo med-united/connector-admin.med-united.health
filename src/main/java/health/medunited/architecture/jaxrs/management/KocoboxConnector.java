@@ -28,4 +28,32 @@ public class KocoboxConnector extends AbstractConnector {
     public boolean isTIOnline(String connectorUrl, String managementPort, ManagementCredentials managementCredentials) {
         return true;
     }
+
+    // Downloads update files on Connector
+    // Should be usable also for downgrades
+    @Override
+    public void downloadUpdate(String connectorUrl, ManagementCredentials managementCredentials, String UpdateID) {
+        downloadUpdate(connectorUrl, "8500", managementCredentials, UpdateID);
+    }
+
+    @Override
+    public void downloadUpdate(String connectorUrl, String managementPort, ManagementCredentials managementCredentials, String UpdateID) {
+        log.log(Level.INFO, "Downloading Update On Kocobox connector");
+
+    }
+
+
+    // Installs downloaded update files on Connector
+    @Override
+    public void installUpdate(String connectorUrl, ManagementCredentials managementCredentials, String updateID, String date) {
+        installUpdate(connectorUrl, "8500", managementCredentials, updateID, date);
+    }
+
+    @Override
+    public void installUpdate(String connectorUrl, String managementPort, ManagementCredentials managementCredentials, String updateID, String date) {
+        log.log(Level.INFO, "Installing Update On Kocobox connector");
+
+    }
+
+    
 }
