@@ -3,6 +3,8 @@ package health.medunited.architecture.jaxrs.resource;
 import health.medunited.architecture.jaxrs.management.Connector;
 import health.medunited.architecture.jaxrs.management.ConnectorBrands;
 import health.medunited.architecture.model.ManagementCredentials;
+import health.medunited.architecture.service.update.DownloadService;
+import health.medunited.architecture.service.update.UpdateService;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -29,6 +31,12 @@ public class ConnectorManagement {
     @Inject
     @Named("rise")
     private Connector riseConnector;
+
+    @Inject
+    private UpdateService updateService;
+
+    @Inject
+    private DownloadService downloadService;
 
     private String managementPort;
 
@@ -83,6 +91,7 @@ public class ConnectorManagement {
             @PathParam("connectorType") String connectorType,
             @QueryParam("connectorUrl") String connectorUrl,
             ManagementCredentials managementCredentials,
+            @QueryParam("runtimeConfigId") String runtimeConfigId,
             @QueryParam("updateId") String updateId) {
 
         Connector connector = connectorMap.get(connectorType);
@@ -91,6 +100,8 @@ public class ConnectorManagement {
         }
 
         connector.downloadUpdate(connectorUrl, managementPort, managementCredentials, updateId);
+        downloadService.recordUpdateDownload(runtimeConfigId, connectorUrl, updateId);
+
     }
 
     // Installs downloaded Update on Konnektor
@@ -101,15 +112,17 @@ public class ConnectorManagement {
             @PathParam("connectorType") String connectorType,
             @QueryParam("connectorUrl") String connectorUrl,
             ManagementCredentials managementCredentials,
-            @QueryParam("updateId") String updateId, 
-            @QueryParam("date") String date      
-            ) {
+            @QueryParam("updateId") String updateId,
+            @QueryParam("runtimeConfigId") String runtimeConfigId,
+            @QueryParam("date") String date) {
 
         Connector connector = connectorMap.get(connectorType);
         if (connector == null) {
             throw new IllegalArgumentException("Unknown connector type: " + connectorType);
         }
+        String fromVersion = "1.0test";
 
         connector.installUpdate(connectorUrl, managementPort, managementCredentials, updateId, date);
+        updateService.recordUpdate(runtimeConfigId, connectorUrl, fromVersion, updateId);
     }
 }

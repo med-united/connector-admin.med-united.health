@@ -6,15 +6,14 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class KonnektorUpdate {
+public class KonnektorDownload {
     
     @Id
     private String id = UUID.randomUUID().toString();
     private String runtimeConfigId;
     private String connectorUrl;
-    private String fromVersion;
-    private String toVersion;
-    private String updateStatus;
+    private String version;
+    private String downloadStatus;
 
     public String getId() {
         return id;
@@ -34,22 +33,16 @@ public class KonnektorUpdate {
     public void setConnectorUrl(String connectorUrl) {
         this.connectorUrl = connectorUrl;
     }
-    public String getFromVersion() {
-        return fromVersion;
+    public String getVersion() {
+        return version;
     }
-    public void setFromVersion(String fromVersion) {
-        this.fromVersion = fromVersion;
+    public void setVersion(String version) {
+        this.version = version;
     }
-    public String getToVersion() {
-        return toVersion;
+    public String getdownloadStatus() {
+        return downloadStatus;
     }
-    public void setToVersion(String toVersion) {
-        this.toVersion = toVersion;
-    }
-    public String getUpdateStatus() {
-        return updateStatus;
-    }
-    public void setUpdateStatus(String updateStatus) {
-        this.updateStatus = updateStatus;
+    public void setdDownloadStatus(String downloadStatus) {
+        this.downloadStatus = downloadStatus;
     }
 }
