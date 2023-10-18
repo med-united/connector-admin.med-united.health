@@ -32,11 +32,11 @@ public class ConnectorManagement {
     @Named("rise")
     private Connector riseConnector;
 
-    @Inject
-    private UpdateService updateService;
+    // @Inject
+    // private UpdateService updateService;
 
-    @Inject
-    private DownloadService downloadService;
+    // @Inject
+    // private DownloadService downloadService;
 
     private String managementPort;
 
@@ -100,7 +100,7 @@ public class ConnectorManagement {
         }
 
         connector.downloadUpdate(connectorUrl, managementPort, managementCredentials, updateId);
-        downloadService.recordUpdateDownload(runtimeConfigId, connectorUrl, updateId);
+        // downloadService.recordUpdateDownload(runtimeConfigId, connectorUrl, updateId);
 
     }
 
@@ -123,6 +123,6 @@ public class ConnectorManagement {
         String fromVersion = "1.0test";
 
         connector.installUpdate(connectorUrl, managementPort, managementCredentials, updateId, date);
-        updateService.recordUpdate(runtimeConfigId, connectorUrl, fromVersion, updateId);
+        // updateService.recordUpdate(runtimeConfigId, connectorUrl, fromVersion, updateId);
     }
 }

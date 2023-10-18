@@ -179,6 +179,32 @@ public class SecunetConnector extends AbstractConnector {
     }
 
 
+    //  Checks for Update
+    @Override
+    public Response checkUpdate(String connectorUrl, ManagementCredentials managementCredentials) {
+       return checkUpdate(connectorUrl, "8500", managementCredentials);
+    }
+
+    @Override
+    public Response checkUpdate(String connectorUrl, String managementPort, ManagementCredentials managementCredentials) {
+        managementPort = "8500";
+        log.info("[" + connectorUrl + ":" + managementPort + "] Check for Updates on Secunet connector...");
+
+        Client client = buildClient();
+
+        Response loginResponse = loginManagementConsole(client, connectorUrl, managementPort, managementCredentials);
+
+        WebTarget einplanenTarget = client.target(connectorUrl + ":" + managementPort)
+                .path("/rest/mgmt/ak/dienste/ksr/informationen/update");
+
+        Invocation.Builder installBuilder = einplanenTarget.request(MediaType.APPLICATION_JSON);
+        installBuilder.header("Authorization", loginResponse.getHeaders().get("Authorization").get(0));
+
+        Response updateResponse = installBuilder.put(Entity.json(""));
+        
+        return updateResponse;
+    }
+
 
 
 

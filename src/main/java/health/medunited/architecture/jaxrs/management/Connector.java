@@ -1,5 +1,7 @@
 package health.medunited.architecture.jaxrs.management;
 
+import javax.ws.rs.core.Response;
+
 import health.medunited.architecture.model.ManagementCredentials;
 
 public interface Connector {
@@ -15,6 +17,10 @@ public interface Connector {
     void installUpdate(String connectorUrl, String managementPort, ManagementCredentials managementCredentials, String updateID, String date);
 
     void installUpdate(String connectorUrl, ManagementCredentials managementCredentials, String updateID, String date);
+
+    Response checkUpdate(String connectorUrl, ManagementCredentials managementCredentials);
+    
+    Response checkUpdate(String connectorUrl, String managementPort, ManagementCredentials managementCredentials);
 
     boolean isTIOnline(String connectorUrl, String managementPort, ManagementCredentials managementCredentials);
 }
