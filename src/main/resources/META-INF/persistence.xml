@@ -10,6 +10,7 @@
 <!--				<jta-data-source>java:jboss/datasources/PostgresDS</jta-data-source>-->
 <!--		Uncomment the following line when running the local setup-->
 <!--		<jta-data-source>java:/PostGreDS</jta-data-source>-->
+<jta-data-source>java:jboss/datasources/H2DS</jta-data-source>
 		<properties>
 
 			<property name="hibernate.show_sql" value="false" /> <!-- Show SQL in console -->
