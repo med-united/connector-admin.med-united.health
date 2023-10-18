@@ -188,12 +188,13 @@ public class RiseConnector extends AbstractConnector {
 
     //  Checks for Update
     @Override
-    public Response checkUpdate(String connectorUrl, ManagementCredentials managementCredentials, String updateID, String date) {
-       return checkUpdate(connectorUrl, "8500", managementCredentials);
+    public void checkUpdate(String connectorUrl, ManagementCredentials managementCredentials) {
+        checkUpdate(connectorUrl, "8500", managementCredentials);
     }
 
     @Override
-    public Response checkUpdate(String connectorUrl, String managementPort, ManagementCredentials managementCredentials) {
-        return null;
+    public void checkUpdate(String connectorUrl, String managementPort, ManagementCredentials managementCredentials) {
+        log.log(Level.INFO, "Check Update On Rise connector");
+
     }
 }

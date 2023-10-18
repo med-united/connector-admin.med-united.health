@@ -43,34 +43,36 @@ public class KocoboxConnector extends AbstractConnector {
     }
 
     @Override
-    public void downloadUpdate(String connectorUrl, String managementPort, ManagementCredentials managementCredentials, String UpdateID) {
+    public void downloadUpdate(String connectorUrl, String managementPort, ManagementCredentials managementCredentials,
+            String UpdateID) {
         log.log(Level.INFO, "Downloading Update On Kocobox connector");
 
     }
 
-
     // Installs downloaded update files on Connector
     @Override
-    public void installUpdate(String connectorUrl, ManagementCredentials managementCredentials, String updateID, String date) {
+    public void installUpdate(String connectorUrl, ManagementCredentials managementCredentials, String updateID,
+            String date) {
         installUpdate(connectorUrl, "8500", managementCredentials, updateID, date);
     }
 
     @Override
-    public void installUpdate(String connectorUrl, String managementPort, ManagementCredentials managementCredentials, String updateID, String date) {
+    public void installUpdate(String connectorUrl, String managementPort, ManagementCredentials managementCredentials,
+            String updateID, String date) {
         log.log(Level.INFO, "Installing Update On Kocobox connector");
 
     }
 
-    
-    //  Checks for Update
+    // Checks for Update
     @Override
-    public Response checkUpdate(String connectorUrl, ManagementCredentials managementCredentials, String updateID, String date) {
-       return checkUpdate(connectorUrl, "8500", managementCredentials);
+    public void checkUpdate(String connectorUrl, ManagementCredentials managementCredentials) {
+        checkUpdate(connectorUrl, "8500", managementCredentials);
     }
 
     @Override
-    public Response checkUpdate(String connectorUrl, String managementPort, ManagementCredentials managementCredentials) {
-        return null;
+    public void checkUpdate(String connectorUrl, String managementPort, ManagementCredentials managementCredentials) {
+        log.log(Level.INFO, "Check Update On Kocobox connector");
+
     }
 
 }

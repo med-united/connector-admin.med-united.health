@@ -12,6 +12,9 @@ import javax.inject.Named;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
+import org.bouncycastle.asn1.ocsp.ResponderID;
 
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -124,5 +127,24 @@ public class ConnectorManagement {
 
         connector.installUpdate(connectorUrl, managementPort, managementCredentials, updateId, date);
         // updateService.recordUpdate(runtimeConfigId, connectorUrl, fromVersion, updateId);
+    }
+
+
+
+    // Checks for Updates 
+    @POST
+    @Path("/{connectorType}/checkUpdates")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void checkUpdates(
+            @PathParam("connectorType") String connectorType,
+            @QueryParam("connectorUrl") String connectorUrl,
+            ManagementCredentials managementCredentials) {
+
+        Connector connector = connectorMap.get(connectorType);
+        if (connector == null) {
+            throw new IllegalArgumentException("Unknown connector type: " + connectorType);
+        }
+
+       connector.checkUpdate(connectorUrl, managementCredentials);
     }
 }

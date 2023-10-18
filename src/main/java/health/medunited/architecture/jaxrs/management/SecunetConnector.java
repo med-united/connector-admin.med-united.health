@@ -1,6 +1,12 @@
 package health.medunited.architecture.jaxrs.management;
 
+import java.io.IOException;
 import java.io.StringReader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -178,15 +184,29 @@ public class SecunetConnector extends AbstractConnector {
 
     }
 
+    private static final String LOG_FILE_PATH = "/home/patrick/utils/java_logs/231017_log.txt";
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+    public static void logMessage(String message) {
+        String timestampedMessage = formatter.format(LocalDateTime.now()) + " - " + message + "\n";
+        try {
+            Files.write(Paths.get(LOG_FILE_PATH),
+                    timestampedMessage.getBytes(),
+                    StandardOpenOption.CREATE, StandardOpenOption.APPEND);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     //  Checks for Update
     @Override
-    public Response checkUpdate(String connectorUrl, ManagementCredentials managementCredentials) {
-       return checkUpdate(connectorUrl, "8500", managementCredentials);
+    public void checkUpdate(String connectorUrl, ManagementCredentials managementCredentials) {
+       checkUpdate(connectorUrl, "8500", managementCredentials);
     }
 
+    // In the dashboard its written: "Auf Aktualisierungen in der TI (KSR) prüfen"
     @Override
-    public Response checkUpdate(String connectorUrl, String managementPort, ManagementCredentials managementCredentials) {
+    public void checkUpdate(String connectorUrl, String managementPort, ManagementCredentials managementCredentials) {
         managementPort = "8500";
         log.info("[" + connectorUrl + ":" + managementPort + "] Check for Updates on Secunet connector...");
 
@@ -201,8 +221,12 @@ public class SecunetConnector extends AbstractConnector {
         installBuilder.header("Authorization", loginResponse.getHeaders().get("Authorization").get(0));
 
         Response updateResponse = installBuilder.put(Entity.json(""));
-        
-        return updateResponse;
+
+        String responseString = updateResponse.readEntity(String.class);
+        logMessage("responseString: " + responseString);
+        // String responseString = updateResponse.readEntity(String.class);
+        // logMessage("responseString: " +updateResponse.getStatus());
+
     }
 
 
