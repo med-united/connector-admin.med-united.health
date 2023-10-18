@@ -51,13 +51,13 @@ public class KocoboxConnector extends AbstractConnector {
 
     // Installs downloaded update files on Connector
     @Override
-    public void installUpdate(String connectorUrl, ManagementCredentials managementCredentials, String updateID,
+    public void planUpdate(String connectorUrl, ManagementCredentials managementCredentials, String updateID,
             String date) {
-        installUpdate(connectorUrl, "8500", managementCredentials, updateID, date);
+                planUpdate(connectorUrl, "8500", managementCredentials, updateID, date);
     }
 
     @Override
-    public void installUpdate(String connectorUrl, String managementPort, ManagementCredentials managementCredentials,
+    public void planUpdate(String connectorUrl, String managementPort, ManagementCredentials managementCredentials,
             String updateID, String date) {
         log.log(Level.INFO, "Installing Update On Kocobox connector");
 
@@ -75,4 +75,15 @@ public class KocoboxConnector extends AbstractConnector {
 
     }
 
+    // Checks for Update
+    @Override
+    public Response updateSettings(String connectorUrl, ManagementCredentials managementCredentials, boolean autoUpdate) {
+       return updateSettings(connectorUrl, "8500", managementCredentials, autoUpdate);
+    }
+
+    @Override
+    public Response updateSettings(String connectorUrl, String managementPort, ManagementCredentials managementCredentials, boolean autoUpdate) {
+        log.log(Level.INFO, "updateSettings On Kocobox connector");
+        return null;
+    }
 }

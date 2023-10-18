@@ -160,12 +160,12 @@ public class SecunetConnector extends AbstractConnector {
     // Installs downloaded update files on Connector
     // When date is set in the past it installs the update asap
     @Override
-    public void installUpdate(String connectorUrl, ManagementCredentials managementCredentials, String updateID, String date) {
-        installUpdate(connectorUrl, "8500", managementCredentials, updateID, date);
+    public void planUpdate(String connectorUrl, ManagementCredentials managementCredentials, String updateID, String date) {
+        planUpdate(connectorUrl, "8500", managementCredentials, updateID, date);
     }
 
     @Override
-    public void installUpdate(String connectorUrl, String managementPort, ManagementCredentials managementCredentials, String updateID, String date) {
+    public void planUpdate(String connectorUrl, String managementPort, ManagementCredentials managementCredentials, String updateID, String date) {
         managementPort = "8500";
         log.info("[" + connectorUrl + ":" + managementPort + "] Installing Update on  Secunet connector...");
 
@@ -184,19 +184,6 @@ public class SecunetConnector extends AbstractConnector {
 
     }
 
-    private static final String LOG_FILE_PATH = "/home/patrick/utils/java_logs/231017_log.txt";
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-
-    public static void logMessage(String message) {
-        String timestampedMessage = formatter.format(LocalDateTime.now()) + " - " + message + "\n";
-        try {
-            Files.write(Paths.get(LOG_FILE_PATH),
-                    timestampedMessage.getBytes(),
-                    StandardOpenOption.CREATE, StandardOpenOption.APPEND);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     //  Checks for Update
     @Override
@@ -222,10 +209,70 @@ public class SecunetConnector extends AbstractConnector {
 
         Response updateResponse = installBuilder.put(Entity.json(""));
 
+
+    }
+
+
+
+    //  Checks for Update
+    @Override
+    public Response updateSettings(String connectorUrl, ManagementCredentials managementCredentials, boolean autoUpdate) {
+      return updateSettings(connectorUrl, "8500", managementCredentials, autoUpdate);
+    }
+
+    // In the dashboard its written: "Auf Aktualisierungen in der TI (KSR) prüfen"
+    @Override
+    public Response updateSettings(String connectorUrl, String managementPort, ManagementCredentials managementCredentials, boolean autoUpdate) {
+        managementPort = "8500";
+        log.info("[" + connectorUrl + ":" + managementPort + "] Check for Updates on Secunet connector...");
+
+        Client client = buildClient();
+
+        Response loginResponse = loginManagementConsole(client, connectorUrl, managementPort, managementCredentials);
+
+        // WebTarget einplanenTarget = client.target(connectorUrl + ":" + managementPort)
+        //         .path("/rest/mgmt/ak/dienste/ksr/einstellungen?strict=true");
+
+        WebTarget einplanenTarget = client.target(connectorUrl + ":" + managementPort)
+                .path("/rest/mgmt/ak/dienste/ksr/einstellungen")
+                .queryParam("strict", "true");
+        Invocation.Builder installBuilder = einplanenTarget.request(MediaType.APPLICATION_JSON);
+        installBuilder.header("Authorization", loginResponse.getHeaders().get("Authorization").get(0));
+
+        // Settings for switching Update Dowload + Install functionality on/off
+        String jsonPayload = "";
+        if (autoUpdate == true){
+         jsonPayload = "{"
+        + "\"autoUpdateCheck\": true,"
+        + "\"autoUpdateDownload\": true,"
+        + "\"supportTrialUpdates\": false,"
+        + "\"autoActivateInventoryNetworks\": true,"
+        + "\"autoUpdate\": true,"
+        + "\"autoUpdateWave\": \"EARLY\","
+        + "\"autoUpdateWeekDay\": \"MONDAY\","
+        + "\"autoUpdateConnectorDependsOnFinishedTerminalUpdates\": false,"
+        + "\"autoUpdateTimeHour\": \"01\","
+        + "\"autoUpdateTimeMinute\": \"00\""
+        + "}";
+        }
+        if (autoUpdate == false){
+         jsonPayload = "{"
+        + "\"autoUpdateCheck\": false,"
+        + "\"autoUpdateDownload\": false,"
+        + "\"supportTrialUpdates\": false,"
+        + "\"autoActivateInventoryNetworks\": true,"
+        + "\"autoUpdate\": false,"
+        + "\"autoUpdateWave\": \"EARLY\","
+        + "\"autoUpdateWeekDay\": \"MONDAY\","
+        + "\"autoUpdateConnectorDependsOnFinishedTerminalUpdates\": false,"
+        + "\"autoUpdateTimeHour\": \"01\","
+        + "\"autoUpdateTimeMinute\": \"00\""
+        + "}";
+        }
+        Response updateResponse = installBuilder.put(Entity.json(jsonPayload));
+
         String responseString = updateResponse.readEntity(String.class);
-        logMessage("responseString: " + responseString);
-        // String responseString = updateResponse.readEntity(String.class);
-        // logMessage("responseString: " +updateResponse.getStatus());
+        return updateResponse;
 
     }
 

@@ -51,11 +51,13 @@ public class RiseConnector extends AbstractConnector {
         Client client = buildClient();
         String cookie = getSessionCookie(client, connectorUrl, managementPort);
 
-        Response login = connectAndRetrieveResponse(POST, "/api/v1/auth/login", client, connectorUrl, managementPort, managementCredentials);
+        Response login = connectAndRetrieveResponse(POST, "/api/v1/auth/login", client, connectorUrl, managementPort,
+                managementCredentials);
         log.info("Login status: " + login.getStatus());
         login.close();
 
-        Response restart = connectAndRetrieveResponse(POST, "/api/v1/mgm/reboot", client, connectorUrl, managementPort, managementCredentials);
+        Response restart = connectAndRetrieveResponse(POST, "/api/v1/mgm/reboot", client, connectorUrl, managementPort,
+                managementCredentials);
         log.info("Restart status: " + restart.getStatus());
         restart.close();
     }
@@ -80,7 +82,8 @@ public class RiseConnector extends AbstractConnector {
         return cookie;
     }
 
-    Response connectAndRetrieveResponse(String httpMethod, String path, Client client, String connectorUrl, String managementPort, ManagementCredentials managementCredentials) {
+    Response connectAndRetrieveResponse(String httpMethod, String path, Client client, String connectorUrl,
+            String managementPort, ManagementCredentials managementCredentials) {
         WebTarget target = client.target(connectorUrl + ":" + managementPort)
                 .path(path);
 
@@ -95,7 +98,8 @@ public class RiseConnector extends AbstractConnector {
                 .header("sec-ch-ua-mobile", "?0")
                 .header("Cache-Control", "no-cache")
                 .header("Accept", "application/json, text/plain, */*")
-                .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36 Edg/113.0.1774.42")
+                .header("User-Agent",
+                        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36 Edg/113.0.1774.42")
                 .header("Content-Type", "application/json")
                 .header("X-Requested-With", "RISEHttpRequest")
                 .header("If-Modified-Since", "Thu, 01 Jan 1970 00:00:00 GMT")
@@ -103,7 +107,8 @@ public class RiseConnector extends AbstractConnector {
         if (Objects.equals(httpMethod, GET)) {
             return invocationBuilder.get();
         } else if (Objects.equals(httpMethod, POST)) {
-            return invocationBuilder.post(Entity.json(new ManagementCredentialsRISE(managementCredentials.getUsername(), managementCredentials.getPassword())));
+            return invocationBuilder.post(Entity.json(new ManagementCredentialsRISE(managementCredentials.getUsername(),
+                    managementCredentials.getPassword())));
         }
         return null;
     }
@@ -115,11 +120,13 @@ public class RiseConnector extends AbstractConnector {
         Client client = buildClient();
         String cookie = getSessionCookie(client, connectorUrl, managementPort);
 
-        Response login = connectAndRetrieveResponse(POST, "/api/v1/auth/login", client, connectorUrl, managementPort, managementCredentials);
+        Response login = connectAndRetrieveResponse(POST, "/api/v1/auth/login", client, connectorUrl, managementPort,
+                managementCredentials);
         log.info("Login response code: " + login.getStatus());
         login.close();
 
-        Response tiStatusResponse = connectAndRetrieveResponse(GET, "/api/v1/status", client, connectorUrl, managementPort, managementCredentials);
+        Response tiStatusResponse = connectAndRetrieveResponse(GET, "/api/v1/status", client, connectorUrl,
+                managementPort, managementCredentials);
         log.info("[" + connectorUrl + "] TI status response code: " + tiStatusResponse.getStatus());
 
         if (tiStatusResponse.getStatus() == Response.Status.OK.getStatusCode()) {
@@ -131,11 +138,11 @@ public class RiseConnector extends AbstractConnector {
             log.info(String.valueOf(jsonObject.getJsonObject("vpnState").getBoolean("tiOnline")));
             return jsonObject.getJsonObject("vpnState").getBoolean("tiOnline");
         } else {
-            log.warning("[" + connectorUrl + "] Failed to check if TI is online. Response code: " + tiStatusResponse.getStatus());
+            log.warning("[" + connectorUrl + "] Failed to check if TI is online. Response code: "
+                    + tiStatusResponse.getStatus());
             return false;
         }
     }
-
 
     public static class ManagementCredentialsRISE {
         String user;
@@ -159,7 +166,6 @@ public class RiseConnector extends AbstractConnector {
         }
     }
 
-
     // Downloads update files on Connector
     // Should be usable also for downgrades
     @Override
@@ -168,25 +174,27 @@ public class RiseConnector extends AbstractConnector {
     }
 
     @Override
-    public void downloadUpdate(String connectorUrl, String managementPort, ManagementCredentials managementCredentials, String UpdateID) {
+    public void downloadUpdate(String connectorUrl, String managementPort, ManagementCredentials managementCredentials,
+            String UpdateID) {
         log.log(Level.INFO, "Downloading Update On Rise connector");
 
     }
 
-
     // Installs downloaded update files on Connector
     @Override
-    public void installUpdate(String connectorUrl, ManagementCredentials managementCredentials, String updateID, String date) {
-        installUpdate(connectorUrl, "8500", managementCredentials, updateID, date);
+    public void planUpdate(String connectorUrl, ManagementCredentials managementCredentials, String updateID,
+            String date) {
+        planUpdate(connectorUrl, "8500", managementCredentials, updateID, date);
     }
 
     @Override
-    public void installUpdate(String connectorUrl, String managementPort, ManagementCredentials managementCredentials, String updateID, String date) {
+    public void planUpdate(String connectorUrl, String managementPort, ManagementCredentials managementCredentials,
+            String updateID, String date) {
         log.log(Level.INFO, "Installing Update On Rise connector");
 
     }
 
-    //  Checks for Update
+    // Checks for Update
     @Override
     public void checkUpdate(String connectorUrl, ManagementCredentials managementCredentials) {
         checkUpdate(connectorUrl, "8500", managementCredentials);
@@ -196,5 +204,18 @@ public class RiseConnector extends AbstractConnector {
     public void checkUpdate(String connectorUrl, String managementPort, ManagementCredentials managementCredentials) {
         log.log(Level.INFO, "Check Update On Rise connector");
 
+    }
+
+    // Checks for Update
+    @Override
+    public Response updateSettings(String connectorUrl, ManagementCredentials managementCredentials, boolean autoUpdate) {
+        return updateSettings(connectorUrl, "8500", managementCredentials, autoUpdate);
+    }
+
+    @Override
+    public Response updateSettings(String connectorUrl, String managementPort,
+            ManagementCredentials managementCredentials, boolean autoUpdate) {
+        log.log(Level.INFO, "updateSettings On Rise connector");
+        return null;
     }
 }

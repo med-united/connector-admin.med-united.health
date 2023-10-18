@@ -16,7 +16,13 @@ import javax.ws.rs.core.Response;
 
 import org.bouncycastle.asn1.ocsp.ResponderID;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -103,7 +109,8 @@ public class ConnectorManagement {
         }
 
         connector.downloadUpdate(connectorUrl, managementPort, managementCredentials, updateId);
-        // downloadService.recordUpdateDownload(runtimeConfigId, connectorUrl, updateId);
+        // downloadService.recordUpdateDownload(runtimeConfigId, connectorUrl,
+        // updateId);
 
     }
 
@@ -111,7 +118,7 @@ public class ConnectorManagement {
     @POST
     @Path("/{connectorType}/installUpdate")
     @Consumes(MediaType.APPLICATION_JSON)
-    public void installUpdate(
+    public void planUpdate(
             @PathParam("connectorType") String connectorType,
             @QueryParam("connectorUrl") String connectorUrl,
             ManagementCredentials managementCredentials,
@@ -125,13 +132,12 @@ public class ConnectorManagement {
         }
         String fromVersion = "1.0test";
 
-        connector.installUpdate(connectorUrl, managementPort, managementCredentials, updateId, date);
-        // updateService.recordUpdate(runtimeConfigId, connectorUrl, fromVersion, updateId);
+        connector.planUpdate(connectorUrl, managementPort, managementCredentials, updateId, date);
+        // updateService.recordUpdate(runtimeConfigId, connectorUrl, fromVersion,
+        // updateId);
     }
 
-
-
-    // Checks for Updates 
+    // Checks for Updates
     @POST
     @Path("/{connectorType}/checkUpdates")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -145,6 +151,24 @@ public class ConnectorManagement {
             throw new IllegalArgumentException("Unknown connector type: " + connectorType);
         }
 
-       connector.checkUpdate(connectorUrl, managementCredentials);
+        connector.checkUpdate(connectorUrl, managementCredentials);
+    }
+
+    // Checks for Updates
+    @POST
+    @Path("/{connectorType}/updateSettings")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response updateSettings(
+            @PathParam("connectorType") String connectorType,
+            @QueryParam("connectorUrl") String connectorUrl,
+            @QueryParam("autoUpdate") boolean autoUpdate,
+            ManagementCredentials managementCredentials) {
+
+        Connector connector = connectorMap.get(connectorType);
+        if (connector == null) {
+            throw new IllegalArgumentException("Unknown connector type: " + connectorType);
+        }
+
+        return connector.updateSettings(connectorUrl, managementCredentials, autoUpdate);
     }
 }
