@@ -3,26 +3,13 @@ package health.medunited.architecture.jaxrs.resource;
 import health.medunited.architecture.jaxrs.management.Connector;
 import health.medunited.architecture.jaxrs.management.ConnectorBrands;
 import health.medunited.architecture.model.ManagementCredentials;
-import health.medunited.architecture.service.update.DownloadService;
-import health.medunited.architecture.service.update.UpdateService;
-
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
-
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.bouncycastle.asn1.ocsp.ResponderID;
-
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,12 +27,6 @@ public class ConnectorManagement {
     @Inject
     @Named("rise")
     private Connector riseConnector;
-
-    // @Inject
-    // private UpdateService updateService;
-
-    // @Inject
-    // private DownloadService downloadService;
 
     private String managementPort;
 
@@ -154,7 +135,7 @@ public class ConnectorManagement {
         connector.checkUpdate(connectorUrl, managementCredentials);
     }
 
-    // Checks for Updates
+    // Update Settings
     @POST
     @Path("/{connectorType}/updateSettings")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -168,7 +149,7 @@ public class ConnectorManagement {
         if (connector == null) {
             throw new IllegalArgumentException("Unknown connector type: " + connectorType);
         }
-
         return connector.updateSettings(connectorUrl, managementCredentials, autoUpdate);
     }
+
 }

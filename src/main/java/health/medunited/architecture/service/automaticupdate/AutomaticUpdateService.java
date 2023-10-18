@@ -84,7 +84,7 @@ public class AutomaticUpdateService {
 
             // need to check if download is finished,
             if (checkDownloadComplete(runtimeConfig)) {
-                secunetConnector.installUpdate(connectorUrl, managementPort, managementCredentials, updateId, date);
+                secunetConnector.planUpdate(connectorUrl, managementPort, managementCredentials, updateId, date);
             } else {
                 log.log(Level.INFO, "Download of Update not completed yet");
             }

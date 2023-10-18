@@ -10,6 +10,7 @@ public class KonnektorUpdate {
     
     @Id
     private String id = UUID.randomUUID().toString();
+    
     private String runtimeConfigId;
     private String connectorUrl;
     private String fromVersion;

@@ -13,10 +13,11 @@ import health.medunited.architecture.jaxrs.resource.ConnectorSds;
 import health.medunited.architecture.jaxrs.resource.Event;
 import health.medunited.architecture.jaxrs.resource.Metrics;
 import health.medunited.architecture.jaxrs.resource.Scheduler;
+import health.medunited.architecture.jaxrs.resource.UpdateManagement;
 
 @ApplicationPath("/connector")
 public class ConnectorApplication extends Application {
-    @Override
+	@Override
 	public Set<Class<?>> getClasses() {
 		Set<Class<?>> set = new HashSet<>();
 		set.add(Event.class);
@@ -26,6 +27,7 @@ public class ConnectorApplication extends Application {
 		set.add(Card.class);
 		set.add(ConnectorSds.class);
 		set.add(ConnectorManagement.class);
+		set.add(UpdateManagement.class);
 		return set;
 	}
 }
