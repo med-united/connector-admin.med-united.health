@@ -1,0 +1,117 @@
+{
+	"_version": "1.1.0",
+	"sap.app": {
+		"_version": "1.1.0",
+		"id": "logsearch",
+		"type": "logsearch",
+		"title": "{{appTitle}}",
+		"description": "{{appDescription}}",
+		"applicationVersion": {
+			"version": "1.0.0"
+		},
+		"dataSources": {
+			"Data.svc": {
+				"uri": "../../logsearch-backend/Data.svc?sap-context-token=1",
+				"type": "OData",
+				"settings": {
+					"odataVersion": "2.0"
+				}
+			}
+		}
+	},
+	"sap.ui": {
+		"_version": "1.1.0",
+		"technology": "UI5",
+		"deviceTypes": {
+			"desktop": true,
+			"tablet": true,
+			"phone": true
+		},
+		"supportedThemes": [
+			"sap_horizon"
+		]
+	},
+	"sap.ui5": {
+		"rootView": {
+			"viewName": "logsearch.view.App",
+			"type": "XML",
+			"id": "app",
+			"async": true
+		},
+		"dependencies": {
+			"minUI5Version": "1.98.0",
+			"libs": {
+				"sap.ui.core": {},
+				"sap.m": {},
+				"sap.f": {},
+				"sap.ui.layout": {},
+				"sap.ui.integration": {},
+				"sap.uxap": {}
+			}
+		},
+		"models": {
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleName": "logsearch.i18n.i18n"
+				}
+			},
+			"": {
+				"dataSource": "Data.svc",
+				"type": "sap.ui.model.odata.v2.ODataModel",
+				"preload": true,
+				"settings": {
+					"defaultBindingMode": "TwoWay"
+				}
+			}
+		},
+		"routing": {
+			"config": {
+				"routerClass": "sap.m.routing.Router",
+				"type": "View",
+				"viewType": "XML",
+				"path": "logsearch.view",
+				"transition": "slide",
+				"controlId": "app",
+				"async": true
+			},
+			"routes": [
+				{
+					"pattern": "",
+					"name": "dashboard",
+					"target": [
+						"master",
+						"dashboard"
+					]
+				}
+			],
+			"targets": {
+				"master": {
+					"viewName": "Master",
+					"controlAggregation": "beginColumnPages",
+					"clearControlAggregation": true
+				},
+				"dashboard": {
+					"viewName": "Dashboard",
+					"controlAggregation": "beginColumnPages",
+					"clearControlAggregation": true
+				},
+				"automaticmonitoring": {
+					"viewName": "AutomaticMonitoring",
+					"controlAggregation": "beginColumnPages",
+					"clearControlAggregation": true
+				},
+				"updateKonnektor": {
+					"viewName": "UpdateKonnektor",
+					"controlAggregation": "beginColumnPages",
+					"clearControlAggregation": true
+				},
+				"detail": {
+					"viewName": "Detail",
+					"controlAggregation": "midColumnPages",
+					"clearControlAggregation": true
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,30 @@
+<mvc:View
+   xmlns="sap.m"
+   xmlns:mvc="sap.ui.core.mvc">
+   <Table items="{/LogEntrys}" growing="true" growingScrollToLoad="true">
+        <columns>
+            <Column>
+                <Text text="Id"></Text>
+            </Column>
+            <Column>
+                <Text text="Message"></Text>
+            </Column>
+            <Column>
+                <Text text="Severity"></Text>
+            </Column>
+            <Column>
+                <Text text="Timestamp"></Text>
+            </Column>
+            <Column>
+                <Text text="Type"></Text>
+            </Column>
+        </columns>
+        <ColumnListItem>
+            <Text text="{Id}"></Text>
+            <Text text="{Message}"></Text>
+            <Text text="{Severity}"></Text>
+            <Text text="{Timestamp}"></Text>
+            <Text text="{Type}"></Text>
+        </ColumnListItem>
+   </Table>
+</mvc:View>

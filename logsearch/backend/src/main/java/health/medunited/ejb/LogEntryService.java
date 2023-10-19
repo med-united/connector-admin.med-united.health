@@ -22,7 +22,7 @@ public class LogEntryService {
     EntityManager em;
 
     // run this function all 60 minutes
-    @Schedule  (hour = "*", minute = "*/60", persistent = false)
+    @Schedule(hour = "*", minute = "*/60", persistent = false)
     public void fetchAndSaveLogEntries() {
         log.info("Persisting entries");
         LogEntry[] entries = fetchLogEntries();
