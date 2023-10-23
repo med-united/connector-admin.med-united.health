@@ -6,6 +6,8 @@ import health.medunited.architecture.model.ManagementCredentials;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -31,6 +33,9 @@ public class ConnectorManagement {
     private String managementPort;
 
     private Map<String, Connector> connectorMap;
+
+    @PersistenceContext(unitName = "dashboard")
+    private EntityManager em;
 
     @PostConstruct
     public void init() {
@@ -151,5 +156,23 @@ public class ConnectorManagement {
         }
         return connector.updateSettings(connectorUrl, managementCredentials, autoUpdate);
     }
+
+
+    // Get Release Infos
+    @GET
+    @Path("/{connectorType}/getReleaseInfo")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getReleaseInfo(
+            @PathParam("connectorType") String connectorType,
+            @QueryParam("connectorUrl") String connectorUrl,
+            ManagementCredentials managementCredentials) {
+
+        Connector connector = connectorMap.get(connectorType);
+        if (connector == null) {
+            throw new IllegalArgumentException("Unknown connector type: " + connectorType);
+        }
+        return connector.getReleaseInfo(connectorUrl, managementCredentials);
+    }
+
 
 }

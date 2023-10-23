@@ -1,138 +1,200 @@
 // No Security Mechanism added yet, (controller can be accessed without credentials)
 
+package health.medunited.architecture.jaxrs.resource;
 
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-// package health.medunited.architecture.jaxrs.resource;
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
+import javax.inject.Named;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
+import javax.ws.rs.core.GenericEntity;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
-// import java.util.HashMap;
-// import java.util.List;
-// import java.util.Map;
+import health.medunited.architecture.entities.KonnektorUpdate;
+import health.medunited.architecture.entities.UpdateStatus;
+import health.medunited.architecture.jaxrs.management.Connector;
+import health.medunited.architecture.jaxrs.management.ConnectorBrands;
 
-// import javax.annotation.PostConstruct;
-// import javax.inject.Inject;
-// import javax.inject.Named;
-// import javax.persistence.EntityManager;
-// import javax.persistence.PersistenceContext;
-// import javax.transaction.Transactional;
-// import javax.ws.rs.core.GenericEntity;
-// import javax.ws.rs.core.MediaType;
-// import javax.ws.rs.core.Response;
+import javax.ws.rs.*;
 
-// import health.medunited.architecture.entities.KonnektorUpdate;
-// import health.medunited.architecture.entities.UpdateStatus;
-// import health.medunited.architecture.jaxrs.management.Connector;
-// import health.medunited.architecture.jaxrs.management.ConnectorBrands;
+@Path("update")
+public class UpdateManagement {
 
-// import javax.ws.rs.*;
+    @Inject
+    @Named("secunet")
+    private Connector secunetConnector;
 
-// @Path("update")
-// public class UpdateManagement {
+    @Inject
+    @Named("kocobox")
+    private Connector kocoboxConnector;
 
-//     @Inject
-//     @Named("secunet")
-//     private Connector secunetConnector;
+    @Inject
+    @Named("rise")
+    private Connector riseConnector;
 
-//     @Inject
-//     @Named("kocobox")
-//     private Connector kocoboxConnector;
+    private Map<String, Connector> connectorMap;
 
-//     @Inject
-//     @Named("rise")
-//     private Connector riseConnector;
+    @PostConstruct
+    public void init() {
+        this.connectorMap = new HashMap<>();
+        connectorMap.put(ConnectorBrands.SECUNET.getValue(), secunetConnector);
+        connectorMap.put(ConnectorBrands.KOCOBOX.getValue(), kocoboxConnector);
+        connectorMap.put(ConnectorBrands.RISE.getValue(), riseConnector);
+    }
 
-//     private Map<String, Connector> connectorMap;
+    @PersistenceContext(unitName = "dashboard")
+    private EntityManager em;
 
-//     @PostConstruct
-//     public void init() {
-//         this.connectorMap = new HashMap<>();
-//         connectorMap.put(ConnectorBrands.SECUNET.getValue(), secunetConnector);
-//         connectorMap.put(ConnectorBrands.KOCOBOX.getValue(), kocoboxConnector);
-//         connectorMap.put(ConnectorBrands.RISE.getValue(), riseConnector);
-//     }
+    @POST
+    @Transactional
+    @Path("/{connectorType}/")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response createKonnektorUpdate(KonnektorUpdate konnektorUpdate) {
+        em.persist(konnektorUpdate);
+        return Response.status(Response.Status.CREATED).entity(konnektorUpdate).build();
+    }
 
-//     @PersistenceContext(unitName = "dashboard")
-//     private EntityManager em;
+    @GET
+    @Path("/{connectorType}/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response findKonnektorUpdatebyID(
+            @PathParam("id") String id) {
+        KonnektorUpdate konnektorUpdate = em.find(KonnektorUpdate.class, id);
 
-//     @POST
-//     @Transactional
-//     @Path("/{connectorType}/")
-//     @Consumes(MediaType.APPLICATION_JSON)
-//     @Produces(MediaType.APPLICATION_JSON)
-//     public Response createKonnektorUpdate(KonnektorUpdate konnektorUpdate) {
-//         em.persist(konnektorUpdate);
-//         return Response.status(Response.Status.CREATED).entity(konnektorUpdate).build();
-//     }
+        if (konnektorUpdate == null) {
+            throw new IllegalArgumentException("No KonnektorUpdate found for ID: " + id);
+        }
 
-//     @GET
-//     @Path("/{connectorType}/{id}")
-//     @Produces(MediaType.APPLICATION_JSON)
-//     public Response findKonnektorUpdatebyID(
-//             @PathParam("id") String id) {
-//         KonnektorUpdate konnektorUpdate = em.find(KonnektorUpdate.class, id);
+        return Response.status(Response.Status.OK).entity(konnektorUpdate).build();
+    }
 
-//         if (konnektorUpdate == null) {
-//             throw new IllegalArgumentException("No KonnektorUpdate found for ID: " + id);
-//         }
+    @GET
+    @Path("/{connectorType}/all")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response findAllKonnektorUpdate(@PathParam("connectorType") String connectorType) {
 
-//         return Response.status(Response.Status.OK).entity(konnektorUpdate).build();
-//     }
+        List<KonnektorUpdate> konnektorUpdates = em
+                .createQuery("SELECT k FROM KonnektorUpdate k", KonnektorUpdate.class).getResultList();
 
-//     @GET
-//     @Path("/{connectorType}/all")
-//     @Produces(MediaType.APPLICATION_JSON)
-//     public Response findAllKonnektorUpdate(@PathParam("connectorType") String connectorType) {
+        if (konnektorUpdates == null || konnektorUpdates.isEmpty()) {
+            throw new IllegalArgumentException("No KonnektorUpdates found for connector type: " + connectorType);
+        }
 
-//         List<KonnektorUpdate> konnektorUpdates = em
-//                 .createQuery("SELECT k FROM KonnektorUpdate k", KonnektorUpdate.class).getResultList();
+        GenericEntity<List<KonnektorUpdate>> entity = new GenericEntity<List<KonnektorUpdate>>(konnektorUpdates) {
+        };
+        return Response.status(Response.Status.OK).entity(entity).build();
+    }
 
-//         if (konnektorUpdates == null || konnektorUpdates.isEmpty()) {
-//             throw new IllegalArgumentException("No KonnektorUpdates found for connector type: " + connectorType);
-//         }
+    @POST
+    @Transactional
+    @Path("/{connectorType}/UpdateStatus/")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response createUpdateStatus(UpdateStatus updateStatus) {
+        em.persist(updateStatus);
+        return Response.status(Response.Status.CREATED).entity(updateStatus).build();
+    }
 
-//         GenericEntity<List<KonnektorUpdate>> entity = new GenericEntity<List<KonnektorUpdate>>(konnektorUpdates) {
-//         };
-//         return Response.status(Response.Status.OK).entity(entity).build();
-//     }
+    @GET
+    @Path("/{connectorType}/UpdateStatus/all")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response findAllUpdateStatus(@PathParam("connectorType") String connectorType) {
 
-//     @POST
-//     @Transactional
-//     @Path("/{connectorType}/UpdateStatus/")
-//     @Consumes(MediaType.APPLICATION_JSON)
-//     @Produces(MediaType.APPLICATION_JSON)
-//     public Response createUpdateStatus(UpdateStatus updateStatus) {
-//         em.persist(updateStatus);
-//         return Response.status(Response.Status.CREATED).entity(updateStatus).build();
-//     }
+        List<UpdateStatus> updateStatus = em
+                .createQuery("SELECT k FROM UpdateStatus k", UpdateStatus.class).getResultList();
 
-//     @GET
-//     @Path("/{connectorType}/UpdateStatus/all")
-//     @Produces(MediaType.APPLICATION_JSON)
-//     public Response findAllUpdateStatus(@PathParam("connectorType") String connectorType) {
+        if (updateStatus == null || updateStatus.isEmpty()) {
+            throw new IllegalArgumentException("No UpdateStatus found for connector type: " + connectorType);
+        }
 
-//         List<UpdateStatus> updateStatus = em
-//                 .createQuery("SELECT k FROM UpdateStatus k", UpdateStatus.class).getResultList();
+        GenericEntity<List<UpdateStatus>> entity = new GenericEntity<List<UpdateStatus>>(updateStatus) {
+        };
+        return Response.status(Response.Status.OK).entity(entity).build();
+    }
 
-//         if (updateStatus == null || updateStatus.isEmpty()) {
-//             throw new IllegalArgumentException("No UpdateStatus found for connector type: " + connectorType);
-//         }
+    @GET
+    @Path("/{connectorType}/UpdateStatus/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response findUpdateStatusID(
+            @PathParam("id") String id) {
+        UpdateStatus updateStatus = em.find(UpdateStatus.class, id);
 
-//         GenericEntity<List<UpdateStatus>> entity = new GenericEntity<List<UpdateStatus>>(updateStatus) {
-//         };
-//         return Response.status(Response.Status.OK).entity(entity).build();
-//     }
+        if (updateStatus == null) {
+            throw new IllegalArgumentException("No UpdateStatus found for ID: " + id);
+        }
 
-//     @GET
-//     @Path("/{connectorType}/UpdateStatus/{id}")
-//     @Produces(MediaType.APPLICATION_JSON)
-//     public Response findUpdateStatusID(
-//             @PathParam("id") String id) {
-//         UpdateStatus updateStatus = em.find(UpdateStatus.class, id);
+        return Response.status(Response.Status.OK).entity(updateStatus).build();
+    }
 
-//         if (updateStatus == null) {
-//             throw new IllegalArgumentException("No UpdateStatus found for ID: " + id);
-//         }
+    @GET
+    @Path("/{connectorType}/UpdateStatusByConnectorUrl/{connectorUrl}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response findUpdateStatusByConnectorUrl(
+            @PathParam("connectorType") String connectorType,
+            @PathParam("connectorUrl") String connectorUrl) {
 
-//         return Response.status(Response.Status.OK).entity(updateStatus).build();
-//     }
+        if (connectorUrl == null || connectorUrl.isEmpty()) {
+            throw new IllegalArgumentException("Connector URL is required.");
+        }
 
-// }
+        String originalConnectorUrl = desanitizeConnectorUrl(connectorUrl);
+
+        TypedQuery<UpdateStatus> query = em.createQuery(
+                "SELECT u FROM UpdateStatus u WHERE u.connectorUrl = :connectorUrl",
+                UpdateStatus.class);
+        query.setParameter("connectorUrl", originalConnectorUrl);
+        List<UpdateStatus> results = query.getResultList();
+
+        if (results.isEmpty()) {
+            throw new IllegalArgumentException("No UpdateStatus found for connectorUrl: " + originalConnectorUrl);
+        }
+
+        return Response.status(Response.Status.OK).entity(results.get(0)).build();
+    }
+
+    // get the first entry by connectorUrl of the AutoUpdateStatus of a Konnektor
+    @GET
+    @Path("/{connectorType}/GetAutoUpdateStatusByConnectorUrl/{connectorUrl}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response findAutoUpdateStatusByConnectorUrl(
+            @PathParam("connectorType") String connectorType,
+            @PathParam("connectorUrl") String connectorUrl) {
+
+        if (connectorUrl == null || connectorUrl.isEmpty()) {
+            throw new IllegalArgumentException("Connector URL is required.");
+        }
+
+        String originalConnectorUrl = desanitizeConnectorUrl(connectorUrl);
+
+        TypedQuery<UpdateStatus> query = em.createQuery(
+                "SELECT u FROM UpdateStatus u WHERE u.connectorUrl = :connectorUrl",
+                UpdateStatus.class);
+        query.setParameter("connectorUrl", originalConnectorUrl);
+        List<UpdateStatus> results = query.getResultList();
+
+        if (results.isEmpty()) {
+            throw new IllegalArgumentException("No UpdateStatus found for connectorUrl: " + originalConnectorUrl);
+        }
+
+        boolean autoUpdate = results.get(results.size() - 1).isCompleteAutoUpdate();
+        Map<String, Boolean> responseMap = Collections.singletonMap("status", autoUpdate);
+        return Response.status(Response.Status.OK).entity(responseMap).build();
+    }
+
+    public String desanitizeConnectorUrl(String sanitized) {
+        if (sanitized == null)
+            return null;
+        String protocol = "https://";
+        return protocol + sanitized.replace("_", ".");
+    }
+
+}

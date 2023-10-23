@@ -11,6 +11,7 @@ import health.medunited.architecture.jaxrs.resource.Certificate;
 import health.medunited.architecture.jaxrs.resource.ConnectorManagement;
 import health.medunited.architecture.jaxrs.resource.ConnectorSds;
 import health.medunited.architecture.jaxrs.resource.Event;
+import health.medunited.architecture.jaxrs.resource.KonnektorManagement;
 import health.medunited.architecture.jaxrs.resource.Metrics;
 import health.medunited.architecture.jaxrs.resource.Scheduler;
 import health.medunited.architecture.jaxrs.resource.UpdateManagement;
@@ -28,6 +29,7 @@ public class ConnectorApplication extends Application {
 		set.add(ConnectorSds.class);
 		set.add(ConnectorManagement.class);
 		set.add(UpdateManagement.class);
+		set.add(KonnektorManagement.class);
 		return set;
 	}
 }

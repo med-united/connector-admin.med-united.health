@@ -26,5 +26,9 @@ public interface Connector {
     
     Response updateSettings(String connectorUrl, String managementPort, ManagementCredentials managementCredentials, boolean autoUpdate);
 
+    Response getReleaseInfo(String connectorUrl, ManagementCredentials managementCredentials);
+    
+    Response getReleaseInfo(String connectorUrl, String managementPort, ManagementCredentials managementCredentials);
+
     boolean isTIOnline(String connectorUrl, String managementPort, ManagementCredentials managementCredentials);
 }
