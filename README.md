@@ -2,6 +2,10 @@
 
 A tool where you can maintain all the runtime configurations for all the doctors and their connectors
 
+# Development
+
+The [Google Java Style Guide](https://google.github.io/styleguide/javaguide.html) shall be used.
+
 # Screenshot
 
 ![Detail Screen](docs/Detail-Screen.png?raw=true "This is how the tool looks like")
