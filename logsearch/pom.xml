@@ -3,15 +3,13 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0                       https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <description>A tool where you can maintain all the runtime configurations for all the doctors and
-    their connectors.
-  </description>
+  <description>Module for searching the logs of the connectors</description>
   <groupId>health.medunited</groupId>
-  <artifactId>connector-admin</artifactId>
+  <artifactId>logsearch</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>pom</packaging>
   <modules>
-    <module>base</module>
-    <module>logsearch</module>
+    <module>backend</module>
+    <module>frontend</module>
   </modules>
 </project>

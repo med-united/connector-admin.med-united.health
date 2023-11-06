@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1"
+    xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
+	http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<!-- https://docs.jboss.org/author/display/WFLY8/JPA+Reference+Guide -->
+	<persistence-unit name="logsearch">
+        <jta-data-source>java:jboss/datasources/H2DS</jta-data-source>
+		<properties>
+			<property name="javax.persistence.schema-generation.database.action"
+					  value="drop-and-create" />
+			<!-- Bind entity manager factory to JNDI at java:jboss/blueprintEntityManagerFactory -->
+			<property name="jboss.entity.manager.factory.jndi.name"
+					  value="java:/logsearchEntityManagerFactory" />
+			<property name="jboss.entity.manager.jndi.name" value="java:/logsearchEntityManager" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />
+		</properties>
+	</persistence-unit>
+</persistence>

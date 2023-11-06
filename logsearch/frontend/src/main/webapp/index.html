@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html style="height: 100%;" lang="de">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Konnektor Admin Tool - Log Search</title>
+	<link rel="icon" type="image/x-icon" href="favicon.ico">
+    <script
+            id="sap-ui-bootstrap"
+            src="webjars/openui5/1.115.0/resources/sap-ui-core.js"
+            data-sap-ui-theme="sap_horizon"
+			data-sap-ui-async="true"
+            data-sap-ui-libs="sap.m,sap.f,sap.ui.integration"
+            data-sap-ui-bindingSyntax="complex"
+            data-sap-ui-compatVersion="edge"
+            data-sap-ui-oninit="module:sap/ui/core/ComponentSupport"
+            data-sap-ui-resourceroots='{
+					"logsearch": "./logsearch"
+				}'>
+    </script>
+    <script>
+			sap.ui.getCore().attachInit(function () {
+				sap.ui.require([
+					"sap/ui/core/ComponentContainer"
+				], function (ComponentContainer) {
+
+					new ComponentContainer({
+						name : 'logsearch',
+						height : "100%",
+						settings : {
+							id : "logsearch"
+						}
+					}).placeAt('content');
+				});
+			});
+		</script>
+</head>
+<body class="sapUiBody sapUiSizeCompact" id="content">
+</body>
+</html>
