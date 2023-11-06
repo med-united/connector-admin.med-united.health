@@ -1,0 +1,77 @@
+package health.medunited.cat.base.jaxrs.resource;
+
+import health.medunited.cat.base.jaxrs.management.Connector;
+import health.medunited.cat.base.jaxrs.management.ConnectorBrands;
+import health.medunited.cat.base.model.ManagementCredentials;
+
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
+import javax.inject.Named;
+
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
+import java.util.HashMap;
+import java.util.Map;
+
+@Path("management")
+public class ConnectorManagement {
+
+  @Inject
+  @Named("secunet")
+  private Connector secunetConnector;
+
+  @Inject
+  @Named("kocobox")
+  private Connector kocoboxConnector;
+
+  @Inject
+  @Named("rise")
+  private Connector riseConnector;
+
+  private String managementPort;
+
+  private Map<String, Connector> connectorMap;
+
+  @PostConstruct
+  public void init() {
+    this.connectorMap = new HashMap<>();
+    connectorMap.put(ConnectorBrands.SECUNET.getValue(), secunetConnector);
+    connectorMap.put(ConnectorBrands.KOCOBOX.getValue(), kocoboxConnector);
+    connectorMap.put(ConnectorBrands.RISE.getValue(), riseConnector);
+  }
+
+  @POST
+  @Path("/{connectorType}/restart")
+  @Consumes(MediaType.APPLICATION_JSON)
+  public void restart(
+      @PathParam("connectorType") String connectorType,
+      @QueryParam("connectorUrl") String connectorUrl,
+      ManagementCredentials managementCredentials
+  ) {
+
+    Connector connector = connectorMap.get(connectorType);
+    if (connector == null) {
+      throw new IllegalArgumentException("Unknown connector type: " + connectorType);
+    }
+
+    connector.restart(connectorUrl, managementCredentials);
+
+  }
+
+  @GET
+  @Path("/{connectorType}/checkTIStatus")
+  @Consumes(MediaType.APPLICATION_JSON)
+  public void checkTIStatus(
+      @PathParam("connectorType") String connectorType,
+      @QueryParam("connectorUrl") String connectorUrl,
+      ManagementCredentials managementCredentials
+  ) {
+
+    Connector connector = connectorMap.get(connectorType);
+    if (connector == null) {
+      throw new IllegalArgumentException("Unknown connector type: " + connectorType);
+    }
+
+    connector.isTIOnline(connectorUrl, managementPort, managementCredentials);
+  }
+}

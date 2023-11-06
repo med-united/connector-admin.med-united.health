@@ -1,16 +1,17 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0                       https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <description>A tool where you can maintain all the runtime configurations for all the doctors and
     their connectors.
   </description>
-  <groupId>health.medunited</groupId>
-  <artifactId>connector-admin</artifactId>
+  <groupId>health.medunited.cat</groupId>
+  <artifactId>connector-admin-tool</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>pom</packaging>
   <modules>
+    <module>lib</module>
     <module>base</module>
     <module>logsearch</module>
   </modules>

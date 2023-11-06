@@ -2,6 +2,7 @@ package health.medunited.jpa;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import health.medunited.cat.logsearch.jpa.LogEntry;
 import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
 
