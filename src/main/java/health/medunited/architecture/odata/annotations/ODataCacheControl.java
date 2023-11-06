@@ -6,22 +6,20 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * This annotation can be used to add
- * a CacheControl header to the EntitySet
- * request over the OData interface.
- * 
- * @see https://developer.mozilla.org/de/docs/Web/HTTP/Headers/Cache-Control
- * @author manuel
+ * This annotation can be used to add a CacheControl header to the EntitySet request over the OData
+ * interface.
  *
+ * @author manuel
+ * @see https://developer.mozilla.org/de/docs/Web/HTTP/Headers/Cache-Control
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface ODataCacheControl {
-	/**
-	 * The maximum time in seconds this response should be 
-	 * cached by the client
-	 * 
-	 * @return max age in seconds
-	 */
-	int maxAge() default 0;
+
+  /**
+   * The maximum time in seconds this response should be cached by the client
+   *
+   * @return max age in seconds
+   */
+  int maxAge() default 0;
 }

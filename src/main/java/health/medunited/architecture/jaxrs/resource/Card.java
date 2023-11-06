@@ -39,160 +39,164 @@ import health.medunited.architecture.model.PINStatus;
 @Path("card")
 public class Card {
 
-    private static final Logger log = Logger.getLogger(Card.class.getName());
+  private static final Logger log = Logger.getLogger(Card.class.getName());
 
-    @Context
-    HttpServletRequest httpServletRequest;
+  @Context
+  HttpServletRequest httpServletRequest;
 
-    @Inject
-    EventServicePortType eventServicePortType;
+  @Inject
+  EventServicePortType eventServicePortType;
 
-    @Inject
-    CardServicePortType cardServicePortType;
+  @Inject
+  CardServicePortType cardServicePortType;
 
-    @Inject
-    ContextType contextType;
+  @Inject
+  ContextType contextType;
 
-    @GET
-    @Path("/changePin")
-    public String changePin(@QueryParam("cardHandle") String cardHandle, @QueryParam("pinType") String pinType) {
+  @GET
+  @Path("/changePin")
+  public String changePin(@QueryParam("cardHandle") String cardHandle,
+      @QueryParam("pinType") String pinType) {
 
-        log.info("CHANGING PIN");
-        Holder<Status> status = new Holder<>();
-        Holder<PinResultEnum> pinResultEnum = new Holder<>();
-        Holder<BigInteger> leftTries = new Holder<>();
-        try {
-            cardServicePortType.changePin(copyValuesFromProxyIntoContextType(contextType), cardHandle, pinType, status, pinResultEnum, leftTries);
-            return "PIN Change triggered:" + status.value.toString();
-        } catch (FaultMessage e) {
-            log.log(Level.SEVERE, e.getMessage());
-        }
-
-        return "Waiting for user input on the terminal...";
+    log.info("CHANGING PIN");
+    Holder<Status> status = new Holder<>();
+    Holder<PinResultEnum> pinResultEnum = new Holder<>();
+    Holder<BigInteger> leftTries = new Holder<>();
+    try {
+      cardServicePortType.changePin(copyValuesFromProxyIntoContextType(contextType), cardHandle,
+          pinType, status, pinResultEnum, leftTries);
+      return "PIN Change triggered:" + status.value.toString();
+    } catch (FaultMessage e) {
+      log.log(Level.SEVERE, e.getMessage());
     }
 
-    @GET
-    @Path("/verifyPin")
-    public String verifyPin(@QueryParam("cardHandle") String cardHandle, @QueryParam("pinType") String pinType) {
+    return "Waiting for user input on the terminal...";
+  }
 
-        log.info("VERIFYING PIN");
-        Holder<Status> status = new Holder<>();
-        Holder<PinResultEnum> pinResultEnum = new Holder<>();
-        Holder<BigInteger> leftTries = new Holder<>();
-        try {
-            cardServicePortType.verifyPin(
-                    copyValuesFromProxyIntoContextType(contextType), cardHandle, pinType, status, pinResultEnum, leftTries
-            );
-            return "PIN verification triggered:" + status.value.toString();
-        } catch (FaultMessage e) {
-            log.log(Level.SEVERE, e.getMessage());
-        }
+  @GET
+  @Path("/verifyPin")
+  public String verifyPin(@QueryParam("cardHandle") String cardHandle,
+      @QueryParam("pinType") String pinType) {
 
-        return "Waiting for user input on the terminal for verification...";
+    log.info("VERIFYING PIN");
+    Holder<Status> status = new Holder<>();
+    Holder<PinResultEnum> pinResultEnum = new Holder<>();
+    Holder<BigInteger> leftTries = new Holder<>();
+    try {
+      cardServicePortType.verifyPin(
+          copyValuesFromProxyIntoContextType(contextType), cardHandle, pinType, status,
+          pinResultEnum, leftTries
+      );
+      return "PIN verification triggered:" + status.value.toString();
+    } catch (FaultMessage e) {
+      log.log(Level.SEVERE, e.getMessage());
     }
 
-    @GET
-    @Path("/pinStatus")
-    @Produces("application/json")
-    public Collection<JsonObject> allPinStatus() throws Throwable {
-        GetCards getCards = new GetCards();
-        getCards.setContext(copyValuesFromProxyIntoContextType(contextType));
+    return "Waiting for user input on the terminal for verification...";
+  }
 
-        GetCardsResponse getCardResponse = eventServicePortType.getCards(getCards);
-        List<PINStatus> result = getCardResponse.getCards().getCard().stream().map(this::getPINStatus).collect(Collectors.toList());
-        Collection<JsonObject> items = new ArrayList<>();
-        String[] pinTypes = {"PIN.CH", "PIN.QES"};
-        for (PINStatus pinStatus : result) {
-            if ((!pinStatus.getType().equals("SMC_KT")) && (!pinStatus.getType().equals("KVK"))) {
-                if(pinStatus.getType().equals("HBA")){
-                    for(int i = 0; i< 2; i++){
-                        int pos = pinStatus.getStatus().indexOf("/");
-                        String statusCH = pinStatus.getStatus().substring(0,pos);
-                        String statusQES = pinStatus.getStatus().substring(pos+1);
-                        String[] status = {statusCH, statusQES};
-                        JsonObject value = Json.createObjectBuilder()
-                                .add("cardHandle", pinStatus.getHandle())
-                                .add("cardType", pinStatus.getType())
-                                .add("pinType", pinTypes[i])
-                                .add("status", status[i]).build();
-                        items.add(value);
-                    }
-                }
-                else {
-                    JsonObject value = Json.createObjectBuilder()
-                            .add("cardHandle", pinStatus.getHandle())
-                            .add("cardType", pinStatus.getType())
-                            .add("pinType", pinStatus.getPINType())
-                            .add("status", pinStatus.getStatus()).build();
-                    items.add(value);
-                }
-            }
-        }
-        return items;
-    }
+  @GET
+  @Path("/pinStatus")
+  @Produces("application/json")
+  public Collection<JsonObject> allPinStatus() throws Throwable {
+    GetCards getCards = new GetCards();
+    getCards.setContext(copyValuesFromProxyIntoContextType(contextType));
 
-    private PINStatus getPINStatus(CardInfoType cardInfoType) {
-
-        String pinType = "";
-        PINStatus pinStatus = new PINStatus();
-        Holder<Status> status = new Holder<>();
-        Holder<PinStatusEnum> pinStatusEnum = new Holder<>();
-        Holder<BigInteger> leftTries = new Holder<>();
-
-        pinStatus.setCardInfoType(cardInfoType);
-        pinStatus.setHandle(cardInfoType.getCardHandle());
-        pinStatus.setType(cardInfoType.getCardType().toString());
-
+    GetCardsResponse getCardResponse = eventServicePortType.getCards(getCards);
+    List<PINStatus> result = getCardResponse.getCards().getCard().stream().map(this::getPINStatus)
+        .collect(Collectors.toList());
+    Collection<JsonObject> items = new ArrayList<>();
+    String[] pinTypes = {"PIN.CH", "PIN.QES"};
+    for (PINStatus pinStatus : result) {
+      if ((!pinStatus.getType().equals("SMC_KT")) && (!pinStatus.getType().equals("KVK"))) {
         if (pinStatus.getType().equals("HBA")) {
-                pinStatus.setPINType("PIN.CH");
-                try {
-                    cardServicePortType.getPinStatus(
-                            copyValuesFromProxyIntoContextType(contextType),
-                            cardInfoType.getCardHandle(),
-                            pinStatus.getPINType(),
-                            status,
-                            pinStatusEnum,
-                            leftTries
-                    );
-                    String statusCH = pinStatusEnum.value.toString();
-                    pinStatus.setPINType("PIN.QES");
-                    cardServicePortType.getPinStatus(
-                            copyValuesFromProxyIntoContextType(contextType),
-                            cardInfoType.getCardHandle(),
-                            pinStatus.getPINType(),
-                            status,
-                            pinStatusEnum,
-                            leftTries
-                    );
-                    String statusQES = pinStatusEnum.value.toString();
-                    pinStatus.setStatus(statusCH + "/" + statusQES);
-                } catch (FaultMessage e) {
-                    log.log(Level.SEVERE, e.getMessage());
-                }
+          for (int i = 0; i < 2; i++) {
+            int pos = pinStatus.getStatus().indexOf("/");
+            String statusCH = pinStatus.getStatus().substring(0, pos);
+            String statusQES = pinStatus.getStatus().substring(pos + 1);
+            String[] status = {statusCH, statusQES};
+            JsonObject value = Json.createObjectBuilder()
+                .add("cardHandle", pinStatus.getHandle())
+                .add("cardType", pinStatus.getType())
+                .add("pinType", pinTypes[i])
+                .add("status", status[i]).build();
+            items.add(value);
+          }
         } else {
-            if(pinStatus.getType().equals("SMC_B")){
-                pinType = "PIN.SMC";
-            } else if (pinStatus.getType().equals("EGK")) {
-                pinType = "PIN.CH";
-            }
-            pinStatus.setPINType(pinType);
-            try {
-                cardServicePortType.getPinStatus(
-                        copyValuesFromProxyIntoContextType(contextType),
-                        cardInfoType.getCardHandle(),
-                        pinStatus.getPINType(),
-                        status,
-                        pinStatusEnum,
-                        leftTries
-                );
-                pinStatus.setStatus(pinStatusEnum.value.toString());
-            } catch (FaultMessage e) {
-                log.log(Level.SEVERE, e.getMessage());
-                String errorCode = String.valueOf(e.getFaultInfo().getTrace().get(0).getCode());
-                pinStatus.setStatus("FEHLERCODE: " + errorCode);
-            }
+          JsonObject value = Json.createObjectBuilder()
+              .add("cardHandle", pinStatus.getHandle())
+              .add("cardType", pinStatus.getType())
+              .add("pinType", pinStatus.getPINType())
+              .add("status", pinStatus.getStatus()).build();
+          items.add(value);
         }
-        return pinStatus;
+      }
     }
+    return items;
+  }
+
+  private PINStatus getPINStatus(CardInfoType cardInfoType) {
+
+    String pinType = "";
+    PINStatus pinStatus = new PINStatus();
+    Holder<Status> status = new Holder<>();
+    Holder<PinStatusEnum> pinStatusEnum = new Holder<>();
+    Holder<BigInteger> leftTries = new Holder<>();
+
+    pinStatus.setCardInfoType(cardInfoType);
+    pinStatus.setHandle(cardInfoType.getCardHandle());
+    pinStatus.setType(cardInfoType.getCardType().toString());
+
+    if (pinStatus.getType().equals("HBA")) {
+      pinStatus.setPINType("PIN.CH");
+      try {
+        cardServicePortType.getPinStatus(
+            copyValuesFromProxyIntoContextType(contextType),
+            cardInfoType.getCardHandle(),
+            pinStatus.getPINType(),
+            status,
+            pinStatusEnum,
+            leftTries
+        );
+        String statusCH = pinStatusEnum.value.toString();
+        pinStatus.setPINType("PIN.QES");
+        cardServicePortType.getPinStatus(
+            copyValuesFromProxyIntoContextType(contextType),
+            cardInfoType.getCardHandle(),
+            pinStatus.getPINType(),
+            status,
+            pinStatusEnum,
+            leftTries
+        );
+        String statusQES = pinStatusEnum.value.toString();
+        pinStatus.setStatus(statusCH + "/" + statusQES);
+      } catch (FaultMessage e) {
+        log.log(Level.SEVERE, e.getMessage());
+      }
+    } else {
+      if (pinStatus.getType().equals("SMC_B")) {
+        pinType = "PIN.SMC";
+      } else if (pinStatus.getType().equals("EGK")) {
+        pinType = "PIN.CH";
+      }
+      pinStatus.setPINType(pinType);
+      try {
+        cardServicePortType.getPinStatus(
+            copyValuesFromProxyIntoContextType(contextType),
+            cardInfoType.getCardHandle(),
+            pinStatus.getPINType(),
+            status,
+            pinStatusEnum,
+            leftTries
+        );
+        pinStatus.setStatus(pinStatusEnum.value.toString());
+      } catch (FaultMessage e) {
+        log.log(Level.SEVERE, e.getMessage());
+        String errorCode = String.valueOf(e.getFaultInfo().getTrace().get(0).getCode());
+        pinStatus.setStatus("FEHLERCODE: " + errorCode);
+      }
+    }
+    return pinStatus;
+  }
 
 }

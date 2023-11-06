@@ -2,24 +2,24 @@ package health.medunited.architecture.model;
 
 public class ManagementCredentials {
 
-    public String username;
-    public String password;
+  public String username;
+  public String password;
 
-    public ManagementCredentials() {
+  public ManagementCredentials() {
 
-    }
+  }
 
-    public ManagementCredentials(String username, String password) {
-        this.username = username;
-        this.password = password;
-    }
+  public ManagementCredentials(String username, String password) {
+    this.username = username;
+    this.password = password;
+  }
 
-    public String getUsername() {
-        return username;
-    }
+  public String getUsername() {
+    return username;
+  }
 
-    public String getPassword() {
-        return password;
-    }
+  public String getPassword() {
+    return password;
+  }
 
 }

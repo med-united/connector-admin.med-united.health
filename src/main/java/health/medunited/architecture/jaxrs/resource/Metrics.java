@@ -9,10 +9,11 @@ import javax.ws.rs.core.MediaType;
 @Path("/metrics/application")
 public class Metrics {
 
-    Client client = ClientBuilder.newClient();
+  Client client = ClientBuilder.newClient();
 
-    @GET
-    public String metrics() {
-        return client.target("http://localhost:9990/metrics/application").request(MediaType.APPLICATION_JSON).get(String.class);
-    }
+  @GET
+  public String metrics() {
+    return client.target("http://localhost:9990/metrics/application")
+        .request(MediaType.APPLICATION_JSON).get(String.class);
+  }
 }

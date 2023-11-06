@@ -1,55 +1,58 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:form="sap.ui.layout.form"
-                         xmlns:core="sap.ui.core" xmlns:unified="sap.ui.unified">
-    <Dialog id="createDialog" title="{i18n>dialogTitleCreate}" contentWidth="40rem">
-        <form:SimpleForm editable="false" layout="ResponsiveGridLayout" labelSpanXL="4"
-                         labelSpanL="4" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0"
-                         emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2"
-                         singleContainerFullSize="true">
-            <form:content>
-                <Label text="{i18n>UserID}"/>
-                <Input type="Text" value="{UserId}"/>
-                <Label text="URL"/>
-                <Input type="Text" value="{Url}"/>
-                <Label text="{i18n>Brand}"/>
-                <Select id="selectOptionCreateDialog" selectedKey="{ConnectorBrand}">
-                    <core:Item key="secunet" text="Secunet"/>
-                    <core:Item key="rise" text="RISE"/>
-                    <core:Item key="kocobox" text="KocoBox"/>
-                    <core:Item key="kops" text="KoPS"/>
-                </Select>
-                <Label text="Mandant-ID"/>
-                <Input type="Text" value="{MandantId}"/>
-                <Label text="{i18n>ClientSystemID}"/>
-                <Input type="Text" value="{ClientSystemId}"/>
-                <Label text="{i18n>WorkplaceID}"/>
-                <Input type="Text" value="{WorkplaceId}"/>
-                <Label text="{i18n>Username}"/>
-                <Input type="Text" value="{Username}"/>
-                <Label text="{i18n>Password}"/>
-                <Input type="Password" value="{Password}"/>
-                <Label text="{i18n>SecureCommunicationUsingSSL/TLS}"/>
-                <RadioButtonGroup columns="2" select="onCreateDialogRadioButtonSelected">
-                    <RadioButton text="{i18n>CertificateBasedAuthentication}" selected="{UseCertificateAuth}"/>
-                    <RadioButton text="{i18n>UseBasicAuth}" selected="{UseBasicAuth}"/>
-                </RadioButtonGroup>
-                <Label text="{i18n>ClientCertificate}"/>
-                <Input type="Text" value="{ClientCertificate}" visible="{UseCertificateAuth}"/>
-                <Label text="{i18n>ClientCertificatePassword}"/>
-                <Input type="Password" value="{ClientCertificatePassword}" visible="{UseCertificateAuth}"/>
-                <Label text="{i18n>UploadP12File}"/>
-                <unified:FileUploader id="onCreateCertificateFileUploader" change="onCreateDialogFileUploaderChange" buttonText="{i18n>Browse...}" visible="{UseCertificateAuth}"/>
+  xmlns:core="sap.ui.core" xmlns:unified="sap.ui.unified">
+  <Dialog id="createDialog" title="{i18n>dialogTitleCreate}" contentWidth="40rem">
+    <form:SimpleForm editable="false" layout="ResponsiveGridLayout" labelSpanXL="4"
+      labelSpanL="4" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0"
+      emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2"
+      singleContainerFullSize="true">
+      <form:content>
+        <Label text="{i18n>UserID}"/>
+        <Input type="Text" value="{UserId}"/>
+        <Label text="URL"/>
+        <Input type="Text" value="{Url}"/>
+        <Label text="{i18n>Brand}"/>
+        <Select id="selectOptionCreateDialog" selectedKey="{ConnectorBrand}">
+          <core:Item key="secunet" text="Secunet"/>
+          <core:Item key="rise" text="RISE"/>
+          <core:Item key="kocobox" text="KocoBox"/>
+          <core:Item key="kops" text="KoPS"/>
+        </Select>
+        <Label text="Mandant-ID"/>
+        <Input type="Text" value="{MandantId}"/>
+        <Label text="{i18n>ClientSystemID}"/>
+        <Input type="Text" value="{ClientSystemId}"/>
+        <Label text="{i18n>WorkplaceID}"/>
+        <Input type="Text" value="{WorkplaceId}"/>
+        <Label text="{i18n>Username}"/>
+        <Input type="Text" value="{Username}"/>
+        <Label text="{i18n>Password}"/>
+        <Input type="Password" value="{Password}"/>
+        <Label text="{i18n>SecureCommunicationUsingSSL/TLS}"/>
+        <RadioButtonGroup columns="2" select="onCreateDialogRadioButtonSelected">
+          <RadioButton text="{i18n>CertificateBasedAuthentication}"
+            selected="{UseCertificateAuth}"/>
+          <RadioButton text="{i18n>UseBasicAuth}" selected="{UseBasicAuth}"/>
+        </RadioButtonGroup>
+        <Label text="{i18n>ClientCertificate}"/>
+        <Input type="Text" value="{ClientCertificate}" visible="{UseCertificateAuth}"/>
+        <Label text="{i18n>ClientCertificatePassword}"/>
+        <Input type="Password" value="{ClientCertificatePassword}" visible="{UseCertificateAuth}"/>
+        <Label text="{i18n>UploadP12File}"/>
+        <unified:FileUploader id="onCreateCertificateFileUploader"
+          change="onCreateDialogFileUploaderChange" buttonText="{i18n>Browse...}"
+          visible="{UseCertificateAuth}"/>
 
-                <Label text="{i18n>BasicAuthUsername}"/>
-                <Input type="Text" value="{BasicAuthUsername}" visible="{UseBasicAuth}"/>
-                <Label text="{i18n>BasicAuthPassword}"/>
-                <Input type="Password" value="{BasicAuthPassword}" visible="{UseBasicAuth}"/>
-            </form:content>
-        </form:SimpleForm>
-        <beginButton>
-            <Button type="Reject" text="{i18n>buttonCancel}" press="onCancel"/>
-        </beginButton>
-        <endButton>
-            <Button type="Accept" text="{i18n>buttonCreate}" press="onSave"/>
-        </endButton>
-    </Dialog>
+        <Label text="{i18n>BasicAuthUsername}"/>
+        <Input type="Text" value="{BasicAuthUsername}" visible="{UseBasicAuth}"/>
+        <Label text="{i18n>BasicAuthPassword}"/>
+        <Input type="Password" value="{BasicAuthPassword}" visible="{UseBasicAuth}"/>
+      </form:content>
+    </form:SimpleForm>
+    <beginButton>
+      <Button type="Reject" text="{i18n>buttonCancel}" press="onCancel"/>
+    </beginButton>
+    <endButton>
+      <Button type="Accept" text="{i18n>buttonCreate}" press="onSave"/>
+    </endButton>
+  </Dialog>
 </core:FragmentDefinition>

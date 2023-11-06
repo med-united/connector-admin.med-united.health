@@ -23,78 +23,81 @@ import org.apache.olingo.odata2.jpa.processor.api.exception.ODataJPARuntimeExcep
 
 public class JpaODataServiceFactory extends ODataJPAServiceFactory {
 
-	private static Logger log = Logger.getLogger(JpaODataServiceFactory.class.getName());
+  private static Logger log = Logger.getLogger(JpaODataServiceFactory.class.getName());
 
-	@Override
-	public ODataJPAContext initializeODataJPAContext() throws ODataJPARuntimeException {
-		ODataJPAContext oDataJPAContext = getODataJPAContext();
-		setDetailErrors(true);
+  @Override
+  public ODataJPAContext initializeODataJPAContext() throws ODataJPARuntimeException {
+    ODataJPAContext oDataJPAContext = getODataJPAContext();
+    setDetailErrors(true);
 
-		InitialContext initialContext;
-		try {
-			initialContext = new InitialContext();
-			// BeanManager beanManager = (BeanManager)
-			// initialContext.lookup("java:comp/BeanManager");
-			EntityManager entityManager = (EntityManager) initialContext.lookup("java:/blueprintEntityManager");
-			oDataJPAContext.setEntityManager(entityManager);
-			EntityManagerFactory entityManagerFactory = (EntityManagerFactory) initialContext
-					.lookup("java:/blueprintEntityManagerFactory");
-			oDataJPAContext.setEntityManagerFactory(entityManagerFactory);
-			oDataJPAContext.setPersistenceUnitName("dashboard");
-			oDataJPAContext.setContainerManaged(true);
-			oDataJPAContext.setODataProcessor(new ETagCacheControlODataJPAProcessor(oDataJPAContext));
-			oDataJPAContext.setJPAEdmExtension(new ETagJPAEDMExtension());
-			final UserTransaction userTransaction = (UserTransaction) initialContext
-					.lookup("java:comp/UserTransaction");
-			setODataJPATransaction(new ODataJPATransaction() {
+    InitialContext initialContext;
+    try {
+      initialContext = new InitialContext();
+      // BeanManager beanManager = (BeanManager)
+      // initialContext.lookup("java:comp/BeanManager");
+      EntityManager entityManager = (EntityManager) initialContext.lookup(
+          "java:/blueprintEntityManager");
+      oDataJPAContext.setEntityManager(entityManager);
+      EntityManagerFactory entityManagerFactory = (EntityManagerFactory) initialContext
+          .lookup("java:/blueprintEntityManagerFactory");
+      oDataJPAContext.setEntityManagerFactory(entityManagerFactory);
+      oDataJPAContext.setPersistenceUnitName("dashboard");
+      oDataJPAContext.setContainerManaged(true);
+      oDataJPAContext.setODataProcessor(new ETagCacheControlODataJPAProcessor(oDataJPAContext));
+      oDataJPAContext.setJPAEdmExtension(new ETagJPAEDMExtension());
+      final UserTransaction userTransaction = (UserTransaction) initialContext
+          .lookup("java:comp/UserTransaction");
+      setODataJPATransaction(new ODataJPATransaction() {
 
-				@Override
-				public void rollback() {
-					try {
-						userTransaction.rollback();
-					} catch (IllegalStateException | SecurityException | SystemException e) {
-						log.log(Level.SEVERE, "Problem with rollback", e);
-					}
-				}
+        @Override
+        public void rollback() {
+          try {
+            userTransaction.rollback();
+          } catch (IllegalStateException | SecurityException | SystemException e) {
+            log.log(Level.SEVERE, "Problem with rollback", e);
+          }
+        }
 
-				@Override
-				public boolean isActive() {
-					try {
-						return userTransaction.getStatus() == Status.STATUS_ACTIVE;
-					} catch (SystemException e) {
-						log.log(Level.SEVERE, "Problem with isActive", e);
-						return false;
-					}
-				}
+        @Override
+        public boolean isActive() {
+          try {
+            return userTransaction.getStatus() == Status.STATUS_ACTIVE;
+          } catch (SystemException e) {
+            log.log(Level.SEVERE, "Problem with isActive", e);
+            return false;
+          }
+        }
 
-				@Override
-				public void commit() {
-					try {
-						userTransaction.commit();
-					} catch (SecurityException | IllegalStateException | RollbackException | HeuristicMixedException
-							| HeuristicRollbackException | SystemException e) {
-						log.log(Level.SEVERE, "Problem with commit", e);
-					}
-				}
+        @Override
+        public void commit() {
+          try {
+            userTransaction.commit();
+          } catch (SecurityException | IllegalStateException | RollbackException |
+                   HeuristicMixedException
+                   | HeuristicRollbackException | SystemException e) {
+            log.log(Level.SEVERE, "Problem with commit", e);
+          }
+        }
 
-				@Override
-				public void begin() {
-					try {
-						userTransaction.begin();
-					} catch (NotSupportedException | SystemException e) {
-						log.log(Level.SEVERE, "Problem with begin", e);
-					}
-				}
-			});
-			return oDataJPAContext;
-		} catch (NamingException e) {
-			throw ODataJPARuntimeException.throwException(ODataJPARuntimeException.ENTITY_MANAGER_NOT_INITIALIZED, e);
-		}
-	}
+        @Override
+        public void begin() {
+          try {
+            userTransaction.begin();
+          } catch (NotSupportedException | SystemException e) {
+            log.log(Level.SEVERE, "Problem with begin", e);
+          }
+        }
+      });
+      return oDataJPAContext;
+    } catch (NamingException e) {
+      throw ODataJPARuntimeException.throwException(
+          ODataJPARuntimeException.ENTITY_MANAGER_NOT_INITIALIZED, e);
+    }
+  }
 
-	@Override
-	public ODataSingleProcessor createCustomODataProcessor(ODataJPAContext oDataJPAContext) {
-	    return (ODataSingleProcessor) oDataJPAContext.getODataProcessor();
-	  }
+  @Override
+  public ODataSingleProcessor createCustomODataProcessor(ODataJPAContext oDataJPAContext) {
+    return (ODataSingleProcessor) oDataJPAContext.getODataProcessor();
+  }
 
 }

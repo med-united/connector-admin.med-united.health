@@ -55,142 +55,152 @@ import health.medunited.architecture.model.VerifyAllEntry;
 @Path("certificate")
 public class Certificate {
 
-    private static final Logger log = Logger.getLogger(Certificate.class.getName());
+  private static final Logger log = Logger.getLogger(Certificate.class.getName());
 
-    @Context
-    HttpServletRequest httpServletRequest;
+  @Context
+  HttpServletRequest httpServletRequest;
 
-    @Inject
-    EventServicePortType eventServicePortType;
+  @Inject
+  EventServicePortType eventServicePortType;
 
-    @Inject
-    CertificateServicePortType certificateServicePortType;
+  @Inject
+  CertificateServicePortType certificateServicePortType;
 
-    @Inject
-    ContextType contextType;
+  @Inject
+  ContextType contextType;
 
-    @GET
-    @Path("{certificateType}/{cardHandle}")
-    public JsonArray getCertificate(
-            @PathParam("certificateType") String certificateType,
-            @PathParam("cardHandle") String cardHandle) throws de.gematik.ws.conn.certificateservice.wsdl.v6.FaultMessage, CertificateEncodingException, CryptoException, FaultMessage {
+  @GET
+  @Path("{certificateType}/{cardHandle}")
+  public JsonArray getCertificate(
+      @PathParam("certificateType") String certificateType,
+      @PathParam("cardHandle") String cardHandle)
+      throws de.gematik.ws.conn.certificateservice.wsdl.v6.FaultMessage, CertificateEncodingException, CryptoException, FaultMessage {
 
-        CertRefList certificateTypes = new ReadCardCertificate.CertRefList();
-        certificateTypes.getCertRef().add(CertRefEnum.valueOf(certificateType));
-        ReadCardCertificateResponse response = getCertificatesFromCard(cardHandle, certificateTypes);
-        X509DataInfo xDataInfo = response.getX509DataInfoList().getX509DataInfo().get(0);
-        return certSubjectToJSON(xDataInfo);
+    CertRefList certificateTypes = new ReadCardCertificate.CertRefList();
+    certificateTypes.getCertRef().add(CertRefEnum.valueOf(certificateType));
+    ReadCardCertificateResponse response = getCertificatesFromCard(cardHandle, certificateTypes);
+    X509DataInfo xDataInfo = response.getX509DataInfoList().getX509DataInfo().get(0);
+    return certSubjectToJSON(xDataInfo);
+  }
+
+  @GET
+  @Path("/verifyAll")
+  public List<VerifyAllEntry> verifyAll() throws FaultMessage {
+    GetCards getCards = new GetCards();
+    getCards.setContext(copyValuesFromProxyIntoContextType(contextType));
+
+    GetCardsResponse getCardResponse = eventServicePortType.getCards(getCards);
+
+    List<VerifyAllEntry> verificationResult = getCardResponse.getCards().getCard().stream()
+        .map(this::card2VerifyAllEntry).collect(Collectors.toList());
+
+    return verificationResult;
+  }
+
+  private VerifyAllEntry card2VerifyAllEntry(CardInfoType cardInfoType) {
+    VerifyAllEntry verifyAllEntry = new VerifyAllEntry();
+    verifyAllEntry.setCardInfoType(cardInfoType);
+
+    CertRefList certificateTypes = getAvailableCertificateTypes(cardInfoType.getCardType());
+    if (certificateTypes.getCertRef().isEmpty()) {
+      return verifyAllEntry;
     }
 
-    @GET
-    @Path("/verifyAll")
-    public List<VerifyAllEntry> verifyAll() throws FaultMessage {
-        GetCards getCards = new GetCards();
-        getCards.setContext(copyValuesFromProxyIntoContextType(contextType));
+    try {
+      ReadCardCertificateResponse response = getCertificatesFromCard(cardInfoType.getCardHandle(),
+          certificateTypes);
+      verifyAllEntry.setReadCardCertificateResponse(response);
 
-        GetCardsResponse getCardResponse = eventServicePortType.getCards(getCards);
-
-        List<VerifyAllEntry> verificationResult = getCardResponse.getCards().getCard().stream().map(this::card2VerifyAllEntry).collect(Collectors.toList());
-
-        return verificationResult;
+      for (X509DataInfo x509DataInfo : response.getX509DataInfoList().getX509DataInfo()) {
+        verifyAllEntry.getVerifyCertificateResponse().add(getCertificateVerification(x509DataInfo));
+      }
+    } catch (de.gematik.ws.conn.certificateservice.wsdl.v6.FaultMessage |
+             DatatypeConfigurationException e) {
+      log.log(Level.SEVERE, "Could not read certificate", e);
     }
+    return verifyAllEntry;
+  }
 
-    private VerifyAllEntry card2VerifyAllEntry(CardInfoType cardInfoType) {
-        VerifyAllEntry verifyAllEntry = new VerifyAllEntry();
-        verifyAllEntry.setCardInfoType(cardInfoType);
+  private VerifyCertificateResponse getCertificateVerification(X509DataInfo x509DataInfo)
+      throws DatatypeConfigurationException, de.gematik.ws.conn.certificateservice.wsdl.v6.FaultMessage {
 
-        CertRefList certificateTypes = getAvailableCertificateTypes(cardInfoType.getCardType());
-        if (certificateTypes.getCertRef().isEmpty()) {
-            return verifyAllEntry;
-        }
+    byte[] encodedCertificate = x509DataInfo.getX509Data().getX509Certificate();
+    XMLGregorianCalendar now = DatatypeFactory.newInstance()
+        .newXMLGregorianCalendar(new GregorianCalendar(TimeZone.getTimeZone("UTC")));
+    Holder<Status> status = new Holder<>();
+    Holder<VerifyCertificateResponse.VerificationStatus> verificationStatus = new Holder<>();
+    Holder<VerifyCertificateResponse.RoleList> roleList = new Holder<>();
 
-        try {
-            ReadCardCertificateResponse response = getCertificatesFromCard(cardInfoType.getCardHandle(), certificateTypes);
-            verifyAllEntry.setReadCardCertificateResponse(response);
+    certificateServicePortType.verifyCertificate(
+        copyValuesFromProxyIntoContextType(contextType),
+        encodedCertificate,
+        now,
+        status,
+        verificationStatus,
+        roleList);
 
-            for (X509DataInfo x509DataInfo : response.getX509DataInfoList().getX509DataInfo()) {
-                verifyAllEntry.getVerifyCertificateResponse().add(getCertificateVerification(x509DataInfo));
-            }
-        } catch (de.gematik.ws.conn.certificateservice.wsdl.v6.FaultMessage | DatatypeConfigurationException e) {
-            log.log(Level.SEVERE, "Could not read certificate", e);
-        }
-        return verifyAllEntry;
+    VerifyCertificateResponse verifyCertificateResponse = new VerifyCertificateResponse();
+    verifyCertificateResponse.setStatus(status.value);
+    verifyCertificateResponse.setVerificationStatus(verificationStatus.value);
+    verifyCertificateResponse.setRoleList(roleList.value);
+    return verifyCertificateResponse;
+  }
+
+  private CertRefList getAvailableCertificateTypes(CardTypeType cardType) {
+    // eHBA (C.ENC, C.AUT, C.QES)
+    CertRefList certificateTypes = new ReadCardCertificate.CertRefList();
+    List<CertRefEnum> certRefs = certificateTypes.getCertRef();
+    if (cardType.equals(CardTypeType.HBA)) {
+      certRefs.add(CertRefEnum.C_ENC);
+      certRefs.add(CertRefEnum.C_AUT);
+      certRefs.add(CertRefEnum.C_QES);
+    } else if (cardType.equals(CardTypeType.SMC_B)) {
+      certRefs.add(CertRefEnum.C_ENC);
+      certRefs.add(CertRefEnum.C_AUT);
+      certRefs.add(CertRefEnum.C_SIG);
+    } else if (cardType.equals(CardTypeType.SMC_KT)) {
+      // Nothing available
+    } else if (cardType.equals(CardTypeType.EGK)) {
+      certRefs.add(CertRefEnum.C_AUT);
     }
+    return certificateTypes;
+  }
 
-    private VerifyCertificateResponse getCertificateVerification(X509DataInfo x509DataInfo)
-            throws DatatypeConfigurationException, de.gematik.ws.conn.certificateservice.wsdl.v6.FaultMessage {
+  private ReadCardCertificateResponse getCertificatesFromCard(String cardHandle,
+      CertRefList certificateTypes)
+      throws de.gematik.ws.conn.certificateservice.wsdl.v6.FaultMessage {
+    Holder<Status> status = new Holder<>();
+    Holder<X509DataInfoListType> certList = new Holder<>();
+    certificateServicePortType.readCardCertificate(
+        cardHandle,
+        copyValuesFromProxyIntoContextType(contextType),
+        certificateTypes,
+        status,
+        certList
+    );
+    ReadCardCertificateResponse readCardCertificateResponse = new ReadCardCertificateResponse();
+    readCardCertificateResponse.setStatus(status.value);
+    readCardCertificateResponse.setX509DataInfoList(certList.value);
+    return readCardCertificateResponse;
+  }
 
-        byte[] encodedCertificate = x509DataInfo.getX509Data().getX509Certificate();
-        XMLGregorianCalendar now = DatatypeFactory.newInstance().newXMLGregorianCalendar(new GregorianCalendar(TimeZone.getTimeZone("UTC")));
-        Holder<Status> status = new Holder<>();
-        Holder<VerifyCertificateResponse.VerificationStatus> verificationStatus = new Holder<>();
-        Holder<VerifyCertificateResponse.RoleList> roleList = new Holder<>();
+  private JsonArray certSubjectToJSON(X509DataInfo xDataInfo)
+      throws de.gematik.ws.conn.certificateservice.wsdl.v6.FaultMessage, CryptoException, CertificateEncodingException, FaultMessage {
+    X509Certificate certificate = CryptoLoader.getCertificateFromAsn1DERCertBytes(
+        xDataInfo.getX509Data().getX509Certificate());
+    X500Name x500subject = new JcaX509CertificateHolder(certificate).getSubject();
 
-        certificateServicePortType.verifyCertificate(
-            copyValuesFromProxyIntoContextType(contextType),
-            encodedCertificate,
-            now,
-            status,
-            verificationStatus,
-            roleList);
+    // C=DE,L=Freiburg,PostalCode=79114,STREET=Sundgauallee 59,
+    // SERIALNUMBER=80276883110000118001,CN=VincenzkrankenhausTEST-ONLY
 
-        VerifyCertificateResponse verifyCertificateResponse = new VerifyCertificateResponse();
-        verifyCertificateResponse.setStatus(status.value);
-        verifyCertificateResponse.setVerificationStatus(verificationStatus.value);
-        verifyCertificateResponse.setRoleList(roleList.value);
-        return verifyCertificateResponse;
+    JsonArrayBuilder items = Json.createArrayBuilder();
+    for (RDN rdn : x500subject.getRDNs()) {
+      for (AttributeTypeAndValue tv : rdn.getTypesAndValues()) {
+        items.add(Json.createObjectBuilder()
+            .add("field", BCStyle.INSTANCE.oidToDisplayName(tv.getType()))
+            .add("value", tv.getValue().toString()));
+      }
     }
-
-    private CertRefList getAvailableCertificateTypes(CardTypeType cardType) {
-        // eHBA (C.ENC, C.AUT, C.QES)
-        CertRefList certificateTypes = new ReadCardCertificate.CertRefList();
-        List<CertRefEnum> certRefs = certificateTypes.getCertRef();
-        if (cardType.equals(CardTypeType.HBA)) {
-            certRefs.add(CertRefEnum.C_ENC);
-            certRefs.add(CertRefEnum.C_AUT);
-            certRefs.add(CertRefEnum.C_QES);
-        } else if (cardType.equals(CardTypeType.SMC_B)) {
-            certRefs.add(CertRefEnum.C_ENC);
-            certRefs.add(CertRefEnum.C_AUT);
-            certRefs.add(CertRefEnum.C_SIG);
-        } else if (cardType.equals(CardTypeType.SMC_KT)) {
-            // Nothing available
-        } else if (cardType.equals(CardTypeType.EGK)) {
-            certRefs.add(CertRefEnum.C_AUT);
-        }
-        return certificateTypes;
-    }
-
-    private ReadCardCertificateResponse getCertificatesFromCard(String cardHandle, CertRefList certificateTypes) throws de.gematik.ws.conn.certificateservice.wsdl.v6.FaultMessage {
-        Holder<Status> status = new Holder<>();
-        Holder<X509DataInfoListType> certList = new Holder<>();
-        certificateServicePortType.readCardCertificate(
-            cardHandle,
-            copyValuesFromProxyIntoContextType(contextType),
-            certificateTypes,
-            status,
-            certList
-        );
-        ReadCardCertificateResponse readCardCertificateResponse = new ReadCardCertificateResponse();
-        readCardCertificateResponse.setStatus(status.value);
-        readCardCertificateResponse.setX509DataInfoList(certList.value);
-        return readCardCertificateResponse;
-    }
-
-    private JsonArray certSubjectToJSON(X509DataInfo xDataInfo) throws de.gematik.ws.conn.certificateservice.wsdl.v6.FaultMessage, CryptoException, CertificateEncodingException, FaultMessage {
-        X509Certificate certificate = CryptoLoader.getCertificateFromAsn1DERCertBytes(xDataInfo.getX509Data().getX509Certificate());
-        X500Name x500subject = new JcaX509CertificateHolder(certificate).getSubject();
-
-        // C=DE,L=Freiburg,PostalCode=79114,STREET=Sundgauallee 59,
-        // SERIALNUMBER=80276883110000118001,CN=VincenzkrankenhausTEST-ONLY
-
-        JsonArrayBuilder items = Json.createArrayBuilder();
-        for(RDN rdn : x500subject.getRDNs())
-            for(AttributeTypeAndValue tv : rdn.getTypesAndValues()){
-                items.add(Json.createObjectBuilder()
-                    .add("field", BCStyle.INSTANCE.oidToDisplayName(tv.getType()))
-                    .add("value", tv.getValue().toString()));
-            }
-        return items.build();
-    }
+    return items.build();
+  }
 }

@@ -1,6 +1,7 @@
 # Git Proxy Checkout
 
-To use a proxy to checkout this repository you have to do the following on the machine that you checkout:
+To use a proxy to checkout this repository you have to do the following on the machine that you
+checkout:
 
 ```
 # Replace http://proxyUsername:proxyPassword@proxy.server.com:port with your proxy

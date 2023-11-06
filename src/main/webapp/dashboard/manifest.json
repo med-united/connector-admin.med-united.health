@@ -1,142 +1,142 @@
 {
-	"_version": "1.1.0",
-	"sap.app": {
-		"_version": "1.1.0",
-		"id": "dashboard",
-		"type": "application",
-		"title": "{{appTitle}}",
-		"description": "{{appDescription}}",
-		"applicationVersion": {
-			"version": "1.0.0"
-		},
-		"dataSources": {
-			"Data.svc": {
-				"uri": "../Data.svc?sap-context-token=1",
-				"type": "OData",
-				"settings": {
-					"odataVersion": "2.0"
-				}
-			}
-		}
-	},
-	"sap.ui": {
-		"_version": "1.1.0",
-		"technology": "UI5",
-		"deviceTypes": {
-			"desktop": true,
-			"tablet": true,
-			"phone": true
-		},
-		"supportedThemes": [
-			"sap_fiori_3"
-		]
-	},
-	"sap.ui5": {
-		"rootView": {
-			"viewName": "sap.f.ShellBarWithFlexibleColumnLayout.view.FlexibleColumnLayout",
-			"type": "XML",
-			"id": "fcl",
-			"async": true
-		},
-		"dependencies": {
-			"minUI5Version": "1.98.0",
-			"libs": {
-				"sap.ui.core": {},
-				"sap.m": {},
-				"sap.f": {},
-				"sap.ui.layout": {},
-				"sap.ui.integration": {},
-				"sap.uxap": {}
-			}
-		},
-		"models": {
-			"i18n": {
-				"type": "sap.ui.model.resource.ResourceModel",
-				"settings": {
-					"bundleName": "sap.f.ShellBarWithFlexibleColumnLayout.i18n.i18n"
-				}
-			},
-			"": {
-				"dataSource": "Data.svc",
-				"type": "sap.f.ShellBarWithFlexibleColumnLayout.model.ETagCacheControlODataModel",
-				"preload": true,
-				"settings": {
-					"defaultBindingMode": "TwoWay"
-				}
-			}
-		},
-		"routing": {
-			"config": {
-				"routerClass": "sap.m.routing.Router",
-				"type": "View",
-				"viewType": "XML",
-				"path": "sap.f.ShellBarWithFlexibleColumnLayout.view",
-				"transition": "slide",
-				"controlId": "fcl",
-				"async": true
-			},
-			"routes": [
-				{
-					"pattern": "",
-					"name": "dashboard",
-					"target": [
-						"master",
-						"dashboard"
-					]
-				},
-				{
-					"pattern": "automaticmonitoring",
-					"name": "automaticmonitoring",
-					"target": [
-						"automaticmonitoring"
-					]
-				},
-				{
-					"pattern": "management",
-					"name": "master",
-					"target": [
-						"master"
-					]
-				},
-				{
-					"pattern": "detail/RuntimeConfigs('{id}')/{layout}",
-					"name": "detail",
-					"target": [
-						"master",
-						"detail"
-					]
-				},
-				{
-					"pattern": "RuntimeConfig/action/add",
-					"name": "runtime-add",
-					"target": [
-						"master",
-						"detail"
-					]
-				}
-			],
-			"targets": {
-				"master": {
-					"viewName": "Master",
-					"controlAggregation": "beginColumnPages",
-					"clearControlAggregation": true
-				},
-				"dashboard": {
-					"viewName": "Dashboard",
-					"controlAggregation": "beginColumnPages",
-					"clearControlAggregation": true
-				},
-				"automaticmonitoring": {
-					"viewName": "AutomaticMonitoring",
-					"controlAggregation": "beginColumnPages",
-					"clearControlAggregation": true
-				},
-				"detail": {
-					"viewName": "Detail",
-					"controlAggregation": "midColumnPages",
-					"clearControlAggregation": true
-				}
-			}
-		}
-	}
+  "_version": "1.1.0",
+  "sap.app": {
+    "_version": "1.1.0",
+    "id": "dashboard",
+    "type": "application",
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "applicationVersion": {
+      "version": "1.0.0"
+    },
+    "dataSources": {
+      "Data.svc": {
+        "uri": "../Data.svc?sap-context-token=1",
+        "type": "OData",
+        "settings": {
+          "odataVersion": "2.0"
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "_version": "1.1.0",
+    "technology": "UI5",
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    },
+    "supportedThemes": [
+      "sap_fiori_3"
+    ]
+  },
+  "sap.ui5": {
+    "rootView": {
+      "viewName": "sap.f.ShellBarWithFlexibleColumnLayout.view.FlexibleColumnLayout",
+      "type": "XML",
+      "id": "fcl",
+      "async": true
+    },
+    "dependencies": {
+      "minUI5Version": "1.98.0",
+      "libs": {
+        "sap.ui.core": {},
+        "sap.m": {},
+        "sap.f": {},
+        "sap.ui.layout": {},
+        "sap.ui.integration": {},
+        "sap.uxap": {}
+      }
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "sap.f.ShellBarWithFlexibleColumnLayout.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "Data.svc",
+        "type": "sap.f.ShellBarWithFlexibleColumnLayout.model.ETagCacheControlODataModel",
+        "preload": true,
+        "settings": {
+          "defaultBindingMode": "TwoWay"
+        }
+      }
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "type": "View",
+        "viewType": "XML",
+        "path": "sap.f.ShellBarWithFlexibleColumnLayout.view",
+        "transition": "slide",
+        "controlId": "fcl",
+        "async": true
+      },
+      "routes": [
+        {
+          "pattern": "",
+          "name": "dashboard",
+          "target": [
+            "master",
+            "dashboard"
+          ]
+        },
+        {
+          "pattern": "automaticmonitoring",
+          "name": "automaticmonitoring",
+          "target": [
+            "automaticmonitoring"
+          ]
+        },
+        {
+          "pattern": "management",
+          "name": "master",
+          "target": [
+            "master"
+          ]
+        },
+        {
+          "pattern": "detail/RuntimeConfigs('{id}')/{layout}",
+          "name": "detail",
+          "target": [
+            "master",
+            "detail"
+          ]
+        },
+        {
+          "pattern": "RuntimeConfig/action/add",
+          "name": "runtime-add",
+          "target": [
+            "master",
+            "detail"
+          ]
+        }
+      ],
+      "targets": {
+        "master": {
+          "viewName": "Master",
+          "controlAggregation": "beginColumnPages",
+          "clearControlAggregation": true
+        },
+        "dashboard": {
+          "viewName": "Dashboard",
+          "controlAggregation": "beginColumnPages",
+          "clearControlAggregation": true
+        },
+        "automaticmonitoring": {
+          "viewName": "AutomaticMonitoring",
+          "controlAggregation": "beginColumnPages",
+          "clearControlAggregation": true
+        },
+        "detail": {
+          "viewName": "Detail",
+          "controlAggregation": "midColumnPages",
+          "clearControlAggregation": true
+        }
+      }
+    }
+  }
 }

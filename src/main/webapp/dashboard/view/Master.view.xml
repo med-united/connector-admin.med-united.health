@@ -1,87 +1,87 @@
 <mvc:View displayBlock="true"
-          controllerName="sap.f.ShellBarWithFlexibleColumnLayout.controller.Master" height="100%"
-          xmlns="sap.m"
-          xmlns:f="sap.f"
-          xmlns:mvc="sap.ui.core.mvc">
-    <f:DynamicPage id="dynamicPageId"
-                   toggleHeaderOnTitleClick="false">
+  controllerName="sap.f.ShellBarWithFlexibleColumnLayout.controller.Master" height="100%"
+  xmlns="sap.m"
+  xmlns:f="sap.f"
+  xmlns:mvc="sap.ui.core.mvc">
+  <f:DynamicPage id="dynamicPageId"
+    toggleHeaderOnTitleClick="false">
 
-        <!-- DynamicPage Title -->
-        <f:title>
-            <f:DynamicPageTitle>
-                <f:heading>
-                    <Title text="{i18n>ConnectorManagement}"/>
-                </f:heading>
-            </f:DynamicPageTitle>
-        </f:title>
+    <!-- DynamicPage Title -->
+    <f:title>
+      <f:DynamicPageTitle>
+        <f:heading>
+          <Title text="{i18n>ConnectorManagement}"/>
+        </f:heading>
+      </f:DynamicPageTitle>
+    </f:title>
 
-        <!-- DynamicPage Content -->
-        <f:content>
-            <Table
-                    id="runtimeConfigTable"
-                    inset="false"
-                    items="{
+    <!-- DynamicPage Content -->
+    <f:content>
+      <Table
+        id="runtimeConfigTable"
+        inset="false"
+        items="{
 						path: '/RuntimeConfigs'
 					}"
-                    growing="true" growingScrollToLoad="true" growingThreshold="25" autoPopinMode="true"
-                    mode="MultiSelect">
-                <headerToolbar>
-                    <OverflowToolbar>
-                        <ToolbarSpacer/>
-                        <SearchField search="onSearch" placeholder="{i18n>Search}" width="17.5rem"/>
-                        <OverflowToolbarButton icon="sap-icon://add" type="Transparent"
-                                               press="onAdd" tooltip="{i18n>AddNewConnector}"/>
-                        <OverflowToolbarButton icon="sap-icon://sort" type="Transparent"
-                                               press="onSort" tooltip="{i18n>Sort}"/>
-                        <OverflowToolbarButton icon="sap-icon://edit" type="Transparent"
-                                               press="onEdit" tooltip="{i18n>Edit}"/>
-                        <OverflowToolbarButton icon="sap-icon://delete" type="Transparent"
-                                               press="onDelete" tooltip="{i18n>Delete}"/>
-                    </OverflowToolbar>
-                </headerToolbar>
-                <columns>
-                    <Column width="12em">
-                        <Text text="{i18n>UserID}"/>
-                    </Column>
-                    <Column width="12em">
-                        <Text text="URL"/>
-                    </Column>
-                    <Column width="12em">
-                        <Text text="{i18n>Brand}"/>
-                    </Column>
-                    <Column width="12em">
-                        <Text text="Mandant-ID"/>
-                    </Column>
-                    <Column width="12em">
-                        <Text text="{i18n>ClientSystemID}"/>
-                    </Column>
-                    <Column width="12em">
-                        <Text text="{i18n>WorkplaceID}"/>
-                    </Column>
-                </columns>
-                <items>
-                    <ColumnListItem type="Navigation" vAlign="Middle" press="onListItemPress">
-                        <cells>
-                            <ObjectIdentifier text="{UserId}"/>
-                            <ObjectIdentifier text="{Url}"/>
-                            <ObjectIdentifier text="{ConnectorBrand}"/>
-                            <ObjectIdentifier text="{MandantId}"/>
-                            <ObjectIdentifier text="{ClientSystemId}"/>
-                            <ObjectIdentifier text="{WorkplaceId}"/>
-                        </cells>
-                    </ColumnListItem>
-                </items>
-            </Table>
-        </f:content>
+        growing="true" growingScrollToLoad="true" growingThreshold="25" autoPopinMode="true"
+        mode="MultiSelect">
+        <headerToolbar>
+          <OverflowToolbar>
+            <ToolbarSpacer/>
+            <SearchField search="onSearch" placeholder="{i18n>Search}" width="17.5rem"/>
+            <OverflowToolbarButton icon="sap-icon://add" type="Transparent"
+              press="onAdd" tooltip="{i18n>AddNewConnector}"/>
+            <OverflowToolbarButton icon="sap-icon://sort" type="Transparent"
+              press="onSort" tooltip="{i18n>Sort}"/>
+            <OverflowToolbarButton icon="sap-icon://edit" type="Transparent"
+              press="onEdit" tooltip="{i18n>Edit}"/>
+            <OverflowToolbarButton icon="sap-icon://delete" type="Transparent"
+              press="onDelete" tooltip="{i18n>Delete}"/>
+          </OverflowToolbar>
+        </headerToolbar>
+        <columns>
+          <Column width="12em">
+            <Text text="{i18n>UserID}"/>
+          </Column>
+          <Column width="12em">
+            <Text text="URL"/>
+          </Column>
+          <Column width="12em">
+            <Text text="{i18n>Brand}"/>
+          </Column>
+          <Column width="12em">
+            <Text text="Mandant-ID"/>
+          </Column>
+          <Column width="12em">
+            <Text text="{i18n>ClientSystemID}"/>
+          </Column>
+          <Column width="12em">
+            <Text text="{i18n>WorkplaceID}"/>
+          </Column>
+        </columns>
+        <items>
+          <ColumnListItem type="Navigation" vAlign="Middle" press="onListItemPress">
+            <cells>
+              <ObjectIdentifier text="{UserId}"/>
+              <ObjectIdentifier text="{Url}"/>
+              <ObjectIdentifier text="{ConnectorBrand}"/>
+              <ObjectIdentifier text="{MandantId}"/>
+              <ObjectIdentifier text="{ClientSystemId}"/>
+              <ObjectIdentifier text="{WorkplaceId}"/>
+            </cells>
+          </ColumnListItem>
+        </items>
+      </Table>
+    </f:content>
 
-        <!-- DynamicPage Footer -->
-        <f:footer>
-            <OverflowToolbar>
-                <ToolbarSpacer/>
-                <Button type="Accept" text="Accept"/>
-                <Button type="Reject" text="Reject"/>
-            </OverflowToolbar>
-        </f:footer>
-    </f:DynamicPage>
+    <!-- DynamicPage Footer -->
+    <f:footer>
+      <OverflowToolbar>
+        <ToolbarSpacer/>
+        <Button type="Accept" text="Accept"/>
+        <Button type="Reject" text="Reject"/>
+      </OverflowToolbar>
+    </f:footer>
+  </f:DynamicPage>
 
 </mvc:View>

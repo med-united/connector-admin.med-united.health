@@ -2,12 +2,12 @@
 
 <module xmlns="urn:jboss:module:1.1" name="org.postgresql">
 
-    <resources>
-        <resource-root path="postgresql-42.5.0.jar"/>
-    </resources>
+  <resources>
+    <resource-root path="postgresql-42.5.0.jar"/>
+  </resources>
 
-    <dependencies>
-        <module name="javax.api"/>
-        <module name="javax.transaction.api"/>
-    </dependencies>
+  <dependencies>
+    <module name="javax.api"/>
+    <module name="javax.transaction.api"/>
+  </dependencies>
 </module>

@@ -1,16 +1,16 @@
 <?xml version="1.0"?>
 <project
-        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd"
-        xmlns="http://maven.apache.org/POM/4.0.0"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>health.ere</groupId>
-    <artifactId>api-telematik-service</artifactId>
-    <version>OPD4-20210722</version>
-    <properties>
-      <maven.compiler.source>11</maven.compiler.source>
-      <maven.compiler.target>11</maven.compiler.target>
-    </properties>
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd"
+  xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>health.ere</groupId>
+  <artifactId>api-telematik-service</artifactId>
+  <version>OPD4-20210722</version>
+  <properties>
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
+  </properties>
   <dependencies>
     <!-- https://mvnrepository.com/artifact/org.glassfish.main.javaee-api/javax.jws -->
     <dependency>
@@ -68,14 +68,14 @@
       </plugin>
     </plugins>
     <resources>
-	<!-- Bundle the wsdl files as part of the jar -->
-        <resource>
-            <directory>conn</directory>
-            <includes>
-                <include>**/*.wsdl</include>
-                <include>**/*.xsd</include>
-            </includes>
-        </resource>
+      <!-- Bundle the wsdl files as part of the jar -->
+      <resource>
+        <directory>conn</directory>
+        <includes>
+          <include>**/*.wsdl</include>
+          <include>**/*.xsd</include>
+        </includes>
+      </resource>
     </resources>
   </build>
 </project>

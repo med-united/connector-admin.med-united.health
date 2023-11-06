@@ -1,6 +1,7 @@
 # connector-admin.med-united.health
 
-A tool where you can maintain all the runtime configurations for all the doctors and their connectors
+A tool where you can maintain all the runtime configurations for all the doctors and their
+connectors
 
 # Development
 
@@ -10,7 +11,6 @@ The [Google Java Style Guide](https://google.github.io/styleguide/javaguide.html
 
 ![Detail Screen](docs/Detail-Screen.png?raw=true "This is how the tool looks like")
 ![View with Grafana](docs/Connector-Admin-Tool-With-Metrics.png?raw=true "Shows view with Grafana")
-
 
 # Video
 
@@ -25,23 +25,32 @@ Prerequisites:
 3. Git running on your machine
 
 Now you can start the application:
+
 ```
 mvn wildfly:start
 mvn package wildfly:deploy
 ```
+
 # How to stop the application?
+
 ```
 mvn wildfly:undeploy
 mvn wildfly:shutdown
 ```
 
 # Prometheus
-Prometheus will read the metrics from the /metrics endpoint at regular intervals, provided by the scheduler in the Scheduler.java class
-There is an openMetrics "secondsDuration" that will go through into Grafana for the SMC_KT expiration graph
+
+Prometheus will read the metrics from the /metrics endpoint at regular intervals, provided by the
+scheduler in the Scheduler.java class
+There is an openMetrics "secondsDuration" that will go through into Grafana for the SMC_KT
+expiration graph
 
 # Grafana
-The JSON Model for building the Grafana Graph to view the OpenMetrics is in the /Grafana folder and can be imported via the "Import JSON" function in Grafana
-The model currently shows a traffic-light graph (red, yellow, green) about how much time is left until the SMC_KT certificate expires
+
+The JSON Model for building the Grafana Graph to view the OpenMetrics is in the /Grafana folder and
+can be imported via the "Import JSON" function in Grafana
+The model currently shows a traffic-light graph (red, yellow, green) about how much time is left
+until the SMC_KT certificate expires
 
 # Example for metrics
 
