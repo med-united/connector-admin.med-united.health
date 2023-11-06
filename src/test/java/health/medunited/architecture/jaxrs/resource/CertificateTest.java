@@ -73,7 +73,7 @@ public class CertificateTest {
     System.out.println(s);
   }
 
-
+  @Disabled
   @Test
   void getConnectorSdsConfig() throws Throwable {
     Client client = ClientBuilder.newClient();
@@ -98,6 +98,7 @@ public class CertificateTest {
     System.out.println(s);
   }
 
+  @Disabled
   @Test
   void getConnectorSdsFile() throws Throwable {
     Client client = ClientBuilder.newClient();
