@@ -16,18 +16,19 @@ import health.medunited.jpa.LogEntry;
 @Startup
 public class Bootstrap {
 
-    private static Logger log = Logger.getLogger(LogEntryService.class.getName());
+  private static Logger log = Logger.getLogger(LogEntryService.class.getName());
 
-    Jsonb jsonb = JsonbBuilder.create();
+  Jsonb jsonb = JsonbBuilder.create();
 
-    @PersistenceContext
-    EntityManager em;
+  @PersistenceContext
+  EntityManager em;
 
-    @PostConstruct
-    public void install() {
-        LogEntry[] entries = jsonb.fromJson(getClass().getResourceAsStream("/log.json"), LogEntry[].class);
-        for (LogEntry entry : entries) {
-            em.persist(entry);
-        }
+  @PostConstruct
+  public void install() {
+    LogEntry[] entries = jsonb.fromJson(getClass().getResourceAsStream("/log.json"),
+        LogEntry[].class);
+    for (LogEntry entry : entries) {
+      em.persist(entry);
     }
+  }
 }

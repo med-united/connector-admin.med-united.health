@@ -8,71 +8,72 @@ import javax.persistence.Lob;
 
 @Entity
 public class LogEntry {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
-    private String type;
-    private String timestamp;
-    private String timestampAsDateTime;
-    private String message;
-    private String severity;
-    @Lob
-    private String bytes;
-    
-    public String getType() {
-        return this.type;
-    }
 
-    public void setType(String type) {
-        this.type = type;
-    }
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private long id;
+  private String type;
+  private String timestamp;
+  private String timestampAsDateTime;
+  private String message;
+  private String severity;
+  @Lob
+  private String bytes;
 
-    public String getTimestamp() {
-        return this.timestamp;
-    }
+  public String getType() {
+    return this.type;
+  }
 
-    public void setTimestamp(String timestamp) {
-        this.timestamp = timestamp;
-    }
+  public void setType(String type) {
+    this.type = type;
+  }
 
-    public String getTimestampAsDateTime() {
-        return this.timestampAsDateTime;
-    }
+  public String getTimestamp() {
+    return this.timestamp;
+  }
 
-    public void setTimestampAsDateTime(String timestampAsDateTime) {
-        this.timestampAsDateTime = timestampAsDateTime;
-    }
+  public void setTimestamp(String timestamp) {
+    this.timestamp = timestamp;
+  }
 
-    public String getMessage() {
-        return this.message;
-    }
+  public String getTimestampAsDateTime() {
+    return this.timestampAsDateTime;
+  }
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
+  public void setTimestampAsDateTime(String timestampAsDateTime) {
+    this.timestampAsDateTime = timestampAsDateTime;
+  }
 
-    public String getSeverity() {
-        return this.severity;
-    }
+  public String getMessage() {
+    return this.message;
+  }
 
-    public void setSeverity(String severity) {
-        this.severity = severity;
-    }
+  public void setMessage(String message) {
+    this.message = message;
+  }
 
-    public String getBytes() {
-        return this.bytes;
-    }
+  public String getSeverity() {
+    return this.severity;
+  }
 
-    public void setBytes(String bytes) {
-        this.bytes = bytes;
-    }
+  public void setSeverity(String severity) {
+    this.severity = severity;
+  }
 
-    public long getId() {
-        return id;
-    }
+  public String getBytes() {
+    return this.bytes;
+  }
 
-    public void setId(long id) {
-        this.id = id;
-    }
+  public void setBytes(String bytes) {
+    this.bytes = bytes;
+  }
+
+  public long getId() {
+    return id;
+  }
+
+  public void setId(long id) {
+    this.id = id;
+  }
 
 }

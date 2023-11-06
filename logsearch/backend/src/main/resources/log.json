@@ -1,1 +1,1410 @@
-[{"type":"OP","timestamp":"19.10.2023 14:15:35.735","timestampAsDateTime":"1697717735.735000000","message":"topic=MAN/EVENT/UI;message=VPN Client: Aufbau eines neuen SIS VPN Kanals zu vpn1-sis.gto1-ref.service-ti.de hat begonnen.;Vorgangsnummer=evnt-1697717735735-5d08b20e","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTU6MzUuNzM1O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0b3BpYz1NQU4vRVZFTlQvVUk7bWVzc2FnZT1WUE4gQ2xpZW50OiBBdWZiYXUgZWluZXMgbmV1ZW4gU0lTIFZQTiBLYW5hbHMgenUgdnBuMS1zaXMuZ3RvMS1yZWYuc2VydmljZS10aS5kZSBoYXQgYmVnb25uZW4uO1ZvcmdhbmdzbnVtbWVyPWV2bnQtMTY5NzcxNzczNTczNS01ZDA4YjIwZQo="},{"type":"OP","timestamp":"19.10.2023 14:15:35.364","timestampAsDateTime":"1697717735.364000000","message":"topic=MAN/EVENT/UI;message=VPN Client: SIS VPN Konzentrator Adressen wurden ermittelt.;Vorgangsnummer=evnt-1697717735364-be0fe0f8","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTU6MzUuMzY0O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0b3BpYz1NQU4vRVZFTlQvVUk7bWVzc2FnZT1WUE4gQ2xpZW50OiBTSVMgVlBOIEtvbnplbnRyYXRvciBBZHJlc3NlbiB3dXJkZW4gZXJtaXR0ZWx0LjtWb3JnYW5nc251bW1lcj1ldm50LTE2OTc3MTc3MzUzNjQtYmUwZmUwZjgK"},{"type":"OP","timestamp":"19.10.2023 14:15:34.629","timestampAsDateTime":"1697717734.629000000","message":"facility=daemon;component=connector-refxman;pid=1712;text=enforce_ruleset():SUCCESSFULLY enforced rule set 'vpn-sis_set'.","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTU6MzQuNjI5O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbztmYWNpbGl0eT1kYWVtb247Y29tcG9uZW50PWNvbm5lY3Rvci1yZWZ4bWFuO3BpZD0xNzEyO3RleHQ9ZW5mb3JjZV9ydWxlc2V0KCk6U1VDQ0VTU0ZVTExZIGVuZm9yY2VkIHJ1bGUgc2V0ICd2cG4tc2lzX3NldCcuCg=="},{"type":"OP","timestamp":"19.10.2023 14:15:34.591","timestampAsDateTime":"1697717734.591000000","message":"facility=daemon;component=connector-refxman;pid=1712;text=enforce_ruleset():going to enforce rule set 'vpn-sis_set' now. It contains 4 rule(s).","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTU6MzQuNTkxO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbztmYWNpbGl0eT1kYWVtb247Y29tcG9uZW50PWNvbm5lY3Rvci1yZWZ4bWFuO3BpZD0xNzEyO3RleHQ9ZW5mb3JjZV9ydWxlc2V0KCk6Z29pbmcgdG8gZW5mb3JjZSBydWxlIHNldCAndnBuLXNpc19zZXQnIG5vdy4gSXQgY29udGFpbnMgNCBydWxlKHMpLgo="},{"type":"OP","timestamp":"19.10.2023 14:15:34.543","timestampAsDateTime":"1697717734.543000000","message":"facility=daemon;component=connector-refxman;pid=1712;text=refxman_default_route_establish():No default gateway change because new one matches old one.","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTU6MzQuNTQzO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbztmYWNpbGl0eT1kYWVtb247Y29tcG9uZW50PWNvbm5lY3Rvci1yZWZ4bWFuO3BpZD0xNzEyO3RleHQ9cmVmeG1hbl9kZWZhdWx0X3JvdXRlX2VzdGFibGlzaCgpOk5vIGRlZmF1bHQgZ2F0ZXdheSBjaGFuZ2UgYmVjYXVzZSBuZXcgb25lIG1hdGNoZXMgb2xkIG9uZS4K"},{"type":"OP","timestamp":"19.10.2023 14:15:34.524","timestampAsDateTime":"1697717734.524000000","message":"facility=daemon;component=connector-refxman;pid=1712;text=refxman_on_vpn_info():Performed: SIS channel down.","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTU6MzQuNTI0O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbztmYWNpbGl0eT1kYWVtb247Y29tcG9uZW50PWNvbm5lY3Rvci1yZWZ4bWFuO3BpZD0xNzEyO3RleHQ9cmVmeG1hbl9vbl92cG5faW5mbygpOlBlcmZvcm1lZDogU0lTIGNoYW5uZWwgZG93bi4K"},{"type":"OP","timestamp":"19.10.2023 14:15:01.527","timestampAsDateTime":"1697717701.527000000","message":"Für das Kartenterminal 5e4b2fcc-c684-40d1-977a-47483d5c98b5 wurde kein Update zur Installation gefunden.;Vorgangsnummer=schd-1697717701518-25244dac","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTU6MDEuNTI3O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUbDvHIgZGFzIEthcnRlbnRlcm1pbmFsIDVlNGIyZmNjLWM2ODQtNDBkMS05NzdhLTQ3NDgzZDVjOThiNSB3dXJkZSBrZWluIFVwZGF0ZSB6dXIgSW5zdGFsbGF0aW9uIGdlZnVuZGVuLjtWb3JnYW5nc251bW1lcj1zY2hkLTE2OTc3MTc3MDE1MTgtMjUyNDRkYWMK"},{"type":"OP","timestamp":"19.10.2023 14:15:01.527","timestampAsDateTime":"1697717701.527000000","message":"Für das Kartenterminal 2d38154c-727b-4462-8ae6-6381a5025c23 wurde kein Update zur Installation gefunden.;Vorgangsnummer=schd-1697717701518-25244dac","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTU6MDEuNTI3O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUbDvHIgZGFzIEthcnRlbnRlcm1pbmFsIDJkMzgxNTRjLTcyN2ItNDQ2Mi04YWU2LTYzODFhNTAyNWMyMyB3dXJkZSBrZWluIFVwZGF0ZSB6dXIgSW5zdGFsbGF0aW9uIGdlZnVuZGVuLjtWb3JnYW5nc251bW1lcj1zY2hkLTE2OTc3MTc3MDE1MTgtMjUyNDRkYWMK"},{"type":"OP","timestamp":"19.10.2023 14:15:01.526","timestampAsDateTime":"1697717701.526000000","message":"Für das Kartenterminal 46b7e03a-d1f0-43c4-9db8-a3d292b155fe wurde kein Update zur Installation gefunden.;Vorgangsnummer=schd-1697717701518-25244dac","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTU6MDEuNTI2O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUbDvHIgZGFzIEthcnRlbnRlcm1pbmFsIDQ2YjdlMDNhLWQxZjAtNDNjNC05ZGI4LWEzZDI5MmIxNTVmZSB3dXJkZSBrZWluIFVwZGF0ZSB6dXIgSW5zdGFsbGF0aW9uIGdlZnVuZGVuLjtWb3JnYW5nc251bW1lcj1zY2hkLTE2OTc3MTc3MDE1MTgtMjUyNDRkYWMK"},{"type":"OP","timestamp":"19.10.2023 14:15:01.526","timestampAsDateTime":"1697717701.526000000","message":"Für das Kartenterminal 353fac34-df6a-4005-b3e9-23633d219953 wurde kein Update zur Installation gefunden.;Vorgangsnummer=schd-1697717701518-25244dac","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTU6MDEuNTI2O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUbDvHIgZGFzIEthcnRlbnRlcm1pbmFsIDM1M2ZhYzM0LWRmNmEtNDAwNS1iM2U5LTIzNjMzZDIxOTk1MyB3dXJkZSBrZWluIFVwZGF0ZSB6dXIgSW5zdGFsbGF0aW9uIGdlZnVuZGVuLjtWb3JnYW5nc251bW1lcj1zY2hkLTE2OTc3MTc3MDE1MTgtMjUyNDRkYWMK"},{"type":"OP","timestamp":"19.10.2023 14:14:31.064","timestampAsDateTime":"1697717671.64000000","message":"topic=SICCT/NEW/TERMINAL/+;Vorgangsnummer=evnt-1697717671064-19a88be3","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTQ6MzEuMDY0O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0b3BpYz1TSUNDVC9ORVcvVEVSTUlOQUwvKztWb3JnYW5nc251bW1lcj1ldm50LTE2OTc3MTc2NzEwNjQtMTlhODhiZTMK"},{"type":"OP","timestamp":"19.10.2023 14:14:27.535","timestampAsDateTime":"1697717667.535000000","message":"facility=daemon;component=conn-svc-rest;pid=2159;tid=2262;text=runCRLLogic():Checking CRL expiration and initiating download if necessary.","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTQ6MjcuNTM1O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbztmYWNpbGl0eT1kYWVtb247Y29tcG9uZW50PWNvbm4tc3ZjLXJlc3Q7cGlkPTIxNTk7dGlkPTIyNjI7dGV4dD1ydW5DUkxMb2dpYygpOkNoZWNraW5nIENSTCBleHBpcmF0aW9uIGFuZCBpbml0aWF0aW5nIGRvd25sb2FkIGlmIG5lY2Vzc2FyeS4K"},{"type":"OP","timestamp":"19.10.2023 14:14:01.524","timestampAsDateTime":"1697717641.524000000","message":"Für das Kartenterminal 5e4b2fcc-c684-40d1-977a-47483d5c98b5 wurde kein Update zur Installation gefunden.;Vorgangsnummer=schd-1697717641518-121101c3","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTQ6MDEuNTI0O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUbDvHIgZGFzIEthcnRlbnRlcm1pbmFsIDVlNGIyZmNjLWM2ODQtNDBkMS05NzdhLTQ3NDgzZDVjOThiNSB3dXJkZSBrZWluIFVwZGF0ZSB6dXIgSW5zdGFsbGF0aW9uIGdlZnVuZGVuLjtWb3JnYW5nc251bW1lcj1zY2hkLTE2OTc3MTc2NDE1MTgtMTIxMTAxYzMK"},{"type":"OP","timestamp":"19.10.2023 14:14:01.524","timestampAsDateTime":"1697717641.524000000","message":"Für das Kartenterminal 2d38154c-727b-4462-8ae6-6381a5025c23 wurde kein Update zur Installation gefunden.;Vorgangsnummer=schd-1697717641518-121101c3","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTQ6MDEuNTI0O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUbDvHIgZGFzIEthcnRlbnRlcm1pbmFsIDJkMzgxNTRjLTcyN2ItNDQ2Mi04YWU2LTYzODFhNTAyNWMyMyB3dXJkZSBrZWluIFVwZGF0ZSB6dXIgSW5zdGFsbGF0aW9uIGdlZnVuZGVuLjtWb3JnYW5nc251bW1lcj1zY2hkLTE2OTc3MTc2NDE1MTgtMTIxMTAxYzMK"},{"type":"OP","timestamp":"19.10.2023 14:14:01.524","timestampAsDateTime":"1697717641.524000000","message":"Für das Kartenterminal 46b7e03a-d1f0-43c4-9db8-a3d292b155fe wurde kein Update zur Installation gefunden.;Vorgangsnummer=schd-1697717641518-121101c3","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTQ6MDEuNTI0O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUbDvHIgZGFzIEthcnRlbnRlcm1pbmFsIDQ2YjdlMDNhLWQxZjAtNDNjNC05ZGI4LWEzZDI5MmIxNTVmZSB3dXJkZSBrZWluIFVwZGF0ZSB6dXIgSW5zdGFsbGF0aW9uIGdlZnVuZGVuLjtWb3JnYW5nc251bW1lcj1zY2hkLTE2OTc3MTc2NDE1MTgtMTIxMTAxYzMK"},{"type":"OP","timestamp":"19.10.2023 14:14:01.524","timestampAsDateTime":"1697717641.524000000","message":"Für das Kartenterminal 353fac34-df6a-4005-b3e9-23633d219953 wurde kein Update zur Installation gefunden.;Vorgangsnummer=schd-1697717641518-121101c3","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTQ6MDEuNTI0O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUbDvHIgZGFzIEthcnRlbnRlcm1pbmFsIDM1M2ZhYzM0LWRmNmEtNDAwNS1iM2U5LTIzNjMzZDIxOTk1MyB3dXJkZSBrZWluIFVwZGF0ZSB6dXIgSW5zdGFsbGF0aW9uIGdlZnVuZGVuLjtWb3JnYW5nc251bW1lcj1zY2hkLTE2OTc3MTc2NDE1MTgtMTIxMTAxYzMK"},{"type":"OP","timestamp":"19.10.2023 14:13:41.715","timestampAsDateTime":"1697717621.715000000","message":"Ende des Anwendungsfalls: GetPinStatus;Vorgangsnummer=soap-1697717621616-b73c6350","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6NDEuNzE1O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzO1ZvcmdhbmdzbnVtbWVyPXNvYXAtMTY5NzcxNzYyMTYxNi1iNzNjNjM1MAo="},{"type":"OP","timestamp":"19.10.2023 14:13:41.649","timestampAsDateTime":"1697717621.649000000","message":"Beginn des Anwendungsfalls: GetPinStatus(PinTyp =PIN.SMC);Vorgangsnummer=soap-1697717621616-b73c6350","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6NDEuNjQ5O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbztCZWdpbm4gZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzKFBpblR5cCA9UElOLlNNQyk7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NjIxNjE2LWI3M2M2MzUwCg=="},{"type":"OP","timestamp":"19.10.2023 14:13:41.583","timestampAsDateTime":"1697717621.583000000","message":"Ende des Anwendungsfalls: GetPinStatus;Vorgangsnummer=soap-1697717621558-3f743a02","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6NDEuNTgzO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzO1ZvcmdhbmdzbnVtbWVyPXNvYXAtMTY5NzcxNzYyMTU1OC0zZjc0M2EwMgo="},{"type":"OP","timestamp":"19.10.2023 14:13:41.583","timestampAsDateTime":"1697717621.583000000","message":"Fehler im Anwendungsfall: GetPinStatus;Fehlerreferenz=4019;CardHandle=SMC-KT-4;Fehlerdetails={};Vorgangsnummer=soap-1697717621558-3f743a02","severity":"ERROR","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6NDEuNTgzO3R5cGU9b3A7c2V2ZXJpdHk9ZXJyb3I7dGV4dD1GZWhsZXIgaW0gQW53ZW5kdW5nc2ZhbGw6IEdldFBpblN0YXR1cztGZWhsZXJyZWZlcmVuej00MDE5O0NhcmRIYW5kbGU9U01DLUtULTQ7RmVobGVyZGV0YWlscz17fTtWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc2MjE1NTgtM2Y3NDNhMDIK"},{"type":"OP","timestamp":"19.10.2023 14:13:41.583","timestampAsDateTime":"1697717621.583000000","message":"code=4019;name=INVALID_ACCESS_PARAMETERS;text=Zu den Parametern konnte keine Regel ermittelt werden.;Vorgangsnummer=soap-1697717621558-3f743a02","severity":"ERROR","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6NDEuNTgzO3R5cGU9b3A7c2V2ZXJpdHk9ZXJyb3I7Y29kZT00MDE5O25hbWU9SU5WQUxJRF9BQ0NFU1NfUEFSQU1FVEVSUzt0ZXh0PVp1IGRlbiBQYXJhbWV0ZXJuIGtvbm50ZSBrZWluZSBSZWdlbCBlcm1pdHRlbHQgd2VyZGVuLjtWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc2MjE1NTgtM2Y3NDNhMDIK"},{"type":"OP","timestamp":"19.10.2023 14:13:41.582","timestampAsDateTime":"1697717621.582000000","message":"Beginn des Anwendungsfalls: GetPinStatus(PinTyp =);Vorgangsnummer=soap-1697717621558-3f743a02","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6NDEuNTgyO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbztCZWdpbm4gZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzKFBpblR5cCA9KTtWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc2MjE1NTgtM2Y3NDNhMDIK"},{"type":"OP","timestamp":"19.10.2023 14:13:41.528","timestampAsDateTime":"1697717621.528000000","message":"Ende des Anwendungsfalls: GetPinStatus;Vorgangsnummer=soap-1697717621395-779a2216","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6NDEuNTI4O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzO1ZvcmdhbmdzbnVtbWVyPXNvYXAtMTY5NzcxNzYyMTM5NS03NzlhMjIxNgo="},{"type":"OP","timestamp":"19.10.2023 14:13:41.417","timestampAsDateTime":"1697717621.417000000","message":"Beginn des Anwendungsfalls: GetPinStatus(PinTyp =PIN.QES);Vorgangsnummer=soap-1697717621395-779a2216","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6NDEuNDE3O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbztCZWdpbm4gZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzKFBpblR5cCA9UElOLlFFUyk7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NjIxMzk1LTc3OWEyMjE2Cg=="},{"type":"OP","timestamp":"19.10.2023 14:13:41.365","timestampAsDateTime":"1697717621.365000000","message":"Ende des Anwendungsfalls: GetPinStatus;Vorgangsnummer=soap-1697717621236-b03167e2","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6NDEuMzY1O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzO1ZvcmdhbmdzbnVtbWVyPXNvYXAtMTY5NzcxNzYyMTIzNi1iMDMxNjdlMgo="},{"type":"OP","timestamp":"19.10.2023 14:13:41.258","timestampAsDateTime":"1697717621.258000000","message":"Beginn des Anwendungsfalls: GetPinStatus(PinTyp =PIN.CH);Vorgangsnummer=soap-1697717621236-b03167e2","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6NDEuMjU4O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbztCZWdpbm4gZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzKFBpblR5cCA9UElOLkNIKTtWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc2MjEyMzYtYjAzMTY3ZTIK"},{"type":"OP","timestamp":"19.10.2023 14:13:41.211","timestampAsDateTime":"1697717621.211000000","message":"Ende des Anwendungsfalls: GetPinStatus;Vorgangsnummer=soap-1697717621131-2cc621b8","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6NDEuMjExO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzO1ZvcmdhbmdzbnVtbWVyPXNvYXAtMTY5NzcxNzYyMTEzMS0yY2M2MjFiOAo="},{"type":"OP","timestamp":"19.10.2023 14:13:41.156","timestampAsDateTime":"1697717621.156000000","message":"Beginn des Anwendungsfalls: GetPinStatus(PinTyp =PIN.CH);Vorgangsnummer=soap-1697717621131-2cc621b8","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6NDEuMTU2O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbztCZWdpbm4gZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzKFBpblR5cCA9UElOLkNIKTtWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc2MjExMzEtMmNjNjIxYjgK"},{"type":"OP","timestamp":"19.10.2023 14:13:41.055","timestampAsDateTime":"1697717621.55000000","message":"Ende des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717621019-ff7b8fa1","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6NDEuMDU1O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0Q2FyZHM7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NjIxMDE5LWZmN2I4ZmExCg=="},{"type":"OP","timestamp":"19.10.2023 14:13:41.047","timestampAsDateTime":"1697717621.47000000","message":"Ende des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717621000-29eeea4d","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6NDEuMDQ3O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0Q2FyZHM7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NjIxMDAwLTI5ZWVlYTRkCg=="},{"type":"OP","timestamp":"19.10.2023 14:13:41.042","timestampAsDateTime":"1697717621.42000000","message":"Beginn des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717621019-ff7b8fa1","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6NDEuMDQyO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBHZXRDYXJkcztWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc2MjEwMTktZmY3YjhmYTEK"},{"type":"OP","timestamp":"19.10.2023 14:13:41.034","timestampAsDateTime":"1697717621.34000000","message":"Beginn des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717621000-29eeea4d","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6NDEuMDM0O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBHZXRDYXJkcztWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc2MjEwMDAtMjllZWVhNGQK"},{"type":"OP","timestamp":"19.10.2023 14:13:40.841","timestampAsDateTime":"1697717620.841000000","message":"Ende des Anwendungsfalls: GetCardTerminals;Vorgangsnummer=soap-1697717620809-88d0f982","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6NDAuODQxO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0Q2FyZFRlcm1pbmFscztWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc2MjA4MDktODhkMGY5ODIK"},{"type":"OP","timestamp":"19.10.2023 14:13:40.834","timestampAsDateTime":"1697717620.834000000","message":"Beginn des Anwendungsfalls: GetCardTerminals;Vorgangsnummer=soap-1697717620809-88d0f982","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6NDAuODM0O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBHZXRDYXJkVGVybWluYWxzO1ZvcmdhbmdzbnVtbWVyPXNvYXAtMTY5NzcxNzYyMDgwOS04OGQwZjk4Mgo="},{"type":"OP","timestamp":"19.10.2023 14:13:36.555","timestampAsDateTime":"1697717616.555000000","message":"Ende des Anwendungsfalls: GetPinStatus;Vorgangsnummer=soap-1697717616471-fab38fdf","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6MzYuNTU1O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzO1ZvcmdhbmdzbnVtbWVyPXNvYXAtMTY5NzcxNzYxNjQ3MS1mYWIzOGZkZgo="},{"type":"OP","timestamp":"19.10.2023 14:13:36.493","timestampAsDateTime":"1697717616.493000000","message":"Beginn des Anwendungsfalls: GetPinStatus(PinTyp =PIN.SMC);Vorgangsnummer=soap-1697717616471-fab38fdf","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6MzYuNDkzO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbztCZWdpbm4gZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzKFBpblR5cCA9UElOLlNNQyk7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NjE2NDcxLWZhYjM4ZmRmCg=="},{"type":"OP","timestamp":"19.10.2023 14:13:36.442","timestampAsDateTime":"1697717616.442000000","message":"Ende des Anwendungsfalls: GetPinStatus;Vorgangsnummer=soap-1697717616422-0b201f02","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6MzYuNDQyO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzO1ZvcmdhbmdzbnVtbWVyPXNvYXAtMTY5NzcxNzYxNjQyMi0wYjIwMWYwMgo="},{"type":"OP","timestamp":"19.10.2023 14:13:36.442","timestampAsDateTime":"1697717616.442000000","message":"Fehler im Anwendungsfall: GetPinStatus;Fehlerreferenz=4019;CardHandle=SMC-KT-4;Fehlerdetails={};Vorgangsnummer=soap-1697717616422-0b201f02","severity":"ERROR","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6MzYuNDQyO3R5cGU9b3A7c2V2ZXJpdHk9ZXJyb3I7dGV4dD1GZWhsZXIgaW0gQW53ZW5kdW5nc2ZhbGw6IEdldFBpblN0YXR1cztGZWhsZXJyZWZlcmVuej00MDE5O0NhcmRIYW5kbGU9U01DLUtULTQ7RmVobGVyZGV0YWlscz17fTtWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc2MTY0MjItMGIyMDFmMDIK"},{"type":"OP","timestamp":"19.10.2023 14:13:36.441","timestampAsDateTime":"1697717616.441000000","message":"Beginn des Anwendungsfalls: GetPinStatus(PinTyp =);Vorgangsnummer=soap-1697717616422-0b201f02","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6MzYuNDQxO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbztCZWdpbm4gZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzKFBpblR5cCA9KTtWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc2MTY0MjItMGIyMDFmMDIK"},{"type":"OP","timestamp":"19.10.2023 14:13:36.441","timestampAsDateTime":"1697717616.441000000","message":"code=4019;name=INVALID_ACCESS_PARAMETERS;text=Zu den Parametern konnte keine Regel ermittelt werden.;Vorgangsnummer=soap-1697717616422-0b201f02","severity":"ERROR","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6MzYuNDQxO3R5cGU9b3A7c2V2ZXJpdHk9ZXJyb3I7Y29kZT00MDE5O25hbWU9SU5WQUxJRF9BQ0NFU1NfUEFSQU1FVEVSUzt0ZXh0PVp1IGRlbiBQYXJhbWV0ZXJuIGtvbm50ZSBrZWluZSBSZWdlbCBlcm1pdHRlbHQgd2VyZGVuLjtWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc2MTY0MjItMGIyMDFmMDIK"},{"type":"OP","timestamp":"19.10.2023 14:13:36.397","timestampAsDateTime":"1697717616.397000000","message":"Ende des Anwendungsfalls: GetPinStatus;Vorgangsnummer=soap-1697717616272-7e6be3e3","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6MzYuMzk3O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzO1ZvcmdhbmdzbnVtbWVyPXNvYXAtMTY5NzcxNzYxNjI3Mi03ZTZiZTNlMwo="},{"type":"OP","timestamp":"19.10.2023 14:13:36.292","timestampAsDateTime":"1697717616.292000000","message":"Beginn des Anwendungsfalls: GetPinStatus(PinTyp =PIN.QES);Vorgangsnummer=soap-1697717616272-7e6be3e3","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6MzYuMjkyO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbztCZWdpbm4gZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzKFBpblR5cCA9UElOLlFFUyk7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NjE2MjcyLTdlNmJlM2UzCg=="},{"type":"OP","timestamp":"19.10.2023 14:13:36.246","timestampAsDateTime":"1697717616.246000000","message":"Ende des Anwendungsfalls: GetPinStatus;Vorgangsnummer=soap-1697717616119-59cbca5f","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6MzYuMjQ2O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzO1ZvcmdhbmdzbnVtbWVyPXNvYXAtMTY5NzcxNzYxNjExOS01OWNiY2E1Zgo="},{"type":"OP","timestamp":"19.10.2023 14:13:36.138","timestampAsDateTime":"1697717616.138000000","message":"Beginn des Anwendungsfalls: GetPinStatus(PinTyp =PIN.CH);Vorgangsnummer=soap-1697717616119-59cbca5f","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6MzYuMTM4O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbztCZWdpbm4gZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzKFBpblR5cCA9UElOLkNIKTtWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc2MTYxMTktNTljYmNhNWYK"},{"type":"OP","timestamp":"19.10.2023 14:13:36.090","timestampAsDateTime":"1697717616.90000000","message":"Ende des Anwendungsfalls: GetPinStatus;Vorgangsnummer=soap-1697717616020-c6dc4156","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6MzYuMDkwO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzO1ZvcmdhbmdzbnVtbWVyPXNvYXAtMTY5NzcxNzYxNjAyMC1jNmRjNDE1Ngo="},{"type":"OP","timestamp":"19.10.2023 14:13:36.039","timestampAsDateTime":"1697717616.39000000","message":"Beginn des Anwendungsfalls: GetPinStatus(PinTyp =PIN.CH);Vorgangsnummer=soap-1697717616020-c6dc4156","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6MzYuMDM5O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbztCZWdpbm4gZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzKFBpblR5cCA9UElOLkNIKTtWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc2MTYwMjAtYzZkYzQxNTYK"},{"type":"OP","timestamp":"19.10.2023 14:13:35.989","timestampAsDateTime":"1697717615.989000000","message":"Ende des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717615960-14c3a462","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6MzUuOTg5O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0Q2FyZHM7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NjE1OTYwLTE0YzNhNDYyCg=="},{"type":"OP","timestamp":"19.10.2023 14:13:35.981","timestampAsDateTime":"1697717615.981000000","message":"Beginn des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717615960-14c3a462","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6MzUuOTgxO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBHZXRDYXJkcztWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc2MTU5NjAtMTRjM2E0NjIK"},{"type":"OP","timestamp":"19.10.2023 14:13:35.946","timestampAsDateTime":"1697717615.946000000","message":"Ende des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717615908-04dddb26","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6MzUuOTQ2O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0Q2FyZHM7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NjE1OTA4LTA0ZGRkYjI2Cg=="},{"type":"OP","timestamp":"19.10.2023 14:13:35.933","timestampAsDateTime":"1697717615.933000000","message":"Beginn des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717615908-04dddb26","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6MzUuOTMzO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBHZXRDYXJkcztWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc2MTU5MDgtMDRkZGRiMjYK"},{"type":"OP","timestamp":"19.10.2023 14:13:35.790","timestampAsDateTime":"1697717615.790000000","message":"Ende des Anwendungsfalls: GetCardTerminals;Vorgangsnummer=soap-1697717615760-da781f45","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6MzUuNzkwO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0Q2FyZFRlcm1pbmFscztWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc2MTU3NjAtZGE3ODFmNDUK"},{"type":"OP","timestamp":"19.10.2023 14:13:35.784","timestampAsDateTime":"1697717615.784000000","message":"Beginn des Anwendungsfalls: GetCardTerminals;Vorgangsnummer=soap-1697717615760-da781f45","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6MzUuNzg0O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBHZXRDYXJkVGVybWluYWxzO1ZvcmdhbmdzbnVtbWVyPXNvYXAtMTY5NzcxNzYxNTc2MC1kYTc4MWY0NQo="},{"type":"OP","timestamp":"19.10.2023 14:13:18.815","timestampAsDateTime":"1697717598.815000000","message":"topic=MGM/ADMINCHANGES;User=super;RefID=MGM_KSR_AUTO_UPDATE;NewVal=true;Vorgangsnummer=evnt-1697717598815-d41dbb20","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6MTguODE1O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0b3BpYz1NR00vQURNSU5DSEFOR0VTO1VzZXI9c3VwZXI7UmVmSUQ9TUdNX0tTUl9BVVRPX1VQREFURTtOZXdWYWw9dHJ1ZTtWb3JnYW5nc251bW1lcj1ldm50LTE2OTc3MTc1OTg4MTUtZDQxZGJiMjAK"},{"type":"OP","timestamp":"19.10.2023 14:13:18.814","timestampAsDateTime":"1697717598.814000000","message":"topic=MGM/ADMINCHANGES;User=super;RefID=MGM_KSR_AUTODOWNLOAD;NewVal=true;Vorgangsnummer=evnt-1697717598814-d8feae12","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6MTguODE0O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0b3BpYz1NR00vQURNSU5DSEFOR0VTO1VzZXI9c3VwZXI7UmVmSUQ9TUdNX0tTUl9BVVRPRE9XTkxPQUQ7TmV3VmFsPXRydWU7Vm9yZ2FuZ3NudW1tZXI9ZXZudC0xNjk3NzE3NTk4ODE0LWQ4ZmVhZTEyCg=="},{"type":"OP","timestamp":"19.10.2023 14:13:18.814","timestampAsDateTime":"1697717598.814000000","message":"topic=MGM/ADMINCHANGES;User=super;RefID=MGM_KSR_AUTOCHECK;NewVal=true;Vorgangsnummer=evnt-1697717598813-94ce201b","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6MTguODE0O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0b3BpYz1NR00vQURNSU5DSEFOR0VTO1VzZXI9c3VwZXI7UmVmSUQ9TUdNX0tTUl9BVVRPQ0hFQ0s7TmV3VmFsPXRydWU7Vm9yZ2FuZ3NudW1tZXI9ZXZudC0xNjk3NzE3NTk4ODEzLTk0Y2UyMDFiCg=="},{"type":"OP","timestamp":"19.10.2023 14:13:15.078","timestampAsDateTime":"1697717595.78000000","message":"topic=MGM/ADMINCHANGES;User=super;RefID=MGM_KSR_AUTOCHECK;NewVal=false;Vorgangsnummer=evnt-1697717595078-cf28fe64","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6MTUuMDc4O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0b3BpYz1NR00vQURNSU5DSEFOR0VTO1VzZXI9c3VwZXI7UmVmSUQ9TUdNX0tTUl9BVVRPQ0hFQ0s7TmV3VmFsPWZhbHNlO1ZvcmdhbmdzbnVtbWVyPWV2bnQtMTY5NzcxNzU5NTA3OC1jZjI4ZmU2NAo="},{"type":"OP","timestamp":"19.10.2023 14:13:15.078","timestampAsDateTime":"1697717595.78000000","message":"topic=MGM/ADMINCHANGES;User=super;RefID=MGM_KSR_AUTO_UPDATE;NewVal=false;Vorgangsnummer=evnt-1697717595078-51d1325c","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6MTUuMDc4O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0b3BpYz1NR00vQURNSU5DSEFOR0VTO1VzZXI9c3VwZXI7UmVmSUQ9TUdNX0tTUl9BVVRPX1VQREFURTtOZXdWYWw9ZmFsc2U7Vm9yZ2FuZ3NudW1tZXI9ZXZudC0xNjk3NzE3NTk1MDc4LTUxZDEzMjVjCg=="},{"type":"OP","timestamp":"19.10.2023 14:13:15.078","timestampAsDateTime":"1697717595.78000000","message":"topic=MGM/ADMINCHANGES;User=super;RefID=MGM_KSR_AUTODOWNLOAD;NewVal=false;Vorgangsnummer=evnt-1697717595077-847f789b","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6MTUuMDc4O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0b3BpYz1NR00vQURNSU5DSEFOR0VTO1VzZXI9c3VwZXI7UmVmSUQ9TUdNX0tTUl9BVVRPRE9XTkxPQUQ7TmV3VmFsPWZhbHNlO1ZvcmdhbmdzbnVtbWVyPWV2bnQtMTY5NzcxNzU5NTA3Ny04NDdmNzg5Ygo="},{"type":"OP","timestamp":"19.10.2023 14:13:01.529","timestampAsDateTime":"1697717581.529000000","message":"Für das Kartenterminal 5e4b2fcc-c684-40d1-977a-47483d5c98b5 wurde kein Update zur Installation gefunden.;Vorgangsnummer=schd-1697717581518-107e38ba","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6MDEuNTI5O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUbDvHIgZGFzIEthcnRlbnRlcm1pbmFsIDVlNGIyZmNjLWM2ODQtNDBkMS05NzdhLTQ3NDgzZDVjOThiNSB3dXJkZSBrZWluIFVwZGF0ZSB6dXIgSW5zdGFsbGF0aW9uIGdlZnVuZGVuLjtWb3JnYW5nc251bW1lcj1zY2hkLTE2OTc3MTc1ODE1MTgtMTA3ZTM4YmEK"},{"type":"OP","timestamp":"19.10.2023 14:13:01.529","timestampAsDateTime":"1697717581.529000000","message":"Für das Kartenterminal 2d38154c-727b-4462-8ae6-6381a5025c23 wurde kein Update zur Installation gefunden.;Vorgangsnummer=schd-1697717581518-107e38ba","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6MDEuNTI5O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUbDvHIgZGFzIEthcnRlbnRlcm1pbmFsIDJkMzgxNTRjLTcyN2ItNDQ2Mi04YWU2LTYzODFhNTAyNWMyMyB3dXJkZSBrZWluIFVwZGF0ZSB6dXIgSW5zdGFsbGF0aW9uIGdlZnVuZGVuLjtWb3JnYW5nc251bW1lcj1zY2hkLTE2OTc3MTc1ODE1MTgtMTA3ZTM4YmEK"},{"type":"OP","timestamp":"19.10.2023 14:13:01.529","timestampAsDateTime":"1697717581.529000000","message":"Für das Kartenterminal 46b7e03a-d1f0-43c4-9db8-a3d292b155fe wurde kein Update zur Installation gefunden.;Vorgangsnummer=schd-1697717581518-107e38ba","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6MDEuNTI5O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUbDvHIgZGFzIEthcnRlbnRlcm1pbmFsIDQ2YjdlMDNhLWQxZjAtNDNjNC05ZGI4LWEzZDI5MmIxNTVmZSB3dXJkZSBrZWluIFVwZGF0ZSB6dXIgSW5zdGFsbGF0aW9uIGdlZnVuZGVuLjtWb3JnYW5nc251bW1lcj1zY2hkLTE2OTc3MTc1ODE1MTgtMTA3ZTM4YmEK"},{"type":"OP","timestamp":"19.10.2023 14:13:01.529","timestampAsDateTime":"1697717581.529000000","message":"Für das Kartenterminal 353fac34-df6a-4005-b3e9-23633d219953 wurde kein Update zur Installation gefunden.;Vorgangsnummer=schd-1697717581518-107e38ba","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6MDEuNTI5O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUbDvHIgZGFzIEthcnRlbnRlcm1pbmFsIDM1M2ZhYzM0LWRmNmEtNDAwNS1iM2U5LTIzNjMzZDIxOTk1MyB3dXJkZSBrZWluIFVwZGF0ZSB6dXIgSW5zdGFsbGF0aW9uIGdlZnVuZGVuLjtWb3JnYW5nc251bW1lcj1zY2hkLTE2OTc3MTc1ODE1MTgtMTA3ZTM4YmEK"},{"type":"OP","timestamp":"19.10.2023 14:12:37.198","timestampAsDateTime":"1697717557.198000000","message":"Ende des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717557166-eaf19049","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzcuMTk4O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0Q2FyZHM7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTU3MTY2LWVhZjE5MDQ5Cg=="},{"type":"OP","timestamp":"19.10.2023 14:12:37.188","timestampAsDateTime":"1697717557.188000000","message":"Beginn des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717557166-eaf19049","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzcuMTg4O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBHZXRDYXJkcztWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NTcxNjYtZWFmMTkwNDkK"},{"type":"OP","timestamp":"19.10.2023 14:12:37.137","timestampAsDateTime":"1697717557.137000000","message":"Ende des Anwendungsfalls: GetPinStatus;Vorgangsnummer=soap-1697717557054-48deb913","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzcuMTM3O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzO1ZvcmdhbmdzbnVtbWVyPXNvYXAtMTY5NzcxNzU1NzA1NC00OGRlYjkxMwo="},{"type":"OP","timestamp":"19.10.2023 14:12:37.072","timestampAsDateTime":"1697717557.72000000","message":"Beginn des Anwendungsfalls: GetPinStatus(PinTyp =PIN.SMC);Vorgangsnummer=soap-1697717557054-48deb913","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzcuMDcyO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbztCZWdpbm4gZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzKFBpblR5cCA9UElOLlNNQyk7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTU3MDU0LTQ4ZGViOTEzCg=="},{"type":"OP","timestamp":"19.10.2023 14:12:37.024","timestampAsDateTime":"1697717557.24000000","message":"Ende des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717556994-63a13f65","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzcuMDI0O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0Q2FyZHM7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTU2OTk0LTYzYTEzZjY1Cg=="},{"type":"OP","timestamp":"19.10.2023 14:12:37.017","timestampAsDateTime":"1697717557.17000000","message":"Beginn des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717556994-63a13f65","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzcuMDE3O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBHZXRDYXJkcztWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NTY5OTQtNjNhMTNmNjUK"},{"type":"OP","timestamp":"19.10.2023 14:12:36.967","timestampAsDateTime":"1697717556.967000000","message":"Ende des Anwendungsfalls: GetPinStatus;Vorgangsnummer=soap-1697717556889-34b2ac32","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzYuOTY3O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzO1ZvcmdhbmdzbnVtbWVyPXNvYXAtMTY5NzcxNzU1Njg4OS0zNGIyYWMzMgo="},{"type":"OP","timestamp":"19.10.2023 14:12:36.908","timestampAsDateTime":"1697717556.908000000","message":"Beginn des Anwendungsfalls: GetPinStatus(PinTyp =PIN.SMC);Vorgangsnummer=soap-1697717556889-34b2ac32","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzYuOTA4O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbztCZWdpbm4gZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzKFBpblR5cCA9UElOLlNNQyk7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTU2ODg5LTM0YjJhYzMyCg=="},{"type":"OP","timestamp":"19.10.2023 14:12:36.858","timestampAsDateTime":"1697717556.858000000","message":"Ende des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717556827-35147d26","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzYuODU4O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0Q2FyZHM7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTU2ODI3LTM1MTQ3ZDI2Cg=="},{"type":"OP","timestamp":"19.10.2023 14:12:36.850","timestampAsDateTime":"1697717556.850000000","message":"Beginn des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717556827-35147d26","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzYuODUwO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBHZXRDYXJkcztWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NTY4MjctMzUxNDdkMjYK"},{"type":"OP","timestamp":"19.10.2023 14:12:36.798","timestampAsDateTime":"1697717556.798000000","message":"Ende des Anwendungsfalls: GetPinStatus;Vorgangsnummer=soap-1697717556701-2f06838a","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzYuNzk4O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzO1ZvcmdhbmdzbnVtbWVyPXNvYXAtMTY5NzcxNzU1NjcwMS0yZjA2ODM4YQo="},{"type":"OP","timestamp":"19.10.2023 14:12:36.721","timestampAsDateTime":"1697717556.721000000","message":"Beginn des Anwendungsfalls: GetPinStatus(PinTyp =PIN.SMC);Vorgangsnummer=soap-1697717556701-2f06838a","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzYuNzIxO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbztCZWdpbm4gZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzKFBpblR5cCA9UElOLlNNQyk7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTU2NzAxLTJmMDY4MzhhCg=="},{"type":"OP","timestamp":"19.10.2023 14:12:36.674","timestampAsDateTime":"1697717556.674000000","message":"Ende des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717556642-8be9f457","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzYuNjc0O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0Q2FyZHM7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTU2NjQyLThiZTlmNDU3Cg=="},{"type":"OP","timestamp":"19.10.2023 14:12:36.664","timestampAsDateTime":"1697717556.664000000","message":"Beginn des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717556642-8be9f457","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzYuNjY0O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBHZXRDYXJkcztWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NTY2NDItOGJlOWY0NTcK"},{"type":"OP","timestamp":"19.10.2023 14:12:36.616","timestampAsDateTime":"1697717556.616000000","message":"Ende des Anwendungsfalls: GetPinStatus;Vorgangsnummer=soap-1697717556544-b9d02873","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzYuNjE2O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzO1ZvcmdhbmdzbnVtbWVyPXNvYXAtMTY5NzcxNzU1NjU0NC1iOWQwMjg3Mwo="},{"type":"OP","timestamp":"19.10.2023 14:12:36.563","timestampAsDateTime":"1697717556.563000000","message":"Beginn des Anwendungsfalls: GetPinStatus(PinTyp =PIN.SMC);Vorgangsnummer=soap-1697717556544-b9d02873","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzYuNTYzO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbztCZWdpbm4gZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzKFBpblR5cCA9UElOLlNNQyk7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTU2NTQ0LWI5ZDAyODczCg=="},{"type":"OP","timestamp":"19.10.2023 14:12:36.515","timestampAsDateTime":"1697717556.515000000","message":"Ende des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717556484-9f050543","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzYuNTE1O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0Q2FyZHM7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTU2NDg0LTlmMDUwNTQzCg=="},{"type":"OP","timestamp":"19.10.2023 14:12:36.506","timestampAsDateTime":"1697717556.506000000","message":"Beginn des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717556484-9f050543","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzYuNTA2O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBHZXRDYXJkcztWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NTY0ODQtOWYwNTA1NDMK"},{"type":"OP","timestamp":"19.10.2023 14:12:36.458","timestampAsDateTime":"1697717556.458000000","message":"Ende des Anwendungsfalls: GetPinStatus;Vorgangsnummer=soap-1697717556380-208e8d16","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzYuNDU4O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzO1ZvcmdhbmdzbnVtbWVyPXNvYXAtMTY5NzcxNzU1NjM4MC0yMDhlOGQxNgo="},{"type":"OP","timestamp":"19.10.2023 14:12:36.400","timestampAsDateTime":"1697717556.400000000","message":"Beginn des Anwendungsfalls: GetPinStatus(PinTyp =PIN.SMC);Vorgangsnummer=soap-1697717556380-208e8d16","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzYuNDAwO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbztCZWdpbm4gZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzKFBpblR5cCA9UElOLlNNQyk7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTU2MzgwLTIwOGU4ZDE2Cg=="},{"type":"OP","timestamp":"19.10.2023 14:12:36.341","timestampAsDateTime":"1697717556.341000000","message":"Ende des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717556312-a25afc21","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzYuMzQxO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0Q2FyZHM7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTU2MzEyLWEyNWFmYzIxCg=="},{"type":"OP","timestamp":"19.10.2023 14:12:36.333","timestampAsDateTime":"1697717556.333000000","message":"Beginn des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717556312-a25afc21","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzYuMzMzO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBHZXRDYXJkcztWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NTYzMTItYTI1YWZjMjEK"},{"type":"OP","timestamp":"19.10.2023 14:12:36.277","timestampAsDateTime":"1697717556.277000000","message":"Ende des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717556248-672269f6","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzYuMjc3O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0Q2FyZHM7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTU2MjQ4LTY3MjI2OWY2Cg=="},{"type":"OP","timestamp":"19.10.2023 14:12:36.269","timestampAsDateTime":"1697717556.269000000","message":"Beginn des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717556248-672269f6","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzYuMjY5O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBHZXRDYXJkcztWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NTYyNDgtNjcyMjY5ZjYK"},{"type":"OP","timestamp":"19.10.2023 14:12:36.217","timestampAsDateTime":"1697717556.217000000","message":"Ende des Anwendungsfalls: GetPinStatus;Vorgangsnummer=soap-1697717556078-c4d8f8c2","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzYuMjE3O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzO1ZvcmdhbmdzbnVtbWVyPXNvYXAtMTY5NzcxNzU1NjA3OC1jNGQ4ZjhjMgo="},{"type":"OP","timestamp":"19.10.2023 14:12:36.100","timestampAsDateTime":"1697717556.100000000","message":"Beginn des Anwendungsfalls: GetPinStatus(PinTyp =PIN.SMC);Vorgangsnummer=soap-1697717556078-c4d8f8c2","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzYuMTAwO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbztCZWdpbm4gZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzKFBpblR5cCA9UElOLlNNQyk7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTU2MDc4LWM0ZDhmOGMyCg=="},{"type":"OP","timestamp":"19.10.2023 14:12:36.010","timestampAsDateTime":"1697717556.10000000","message":"Ende des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717555975-61b37abc","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzYuMDEwO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0Q2FyZHM7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTU1OTc1LTYxYjM3YWJjCg=="},{"type":"OP","timestamp":"19.10.2023 14:12:36.001","timestampAsDateTime":"1697717556.1000000","message":"Beginn des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717555975-61b37abc","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzYuMDAxO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBHZXRDYXJkcztWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NTU5NzUtNjFiMzdhYmMK"},{"type":"OP","timestamp":"19.10.2023 14:12:35.936","timestampAsDateTime":"1697717555.936000000","message":"Ende des Anwendungsfalls: VerifyCertificate;Vorgangsnummer=soap-1697717555903-8bc5f37d","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzUuOTM2O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogVmVyaWZ5Q2VydGlmaWNhdGU7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTU1OTAzLThiYzVmMzdkCg=="},{"type":"OP","timestamp":"19.10.2023 14:12:35.928","timestampAsDateTime":"1697717555.928000000","message":"Beginn des Anwendungsfalls: VerifyCertificate;Vorgangsnummer=soap-1697717555903-8bc5f37d","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzUuOTI4O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBWZXJpZnlDZXJ0aWZpY2F0ZTtWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NTU5MDMtOGJjNWYzN2QK"},{"type":"OP","timestamp":"19.10.2023 14:12:35.870","timestampAsDateTime":"1697717555.870000000","message":"Ende des Anwendungsfalls: VerifyCertificate;Vorgangsnummer=soap-1697717555837-3284c647","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzUuODcwO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogVmVyaWZ5Q2VydGlmaWNhdGU7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTU1ODM3LTMyODRjNjQ3Cg=="},{"type":"OP","timestamp":"19.10.2023 14:12:35.863","timestampAsDateTime":"1697717555.863000000","message":"Beginn des Anwendungsfalls: VerifyCertificate;Vorgangsnummer=soap-1697717555837-3284c647","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzUuODYzO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBWZXJpZnlDZXJ0aWZpY2F0ZTtWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NTU4MzctMzI4NGM2NDcK"},{"type":"OP","timestamp":"19.10.2023 14:12:35.808","timestampAsDateTime":"1697717555.808000000","message":"Ende des Anwendungsfalls: VerifyCertificate;Vorgangsnummer=soap-1697717555782-ade58b5a","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzUuODA4O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogVmVyaWZ5Q2VydGlmaWNhdGU7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTU1NzgyLWFkZTU4YjVhCg=="},{"type":"OP","timestamp":"19.10.2023 14:12:35.802","timestampAsDateTime":"1697717555.802000000","message":"Beginn des Anwendungsfalls: VerifyCertificate;Vorgangsnummer=soap-1697717555782-ade58b5a","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzUuODAyO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBWZXJpZnlDZXJ0aWZpY2F0ZTtWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NTU3ODItYWRlNThiNWEK"},{"type":"OP","timestamp":"19.10.2023 14:12:35.711","timestampAsDateTime":"1697717555.711000000","message":"Ende des Anwendungsfalls: ReadCardCertificate;Vorgangsnummer=soap-1697717555287-aec9bdf2","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzUuNzExO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogUmVhZENhcmRDZXJ0aWZpY2F0ZTtWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NTUyODctYWVjOWJkZjIK"},{"type":"OP","timestamp":"19.10.2023 14:12:35.306","timestampAsDateTime":"1697717555.306000000","message":"Beginn des Anwendungsfalls: ReadCardCertificate;Vorgangsnummer=soap-1697717555287-aec9bdf2","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzUuMzA2O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBSZWFkQ2FyZENlcnRpZmljYXRlO1ZvcmdhbmdzbnVtbWVyPXNvYXAtMTY5NzcxNzU1NTI4Ny1hZWM5YmRmMgo="},{"type":"OP","timestamp":"19.10.2023 14:12:35.224","timestampAsDateTime":"1697717555.224000000","message":"topic=MAN/OCSP/RESPONSE;Status=GOOD;Vorgangsnummer=evnt-1697717555223-b0ed897e","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzUuMjI0O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0b3BpYz1NQU4vT0NTUC9SRVNQT05TRTtTdGF0dXM9R09PRDtWb3JnYW5nc251bW1lcj1ldm50LTE2OTc3MTc1NTUyMjMtYjBlZDg5N2UK"},{"type":"OP","timestamp":"19.10.2023 14:12:35.223","timestampAsDateTime":"1697717555.223000000","message":"Ende des Anwendungsfalls: VerifyCertificate;Vorgangsnummer=soap-1697717555091-36d2c07a","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzUuMjIzO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogVmVyaWZ5Q2VydGlmaWNhdGU7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTU1MDkxLTM2ZDJjMDdhCg=="},{"type":"OP","timestamp":"19.10.2023 14:12:35.113","timestampAsDateTime":"1697717555.113000000","message":"Beginn des Anwendungsfalls: VerifyCertificate;Vorgangsnummer=soap-1697717555091-36d2c07a","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzUuMTEzO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBWZXJpZnlDZXJ0aWZpY2F0ZTtWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NTUwOTEtMzZkMmMwN2EK"},{"type":"OP","timestamp":"19.10.2023 14:12:35.063","timestampAsDateTime":"1697717555.63000000","message":"Ende des Anwendungsfalls: VerifyCertificate;Vorgangsnummer=soap-1697717555037-10b994a8","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzUuMDYzO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogVmVyaWZ5Q2VydGlmaWNhdGU7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTU1MDM3LTEwYjk5NGE4Cg=="},{"type":"OP","timestamp":"19.10.2023 14:12:35.057","timestampAsDateTime":"1697717555.57000000","message":"Beginn des Anwendungsfalls: VerifyCertificate;Vorgangsnummer=soap-1697717555037-10b994a8","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzUuMDU3O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBWZXJpZnlDZXJ0aWZpY2F0ZTtWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NTUwMzctMTBiOTk0YTgK"},{"type":"OP","timestamp":"19.10.2023 14:12:34.982","timestampAsDateTime":"1697717554.982000000","message":"Ende des Anwendungsfalls: VerifyCertificate;Vorgangsnummer=soap-1697717554958-99503398","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzQuOTgyO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogVmVyaWZ5Q2VydGlmaWNhdGU7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTU0OTU4LTk5NTAzMzk4Cg=="},{"type":"OP","timestamp":"19.10.2023 14:12:34.977","timestampAsDateTime":"1697717554.977000000","message":"Beginn des Anwendungsfalls: VerifyCertificate;Vorgangsnummer=soap-1697717554958-99503398","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzQuOTc3O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBWZXJpZnlDZXJ0aWZpY2F0ZTtWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NTQ5NTgtOTk1MDMzOTgK"},{"type":"OP","timestamp":"19.10.2023 14:12:34.922","timestampAsDateTime":"1697717554.922000000","message":"Ende des Anwendungsfalls: ReadCardCertificate;Vorgangsnummer=soap-1697717554409-ae3dfefb","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzQuOTIyO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogUmVhZENhcmRDZXJ0aWZpY2F0ZTtWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NTQ0MDktYWUzZGZlZmIK"},{"type":"OP","timestamp":"19.10.2023 14:12:34.598","timestampAsDateTime":"1697717554.598000000","message":"Ende des Anwendungsfalls: GetPinStatus;Vorgangsnummer=soap-1697717554511-b5a94fb1","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzQuNTk4O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzO1ZvcmdhbmdzbnVtbWVyPXNvYXAtMTY5NzcxNzU1NDUxMS1iNWE5NGZiMQo="},{"type":"OP","timestamp":"19.10.2023 14:12:34.532","timestampAsDateTime":"1697717554.532000000","message":"Beginn des Anwendungsfalls: GetPinStatus(PinTyp =PIN.SMC);Vorgangsnummer=soap-1697717554511-b5a94fb1","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzQuNTMyO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbztCZWdpbm4gZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzKFBpblR5cCA9UElOLlNNQyk7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTU0NTExLWI1YTk0ZmIxCg=="},{"type":"OP","timestamp":"19.10.2023 14:12:34.479","timestampAsDateTime":"1697717554.479000000","message":"Ende des Anwendungsfalls: GetPinStatus;Vorgangsnummer=soap-1697717554455-5803a2b5","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzQuNDc5O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzO1ZvcmdhbmdzbnVtbWVyPXNvYXAtMTY5NzcxNzU1NDQ1NS01ODAzYTJiNQo="},{"type":"OP","timestamp":"19.10.2023 14:12:34.479","timestampAsDateTime":"1697717554.479000000","message":"Fehler im Anwendungsfall: GetPinStatus;Fehlerreferenz=4019;CardHandle=SMC-KT-4;Fehlerdetails={};Vorgangsnummer=soap-1697717554455-5803a2b5","severity":"ERROR","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzQuNDc5O3R5cGU9b3A7c2V2ZXJpdHk9ZXJyb3I7dGV4dD1GZWhsZXIgaW0gQW53ZW5kdW5nc2ZhbGw6IEdldFBpblN0YXR1cztGZWhsZXJyZWZlcmVuej00MDE5O0NhcmRIYW5kbGU9U01DLUtULTQ7RmVobGVyZGV0YWlscz17fTtWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NTQ0NTUtNTgwM2EyYjUK"},{"type":"OP","timestamp":"19.10.2023 14:12:34.478","timestampAsDateTime":"1697717554.478000000","message":"code=4019;name=INVALID_ACCESS_PARAMETERS;text=Zu den Parametern konnte keine Regel ermittelt werden.;Vorgangsnummer=soap-1697717554455-5803a2b5","severity":"ERROR","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzQuNDc4O3R5cGU9b3A7c2V2ZXJpdHk9ZXJyb3I7Y29kZT00MDE5O25hbWU9SU5WQUxJRF9BQ0NFU1NfUEFSQU1FVEVSUzt0ZXh0PVp1IGRlbiBQYXJhbWV0ZXJuIGtvbm50ZSBrZWluZSBSZWdlbCBlcm1pdHRlbHQgd2VyZGVuLjtWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NTQ0NTUtNTgwM2EyYjUK"},{"type":"OP","timestamp":"19.10.2023 14:12:34.477","timestampAsDateTime":"1697717554.477000000","message":"Beginn des Anwendungsfalls: GetPinStatus(PinTyp =);Vorgangsnummer=soap-1697717554455-5803a2b5","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzQuNDc3O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbztCZWdpbm4gZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzKFBpblR5cCA9KTtWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NTQ0NTUtNTgwM2EyYjUK"},{"type":"OP","timestamp":"19.10.2023 14:12:34.432","timestampAsDateTime":"1697717554.432000000","message":"Beginn des Anwendungsfalls: ReadCardCertificate;Vorgangsnummer=soap-1697717554409-ae3dfefb","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzQuNDMyO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBSZWFkQ2FyZENlcnRpZmljYXRlO1ZvcmdhbmdzbnVtbWVyPXNvYXAtMTY5NzcxNzU1NDQwOS1hZTNkZmVmYgo="},{"type":"OP","timestamp":"19.10.2023 14:12:34.430","timestampAsDateTime":"1697717554.430000000","message":"Ende des Anwendungsfalls: GetPinStatus;Vorgangsnummer=soap-1697717554276-e910bfd3","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzQuNDMwO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzO1ZvcmdhbmdzbnVtbWVyPXNvYXAtMTY5NzcxNzU1NDI3Ni1lOTEwYmZkMwo="},{"type":"OP","timestamp":"19.10.2023 14:12:34.354","timestampAsDateTime":"1697717554.354000000","message":"Ende des Anwendungsfalls: ReadCardCertificate;Vorgangsnummer=soap-1697717554316-5ce333bb","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzQuMzU0O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogUmVhZENhcmRDZXJ0aWZpY2F0ZTtWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NTQzMTYtNWNlMzMzYmIK"},{"type":"OP","timestamp":"19.10.2023 14:12:34.354","timestampAsDateTime":"1697717554.354000000","message":"Fehler im Anwendungsfall: ReadCardCertificate;Fehlerreferenz=4090;CardHandle=EGK-8;Fehlerdetails={};Vorgangsnummer=soap-1697717554316-5ce333bb","severity":"ERROR","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzQuMzU0O3R5cGU9b3A7c2V2ZXJpdHk9ZXJyb3I7dGV4dD1GZWhsZXIgaW0gQW53ZW5kdW5nc2ZhbGw6IFJlYWRDYXJkQ2VydGlmaWNhdGU7RmVobGVycmVmZXJlbno9NDA5MDtDYXJkSGFuZGxlPUVHSy04O0ZlaGxlcmRldGFpbHM9e307Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTU0MzE2LTVjZTMzM2JiCg=="},{"type":"OP","timestamp":"19.10.2023 14:12:34.346","timestampAsDateTime":"1697717554.346000000","message":"Beginn des Anwendungsfalls: ReadCardCertificate;Vorgangsnummer=soap-1697717554316-5ce333bb","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzQuMzQ2O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBSZWFkQ2FyZENlcnRpZmljYXRlO1ZvcmdhbmdzbnVtbWVyPXNvYXAtMTY5NzcxNzU1NDMxNi01Y2UzMzNiYgo="},{"type":"OP","timestamp":"19.10.2023 14:12:34.299","timestampAsDateTime":"1697717554.299000000","message":"Beginn des Anwendungsfalls: GetPinStatus(PinTyp =PIN.QES);Vorgangsnummer=soap-1697717554276-e910bfd3","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzQuMjk5O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbztCZWdpbm4gZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzKFBpblR5cCA9UElOLlFFUyk7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTU0Mjc2LWU5MTBiZmQzCg=="},{"type":"OP","timestamp":"19.10.2023 14:12:34.242","timestampAsDateTime":"1697717554.242000000","message":"Ende des Anwendungsfalls: GetPinStatus;Vorgangsnummer=soap-1697717554111-c4b682eb","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzQuMjQyO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzO1ZvcmdhbmdzbnVtbWVyPXNvYXAtMTY5NzcxNzU1NDExMS1jNGI2ODJlYgo="},{"type":"OP","timestamp":"19.10.2023 14:12:34.226","timestampAsDateTime":"1697717554.226000000","message":"Ende des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717554175-9ac016d9","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzQuMjI2O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0Q2FyZHM7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTU0MTc1LTlhYzAxNmQ5Cg=="},{"type":"OP","timestamp":"19.10.2023 14:12:34.216","timestampAsDateTime":"1697717554.216000000","message":"Ende des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717554175-425c2431","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzQuMjE2O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0Q2FyZHM7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTU0MTc1LTQyNWMyNDMxCg=="},{"type":"OP","timestamp":"19.10.2023 14:12:34.209","timestampAsDateTime":"1697717554.209000000","message":"Ende des Anwendungsfalls: GetCardTerminals;Vorgangsnummer=soap-1697717554177-4811a3b7","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzQuMjA5O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0Q2FyZFRlcm1pbmFscztWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NTQxNzctNDgxMWEzYjcK"},{"type":"OP","timestamp":"19.10.2023 14:12:34.202","timestampAsDateTime":"1697717554.202000000","message":"Beginn des Anwendungsfalls: GetCardTerminals;Vorgangsnummer=soap-1697717554177-4811a3b7","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzQuMjAyO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBHZXRDYXJkVGVybWluYWxzO1ZvcmdhbmdzbnVtbWVyPXNvYXAtMTY5NzcxNzU1NDE3Ny00ODExYTNiNwo="},{"type":"OP","timestamp":"19.10.2023 14:12:34.199","timestampAsDateTime":"1697717554.199000000","message":"Beginn des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717554175-425c2431","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzQuMTk5O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBHZXRDYXJkcztWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NTQxNzUtNDI1YzI0MzEK"},{"type":"OP","timestamp":"19.10.2023 14:12:34.198","timestampAsDateTime":"1697717554.198000000","message":"Beginn des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717554175-9ac016d9","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzQuMTk4O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBHZXRDYXJkcztWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NTQxNzUtOWFjMDE2ZDkK"},{"type":"OP","timestamp":"19.10.2023 14:12:34.132","timestampAsDateTime":"1697717554.132000000","message":"Beginn des Anwendungsfalls: GetPinStatus(PinTyp =PIN.CH);Vorgangsnummer=soap-1697717554111-c4b682eb","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzQuMTMyO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbztCZWdpbm4gZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzKFBpblR5cCA9UElOLkNIKTtWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NTQxMTEtYzRiNjgyZWIK"},{"type":"OP","timestamp":"19.10.2023 14:12:34.053","timestampAsDateTime":"1697717554.53000000","message":"Ende des Anwendungsfalls: GetPinStatus;Vorgangsnummer=soap-1697717553977-1b918cd8","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzQuMDUzO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzO1ZvcmdhbmdzbnVtbWVyPXNvYXAtMTY5NzcxNzU1Mzk3Ny0xYjkxOGNkOAo="},{"type":"OP","timestamp":"19.10.2023 14:12:33.996","timestampAsDateTime":"1697717553.996000000","message":"Beginn des Anwendungsfalls: GetPinStatus(PinTyp =PIN.CH);Vorgangsnummer=soap-1697717553977-1b918cd8","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzMuOTk2O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbztCZWdpbm4gZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzKFBpblR5cCA9UElOLkNIKTtWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NTM5NzctMWI5MThjZDgK"},{"type":"OP","timestamp":"19.10.2023 14:12:32.905","timestampAsDateTime":"1697717552.905000000","message":"Ende des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717552868-2014fac2","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzIuOTA1O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0Q2FyZHM7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTUyODY4LTIwMTRmYWMyCg=="},{"type":"OP","timestamp":"19.10.2023 14:12:32.896","timestampAsDateTime":"1697717552.896000000","message":"Beginn des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717552868-2014fac2","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzIuODk2O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBHZXRDYXJkcztWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NTI4NjgtMjAxNGZhYzIK"},{"type":"OP","timestamp":"19.10.2023 14:12:31.417","timestampAsDateTime":"1697717551.417000000","message":"Ende des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717551384-4758647a","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzEuNDE3O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0Q2FyZHM7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTUxMzg0LTQ3NTg2NDdhCg=="},{"type":"OP","timestamp":"19.10.2023 14:12:31.407","timestampAsDateTime":"1697717551.407000000","message":"Beginn des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717551384-4758647a","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzEuNDA3O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBHZXRDYXJkcztWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NTEzODQtNDc1ODY0N2EK"},{"type":"OP","timestamp":"19.10.2023 14:12:31.358","timestampAsDateTime":"1697717551.358000000","message":"Ende des Anwendungsfalls: GetPinStatus;Vorgangsnummer=soap-1697717551282-e7339258","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzEuMzU4O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzO1ZvcmdhbmdzbnVtbWVyPXNvYXAtMTY5NzcxNzU1MTI4Mi1lNzMzOTI1OAo="},{"type":"OP","timestamp":"19.10.2023 14:12:31.302","timestampAsDateTime":"1697717551.302000000","message":"Beginn des Anwendungsfalls: GetPinStatus(PinTyp =PIN.SMC);Vorgangsnummer=soap-1697717551282-e7339258","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzEuMzAyO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbztCZWdpbm4gZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzKFBpblR5cCA9UElOLlNNQyk7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTUxMjgyLWU3MzM5MjU4Cg=="},{"type":"OP","timestamp":"19.10.2023 14:12:31.254","timestampAsDateTime":"1697717551.254000000","message":"Ende des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717551225-9676063f","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzEuMjU0O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0Q2FyZHM7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTUxMjI1LTk2NzYwNjNmCg=="},{"type":"OP","timestamp":"19.10.2023 14:12:31.247","timestampAsDateTime":"1697717551.247000000","message":"Beginn des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717551225-9676063f","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzEuMjQ3O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBHZXRDYXJkcztWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NTEyMjUtOTY3NjA2M2YK"},{"type":"OP","timestamp":"19.10.2023 14:12:31.197","timestampAsDateTime":"1697717551.197000000","message":"Ende des Anwendungsfalls: GetPinStatus;Vorgangsnummer=soap-1697717551118-71890b29","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzEuMTk3O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzO1ZvcmdhbmdzbnVtbWVyPXNvYXAtMTY5NzcxNzU1MTExOC03MTg5MGIyOQo="},{"type":"OP","timestamp":"19.10.2023 14:12:31.137","timestampAsDateTime":"1697717551.137000000","message":"Beginn des Anwendungsfalls: GetPinStatus(PinTyp =PIN.SMC);Vorgangsnummer=soap-1697717551118-71890b29","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzEuMTM3O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbztCZWdpbm4gZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzKFBpblR5cCA9UElOLlNNQyk7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTUxMTE4LTcxODkwYjI5Cg=="},{"type":"OP","timestamp":"19.10.2023 14:12:31.087","timestampAsDateTime":"1697717551.87000000","message":"Ende des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717551056-1e433e36","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzEuMDg3O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0Q2FyZHM7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTUxMDU2LTFlNDMzZTM2Cg=="},{"type":"OP","timestamp":"19.10.2023 14:12:31.078","timestampAsDateTime":"1697717551.78000000","message":"Beginn des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717551056-1e433e36","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzEuMDc4O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBHZXRDYXJkcztWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NTEwNTYtMWU0MzNlMzYK"},{"type":"OP","timestamp":"19.10.2023 14:12:31.027","timestampAsDateTime":"1697717551.27000000","message":"Ende des Anwendungsfalls: GetPinStatus;Vorgangsnummer=soap-1697717550948-fc4418ae","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzEuMDI3O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzO1ZvcmdhbmdzbnVtbWVyPXNvYXAtMTY5NzcxNzU1MDk0OC1mYzQ0MThhZQo="},{"type":"OP","timestamp":"19.10.2023 14:12:30.969","timestampAsDateTime":"1697717550.969000000","message":"Beginn des Anwendungsfalls: GetPinStatus(PinTyp =PIN.SMC);Vorgangsnummer=soap-1697717550948-fc4418ae","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzAuOTY5O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbztCZWdpbm4gZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzKFBpblR5cCA9UElOLlNNQyk7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTUwOTQ4LWZjNDQxOGFlCg=="},{"type":"OP","timestamp":"19.10.2023 14:12:30.917","timestampAsDateTime":"1697717550.917000000","message":"Ende des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717550880-4ccfec7f","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzAuOTE3O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0Q2FyZHM7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTUwODgwLTRjY2ZlYzdmCg=="},{"type":"OP","timestamp":"19.10.2023 14:12:30.903","timestampAsDateTime":"1697717550.903000000","message":"Beginn des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717550880-4ccfec7f","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzAuOTAzO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBHZXRDYXJkcztWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NTA4ODAtNGNjZmVjN2YK"},{"type":"OP","timestamp":"19.10.2023 14:12:30.796","timestampAsDateTime":"1697717550.796000000","message":"Ende des Anwendungsfalls: GetPinStatus;Vorgangsnummer=soap-1697717550718-07bf9516","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzAuNzk2O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzO1ZvcmdhbmdzbnVtbWVyPXNvYXAtMTY5NzcxNzU1MDcxOC0wN2JmOTUxNgo="},{"type":"OP","timestamp":"19.10.2023 14:12:30.741","timestampAsDateTime":"1697717550.741000000","message":"Beginn des Anwendungsfalls: GetPinStatus(PinTyp =PIN.SMC);Vorgangsnummer=soap-1697717550718-07bf9516","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzAuNzQxO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbztCZWdpbm4gZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzKFBpblR5cCA9UElOLlNNQyk7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTUwNzE4LTA3YmY5NTE2Cg=="},{"type":"OP","timestamp":"19.10.2023 14:12:30.669","timestampAsDateTime":"1697717550.669000000","message":"Ende des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717550633-99eae4a8","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzAuNjY5O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0Q2FyZHM7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTUwNjMzLTk5ZWFlNGE4Cg=="},{"type":"OP","timestamp":"19.10.2023 14:12:30.660","timestampAsDateTime":"1697717550.660000000","message":"Beginn des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717550633-99eae4a8","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzAuNjYwO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBHZXRDYXJkcztWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NTA2MzMtOTllYWU0YTgK"},{"type":"OP","timestamp":"19.10.2023 14:12:30.367","timestampAsDateTime":"1697717550.367000000","message":"Ende des Anwendungsfalls: GetPinStatus;Vorgangsnummer=soap-1697717550289-7c1f2246","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzAuMzY3O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzO1ZvcmdhbmdzbnVtbWVyPXNvYXAtMTY5NzcxNzU1MDI4OS03YzFmMjI0Ngo="},{"type":"OP","timestamp":"19.10.2023 14:12:30.312","timestampAsDateTime":"1697717550.312000000","message":"Beginn des Anwendungsfalls: GetPinStatus(PinTyp =PIN.SMC);Vorgangsnummer=soap-1697717550289-7c1f2246","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzAuMzEyO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbztCZWdpbm4gZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzKFBpblR5cCA9UElOLlNNQyk7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTUwMjg5LTdjMWYyMjQ2Cg=="},{"type":"OP","timestamp":"19.10.2023 14:12:30.257","timestampAsDateTime":"1697717550.257000000","message":"Ende des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717550224-5292cf4c","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzAuMjU3O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0Q2FyZHM7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTUwMjI0LTUyOTJjZjRjCg=="},{"type":"OP","timestamp":"19.10.2023 14:12:30.248","timestampAsDateTime":"1697717550.248000000","message":"Beginn des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717550224-5292cf4c","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzAuMjQ4O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBHZXRDYXJkcztWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NTAyMjQtNTI5MmNmNGMK"},{"type":"OP","timestamp":"19.10.2023 14:12:30.196","timestampAsDateTime":"1697717550.196000000","message":"Ende des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717550165-13c1f313","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzAuMTk2O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0Q2FyZHM7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTUwMTY1LTEzYzFmMzEzCg=="},{"type":"OP","timestamp":"19.10.2023 14:12:30.188","timestampAsDateTime":"1697717550.188000000","message":"Beginn des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717550165-13c1f313","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzAuMTg4O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBHZXRDYXJkcztWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NTAxNjUtMTNjMWYzMTMK"},{"type":"OP","timestamp":"19.10.2023 14:12:30.136","timestampAsDateTime":"1697717550.136000000","message":"Ende des Anwendungsfalls: GetPinStatus;Vorgangsnummer=soap-1697717550005-e44069e9","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzAuMTM2O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzO1ZvcmdhbmdzbnVtbWVyPXNvYXAtMTY5NzcxNzU1MDAwNS1lNDQwNjllOQo="},{"type":"OP","timestamp":"19.10.2023 14:12:30.027","timestampAsDateTime":"1697717550.27000000","message":"Beginn des Anwendungsfalls: GetPinStatus(PinTyp =PIN.SMC);Vorgangsnummer=soap-1697717550005-e44069e9","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzAuMDI3O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbztCZWdpbm4gZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzKFBpblR5cCA9UElOLlNNQyk7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTUwMDA1LWU0NDA2OWU5Cg=="},{"type":"OP","timestamp":"19.10.2023 14:12:29.917","timestampAsDateTime":"1697717549.917000000","message":"Ende des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717549883-ed15b8bd","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MjkuOTE3O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0Q2FyZHM7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTQ5ODgzLWVkMTViOGJkCg=="},{"type":"OP","timestamp":"19.10.2023 14:12:29.907","timestampAsDateTime":"1697717549.907000000","message":"Beginn des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717549883-ed15b8bd","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MjkuOTA3O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBHZXRDYXJkcztWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NDk4ODMtZWQxNWI4YmQK"},{"type":"OP","timestamp":"19.10.2023 14:12:29.319","timestampAsDateTime":"1697717549.319000000","message":"Ende des Anwendungsfalls: VerifyCertificate;Vorgangsnummer=soap-1697717549289-b7f13807","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MjkuMzE5O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogVmVyaWZ5Q2VydGlmaWNhdGU7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTQ5Mjg5LWI3ZjEzODA3Cg=="},{"type":"OP","timestamp":"19.10.2023 14:12:29.314","timestampAsDateTime":"1697717549.314000000","message":"Beginn des Anwendungsfalls: VerifyCertificate;Vorgangsnummer=soap-1697717549289-b7f13807","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MjkuMzE0O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBWZXJpZnlDZXJ0aWZpY2F0ZTtWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NDkyODktYjdmMTM4MDcK"},{"type":"OP","timestamp":"19.10.2023 14:12:29.260","timestampAsDateTime":"1697717549.260000000","message":"Ende des Anwendungsfalls: VerifyCertificate;Vorgangsnummer=soap-1697717549237-80410dc0","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MjkuMjYwO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogVmVyaWZ5Q2VydGlmaWNhdGU7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTQ5MjM3LTgwNDEwZGMwCg=="},{"type":"OP","timestamp":"19.10.2023 14:12:29.254","timestampAsDateTime":"1697717549.254000000","message":"Beginn des Anwendungsfalls: VerifyCertificate;Vorgangsnummer=soap-1697717549237-80410dc0","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MjkuMjU0O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBWZXJpZnlDZXJ0aWZpY2F0ZTtWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NDkyMzctODA0MTBkYzAK"},{"type":"OP","timestamp":"19.10.2023 14:12:29.208","timestampAsDateTime":"1697717549.208000000","message":"Ende des Anwendungsfalls: VerifyCertificate;Vorgangsnummer=soap-1697717549181-cf1b9dba","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MjkuMjA4O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogVmVyaWZ5Q2VydGlmaWNhdGU7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTQ5MTgxLWNmMWI5ZGJhCg=="},{"type":"OP","timestamp":"19.10.2023 14:12:29.201","timestampAsDateTime":"1697717549.201000000","message":"Beginn des Anwendungsfalls: VerifyCertificate;Vorgangsnummer=soap-1697717549181-cf1b9dba","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MjkuMjAxO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBWZXJpZnlDZXJ0aWZpY2F0ZTtWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NDkxODEtY2YxYjlkYmEK"},{"type":"OP","timestamp":"19.10.2023 14:12:29.113","timestampAsDateTime":"1697717549.113000000","message":"Ende des Anwendungsfalls: ReadCardCertificate;Vorgangsnummer=soap-1697717548713-1c32a2aa","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MjkuMTEzO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogUmVhZENhcmRDZXJ0aWZpY2F0ZTtWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NDg3MTMtMWMzMmEyYWEK"},{"type":"OP","timestamp":"19.10.2023 14:12:29.004","timestampAsDateTime":"1697717549.4000000","message":"topic=MGM/ADMINCHANGES;User=super;RefID=MGM_KSR_AUTO_UPDATE;NewVal=true;Vorgangsnummer=evnt-1697717549004-8cf17859","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MjkuMDA0O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0b3BpYz1NR00vQURNSU5DSEFOR0VTO1VzZXI9c3VwZXI7UmVmSUQ9TUdNX0tTUl9BVVRPX1VQREFURTtOZXdWYWw9dHJ1ZTtWb3JnYW5nc251bW1lcj1ldm50LTE2OTc3MTc1NDkwMDQtOGNmMTc4NTkK"},{"type":"OP","timestamp":"19.10.2023 14:12:29.004","timestampAsDateTime":"1697717549.4000000","message":"topic=MGM/ADMINCHANGES;User=super;RefID=MGM_KSR_AUTODOWNLOAD;NewVal=true;Vorgangsnummer=evnt-1697717549003-b161b61d","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MjkuMDA0O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0b3BpYz1NR00vQURNSU5DSEFOR0VTO1VzZXI9c3VwZXI7UmVmSUQ9TUdNX0tTUl9BVVRPRE9XTkxPQUQ7TmV3VmFsPXRydWU7Vm9yZ2FuZ3NudW1tZXI9ZXZudC0xNjk3NzE3NTQ5MDAzLWIxNjFiNjFkCg=="},{"type":"OP","timestamp":"19.10.2023 14:12:29.002","timestampAsDateTime":"1697717549.2000000","message":"topic=MGM/ADMINCHANGES;User=super;RefID=MGM_KSR_AUTOCHECK;NewVal=true;Vorgangsnummer=evnt-1697717549002-197b9e42","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MjkuMDAyO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0b3BpYz1NR00vQURNSU5DSEFOR0VTO1VzZXI9c3VwZXI7UmVmSUQ9TUdNX0tTUl9BVVRPQ0hFQ0s7TmV3VmFsPXRydWU7Vm9yZ2FuZ3NudW1tZXI9ZXZudC0xNjk3NzE3NTQ5MDAyLTE5N2I5ZTQyCg=="},{"type":"OP","timestamp":"19.10.2023 14:12:28.730","timestampAsDateTime":"1697717548.730000000","message":"Beginn des Anwendungsfalls: ReadCardCertificate;Vorgangsnummer=soap-1697717548713-1c32a2aa","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MjguNzMwO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBSZWFkQ2FyZENlcnRpZmljYXRlO1ZvcmdhbmdzbnVtbWVyPXNvYXAtMTY5NzcxNzU0ODcxMy0xYzMyYTJhYQo="},{"type":"OP","timestamp":"19.10.2023 14:12:28.684","timestampAsDateTime":"1697717548.684000000","message":"topic=MAN/OCSP/RESPONSE;Status=GOOD;Vorgangsnummer=evnt-1697717548683-363eba11","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MjguNjg0O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0b3BpYz1NQU4vT0NTUC9SRVNQT05TRTtTdGF0dXM9R09PRDtWb3JnYW5nc251bW1lcj1ldm50LTE2OTc3MTc1NDg2ODMtMzYzZWJhMTEK"},{"type":"OP","timestamp":"19.10.2023 14:12:28.683","timestampAsDateTime":"1697717548.683000000","message":"Ende des Anwendungsfalls: VerifyCertificate;Vorgangsnummer=soap-1697717548558-619290f2","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MjguNjgzO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogVmVyaWZ5Q2VydGlmaWNhdGU7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTQ4NTU4LTYxOTI5MGYyCg=="},{"type":"OP","timestamp":"19.10.2023 14:12:28.577","timestampAsDateTime":"1697717548.577000000","message":"Beginn des Anwendungsfalls: VerifyCertificate;Vorgangsnummer=soap-1697717548558-619290f2","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MjguNTc3O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBWZXJpZnlDZXJ0aWZpY2F0ZTtWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NDg1NTgtNjE5MjkwZjIK"},{"type":"OP","timestamp":"19.10.2023 14:12:28.529","timestampAsDateTime":"1697717548.529000000","message":"Ende des Anwendungsfalls: VerifyCertificate;Vorgangsnummer=soap-1697717548506-e4024cc4","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MjguNTI5O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogVmVyaWZ5Q2VydGlmaWNhdGU7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTQ4NTA2LWU0MDI0Y2M0Cg=="},{"type":"OP","timestamp":"19.10.2023 14:12:28.524","timestampAsDateTime":"1697717548.524000000","message":"Beginn des Anwendungsfalls: VerifyCertificate;Vorgangsnummer=soap-1697717548506-e4024cc4","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MjguNTI0O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBWZXJpZnlDZXJ0aWZpY2F0ZTtWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NDg1MDYtZTQwMjRjYzQK"},{"type":"OP","timestamp":"19.10.2023 14:12:28.450","timestampAsDateTime":"1697717548.450000000","message":"Ende des Anwendungsfalls: VerifyCertificate;Vorgangsnummer=soap-1697717548426-2a77778d","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MjguNDUwO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogVmVyaWZ5Q2VydGlmaWNhdGU7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTQ4NDI2LTJhNzc3NzhkCg=="},{"type":"OP","timestamp":"19.10.2023 14:12:28.443","timestampAsDateTime":"1697717548.443000000","message":"Beginn des Anwendungsfalls: VerifyCertificate;Vorgangsnummer=soap-1697717548426-2a77778d","severity":"INFO","bytes":"dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MjguNDQzO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBWZXJpZnlDZXJ0aWZpY2F0ZTtWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NDg0MjYtMmE3Nzc3OGQK"}]
+[
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:15:35.735",
+    "timestampAsDateTime": "1697717735.735000000",
+    "message": "topic=MAN/EVENT/UI;message=VPN Client: Aufbau eines neuen SIS VPN Kanals zu vpn1-sis.gto1-ref.service-ti.de hat begonnen.;Vorgangsnummer=evnt-1697717735735-5d08b20e",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTU6MzUuNzM1O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0b3BpYz1NQU4vRVZFTlQvVUk7bWVzc2FnZT1WUE4gQ2xpZW50OiBBdWZiYXUgZWluZXMgbmV1ZW4gU0lTIFZQTiBLYW5hbHMgenUgdnBuMS1zaXMuZ3RvMS1yZWYuc2VydmljZS10aS5kZSBoYXQgYmVnb25uZW4uO1ZvcmdhbmdzbnVtbWVyPWV2bnQtMTY5NzcxNzczNTczNS01ZDA4YjIwZQo="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:15:35.364",
+    "timestampAsDateTime": "1697717735.364000000",
+    "message": "topic=MAN/EVENT/UI;message=VPN Client: SIS VPN Konzentrator Adressen wurden ermittelt.;Vorgangsnummer=evnt-1697717735364-be0fe0f8",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTU6MzUuMzY0O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0b3BpYz1NQU4vRVZFTlQvVUk7bWVzc2FnZT1WUE4gQ2xpZW50OiBTSVMgVlBOIEtvbnplbnRyYXRvciBBZHJlc3NlbiB3dXJkZW4gZXJtaXR0ZWx0LjtWb3JnYW5nc251bW1lcj1ldm50LTE2OTc3MTc3MzUzNjQtYmUwZmUwZjgK"
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:15:34.629",
+    "timestampAsDateTime": "1697717734.629000000",
+    "message": "facility=daemon;component=connector-refxman;pid=1712;text=enforce_ruleset():SUCCESSFULLY enforced rule set 'vpn-sis_set'.",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTU6MzQuNjI5O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbztmYWNpbGl0eT1kYWVtb247Y29tcG9uZW50PWNvbm5lY3Rvci1yZWZ4bWFuO3BpZD0xNzEyO3RleHQ9ZW5mb3JjZV9ydWxlc2V0KCk6U1VDQ0VTU0ZVTExZIGVuZm9yY2VkIHJ1bGUgc2V0ICd2cG4tc2lzX3NldCcuCg=="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:15:34.591",
+    "timestampAsDateTime": "1697717734.591000000",
+    "message": "facility=daemon;component=connector-refxman;pid=1712;text=enforce_ruleset():going to enforce rule set 'vpn-sis_set' now. It contains 4 rule(s).",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTU6MzQuNTkxO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbztmYWNpbGl0eT1kYWVtb247Y29tcG9uZW50PWNvbm5lY3Rvci1yZWZ4bWFuO3BpZD0xNzEyO3RleHQ9ZW5mb3JjZV9ydWxlc2V0KCk6Z29pbmcgdG8gZW5mb3JjZSBydWxlIHNldCAndnBuLXNpc19zZXQnIG5vdy4gSXQgY29udGFpbnMgNCBydWxlKHMpLgo="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:15:34.543",
+    "timestampAsDateTime": "1697717734.543000000",
+    "message": "facility=daemon;component=connector-refxman;pid=1712;text=refxman_default_route_establish():No default gateway change because new one matches old one.",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTU6MzQuNTQzO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbztmYWNpbGl0eT1kYWVtb247Y29tcG9uZW50PWNvbm5lY3Rvci1yZWZ4bWFuO3BpZD0xNzEyO3RleHQ9cmVmeG1hbl9kZWZhdWx0X3JvdXRlX2VzdGFibGlzaCgpOk5vIGRlZmF1bHQgZ2F0ZXdheSBjaGFuZ2UgYmVjYXVzZSBuZXcgb25lIG1hdGNoZXMgb2xkIG9uZS4K"
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:15:34.524",
+    "timestampAsDateTime": "1697717734.524000000",
+    "message": "facility=daemon;component=connector-refxman;pid=1712;text=refxman_on_vpn_info():Performed: SIS channel down.",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTU6MzQuNTI0O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbztmYWNpbGl0eT1kYWVtb247Y29tcG9uZW50PWNvbm5lY3Rvci1yZWZ4bWFuO3BpZD0xNzEyO3RleHQ9cmVmeG1hbl9vbl92cG5faW5mbygpOlBlcmZvcm1lZDogU0lTIGNoYW5uZWwgZG93bi4K"
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:15:01.527",
+    "timestampAsDateTime": "1697717701.527000000",
+    "message": "Für das Kartenterminal 5e4b2fcc-c684-40d1-977a-47483d5c98b5 wurde kein Update zur Installation gefunden.;Vorgangsnummer=schd-1697717701518-25244dac",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTU6MDEuNTI3O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUbDvHIgZGFzIEthcnRlbnRlcm1pbmFsIDVlNGIyZmNjLWM2ODQtNDBkMS05NzdhLTQ3NDgzZDVjOThiNSB3dXJkZSBrZWluIFVwZGF0ZSB6dXIgSW5zdGFsbGF0aW9uIGdlZnVuZGVuLjtWb3JnYW5nc251bW1lcj1zY2hkLTE2OTc3MTc3MDE1MTgtMjUyNDRkYWMK"
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:15:01.527",
+    "timestampAsDateTime": "1697717701.527000000",
+    "message": "Für das Kartenterminal 2d38154c-727b-4462-8ae6-6381a5025c23 wurde kein Update zur Installation gefunden.;Vorgangsnummer=schd-1697717701518-25244dac",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTU6MDEuNTI3O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUbDvHIgZGFzIEthcnRlbnRlcm1pbmFsIDJkMzgxNTRjLTcyN2ItNDQ2Mi04YWU2LTYzODFhNTAyNWMyMyB3dXJkZSBrZWluIFVwZGF0ZSB6dXIgSW5zdGFsbGF0aW9uIGdlZnVuZGVuLjtWb3JnYW5nc251bW1lcj1zY2hkLTE2OTc3MTc3MDE1MTgtMjUyNDRkYWMK"
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:15:01.526",
+    "timestampAsDateTime": "1697717701.526000000",
+    "message": "Für das Kartenterminal 46b7e03a-d1f0-43c4-9db8-a3d292b155fe wurde kein Update zur Installation gefunden.;Vorgangsnummer=schd-1697717701518-25244dac",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTU6MDEuNTI2O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUbDvHIgZGFzIEthcnRlbnRlcm1pbmFsIDQ2YjdlMDNhLWQxZjAtNDNjNC05ZGI4LWEzZDI5MmIxNTVmZSB3dXJkZSBrZWluIFVwZGF0ZSB6dXIgSW5zdGFsbGF0aW9uIGdlZnVuZGVuLjtWb3JnYW5nc251bW1lcj1zY2hkLTE2OTc3MTc3MDE1MTgtMjUyNDRkYWMK"
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:15:01.526",
+    "timestampAsDateTime": "1697717701.526000000",
+    "message": "Für das Kartenterminal 353fac34-df6a-4005-b3e9-23633d219953 wurde kein Update zur Installation gefunden.;Vorgangsnummer=schd-1697717701518-25244dac",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTU6MDEuNTI2O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUbDvHIgZGFzIEthcnRlbnRlcm1pbmFsIDM1M2ZhYzM0LWRmNmEtNDAwNS1iM2U5LTIzNjMzZDIxOTk1MyB3dXJkZSBrZWluIFVwZGF0ZSB6dXIgSW5zdGFsbGF0aW9uIGdlZnVuZGVuLjtWb3JnYW5nc251bW1lcj1zY2hkLTE2OTc3MTc3MDE1MTgtMjUyNDRkYWMK"
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:14:31.064",
+    "timestampAsDateTime": "1697717671.64000000",
+    "message": "topic=SICCT/NEW/TERMINAL/+;Vorgangsnummer=evnt-1697717671064-19a88be3",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTQ6MzEuMDY0O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0b3BpYz1TSUNDVC9ORVcvVEVSTUlOQUwvKztWb3JnYW5nc251bW1lcj1ldm50LTE2OTc3MTc2NzEwNjQtMTlhODhiZTMK"
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:14:27.535",
+    "timestampAsDateTime": "1697717667.535000000",
+    "message": "facility=daemon;component=conn-svc-rest;pid=2159;tid=2262;text=runCRLLogic():Checking CRL expiration and initiating download if necessary.",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTQ6MjcuNTM1O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbztmYWNpbGl0eT1kYWVtb247Y29tcG9uZW50PWNvbm4tc3ZjLXJlc3Q7cGlkPTIxNTk7dGlkPTIyNjI7dGV4dD1ydW5DUkxMb2dpYygpOkNoZWNraW5nIENSTCBleHBpcmF0aW9uIGFuZCBpbml0aWF0aW5nIGRvd25sb2FkIGlmIG5lY2Vzc2FyeS4K"
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:14:01.524",
+    "timestampAsDateTime": "1697717641.524000000",
+    "message": "Für das Kartenterminal 5e4b2fcc-c684-40d1-977a-47483d5c98b5 wurde kein Update zur Installation gefunden.;Vorgangsnummer=schd-1697717641518-121101c3",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTQ6MDEuNTI0O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUbDvHIgZGFzIEthcnRlbnRlcm1pbmFsIDVlNGIyZmNjLWM2ODQtNDBkMS05NzdhLTQ3NDgzZDVjOThiNSB3dXJkZSBrZWluIFVwZGF0ZSB6dXIgSW5zdGFsbGF0aW9uIGdlZnVuZGVuLjtWb3JnYW5nc251bW1lcj1zY2hkLTE2OTc3MTc2NDE1MTgtMTIxMTAxYzMK"
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:14:01.524",
+    "timestampAsDateTime": "1697717641.524000000",
+    "message": "Für das Kartenterminal 2d38154c-727b-4462-8ae6-6381a5025c23 wurde kein Update zur Installation gefunden.;Vorgangsnummer=schd-1697717641518-121101c3",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTQ6MDEuNTI0O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUbDvHIgZGFzIEthcnRlbnRlcm1pbmFsIDJkMzgxNTRjLTcyN2ItNDQ2Mi04YWU2LTYzODFhNTAyNWMyMyB3dXJkZSBrZWluIFVwZGF0ZSB6dXIgSW5zdGFsbGF0aW9uIGdlZnVuZGVuLjtWb3JnYW5nc251bW1lcj1zY2hkLTE2OTc3MTc2NDE1MTgtMTIxMTAxYzMK"
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:14:01.524",
+    "timestampAsDateTime": "1697717641.524000000",
+    "message": "Für das Kartenterminal 46b7e03a-d1f0-43c4-9db8-a3d292b155fe wurde kein Update zur Installation gefunden.;Vorgangsnummer=schd-1697717641518-121101c3",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTQ6MDEuNTI0O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUbDvHIgZGFzIEthcnRlbnRlcm1pbmFsIDQ2YjdlMDNhLWQxZjAtNDNjNC05ZGI4LWEzZDI5MmIxNTVmZSB3dXJkZSBrZWluIFVwZGF0ZSB6dXIgSW5zdGFsbGF0aW9uIGdlZnVuZGVuLjtWb3JnYW5nc251bW1lcj1zY2hkLTE2OTc3MTc2NDE1MTgtMTIxMTAxYzMK"
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:14:01.524",
+    "timestampAsDateTime": "1697717641.524000000",
+    "message": "Für das Kartenterminal 353fac34-df6a-4005-b3e9-23633d219953 wurde kein Update zur Installation gefunden.;Vorgangsnummer=schd-1697717641518-121101c3",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTQ6MDEuNTI0O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUbDvHIgZGFzIEthcnRlbnRlcm1pbmFsIDM1M2ZhYzM0LWRmNmEtNDAwNS1iM2U5LTIzNjMzZDIxOTk1MyB3dXJkZSBrZWluIFVwZGF0ZSB6dXIgSW5zdGFsbGF0aW9uIGdlZnVuZGVuLjtWb3JnYW5nc251bW1lcj1zY2hkLTE2OTc3MTc2NDE1MTgtMTIxMTAxYzMK"
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:13:41.715",
+    "timestampAsDateTime": "1697717621.715000000",
+    "message": "Ende des Anwendungsfalls: GetPinStatus;Vorgangsnummer=soap-1697717621616-b73c6350",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6NDEuNzE1O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzO1ZvcmdhbmdzbnVtbWVyPXNvYXAtMTY5NzcxNzYyMTYxNi1iNzNjNjM1MAo="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:13:41.649",
+    "timestampAsDateTime": "1697717621.649000000",
+    "message": "Beginn des Anwendungsfalls: GetPinStatus(PinTyp =PIN.SMC);Vorgangsnummer=soap-1697717621616-b73c6350",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6NDEuNjQ5O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbztCZWdpbm4gZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzKFBpblR5cCA9UElOLlNNQyk7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NjIxNjE2LWI3M2M2MzUwCg=="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:13:41.583",
+    "timestampAsDateTime": "1697717621.583000000",
+    "message": "Ende des Anwendungsfalls: GetPinStatus;Vorgangsnummer=soap-1697717621558-3f743a02",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6NDEuNTgzO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzO1ZvcmdhbmdzbnVtbWVyPXNvYXAtMTY5NzcxNzYyMTU1OC0zZjc0M2EwMgo="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:13:41.583",
+    "timestampAsDateTime": "1697717621.583000000",
+    "message": "Fehler im Anwendungsfall: GetPinStatus;Fehlerreferenz=4019;CardHandle=SMC-KT-4;Fehlerdetails={};Vorgangsnummer=soap-1697717621558-3f743a02",
+    "severity": "ERROR",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6NDEuNTgzO3R5cGU9b3A7c2V2ZXJpdHk9ZXJyb3I7dGV4dD1GZWhsZXIgaW0gQW53ZW5kdW5nc2ZhbGw6IEdldFBpblN0YXR1cztGZWhsZXJyZWZlcmVuej00MDE5O0NhcmRIYW5kbGU9U01DLUtULTQ7RmVobGVyZGV0YWlscz17fTtWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc2MjE1NTgtM2Y3NDNhMDIK"
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:13:41.583",
+    "timestampAsDateTime": "1697717621.583000000",
+    "message": "code=4019;name=INVALID_ACCESS_PARAMETERS;text=Zu den Parametern konnte keine Regel ermittelt werden.;Vorgangsnummer=soap-1697717621558-3f743a02",
+    "severity": "ERROR",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6NDEuNTgzO3R5cGU9b3A7c2V2ZXJpdHk9ZXJyb3I7Y29kZT00MDE5O25hbWU9SU5WQUxJRF9BQ0NFU1NfUEFSQU1FVEVSUzt0ZXh0PVp1IGRlbiBQYXJhbWV0ZXJuIGtvbm50ZSBrZWluZSBSZWdlbCBlcm1pdHRlbHQgd2VyZGVuLjtWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc2MjE1NTgtM2Y3NDNhMDIK"
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:13:41.582",
+    "timestampAsDateTime": "1697717621.582000000",
+    "message": "Beginn des Anwendungsfalls: GetPinStatus(PinTyp =);Vorgangsnummer=soap-1697717621558-3f743a02",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6NDEuNTgyO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbztCZWdpbm4gZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzKFBpblR5cCA9KTtWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc2MjE1NTgtM2Y3NDNhMDIK"
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:13:41.528",
+    "timestampAsDateTime": "1697717621.528000000",
+    "message": "Ende des Anwendungsfalls: GetPinStatus;Vorgangsnummer=soap-1697717621395-779a2216",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6NDEuNTI4O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzO1ZvcmdhbmdzbnVtbWVyPXNvYXAtMTY5NzcxNzYyMTM5NS03NzlhMjIxNgo="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:13:41.417",
+    "timestampAsDateTime": "1697717621.417000000",
+    "message": "Beginn des Anwendungsfalls: GetPinStatus(PinTyp =PIN.QES);Vorgangsnummer=soap-1697717621395-779a2216",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6NDEuNDE3O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbztCZWdpbm4gZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzKFBpblR5cCA9UElOLlFFUyk7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NjIxMzk1LTc3OWEyMjE2Cg=="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:13:41.365",
+    "timestampAsDateTime": "1697717621.365000000",
+    "message": "Ende des Anwendungsfalls: GetPinStatus;Vorgangsnummer=soap-1697717621236-b03167e2",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6NDEuMzY1O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzO1ZvcmdhbmdzbnVtbWVyPXNvYXAtMTY5NzcxNzYyMTIzNi1iMDMxNjdlMgo="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:13:41.258",
+    "timestampAsDateTime": "1697717621.258000000",
+    "message": "Beginn des Anwendungsfalls: GetPinStatus(PinTyp =PIN.CH);Vorgangsnummer=soap-1697717621236-b03167e2",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6NDEuMjU4O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbztCZWdpbm4gZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzKFBpblR5cCA9UElOLkNIKTtWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc2MjEyMzYtYjAzMTY3ZTIK"
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:13:41.211",
+    "timestampAsDateTime": "1697717621.211000000",
+    "message": "Ende des Anwendungsfalls: GetPinStatus;Vorgangsnummer=soap-1697717621131-2cc621b8",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6NDEuMjExO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzO1ZvcmdhbmdzbnVtbWVyPXNvYXAtMTY5NzcxNzYyMTEzMS0yY2M2MjFiOAo="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:13:41.156",
+    "timestampAsDateTime": "1697717621.156000000",
+    "message": "Beginn des Anwendungsfalls: GetPinStatus(PinTyp =PIN.CH);Vorgangsnummer=soap-1697717621131-2cc621b8",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6NDEuMTU2O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbztCZWdpbm4gZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzKFBpblR5cCA9UElOLkNIKTtWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc2MjExMzEtMmNjNjIxYjgK"
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:13:41.055",
+    "timestampAsDateTime": "1697717621.55000000",
+    "message": "Ende des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717621019-ff7b8fa1",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6NDEuMDU1O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0Q2FyZHM7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NjIxMDE5LWZmN2I4ZmExCg=="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:13:41.047",
+    "timestampAsDateTime": "1697717621.47000000",
+    "message": "Ende des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717621000-29eeea4d",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6NDEuMDQ3O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0Q2FyZHM7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NjIxMDAwLTI5ZWVlYTRkCg=="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:13:41.042",
+    "timestampAsDateTime": "1697717621.42000000",
+    "message": "Beginn des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717621019-ff7b8fa1",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6NDEuMDQyO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBHZXRDYXJkcztWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc2MjEwMTktZmY3YjhmYTEK"
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:13:41.034",
+    "timestampAsDateTime": "1697717621.34000000",
+    "message": "Beginn des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717621000-29eeea4d",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6NDEuMDM0O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBHZXRDYXJkcztWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc2MjEwMDAtMjllZWVhNGQK"
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:13:40.841",
+    "timestampAsDateTime": "1697717620.841000000",
+    "message": "Ende des Anwendungsfalls: GetCardTerminals;Vorgangsnummer=soap-1697717620809-88d0f982",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6NDAuODQxO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0Q2FyZFRlcm1pbmFscztWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc2MjA4MDktODhkMGY5ODIK"
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:13:40.834",
+    "timestampAsDateTime": "1697717620.834000000",
+    "message": "Beginn des Anwendungsfalls: GetCardTerminals;Vorgangsnummer=soap-1697717620809-88d0f982",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6NDAuODM0O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBHZXRDYXJkVGVybWluYWxzO1ZvcmdhbmdzbnVtbWVyPXNvYXAtMTY5NzcxNzYyMDgwOS04OGQwZjk4Mgo="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:13:36.555",
+    "timestampAsDateTime": "1697717616.555000000",
+    "message": "Ende des Anwendungsfalls: GetPinStatus;Vorgangsnummer=soap-1697717616471-fab38fdf",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6MzYuNTU1O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzO1ZvcmdhbmdzbnVtbWVyPXNvYXAtMTY5NzcxNzYxNjQ3MS1mYWIzOGZkZgo="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:13:36.493",
+    "timestampAsDateTime": "1697717616.493000000",
+    "message": "Beginn des Anwendungsfalls: GetPinStatus(PinTyp =PIN.SMC);Vorgangsnummer=soap-1697717616471-fab38fdf",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6MzYuNDkzO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbztCZWdpbm4gZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzKFBpblR5cCA9UElOLlNNQyk7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NjE2NDcxLWZhYjM4ZmRmCg=="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:13:36.442",
+    "timestampAsDateTime": "1697717616.442000000",
+    "message": "Ende des Anwendungsfalls: GetPinStatus;Vorgangsnummer=soap-1697717616422-0b201f02",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6MzYuNDQyO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzO1ZvcmdhbmdzbnVtbWVyPXNvYXAtMTY5NzcxNzYxNjQyMi0wYjIwMWYwMgo="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:13:36.442",
+    "timestampAsDateTime": "1697717616.442000000",
+    "message": "Fehler im Anwendungsfall: GetPinStatus;Fehlerreferenz=4019;CardHandle=SMC-KT-4;Fehlerdetails={};Vorgangsnummer=soap-1697717616422-0b201f02",
+    "severity": "ERROR",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6MzYuNDQyO3R5cGU9b3A7c2V2ZXJpdHk9ZXJyb3I7dGV4dD1GZWhsZXIgaW0gQW53ZW5kdW5nc2ZhbGw6IEdldFBpblN0YXR1cztGZWhsZXJyZWZlcmVuej00MDE5O0NhcmRIYW5kbGU9U01DLUtULTQ7RmVobGVyZGV0YWlscz17fTtWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc2MTY0MjItMGIyMDFmMDIK"
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:13:36.441",
+    "timestampAsDateTime": "1697717616.441000000",
+    "message": "Beginn des Anwendungsfalls: GetPinStatus(PinTyp =);Vorgangsnummer=soap-1697717616422-0b201f02",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6MzYuNDQxO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbztCZWdpbm4gZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzKFBpblR5cCA9KTtWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc2MTY0MjItMGIyMDFmMDIK"
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:13:36.441",
+    "timestampAsDateTime": "1697717616.441000000",
+    "message": "code=4019;name=INVALID_ACCESS_PARAMETERS;text=Zu den Parametern konnte keine Regel ermittelt werden.;Vorgangsnummer=soap-1697717616422-0b201f02",
+    "severity": "ERROR",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6MzYuNDQxO3R5cGU9b3A7c2V2ZXJpdHk9ZXJyb3I7Y29kZT00MDE5O25hbWU9SU5WQUxJRF9BQ0NFU1NfUEFSQU1FVEVSUzt0ZXh0PVp1IGRlbiBQYXJhbWV0ZXJuIGtvbm50ZSBrZWluZSBSZWdlbCBlcm1pdHRlbHQgd2VyZGVuLjtWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc2MTY0MjItMGIyMDFmMDIK"
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:13:36.397",
+    "timestampAsDateTime": "1697717616.397000000",
+    "message": "Ende des Anwendungsfalls: GetPinStatus;Vorgangsnummer=soap-1697717616272-7e6be3e3",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6MzYuMzk3O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzO1ZvcmdhbmdzbnVtbWVyPXNvYXAtMTY5NzcxNzYxNjI3Mi03ZTZiZTNlMwo="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:13:36.292",
+    "timestampAsDateTime": "1697717616.292000000",
+    "message": "Beginn des Anwendungsfalls: GetPinStatus(PinTyp =PIN.QES);Vorgangsnummer=soap-1697717616272-7e6be3e3",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6MzYuMjkyO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbztCZWdpbm4gZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzKFBpblR5cCA9UElOLlFFUyk7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NjE2MjcyLTdlNmJlM2UzCg=="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:13:36.246",
+    "timestampAsDateTime": "1697717616.246000000",
+    "message": "Ende des Anwendungsfalls: GetPinStatus;Vorgangsnummer=soap-1697717616119-59cbca5f",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6MzYuMjQ2O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzO1ZvcmdhbmdzbnVtbWVyPXNvYXAtMTY5NzcxNzYxNjExOS01OWNiY2E1Zgo="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:13:36.138",
+    "timestampAsDateTime": "1697717616.138000000",
+    "message": "Beginn des Anwendungsfalls: GetPinStatus(PinTyp =PIN.CH);Vorgangsnummer=soap-1697717616119-59cbca5f",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6MzYuMTM4O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbztCZWdpbm4gZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzKFBpblR5cCA9UElOLkNIKTtWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc2MTYxMTktNTljYmNhNWYK"
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:13:36.090",
+    "timestampAsDateTime": "1697717616.90000000",
+    "message": "Ende des Anwendungsfalls: GetPinStatus;Vorgangsnummer=soap-1697717616020-c6dc4156",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6MzYuMDkwO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzO1ZvcmdhbmdzbnVtbWVyPXNvYXAtMTY5NzcxNzYxNjAyMC1jNmRjNDE1Ngo="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:13:36.039",
+    "timestampAsDateTime": "1697717616.39000000",
+    "message": "Beginn des Anwendungsfalls: GetPinStatus(PinTyp =PIN.CH);Vorgangsnummer=soap-1697717616020-c6dc4156",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6MzYuMDM5O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbztCZWdpbm4gZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzKFBpblR5cCA9UElOLkNIKTtWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc2MTYwMjAtYzZkYzQxNTYK"
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:13:35.989",
+    "timestampAsDateTime": "1697717615.989000000",
+    "message": "Ende des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717615960-14c3a462",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6MzUuOTg5O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0Q2FyZHM7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NjE1OTYwLTE0YzNhNDYyCg=="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:13:35.981",
+    "timestampAsDateTime": "1697717615.981000000",
+    "message": "Beginn des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717615960-14c3a462",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6MzUuOTgxO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBHZXRDYXJkcztWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc2MTU5NjAtMTRjM2E0NjIK"
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:13:35.946",
+    "timestampAsDateTime": "1697717615.946000000",
+    "message": "Ende des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717615908-04dddb26",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6MzUuOTQ2O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0Q2FyZHM7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NjE1OTA4LTA0ZGRkYjI2Cg=="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:13:35.933",
+    "timestampAsDateTime": "1697717615.933000000",
+    "message": "Beginn des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717615908-04dddb26",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6MzUuOTMzO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBHZXRDYXJkcztWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc2MTU5MDgtMDRkZGRiMjYK"
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:13:35.790",
+    "timestampAsDateTime": "1697717615.790000000",
+    "message": "Ende des Anwendungsfalls: GetCardTerminals;Vorgangsnummer=soap-1697717615760-da781f45",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6MzUuNzkwO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0Q2FyZFRlcm1pbmFscztWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc2MTU3NjAtZGE3ODFmNDUK"
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:13:35.784",
+    "timestampAsDateTime": "1697717615.784000000",
+    "message": "Beginn des Anwendungsfalls: GetCardTerminals;Vorgangsnummer=soap-1697717615760-da781f45",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6MzUuNzg0O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBHZXRDYXJkVGVybWluYWxzO1ZvcmdhbmdzbnVtbWVyPXNvYXAtMTY5NzcxNzYxNTc2MC1kYTc4MWY0NQo="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:13:18.815",
+    "timestampAsDateTime": "1697717598.815000000",
+    "message": "topic=MGM/ADMINCHANGES;User=super;RefID=MGM_KSR_AUTO_UPDATE;NewVal=true;Vorgangsnummer=evnt-1697717598815-d41dbb20",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6MTguODE1O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0b3BpYz1NR00vQURNSU5DSEFOR0VTO1VzZXI9c3VwZXI7UmVmSUQ9TUdNX0tTUl9BVVRPX1VQREFURTtOZXdWYWw9dHJ1ZTtWb3JnYW5nc251bW1lcj1ldm50LTE2OTc3MTc1OTg4MTUtZDQxZGJiMjAK"
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:13:18.814",
+    "timestampAsDateTime": "1697717598.814000000",
+    "message": "topic=MGM/ADMINCHANGES;User=super;RefID=MGM_KSR_AUTODOWNLOAD;NewVal=true;Vorgangsnummer=evnt-1697717598814-d8feae12",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6MTguODE0O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0b3BpYz1NR00vQURNSU5DSEFOR0VTO1VzZXI9c3VwZXI7UmVmSUQ9TUdNX0tTUl9BVVRPRE9XTkxPQUQ7TmV3VmFsPXRydWU7Vm9yZ2FuZ3NudW1tZXI9ZXZudC0xNjk3NzE3NTk4ODE0LWQ4ZmVhZTEyCg=="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:13:18.814",
+    "timestampAsDateTime": "1697717598.814000000",
+    "message": "topic=MGM/ADMINCHANGES;User=super;RefID=MGM_KSR_AUTOCHECK;NewVal=true;Vorgangsnummer=evnt-1697717598813-94ce201b",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6MTguODE0O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0b3BpYz1NR00vQURNSU5DSEFOR0VTO1VzZXI9c3VwZXI7UmVmSUQ9TUdNX0tTUl9BVVRPQ0hFQ0s7TmV3VmFsPXRydWU7Vm9yZ2FuZ3NudW1tZXI9ZXZudC0xNjk3NzE3NTk4ODEzLTk0Y2UyMDFiCg=="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:13:15.078",
+    "timestampAsDateTime": "1697717595.78000000",
+    "message": "topic=MGM/ADMINCHANGES;User=super;RefID=MGM_KSR_AUTOCHECK;NewVal=false;Vorgangsnummer=evnt-1697717595078-cf28fe64",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6MTUuMDc4O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0b3BpYz1NR00vQURNSU5DSEFOR0VTO1VzZXI9c3VwZXI7UmVmSUQ9TUdNX0tTUl9BVVRPQ0hFQ0s7TmV3VmFsPWZhbHNlO1ZvcmdhbmdzbnVtbWVyPWV2bnQtMTY5NzcxNzU5NTA3OC1jZjI4ZmU2NAo="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:13:15.078",
+    "timestampAsDateTime": "1697717595.78000000",
+    "message": "topic=MGM/ADMINCHANGES;User=super;RefID=MGM_KSR_AUTO_UPDATE;NewVal=false;Vorgangsnummer=evnt-1697717595078-51d1325c",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6MTUuMDc4O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0b3BpYz1NR00vQURNSU5DSEFOR0VTO1VzZXI9c3VwZXI7UmVmSUQ9TUdNX0tTUl9BVVRPX1VQREFURTtOZXdWYWw9ZmFsc2U7Vm9yZ2FuZ3NudW1tZXI9ZXZudC0xNjk3NzE3NTk1MDc4LTUxZDEzMjVjCg=="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:13:15.078",
+    "timestampAsDateTime": "1697717595.78000000",
+    "message": "topic=MGM/ADMINCHANGES;User=super;RefID=MGM_KSR_AUTODOWNLOAD;NewVal=false;Vorgangsnummer=evnt-1697717595077-847f789b",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6MTUuMDc4O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0b3BpYz1NR00vQURNSU5DSEFOR0VTO1VzZXI9c3VwZXI7UmVmSUQ9TUdNX0tTUl9BVVRPRE9XTkxPQUQ7TmV3VmFsPWZhbHNlO1ZvcmdhbmdzbnVtbWVyPWV2bnQtMTY5NzcxNzU5NTA3Ny04NDdmNzg5Ygo="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:13:01.529",
+    "timestampAsDateTime": "1697717581.529000000",
+    "message": "Für das Kartenterminal 5e4b2fcc-c684-40d1-977a-47483d5c98b5 wurde kein Update zur Installation gefunden.;Vorgangsnummer=schd-1697717581518-107e38ba",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6MDEuNTI5O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUbDvHIgZGFzIEthcnRlbnRlcm1pbmFsIDVlNGIyZmNjLWM2ODQtNDBkMS05NzdhLTQ3NDgzZDVjOThiNSB3dXJkZSBrZWluIFVwZGF0ZSB6dXIgSW5zdGFsbGF0aW9uIGdlZnVuZGVuLjtWb3JnYW5nc251bW1lcj1zY2hkLTE2OTc3MTc1ODE1MTgtMTA3ZTM4YmEK"
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:13:01.529",
+    "timestampAsDateTime": "1697717581.529000000",
+    "message": "Für das Kartenterminal 2d38154c-727b-4462-8ae6-6381a5025c23 wurde kein Update zur Installation gefunden.;Vorgangsnummer=schd-1697717581518-107e38ba",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6MDEuNTI5O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUbDvHIgZGFzIEthcnRlbnRlcm1pbmFsIDJkMzgxNTRjLTcyN2ItNDQ2Mi04YWU2LTYzODFhNTAyNWMyMyB3dXJkZSBrZWluIFVwZGF0ZSB6dXIgSW5zdGFsbGF0aW9uIGdlZnVuZGVuLjtWb3JnYW5nc251bW1lcj1zY2hkLTE2OTc3MTc1ODE1MTgtMTA3ZTM4YmEK"
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:13:01.529",
+    "timestampAsDateTime": "1697717581.529000000",
+    "message": "Für das Kartenterminal 46b7e03a-d1f0-43c4-9db8-a3d292b155fe wurde kein Update zur Installation gefunden.;Vorgangsnummer=schd-1697717581518-107e38ba",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6MDEuNTI5O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUbDvHIgZGFzIEthcnRlbnRlcm1pbmFsIDQ2YjdlMDNhLWQxZjAtNDNjNC05ZGI4LWEzZDI5MmIxNTVmZSB3dXJkZSBrZWluIFVwZGF0ZSB6dXIgSW5zdGFsbGF0aW9uIGdlZnVuZGVuLjtWb3JnYW5nc251bW1lcj1zY2hkLTE2OTc3MTc1ODE1MTgtMTA3ZTM4YmEK"
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:13:01.529",
+    "timestampAsDateTime": "1697717581.529000000",
+    "message": "Für das Kartenterminal 353fac34-df6a-4005-b3e9-23633d219953 wurde kein Update zur Installation gefunden.;Vorgangsnummer=schd-1697717581518-107e38ba",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTM6MDEuNTI5O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUbDvHIgZGFzIEthcnRlbnRlcm1pbmFsIDM1M2ZhYzM0LWRmNmEtNDAwNS1iM2U5LTIzNjMzZDIxOTk1MyB3dXJkZSBrZWluIFVwZGF0ZSB6dXIgSW5zdGFsbGF0aW9uIGdlZnVuZGVuLjtWb3JnYW5nc251bW1lcj1zY2hkLTE2OTc3MTc1ODE1MTgtMTA3ZTM4YmEK"
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:37.198",
+    "timestampAsDateTime": "1697717557.198000000",
+    "message": "Ende des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717557166-eaf19049",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzcuMTk4O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0Q2FyZHM7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTU3MTY2LWVhZjE5MDQ5Cg=="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:37.188",
+    "timestampAsDateTime": "1697717557.188000000",
+    "message": "Beginn des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717557166-eaf19049",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzcuMTg4O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBHZXRDYXJkcztWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NTcxNjYtZWFmMTkwNDkK"
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:37.137",
+    "timestampAsDateTime": "1697717557.137000000",
+    "message": "Ende des Anwendungsfalls: GetPinStatus;Vorgangsnummer=soap-1697717557054-48deb913",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzcuMTM3O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzO1ZvcmdhbmdzbnVtbWVyPXNvYXAtMTY5NzcxNzU1NzA1NC00OGRlYjkxMwo="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:37.072",
+    "timestampAsDateTime": "1697717557.72000000",
+    "message": "Beginn des Anwendungsfalls: GetPinStatus(PinTyp =PIN.SMC);Vorgangsnummer=soap-1697717557054-48deb913",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzcuMDcyO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbztCZWdpbm4gZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzKFBpblR5cCA9UElOLlNNQyk7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTU3MDU0LTQ4ZGViOTEzCg=="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:37.024",
+    "timestampAsDateTime": "1697717557.24000000",
+    "message": "Ende des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717556994-63a13f65",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzcuMDI0O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0Q2FyZHM7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTU2OTk0LTYzYTEzZjY1Cg=="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:37.017",
+    "timestampAsDateTime": "1697717557.17000000",
+    "message": "Beginn des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717556994-63a13f65",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzcuMDE3O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBHZXRDYXJkcztWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NTY5OTQtNjNhMTNmNjUK"
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:36.967",
+    "timestampAsDateTime": "1697717556.967000000",
+    "message": "Ende des Anwendungsfalls: GetPinStatus;Vorgangsnummer=soap-1697717556889-34b2ac32",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzYuOTY3O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzO1ZvcmdhbmdzbnVtbWVyPXNvYXAtMTY5NzcxNzU1Njg4OS0zNGIyYWMzMgo="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:36.908",
+    "timestampAsDateTime": "1697717556.908000000",
+    "message": "Beginn des Anwendungsfalls: GetPinStatus(PinTyp =PIN.SMC);Vorgangsnummer=soap-1697717556889-34b2ac32",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzYuOTA4O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbztCZWdpbm4gZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzKFBpblR5cCA9UElOLlNNQyk7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTU2ODg5LTM0YjJhYzMyCg=="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:36.858",
+    "timestampAsDateTime": "1697717556.858000000",
+    "message": "Ende des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717556827-35147d26",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzYuODU4O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0Q2FyZHM7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTU2ODI3LTM1MTQ3ZDI2Cg=="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:36.850",
+    "timestampAsDateTime": "1697717556.850000000",
+    "message": "Beginn des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717556827-35147d26",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzYuODUwO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBHZXRDYXJkcztWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NTY4MjctMzUxNDdkMjYK"
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:36.798",
+    "timestampAsDateTime": "1697717556.798000000",
+    "message": "Ende des Anwendungsfalls: GetPinStatus;Vorgangsnummer=soap-1697717556701-2f06838a",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzYuNzk4O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzO1ZvcmdhbmdzbnVtbWVyPXNvYXAtMTY5NzcxNzU1NjcwMS0yZjA2ODM4YQo="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:36.721",
+    "timestampAsDateTime": "1697717556.721000000",
+    "message": "Beginn des Anwendungsfalls: GetPinStatus(PinTyp =PIN.SMC);Vorgangsnummer=soap-1697717556701-2f06838a",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzYuNzIxO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbztCZWdpbm4gZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzKFBpblR5cCA9UElOLlNNQyk7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTU2NzAxLTJmMDY4MzhhCg=="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:36.674",
+    "timestampAsDateTime": "1697717556.674000000",
+    "message": "Ende des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717556642-8be9f457",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzYuNjc0O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0Q2FyZHM7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTU2NjQyLThiZTlmNDU3Cg=="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:36.664",
+    "timestampAsDateTime": "1697717556.664000000",
+    "message": "Beginn des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717556642-8be9f457",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzYuNjY0O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBHZXRDYXJkcztWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NTY2NDItOGJlOWY0NTcK"
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:36.616",
+    "timestampAsDateTime": "1697717556.616000000",
+    "message": "Ende des Anwendungsfalls: GetPinStatus;Vorgangsnummer=soap-1697717556544-b9d02873",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzYuNjE2O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzO1ZvcmdhbmdzbnVtbWVyPXNvYXAtMTY5NzcxNzU1NjU0NC1iOWQwMjg3Mwo="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:36.563",
+    "timestampAsDateTime": "1697717556.563000000",
+    "message": "Beginn des Anwendungsfalls: GetPinStatus(PinTyp =PIN.SMC);Vorgangsnummer=soap-1697717556544-b9d02873",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzYuNTYzO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbztCZWdpbm4gZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzKFBpblR5cCA9UElOLlNNQyk7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTU2NTQ0LWI5ZDAyODczCg=="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:36.515",
+    "timestampAsDateTime": "1697717556.515000000",
+    "message": "Ende des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717556484-9f050543",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzYuNTE1O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0Q2FyZHM7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTU2NDg0LTlmMDUwNTQzCg=="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:36.506",
+    "timestampAsDateTime": "1697717556.506000000",
+    "message": "Beginn des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717556484-9f050543",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzYuNTA2O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBHZXRDYXJkcztWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NTY0ODQtOWYwNTA1NDMK"
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:36.458",
+    "timestampAsDateTime": "1697717556.458000000",
+    "message": "Ende des Anwendungsfalls: GetPinStatus;Vorgangsnummer=soap-1697717556380-208e8d16",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzYuNDU4O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzO1ZvcmdhbmdzbnVtbWVyPXNvYXAtMTY5NzcxNzU1NjM4MC0yMDhlOGQxNgo="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:36.400",
+    "timestampAsDateTime": "1697717556.400000000",
+    "message": "Beginn des Anwendungsfalls: GetPinStatus(PinTyp =PIN.SMC);Vorgangsnummer=soap-1697717556380-208e8d16",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzYuNDAwO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbztCZWdpbm4gZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzKFBpblR5cCA9UElOLlNNQyk7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTU2MzgwLTIwOGU4ZDE2Cg=="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:36.341",
+    "timestampAsDateTime": "1697717556.341000000",
+    "message": "Ende des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717556312-a25afc21",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzYuMzQxO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0Q2FyZHM7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTU2MzEyLWEyNWFmYzIxCg=="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:36.333",
+    "timestampAsDateTime": "1697717556.333000000",
+    "message": "Beginn des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717556312-a25afc21",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzYuMzMzO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBHZXRDYXJkcztWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NTYzMTItYTI1YWZjMjEK"
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:36.277",
+    "timestampAsDateTime": "1697717556.277000000",
+    "message": "Ende des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717556248-672269f6",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzYuMjc3O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0Q2FyZHM7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTU2MjQ4LTY3MjI2OWY2Cg=="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:36.269",
+    "timestampAsDateTime": "1697717556.269000000",
+    "message": "Beginn des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717556248-672269f6",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzYuMjY5O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBHZXRDYXJkcztWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NTYyNDgtNjcyMjY5ZjYK"
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:36.217",
+    "timestampAsDateTime": "1697717556.217000000",
+    "message": "Ende des Anwendungsfalls: GetPinStatus;Vorgangsnummer=soap-1697717556078-c4d8f8c2",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzYuMjE3O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzO1ZvcmdhbmdzbnVtbWVyPXNvYXAtMTY5NzcxNzU1NjA3OC1jNGQ4ZjhjMgo="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:36.100",
+    "timestampAsDateTime": "1697717556.100000000",
+    "message": "Beginn des Anwendungsfalls: GetPinStatus(PinTyp =PIN.SMC);Vorgangsnummer=soap-1697717556078-c4d8f8c2",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzYuMTAwO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbztCZWdpbm4gZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzKFBpblR5cCA9UElOLlNNQyk7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTU2MDc4LWM0ZDhmOGMyCg=="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:36.010",
+    "timestampAsDateTime": "1697717556.10000000",
+    "message": "Ende des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717555975-61b37abc",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzYuMDEwO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0Q2FyZHM7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTU1OTc1LTYxYjM3YWJjCg=="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:36.001",
+    "timestampAsDateTime": "1697717556.1000000",
+    "message": "Beginn des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717555975-61b37abc",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzYuMDAxO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBHZXRDYXJkcztWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NTU5NzUtNjFiMzdhYmMK"
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:35.936",
+    "timestampAsDateTime": "1697717555.936000000",
+    "message": "Ende des Anwendungsfalls: VerifyCertificate;Vorgangsnummer=soap-1697717555903-8bc5f37d",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzUuOTM2O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogVmVyaWZ5Q2VydGlmaWNhdGU7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTU1OTAzLThiYzVmMzdkCg=="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:35.928",
+    "timestampAsDateTime": "1697717555.928000000",
+    "message": "Beginn des Anwendungsfalls: VerifyCertificate;Vorgangsnummer=soap-1697717555903-8bc5f37d",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzUuOTI4O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBWZXJpZnlDZXJ0aWZpY2F0ZTtWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NTU5MDMtOGJjNWYzN2QK"
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:35.870",
+    "timestampAsDateTime": "1697717555.870000000",
+    "message": "Ende des Anwendungsfalls: VerifyCertificate;Vorgangsnummer=soap-1697717555837-3284c647",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzUuODcwO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogVmVyaWZ5Q2VydGlmaWNhdGU7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTU1ODM3LTMyODRjNjQ3Cg=="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:35.863",
+    "timestampAsDateTime": "1697717555.863000000",
+    "message": "Beginn des Anwendungsfalls: VerifyCertificate;Vorgangsnummer=soap-1697717555837-3284c647",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzUuODYzO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBWZXJpZnlDZXJ0aWZpY2F0ZTtWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NTU4MzctMzI4NGM2NDcK"
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:35.808",
+    "timestampAsDateTime": "1697717555.808000000",
+    "message": "Ende des Anwendungsfalls: VerifyCertificate;Vorgangsnummer=soap-1697717555782-ade58b5a",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzUuODA4O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogVmVyaWZ5Q2VydGlmaWNhdGU7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTU1NzgyLWFkZTU4YjVhCg=="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:35.802",
+    "timestampAsDateTime": "1697717555.802000000",
+    "message": "Beginn des Anwendungsfalls: VerifyCertificate;Vorgangsnummer=soap-1697717555782-ade58b5a",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzUuODAyO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBWZXJpZnlDZXJ0aWZpY2F0ZTtWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NTU3ODItYWRlNThiNWEK"
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:35.711",
+    "timestampAsDateTime": "1697717555.711000000",
+    "message": "Ende des Anwendungsfalls: ReadCardCertificate;Vorgangsnummer=soap-1697717555287-aec9bdf2",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzUuNzExO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogUmVhZENhcmRDZXJ0aWZpY2F0ZTtWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NTUyODctYWVjOWJkZjIK"
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:35.306",
+    "timestampAsDateTime": "1697717555.306000000",
+    "message": "Beginn des Anwendungsfalls: ReadCardCertificate;Vorgangsnummer=soap-1697717555287-aec9bdf2",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzUuMzA2O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBSZWFkQ2FyZENlcnRpZmljYXRlO1ZvcmdhbmdzbnVtbWVyPXNvYXAtMTY5NzcxNzU1NTI4Ny1hZWM5YmRmMgo="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:35.224",
+    "timestampAsDateTime": "1697717555.224000000",
+    "message": "topic=MAN/OCSP/RESPONSE;Status=GOOD;Vorgangsnummer=evnt-1697717555223-b0ed897e",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzUuMjI0O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0b3BpYz1NQU4vT0NTUC9SRVNQT05TRTtTdGF0dXM9R09PRDtWb3JnYW5nc251bW1lcj1ldm50LTE2OTc3MTc1NTUyMjMtYjBlZDg5N2UK"
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:35.223",
+    "timestampAsDateTime": "1697717555.223000000",
+    "message": "Ende des Anwendungsfalls: VerifyCertificate;Vorgangsnummer=soap-1697717555091-36d2c07a",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzUuMjIzO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogVmVyaWZ5Q2VydGlmaWNhdGU7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTU1MDkxLTM2ZDJjMDdhCg=="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:35.113",
+    "timestampAsDateTime": "1697717555.113000000",
+    "message": "Beginn des Anwendungsfalls: VerifyCertificate;Vorgangsnummer=soap-1697717555091-36d2c07a",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzUuMTEzO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBWZXJpZnlDZXJ0aWZpY2F0ZTtWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NTUwOTEtMzZkMmMwN2EK"
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:35.063",
+    "timestampAsDateTime": "1697717555.63000000",
+    "message": "Ende des Anwendungsfalls: VerifyCertificate;Vorgangsnummer=soap-1697717555037-10b994a8",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzUuMDYzO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogVmVyaWZ5Q2VydGlmaWNhdGU7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTU1MDM3LTEwYjk5NGE4Cg=="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:35.057",
+    "timestampAsDateTime": "1697717555.57000000",
+    "message": "Beginn des Anwendungsfalls: VerifyCertificate;Vorgangsnummer=soap-1697717555037-10b994a8",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzUuMDU3O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBWZXJpZnlDZXJ0aWZpY2F0ZTtWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NTUwMzctMTBiOTk0YTgK"
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:34.982",
+    "timestampAsDateTime": "1697717554.982000000",
+    "message": "Ende des Anwendungsfalls: VerifyCertificate;Vorgangsnummer=soap-1697717554958-99503398",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzQuOTgyO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogVmVyaWZ5Q2VydGlmaWNhdGU7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTU0OTU4LTk5NTAzMzk4Cg=="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:34.977",
+    "timestampAsDateTime": "1697717554.977000000",
+    "message": "Beginn des Anwendungsfalls: VerifyCertificate;Vorgangsnummer=soap-1697717554958-99503398",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzQuOTc3O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBWZXJpZnlDZXJ0aWZpY2F0ZTtWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NTQ5NTgtOTk1MDMzOTgK"
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:34.922",
+    "timestampAsDateTime": "1697717554.922000000",
+    "message": "Ende des Anwendungsfalls: ReadCardCertificate;Vorgangsnummer=soap-1697717554409-ae3dfefb",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzQuOTIyO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogUmVhZENhcmRDZXJ0aWZpY2F0ZTtWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NTQ0MDktYWUzZGZlZmIK"
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:34.598",
+    "timestampAsDateTime": "1697717554.598000000",
+    "message": "Ende des Anwendungsfalls: GetPinStatus;Vorgangsnummer=soap-1697717554511-b5a94fb1",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzQuNTk4O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzO1ZvcmdhbmdzbnVtbWVyPXNvYXAtMTY5NzcxNzU1NDUxMS1iNWE5NGZiMQo="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:34.532",
+    "timestampAsDateTime": "1697717554.532000000",
+    "message": "Beginn des Anwendungsfalls: GetPinStatus(PinTyp =PIN.SMC);Vorgangsnummer=soap-1697717554511-b5a94fb1",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzQuNTMyO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbztCZWdpbm4gZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzKFBpblR5cCA9UElOLlNNQyk7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTU0NTExLWI1YTk0ZmIxCg=="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:34.479",
+    "timestampAsDateTime": "1697717554.479000000",
+    "message": "Ende des Anwendungsfalls: GetPinStatus;Vorgangsnummer=soap-1697717554455-5803a2b5",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzQuNDc5O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzO1ZvcmdhbmdzbnVtbWVyPXNvYXAtMTY5NzcxNzU1NDQ1NS01ODAzYTJiNQo="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:34.479",
+    "timestampAsDateTime": "1697717554.479000000",
+    "message": "Fehler im Anwendungsfall: GetPinStatus;Fehlerreferenz=4019;CardHandle=SMC-KT-4;Fehlerdetails={};Vorgangsnummer=soap-1697717554455-5803a2b5",
+    "severity": "ERROR",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzQuNDc5O3R5cGU9b3A7c2V2ZXJpdHk9ZXJyb3I7dGV4dD1GZWhsZXIgaW0gQW53ZW5kdW5nc2ZhbGw6IEdldFBpblN0YXR1cztGZWhsZXJyZWZlcmVuej00MDE5O0NhcmRIYW5kbGU9U01DLUtULTQ7RmVobGVyZGV0YWlscz17fTtWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NTQ0NTUtNTgwM2EyYjUK"
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:34.478",
+    "timestampAsDateTime": "1697717554.478000000",
+    "message": "code=4019;name=INVALID_ACCESS_PARAMETERS;text=Zu den Parametern konnte keine Regel ermittelt werden.;Vorgangsnummer=soap-1697717554455-5803a2b5",
+    "severity": "ERROR",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzQuNDc4O3R5cGU9b3A7c2V2ZXJpdHk9ZXJyb3I7Y29kZT00MDE5O25hbWU9SU5WQUxJRF9BQ0NFU1NfUEFSQU1FVEVSUzt0ZXh0PVp1IGRlbiBQYXJhbWV0ZXJuIGtvbm50ZSBrZWluZSBSZWdlbCBlcm1pdHRlbHQgd2VyZGVuLjtWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NTQ0NTUtNTgwM2EyYjUK"
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:34.477",
+    "timestampAsDateTime": "1697717554.477000000",
+    "message": "Beginn des Anwendungsfalls: GetPinStatus(PinTyp =);Vorgangsnummer=soap-1697717554455-5803a2b5",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzQuNDc3O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbztCZWdpbm4gZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzKFBpblR5cCA9KTtWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NTQ0NTUtNTgwM2EyYjUK"
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:34.432",
+    "timestampAsDateTime": "1697717554.432000000",
+    "message": "Beginn des Anwendungsfalls: ReadCardCertificate;Vorgangsnummer=soap-1697717554409-ae3dfefb",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzQuNDMyO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBSZWFkQ2FyZENlcnRpZmljYXRlO1ZvcmdhbmdzbnVtbWVyPXNvYXAtMTY5NzcxNzU1NDQwOS1hZTNkZmVmYgo="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:34.430",
+    "timestampAsDateTime": "1697717554.430000000",
+    "message": "Ende des Anwendungsfalls: GetPinStatus;Vorgangsnummer=soap-1697717554276-e910bfd3",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzQuNDMwO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzO1ZvcmdhbmdzbnVtbWVyPXNvYXAtMTY5NzcxNzU1NDI3Ni1lOTEwYmZkMwo="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:34.354",
+    "timestampAsDateTime": "1697717554.354000000",
+    "message": "Ende des Anwendungsfalls: ReadCardCertificate;Vorgangsnummer=soap-1697717554316-5ce333bb",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzQuMzU0O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogUmVhZENhcmRDZXJ0aWZpY2F0ZTtWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NTQzMTYtNWNlMzMzYmIK"
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:34.354",
+    "timestampAsDateTime": "1697717554.354000000",
+    "message": "Fehler im Anwendungsfall: ReadCardCertificate;Fehlerreferenz=4090;CardHandle=EGK-8;Fehlerdetails={};Vorgangsnummer=soap-1697717554316-5ce333bb",
+    "severity": "ERROR",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzQuMzU0O3R5cGU9b3A7c2V2ZXJpdHk9ZXJyb3I7dGV4dD1GZWhsZXIgaW0gQW53ZW5kdW5nc2ZhbGw6IFJlYWRDYXJkQ2VydGlmaWNhdGU7RmVobGVycmVmZXJlbno9NDA5MDtDYXJkSGFuZGxlPUVHSy04O0ZlaGxlcmRldGFpbHM9e307Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTU0MzE2LTVjZTMzM2JiCg=="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:34.346",
+    "timestampAsDateTime": "1697717554.346000000",
+    "message": "Beginn des Anwendungsfalls: ReadCardCertificate;Vorgangsnummer=soap-1697717554316-5ce333bb",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzQuMzQ2O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBSZWFkQ2FyZENlcnRpZmljYXRlO1ZvcmdhbmdzbnVtbWVyPXNvYXAtMTY5NzcxNzU1NDMxNi01Y2UzMzNiYgo="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:34.299",
+    "timestampAsDateTime": "1697717554.299000000",
+    "message": "Beginn des Anwendungsfalls: GetPinStatus(PinTyp =PIN.QES);Vorgangsnummer=soap-1697717554276-e910bfd3",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzQuMjk5O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbztCZWdpbm4gZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzKFBpblR5cCA9UElOLlFFUyk7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTU0Mjc2LWU5MTBiZmQzCg=="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:34.242",
+    "timestampAsDateTime": "1697717554.242000000",
+    "message": "Ende des Anwendungsfalls: GetPinStatus;Vorgangsnummer=soap-1697717554111-c4b682eb",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzQuMjQyO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzO1ZvcmdhbmdzbnVtbWVyPXNvYXAtMTY5NzcxNzU1NDExMS1jNGI2ODJlYgo="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:34.226",
+    "timestampAsDateTime": "1697717554.226000000",
+    "message": "Ende des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717554175-9ac016d9",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzQuMjI2O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0Q2FyZHM7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTU0MTc1LTlhYzAxNmQ5Cg=="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:34.216",
+    "timestampAsDateTime": "1697717554.216000000",
+    "message": "Ende des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717554175-425c2431",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzQuMjE2O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0Q2FyZHM7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTU0MTc1LTQyNWMyNDMxCg=="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:34.209",
+    "timestampAsDateTime": "1697717554.209000000",
+    "message": "Ende des Anwendungsfalls: GetCardTerminals;Vorgangsnummer=soap-1697717554177-4811a3b7",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzQuMjA5O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0Q2FyZFRlcm1pbmFscztWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NTQxNzctNDgxMWEzYjcK"
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:34.202",
+    "timestampAsDateTime": "1697717554.202000000",
+    "message": "Beginn des Anwendungsfalls: GetCardTerminals;Vorgangsnummer=soap-1697717554177-4811a3b7",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzQuMjAyO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBHZXRDYXJkVGVybWluYWxzO1ZvcmdhbmdzbnVtbWVyPXNvYXAtMTY5NzcxNzU1NDE3Ny00ODExYTNiNwo="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:34.199",
+    "timestampAsDateTime": "1697717554.199000000",
+    "message": "Beginn des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717554175-425c2431",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzQuMTk5O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBHZXRDYXJkcztWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NTQxNzUtNDI1YzI0MzEK"
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:34.198",
+    "timestampAsDateTime": "1697717554.198000000",
+    "message": "Beginn des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717554175-9ac016d9",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzQuMTk4O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBHZXRDYXJkcztWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NTQxNzUtOWFjMDE2ZDkK"
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:34.132",
+    "timestampAsDateTime": "1697717554.132000000",
+    "message": "Beginn des Anwendungsfalls: GetPinStatus(PinTyp =PIN.CH);Vorgangsnummer=soap-1697717554111-c4b682eb",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzQuMTMyO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbztCZWdpbm4gZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzKFBpblR5cCA9UElOLkNIKTtWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NTQxMTEtYzRiNjgyZWIK"
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:34.053",
+    "timestampAsDateTime": "1697717554.53000000",
+    "message": "Ende des Anwendungsfalls: GetPinStatus;Vorgangsnummer=soap-1697717553977-1b918cd8",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzQuMDUzO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzO1ZvcmdhbmdzbnVtbWVyPXNvYXAtMTY5NzcxNzU1Mzk3Ny0xYjkxOGNkOAo="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:33.996",
+    "timestampAsDateTime": "1697717553.996000000",
+    "message": "Beginn des Anwendungsfalls: GetPinStatus(PinTyp =PIN.CH);Vorgangsnummer=soap-1697717553977-1b918cd8",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzMuOTk2O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbztCZWdpbm4gZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzKFBpblR5cCA9UElOLkNIKTtWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NTM5NzctMWI5MThjZDgK"
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:32.905",
+    "timestampAsDateTime": "1697717552.905000000",
+    "message": "Ende des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717552868-2014fac2",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzIuOTA1O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0Q2FyZHM7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTUyODY4LTIwMTRmYWMyCg=="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:32.896",
+    "timestampAsDateTime": "1697717552.896000000",
+    "message": "Beginn des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717552868-2014fac2",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzIuODk2O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBHZXRDYXJkcztWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NTI4NjgtMjAxNGZhYzIK"
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:31.417",
+    "timestampAsDateTime": "1697717551.417000000",
+    "message": "Ende des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717551384-4758647a",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzEuNDE3O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0Q2FyZHM7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTUxMzg0LTQ3NTg2NDdhCg=="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:31.407",
+    "timestampAsDateTime": "1697717551.407000000",
+    "message": "Beginn des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717551384-4758647a",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzEuNDA3O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBHZXRDYXJkcztWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NTEzODQtNDc1ODY0N2EK"
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:31.358",
+    "timestampAsDateTime": "1697717551.358000000",
+    "message": "Ende des Anwendungsfalls: GetPinStatus;Vorgangsnummer=soap-1697717551282-e7339258",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzEuMzU4O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzO1ZvcmdhbmdzbnVtbWVyPXNvYXAtMTY5NzcxNzU1MTI4Mi1lNzMzOTI1OAo="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:31.302",
+    "timestampAsDateTime": "1697717551.302000000",
+    "message": "Beginn des Anwendungsfalls: GetPinStatus(PinTyp =PIN.SMC);Vorgangsnummer=soap-1697717551282-e7339258",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzEuMzAyO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbztCZWdpbm4gZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzKFBpblR5cCA9UElOLlNNQyk7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTUxMjgyLWU3MzM5MjU4Cg=="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:31.254",
+    "timestampAsDateTime": "1697717551.254000000",
+    "message": "Ende des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717551225-9676063f",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzEuMjU0O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0Q2FyZHM7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTUxMjI1LTk2NzYwNjNmCg=="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:31.247",
+    "timestampAsDateTime": "1697717551.247000000",
+    "message": "Beginn des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717551225-9676063f",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzEuMjQ3O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBHZXRDYXJkcztWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NTEyMjUtOTY3NjA2M2YK"
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:31.197",
+    "timestampAsDateTime": "1697717551.197000000",
+    "message": "Ende des Anwendungsfalls: GetPinStatus;Vorgangsnummer=soap-1697717551118-71890b29",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzEuMTk3O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzO1ZvcmdhbmdzbnVtbWVyPXNvYXAtMTY5NzcxNzU1MTExOC03MTg5MGIyOQo="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:31.137",
+    "timestampAsDateTime": "1697717551.137000000",
+    "message": "Beginn des Anwendungsfalls: GetPinStatus(PinTyp =PIN.SMC);Vorgangsnummer=soap-1697717551118-71890b29",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzEuMTM3O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbztCZWdpbm4gZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzKFBpblR5cCA9UElOLlNNQyk7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTUxMTE4LTcxODkwYjI5Cg=="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:31.087",
+    "timestampAsDateTime": "1697717551.87000000",
+    "message": "Ende des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717551056-1e433e36",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzEuMDg3O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0Q2FyZHM7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTUxMDU2LTFlNDMzZTM2Cg=="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:31.078",
+    "timestampAsDateTime": "1697717551.78000000",
+    "message": "Beginn des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717551056-1e433e36",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzEuMDc4O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBHZXRDYXJkcztWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NTEwNTYtMWU0MzNlMzYK"
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:31.027",
+    "timestampAsDateTime": "1697717551.27000000",
+    "message": "Ende des Anwendungsfalls: GetPinStatus;Vorgangsnummer=soap-1697717550948-fc4418ae",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzEuMDI3O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzO1ZvcmdhbmdzbnVtbWVyPXNvYXAtMTY5NzcxNzU1MDk0OC1mYzQ0MThhZQo="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:30.969",
+    "timestampAsDateTime": "1697717550.969000000",
+    "message": "Beginn des Anwendungsfalls: GetPinStatus(PinTyp =PIN.SMC);Vorgangsnummer=soap-1697717550948-fc4418ae",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzAuOTY5O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbztCZWdpbm4gZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzKFBpblR5cCA9UElOLlNNQyk7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTUwOTQ4LWZjNDQxOGFlCg=="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:30.917",
+    "timestampAsDateTime": "1697717550.917000000",
+    "message": "Ende des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717550880-4ccfec7f",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzAuOTE3O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0Q2FyZHM7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTUwODgwLTRjY2ZlYzdmCg=="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:30.903",
+    "timestampAsDateTime": "1697717550.903000000",
+    "message": "Beginn des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717550880-4ccfec7f",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzAuOTAzO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBHZXRDYXJkcztWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NTA4ODAtNGNjZmVjN2YK"
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:30.796",
+    "timestampAsDateTime": "1697717550.796000000",
+    "message": "Ende des Anwendungsfalls: GetPinStatus;Vorgangsnummer=soap-1697717550718-07bf9516",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzAuNzk2O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzO1ZvcmdhbmdzbnVtbWVyPXNvYXAtMTY5NzcxNzU1MDcxOC0wN2JmOTUxNgo="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:30.741",
+    "timestampAsDateTime": "1697717550.741000000",
+    "message": "Beginn des Anwendungsfalls: GetPinStatus(PinTyp =PIN.SMC);Vorgangsnummer=soap-1697717550718-07bf9516",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzAuNzQxO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbztCZWdpbm4gZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzKFBpblR5cCA9UElOLlNNQyk7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTUwNzE4LTA3YmY5NTE2Cg=="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:30.669",
+    "timestampAsDateTime": "1697717550.669000000",
+    "message": "Ende des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717550633-99eae4a8",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzAuNjY5O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0Q2FyZHM7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTUwNjMzLTk5ZWFlNGE4Cg=="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:30.660",
+    "timestampAsDateTime": "1697717550.660000000",
+    "message": "Beginn des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717550633-99eae4a8",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzAuNjYwO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBHZXRDYXJkcztWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NTA2MzMtOTllYWU0YTgK"
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:30.367",
+    "timestampAsDateTime": "1697717550.367000000",
+    "message": "Ende des Anwendungsfalls: GetPinStatus;Vorgangsnummer=soap-1697717550289-7c1f2246",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzAuMzY3O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzO1ZvcmdhbmdzbnVtbWVyPXNvYXAtMTY5NzcxNzU1MDI4OS03YzFmMjI0Ngo="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:30.312",
+    "timestampAsDateTime": "1697717550.312000000",
+    "message": "Beginn des Anwendungsfalls: GetPinStatus(PinTyp =PIN.SMC);Vorgangsnummer=soap-1697717550289-7c1f2246",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzAuMzEyO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbztCZWdpbm4gZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzKFBpblR5cCA9UElOLlNNQyk7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTUwMjg5LTdjMWYyMjQ2Cg=="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:30.257",
+    "timestampAsDateTime": "1697717550.257000000",
+    "message": "Ende des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717550224-5292cf4c",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzAuMjU3O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0Q2FyZHM7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTUwMjI0LTUyOTJjZjRjCg=="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:30.248",
+    "timestampAsDateTime": "1697717550.248000000",
+    "message": "Beginn des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717550224-5292cf4c",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzAuMjQ4O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBHZXRDYXJkcztWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NTAyMjQtNTI5MmNmNGMK"
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:30.196",
+    "timestampAsDateTime": "1697717550.196000000",
+    "message": "Ende des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717550165-13c1f313",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzAuMTk2O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0Q2FyZHM7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTUwMTY1LTEzYzFmMzEzCg=="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:30.188",
+    "timestampAsDateTime": "1697717550.188000000",
+    "message": "Beginn des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717550165-13c1f313",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzAuMTg4O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBHZXRDYXJkcztWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NTAxNjUtMTNjMWYzMTMK"
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:30.136",
+    "timestampAsDateTime": "1697717550.136000000",
+    "message": "Ende des Anwendungsfalls: GetPinStatus;Vorgangsnummer=soap-1697717550005-e44069e9",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzAuMTM2O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzO1ZvcmdhbmdzbnVtbWVyPXNvYXAtMTY5NzcxNzU1MDAwNS1lNDQwNjllOQo="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:30.027",
+    "timestampAsDateTime": "1697717550.27000000",
+    "message": "Beginn des Anwendungsfalls: GetPinStatus(PinTyp =PIN.SMC);Vorgangsnummer=soap-1697717550005-e44069e9",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MzAuMDI3O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbztCZWdpbm4gZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0UGluU3RhdHVzKFBpblR5cCA9UElOLlNNQyk7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTUwMDA1LWU0NDA2OWU5Cg=="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:29.917",
+    "timestampAsDateTime": "1697717549.917000000",
+    "message": "Ende des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717549883-ed15b8bd",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MjkuOTE3O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogR2V0Q2FyZHM7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTQ5ODgzLWVkMTViOGJkCg=="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:29.907",
+    "timestampAsDateTime": "1697717549.907000000",
+    "message": "Beginn des Anwendungsfalls: GetCards;Vorgangsnummer=soap-1697717549883-ed15b8bd",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MjkuOTA3O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBHZXRDYXJkcztWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NDk4ODMtZWQxNWI4YmQK"
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:29.319",
+    "timestampAsDateTime": "1697717549.319000000",
+    "message": "Ende des Anwendungsfalls: VerifyCertificate;Vorgangsnummer=soap-1697717549289-b7f13807",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MjkuMzE5O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogVmVyaWZ5Q2VydGlmaWNhdGU7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTQ5Mjg5LWI3ZjEzODA3Cg=="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:29.314",
+    "timestampAsDateTime": "1697717549.314000000",
+    "message": "Beginn des Anwendungsfalls: VerifyCertificate;Vorgangsnummer=soap-1697717549289-b7f13807",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MjkuMzE0O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBWZXJpZnlDZXJ0aWZpY2F0ZTtWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NDkyODktYjdmMTM4MDcK"
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:29.260",
+    "timestampAsDateTime": "1697717549.260000000",
+    "message": "Ende des Anwendungsfalls: VerifyCertificate;Vorgangsnummer=soap-1697717549237-80410dc0",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MjkuMjYwO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogVmVyaWZ5Q2VydGlmaWNhdGU7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTQ5MjM3LTgwNDEwZGMwCg=="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:29.254",
+    "timestampAsDateTime": "1697717549.254000000",
+    "message": "Beginn des Anwendungsfalls: VerifyCertificate;Vorgangsnummer=soap-1697717549237-80410dc0",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MjkuMjU0O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBWZXJpZnlDZXJ0aWZpY2F0ZTtWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NDkyMzctODA0MTBkYzAK"
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:29.208",
+    "timestampAsDateTime": "1697717549.208000000",
+    "message": "Ende des Anwendungsfalls: VerifyCertificate;Vorgangsnummer=soap-1697717549181-cf1b9dba",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MjkuMjA4O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogVmVyaWZ5Q2VydGlmaWNhdGU7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTQ5MTgxLWNmMWI5ZGJhCg=="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:29.201",
+    "timestampAsDateTime": "1697717549.201000000",
+    "message": "Beginn des Anwendungsfalls: VerifyCertificate;Vorgangsnummer=soap-1697717549181-cf1b9dba",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MjkuMjAxO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBWZXJpZnlDZXJ0aWZpY2F0ZTtWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NDkxODEtY2YxYjlkYmEK"
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:29.113",
+    "timestampAsDateTime": "1697717549.113000000",
+    "message": "Ende des Anwendungsfalls: ReadCardCertificate;Vorgangsnummer=soap-1697717548713-1c32a2aa",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MjkuMTEzO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogUmVhZENhcmRDZXJ0aWZpY2F0ZTtWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NDg3MTMtMWMzMmEyYWEK"
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:29.004",
+    "timestampAsDateTime": "1697717549.4000000",
+    "message": "topic=MGM/ADMINCHANGES;User=super;RefID=MGM_KSR_AUTO_UPDATE;NewVal=true;Vorgangsnummer=evnt-1697717549004-8cf17859",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MjkuMDA0O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0b3BpYz1NR00vQURNSU5DSEFOR0VTO1VzZXI9c3VwZXI7UmVmSUQ9TUdNX0tTUl9BVVRPX1VQREFURTtOZXdWYWw9dHJ1ZTtWb3JnYW5nc251bW1lcj1ldm50LTE2OTc3MTc1NDkwMDQtOGNmMTc4NTkK"
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:29.004",
+    "timestampAsDateTime": "1697717549.4000000",
+    "message": "topic=MGM/ADMINCHANGES;User=super;RefID=MGM_KSR_AUTODOWNLOAD;NewVal=true;Vorgangsnummer=evnt-1697717549003-b161b61d",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MjkuMDA0O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0b3BpYz1NR00vQURNSU5DSEFOR0VTO1VzZXI9c3VwZXI7UmVmSUQ9TUdNX0tTUl9BVVRPRE9XTkxPQUQ7TmV3VmFsPXRydWU7Vm9yZ2FuZ3NudW1tZXI9ZXZudC0xNjk3NzE3NTQ5MDAzLWIxNjFiNjFkCg=="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:29.002",
+    "timestampAsDateTime": "1697717549.2000000",
+    "message": "topic=MGM/ADMINCHANGES;User=super;RefID=MGM_KSR_AUTOCHECK;NewVal=true;Vorgangsnummer=evnt-1697717549002-197b9e42",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MjkuMDAyO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0b3BpYz1NR00vQURNSU5DSEFOR0VTO1VzZXI9c3VwZXI7UmVmSUQ9TUdNX0tTUl9BVVRPQ0hFQ0s7TmV3VmFsPXRydWU7Vm9yZ2FuZ3NudW1tZXI9ZXZudC0xNjk3NzE3NTQ5MDAyLTE5N2I5ZTQyCg=="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:28.730",
+    "timestampAsDateTime": "1697717548.730000000",
+    "message": "Beginn des Anwendungsfalls: ReadCardCertificate;Vorgangsnummer=soap-1697717548713-1c32a2aa",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MjguNzMwO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBSZWFkQ2FyZENlcnRpZmljYXRlO1ZvcmdhbmdzbnVtbWVyPXNvYXAtMTY5NzcxNzU0ODcxMy0xYzMyYTJhYQo="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:28.684",
+    "timestampAsDateTime": "1697717548.684000000",
+    "message": "topic=MAN/OCSP/RESPONSE;Status=GOOD;Vorgangsnummer=evnt-1697717548683-363eba11",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MjguNjg0O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0b3BpYz1NQU4vT0NTUC9SRVNQT05TRTtTdGF0dXM9R09PRDtWb3JnYW5nc251bW1lcj1ldm50LTE2OTc3MTc1NDg2ODMtMzYzZWJhMTEK"
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:28.683",
+    "timestampAsDateTime": "1697717548.683000000",
+    "message": "Ende des Anwendungsfalls: VerifyCertificate;Vorgangsnummer=soap-1697717548558-619290f2",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MjguNjgzO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogVmVyaWZ5Q2VydGlmaWNhdGU7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTQ4NTU4LTYxOTI5MGYyCg=="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:28.577",
+    "timestampAsDateTime": "1697717548.577000000",
+    "message": "Beginn des Anwendungsfalls: VerifyCertificate;Vorgangsnummer=soap-1697717548558-619290f2",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MjguNTc3O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBWZXJpZnlDZXJ0aWZpY2F0ZTtWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NDg1NTgtNjE5MjkwZjIK"
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:28.529",
+    "timestampAsDateTime": "1697717548.529000000",
+    "message": "Ende des Anwendungsfalls: VerifyCertificate;Vorgangsnummer=soap-1697717548506-e4024cc4",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MjguNTI5O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogVmVyaWZ5Q2VydGlmaWNhdGU7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTQ4NTA2LWU0MDI0Y2M0Cg=="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:28.524",
+    "timestampAsDateTime": "1697717548.524000000",
+    "message": "Beginn des Anwendungsfalls: VerifyCertificate;Vorgangsnummer=soap-1697717548506-e4024cc4",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MjguNTI0O3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBWZXJpZnlDZXJ0aWZpY2F0ZTtWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NDg1MDYtZTQwMjRjYzQK"
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:28.450",
+    "timestampAsDateTime": "1697717548.450000000",
+    "message": "Ende des Anwendungsfalls: VerifyCertificate;Vorgangsnummer=soap-1697717548426-2a77778d",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MjguNDUwO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUVuZGUgZGVzIEFud2VuZHVuZ3NmYWxsczogVmVyaWZ5Q2VydGlmaWNhdGU7Vm9yZ2FuZ3NudW1tZXI9c29hcC0xNjk3NzE3NTQ4NDI2LTJhNzc3NzhkCg=="
+  },
+  {
+    "type": "OP",
+    "timestamp": "19.10.2023 14:12:28.443",
+    "timestampAsDateTime": "1697717548.443000000",
+    "message": "Beginn des Anwendungsfalls: VerifyCertificate;Vorgangsnummer=soap-1697717548426-2a77778d",
+    "severity": "INFO",
+    "bytes": "dGltZXN0YW1wPTE5LjEwLjIwMjMgMTQ6MTI6MjguNDQzO3R5cGU9b3A7c2V2ZXJpdHk9aW5mbzt0ZXh0PUJlZ2lubiBkZXMgQW53ZW5kdW5nc2ZhbGxzOiBWZXJpZnlDZXJ0aWZpY2F0ZTtWb3JnYW5nc251bW1lcj1zb2FwLTE2OTc3MTc1NDg0MjYtMmE3Nzc3OGQK"
+  }
+]
