@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<project
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd"
+  xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>health.medunited.cat.lib</groupId>
+  <artifactId>lib</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <properties>
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
+    <olingo.version>2.0.12</olingo.version>
+  </properties>
+  <dependencies>
+    <dependency>
+      <groupId>javax</groupId>
+      <artifactId>javaee-api</artifactId>
+      <version>8.0</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.olingo</groupId>
+      <artifactId>olingo-odata2-core</artifactId>
+      <version>${olingo.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.olingo</groupId>
+      <artifactId>olingo-odata2-api</artifactId>
+      <version>${olingo.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.olingo</groupId>
+      <artifactId>olingo-odata2-jpa-processor-api</artifactId>
+      <version>${olingo.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.olingo</groupId>
+      <artifactId>olingo-odata2-jpa-processor-core</artifactId>
+      <version>${olingo.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.olingo</groupId>
+      <artifactId>olingo-odata2-api-annotation</artifactId>
+      <version>${olingo.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.bouncycastle</groupId>
+      <artifactId>bcpkix-jdk15on</artifactId>
+      <version>1.60</version>
+    </dependency>
+    <dependency>
+      <groupId>health.ere</groupId>
+      <artifactId>api-telematik-service</artifactId>
+      <version>OPD4-20230404</version>
+    </dependency>
+  </dependencies>
+  <repositories>
+    <repository>
+      <!-- git clone https://github.com/ere-health/api-telematik -->
+      <!-- cd api-telematik && mvn install -->
+      <!-- cd <some-local-path>/ere-ps-app/project-repo -->
+      <!-- cp -r ~/.m2/repository/health/  -->
+      <id>project-repo</id>
+      <releases>
+        <checksumPolicy>ignore</checksumPolicy>
+      </releases>
+      <url>file://${project.basedir}/project-repo</url>
+    </repository>
+  </repositories>
+</project>
