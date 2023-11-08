@@ -11,7 +11,7 @@ import de.gematik.ws.conn.certificateservicecommon.v2.CertRefEnum;
 import de.gematik.ws.conn.connectorcontext.v2.ContextType;
 import health.medunited.cat.base.Bootstrap;
 import health.medunited.cat.base.entities.RuntimeConfig;
-import health.medunited.cat.base.service.common.security.SecretsManagerService;
+import health.medunited.cat.lib.service.common.security.SecretsManagerService;
 
 public class CertificateTest {
 

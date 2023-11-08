@@ -1,0 +1,32 @@
+package health.medunited.cat.lib.jaxrs.management;
+
+import health.medunited.cat.lib.model.ManagementCredentials;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Named;
+
+@ApplicationScoped
+@Named("kocobox")
+public class KocoboxConnector extends AbstractConnector {
+
+  private static final Logger log = Logger.getLogger(KocoboxConnector.class.getName());
+
+  @Override
+  public void restart(String connectorUrl, ManagementCredentials managementCredentials) {
+    restart(connectorUrl, "8500", managementCredentials);
+  }
+
+  @Override
+  public void restart(String connectorUrl, String managementPort,
+      ManagementCredentials managementCredentials) {
+    log.log(Level.INFO, "Restarting Kocobox connector");
+  }
+
+  @Override
+  public boolean isTIOnline(String connectorUrl, String managementPort,
+      ManagementCredentials managementCredentials) {
+    return true;
+  }
+}

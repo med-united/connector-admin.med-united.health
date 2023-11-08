@@ -7,7 +7,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import health.medunited.cat.base.service.endpoint.EndpointDiscoveryService;
+import health.medunited.cat.lib.service.endpoint.EndpointDiscoveryService;
 
 @Path("sds")
 public class ConnectorSds {

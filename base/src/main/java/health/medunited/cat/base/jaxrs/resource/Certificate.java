@@ -1,7 +1,7 @@
 package health.medunited.cat.base.jaxrs.resource;
 
-import health.medunited.cat.base.model.VerifyAllEntry;
-import health.medunited.cat.base.provider.ContextTypeProducer;
+import health.medunited.cat.lib.model.VerifyAllEntry;
+import health.medunited.cat.lib.provider.ContextTypeProducer;
 import java.security.cert.CertificateEncodingException;
 import java.security.cert.X509Certificate;
 import java.util.GregorianCalendar;
@@ -26,7 +26,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.ws.Holder;
 
 import de.gematik.ws.conn.eventservice.wsdl.v7.FaultMessage;
-import health.medunited.cat.base.jaxrs.resource.crypto.CryptoLoader;
+import health.medunited.cat.lib.jaxrs.resource.crypto.CryptoLoader;
 import org.bouncycastle.asn1.x500.AttributeTypeAndValue;
 import org.bouncycastle.asn1.x500.RDN;
 import org.bouncycastle.asn1.x500.X500Name;

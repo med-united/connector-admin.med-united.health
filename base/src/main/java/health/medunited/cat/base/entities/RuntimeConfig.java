@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 
-import health.medunited.cat.base.odata.annotations.ODataCacheControl;
+import health.medunited.cat.lib.odata.annotations.ODataCacheControl;
 
 @Entity
 @NamedQuery(name = "RuntimeConfig.findAll", query = "SELECT r FROM RuntimeConfig r")

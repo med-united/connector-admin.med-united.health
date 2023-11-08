@@ -1,5 +1,7 @@
 package health.medunited.cat.base.odata;
 
+import health.medunited.cat.lib.odata.CORSFilter;
+import health.medunited.cat.lib.odata.etag.ETagResponseFilter;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -9,9 +11,6 @@ import org.apache.olingo.odata2.api.ODataServiceFactory;
 import org.apache.olingo.odata2.core.rest.ODataExceptionMapperImpl;
 import org.apache.olingo.odata2.core.rest.ODataRootLocator;
 import org.apache.olingo.odata2.core.rest.app.AbstractODataApplication;
-
-import health.medunited.cat.base.CORSFilter;
-import health.medunited.cat.base.odata.etag.ETagResponseFilter;
 
 /**
  * Configures a JAX-RS endpoint. Delete this class, if you are not exposing JAX-RS resources in your

@@ -1,6 +1,6 @@
 package health.medunited.cat.base.jaxrs.resource;
 
-import health.medunited.cat.base.provider.ContextTypeProducer;
+import health.medunited.cat.lib.provider.ContextTypeProducer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 

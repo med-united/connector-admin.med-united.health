@@ -1,5 +1,7 @@
 package health.medunited.cat.base.odata;
 
+import health.medunited.cat.lib.odata.ETagCacheControlODataJPAProcessor;
+import health.medunited.cat.lib.odata.ETagJPAEDMExtension;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 

@@ -1,7 +1,7 @@
 package health.medunited.cat.base.monitoring;
 
 import health.medunited.cat.base.entities.RuntimeConfig;
-import health.medunited.cat.base.provider.ConnectorServicesProducer;
+import health.medunited.cat.lib.provider.ConnectorServicesProducer;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.net.URISyntaxException;
@@ -37,8 +37,8 @@ import de.gematik.ws.conn.connectorcontext.v2.ContextType;
 import de.gematik.ws.conn.eventservice.v7.GetCards;
 import de.gematik.ws.conn.eventservice.v7.GetCardsResponse;
 import de.gematik.ws.conn.eventservice.wsdl.v7.EventServicePortType;
-import health.medunited.cat.base.service.common.security.SecretsManagerService;
-import health.medunited.cat.base.service.endpoint.EndpointDiscoveryService;
+import health.medunited.cat.lib.service.common.security.SecretsManagerService;
+import health.medunited.cat.lib.service.endpoint.EndpointDiscoveryService;
 
 @Singleton
 public class Scheduler {

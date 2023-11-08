@@ -1,6 +1,7 @@
 package health.medunited.cat.logsearch.odata;
 
-import health.medunited.cat.logsearch.odata.etag.ETagResponseFilter;
+import health.medunited.cat.lib.odata.CORSFilter;
+import health.medunited.cat.lib.odata.etag.ETagResponseFilter;
 import java.util.HashSet;
 import java.util.Set;
 

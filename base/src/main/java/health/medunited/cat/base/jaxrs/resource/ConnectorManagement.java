@@ -1,8 +1,8 @@
 package health.medunited.cat.base.jaxrs.resource;
 
-import health.medunited.cat.base.jaxrs.management.Connector;
-import health.medunited.cat.base.jaxrs.management.ConnectorBrands;
-import health.medunited.cat.base.model.ManagementCredentials;
+import health.medunited.cat.lib.jaxrs.management.Connector;
+import health.medunited.cat.lib.jaxrs.management.ConnectorBrands;
+import health.medunited.cat.lib.model.ManagementCredentials;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;

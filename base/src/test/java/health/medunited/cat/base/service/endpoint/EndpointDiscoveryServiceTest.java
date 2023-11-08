@@ -2,6 +2,7 @@ package health.medunited.cat.base.service.endpoint;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import health.medunited.cat.lib.service.endpoint.EndpointDiscoveryService;
 import java.io.InputStream;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,7 +16,7 @@ import org.mockito.Mockito;
 
 import health.medunited.cat.base.Bootstrap;
 import health.medunited.cat.base.entities.RuntimeConfig;
-import health.medunited.cat.base.service.common.security.SecretsManagerService;
+import health.medunited.cat.lib.service.common.security.SecretsManagerService;
 
 
 class EndpointDiscoveryServiceTest {
