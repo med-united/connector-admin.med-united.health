@@ -95,10 +95,13 @@
       <version>5.0.1.Final</version>
       <scope>test</scope>
     </dependency>
+    <!--    the version of the following package (or.jboss.weld) shall not be updated -->
+    <!--    since in with newer versions the persistence explorer of intellij -->
+    <!--    won't function anymore and side effects are unknown -->
     <dependency>
       <groupId>org.jboss.weld</groupId>
       <artifactId>weld-junit5</artifactId>
-      <version>4.0.0.Final</version>
+      <version> 2.0.2.Final</version>
       <scope>test</scope>
     </dependency>
     <dependency>
