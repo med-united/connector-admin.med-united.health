@@ -1,6 +1,7 @@
 package health.medunited.cat.logsearch.ejb;
 
 import health.medunited.cat.logsearch.jpa.LogEntry;
+import java.util.Arrays;
 import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
@@ -26,7 +27,7 @@ public class Bootstrap {
   public void install() {
     LogEntry[] entries = jsonb.fromJson(getClass().getResourceAsStream("/log.json"),
         LogEntry[].class);
-    for (LogEntry entry : entries) {
+    for (LogEntry entry : Arrays.stream(entries, 1, 4).toArray(LogEntry[]::new)) {
       em.persist(entry);
     }
   }
