@@ -1,5 +1,5 @@
-<!-- This standalone config is based on the standalone-full.xml-->
 <?xml version="1.0" ?>
+<!-- This standalone config is based on the standalone-full.xml-->
 <server
     xmlns="urn:jboss:domain:19.0">
     <extensions>
