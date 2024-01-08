@@ -1,9 +1,7 @@
 package health.medunited.architecture.jaxrs.management;
 
 public enum ConnectorBrands {
-  SECUNET("secunet"),
-  KOCOBOX("kocobox"),
-  RISE("rise");
+  SECUNET("secunet"), KOCOBOX("kocobox"), RISE("rise");
 
   private final String value;
 

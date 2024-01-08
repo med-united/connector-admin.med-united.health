@@ -41,10 +41,8 @@ public class Event {
     try {
       GetCards getCards = new GetCards();
       getCards.setContext(copyValuesFromProxyIntoContextType(contextType));
-      return Response.status(Response.Status.OK)
-          .entity(eventServicePortType.getCards(getCards))
-          .type(MediaType.APPLICATION_JSON_TYPE)
-          .build();
+      return Response.status(Response.Status.OK).entity(eventServicePortType.getCards(getCards))
+          .type(MediaType.APPLICATION_JSON_TYPE).build();
     } catch (Throwable t) {
       log.log(Level.WARNING, "Could not get cards", t);
       return Response.status(Response.Status.NOT_FOUND).entity(new GetCardsResponse()).build();
@@ -59,8 +57,7 @@ public class Event {
       getCardTerminals.setContext(copyValuesFromProxyIntoContextType(contextType));
       return Response.status(Response.Status.OK)
           .entity(eventServicePortType.getCardTerminals(getCardTerminals))
-          .type(MediaType.APPLICATION_JSON_TYPE)
-          .build();
+          .type(MediaType.APPLICATION_JSON_TYPE).build();
     } catch (Throwable t) {
       log.log(Level.WARNING, "Could not get card terminals", t);
       return Response.status(Response.Status.NOT_FOUND).entity(new GetCardsResponse()).build();

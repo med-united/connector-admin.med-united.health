@@ -27,8 +27,7 @@ public class ETagResponseFilter implements ContainerResponseFilter {
 
   @Override
   public void filter(ContainerRequestContext requestContext,
-      ContainerResponseContext responseContext)
-      throws IOException {
+      ContainerResponseContext responseContext) throws IOException {
     byte[] arrayOfByte = payloadMessage(responseContext);
     if (arrayOfByte == null) {
       return;
@@ -43,8 +42,8 @@ public class ETagResponseFilter implements ContainerResponseFilter {
 
     if ((ifNoneMatchHeader != null) && (ifNoneMatchHeader.equals(etag))) {
       responseContext.setStatus(304);
-      responseContext.getHeaders()
-          .add("Last-Modified", requestContext.getHeaderString("If-Modified-Since"));
+      responseContext.getHeaders().add("Last-Modified",
+          requestContext.getHeaderString("If-Modified-Since"));
       responseContext.setEntity(null);
     } else {
       responseContext.getHeaders().add("Last-Modified",
@@ -65,7 +64,7 @@ public class ETagResponseFilter implements ContainerResponseFilter {
         return targetArray;
       }
     }
-    return new byte[]{};
+    return new byte[] {};
   }
 
 }

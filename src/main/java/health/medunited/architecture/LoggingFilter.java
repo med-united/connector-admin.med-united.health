@@ -5,39 +5,32 @@ package health.medunited.architecture;
  *
  * Copyright (c) 2011-2016 Oracle and/or its affiliates. All rights reserved.
  *
- * The contents of this file are subject to the terms of either the GNU
- * General Public License Version 2 only ("GPL") or the Common Development
- * and Distribution License("CDDL") (collectively, the "License").  You
- * may not use this file except in compliance with the License.  You can
- * obtain a copy of the License at
- * http://glassfish.java.net/public/CDDL+GPL_1_1.html
- * or packager/legal/LICENSE.txt.  See the License for the specific
- * language governing permissions and limitations under the License.
+ * The contents of this file are subject to the terms of either the GNU General Public License
+ * Version 2 only ("GPL") or the Common Development and Distribution License("CDDL") (collectively,
+ * the "License"). You may not use this file except in compliance with the License. You can obtain a
+ * copy of the License at http://glassfish.java.net/public/CDDL+GPL_1_1.html or
+ * packager/legal/LICENSE.txt. See the License for the specific language governing permissions and
+ * limitations under the License.
  *
- * When distributing the software, include this License Header Notice in each
- * file and include the License file at packager/legal/LICENSE.txt.
+ * When distributing the software, include this License Header Notice in each file and include the
+ * License file at packager/legal/LICENSE.txt.
  *
- * GPL Classpath Exception:
- * Oracle designates this particular file as subject to the "Classpath"
- * exception as provided by Oracle in the GPL Version 2 section of the License
- * file that accompanied this code.
+ * GPL Classpath Exception: Oracle designates this particular file as subject to the "Classpath"
+ * exception as provided by Oracle in the GPL Version 2 section of the License file that accompanied
+ * this code.
  *
- * Modifications:
- * If applicable, add the following below the License Header, with the fields
+ * Modifications: If applicable, add the following below the License Header, with the fields
  * enclosed by brackets [] replaced by your own identifying information:
  * "Portions Copyright [year] [name of copyright owner]"
  *
- * Contributor(s):
- * If you wish your version of this file to be governed by only the CDDL or
- * only the GPL Version 2, indicate your decision by adding "[Contributor]
- * elects to include this software in this distribution under the [CDDL or GPL
- * Version 2] license."  If you don't indicate a single choice of license, a
- * recipient has the option to distribute your version of this file under
- * either the CDDL, the GPL Version 2 or to extend the choice of license to
- * its licensees as provided above.  However, if you add GPL Version 2 code
- * and therefore, elected the GPL Version 2 license, then the option applies
- * only if the new code is made subject to such option by the copyright
- * holder.
+ * Contributor(s): If you wish your version of this file to be governed by only the CDDL or only the
+ * GPL Version 2, indicate your decision by adding "[Contributor] elects to include this software in
+ * this distribution under the [CDDL or GPL Version 2] license." If you don't indicate a single
+ * choice of license, a recipient has the option to distribute your version of this file under
+ * either the CDDL, the GPL Version 2 or to extend the choice of license to its licensees as
+ * provided above. However, if you add GPL Version 2 code and therefore, elected the GPL Version 2
+ * license, then the option applies only if the new code is made subject to such option by the
+ * copyright holder.
  */
 
 import javax.annotation.Priority;
@@ -70,8 +63,7 @@ import java.util.logging.Logger;
 @Priority(Integer.MIN_VALUE)
 @SuppressWarnings("ClassWithMultipleLoggers")
 public final class LoggingFilter implements ContainerRequestFilter, ClientRequestFilter,
-    ContainerResponseFilter,
-    ClientResponseFilter, WriterInterceptor {
+    ContainerResponseFilter, ClientResponseFilter, WriterInterceptor {
 
   private static final Logger LOGGER = Logger.getLogger(LoggingFilter.class.getName());
   private static final String NOTIFICATION_PREFIX = "* ";
@@ -111,9 +103,9 @@ public final class LoggingFilter implements ContainerRequestFilter, ClientReques
   /**
    * Create a logging filter with custom logger and custom settings of entity logging.
    *
-   * @param logger      the logger to log requests and responses.
+   * @param logger the logger to log requests and responses.
    * @param printEntity if true, entity will be logged as well up to the default maxEntitySize,
-   *                    which is 8KB
+   *        which is 8KB
    */
   @SuppressWarnings("BooleanParameter")
   public LoggingFilter(final Logger logger, final boolean printEntity) {
@@ -126,11 +118,10 @@ public final class LoggingFilter implements ContainerRequestFilter, ClientReques
    * Creates a logging filter with custom logger and entity logging turned on, but potentially
    * limiting the size of entity to be buffered and logged.
    *
-   * @param logger        the logger to log requests and responses.
+   * @param logger the logger to log requests and responses.
    * @param maxEntitySize maximum number of entity bytes to be logged (and buffered) - if the entity
-   *                      is larger, logging filter will print (and buffer in memory) only the
-   *                      specified number of bytes and print "...more..." string at the end.
-   *                      Negative values are interpreted as zero.
+   *        is larger, logging filter will print (and buffer in memory) only the specified number of
+   *        bytes and print "...more..." string at the end. Negative values are interpreted as zero.
    */
   public LoggingFilter(final Logger logger, final int maxEntitySize) {
     this.logger = logger;
@@ -151,27 +142,20 @@ public final class LoggingFilter implements ContainerRequestFilter, ClientReques
 
   private void printRequestLine(final StringBuilder b, final String note, final long id,
       final String method, final URI uri) {
-    prefixId(b, id).append(NOTIFICATION_PREFIX)
-        .append(note)
-        .append(" on thread ").append(Thread.currentThread().getName())
+    prefixId(b, id).append(NOTIFICATION_PREFIX).append(note).append(" on thread ")
+        .append(Thread.currentThread().getName()).append("\n");
+    prefixId(b, id).append(REQUEST_PREFIX).append(method).append(" ").append(uri.toASCIIString())
         .append("\n");
-    prefixId(b, id).append(REQUEST_PREFIX).append(method).append(" ")
-        .append(uri.toASCIIString()).append("\n");
   }
 
   private void printResponseLine(final StringBuilder b, final String note, final long id,
       final int status) {
-    prefixId(b, id).append(NOTIFICATION_PREFIX)
-        .append(note)
-        .append(" on thread ").append(Thread.currentThread().getName()).append("\n");
-    prefixId(b, id).append(RESPONSE_PREFIX)
-        .append(Integer.toString(status))
-        .append("\n");
+    prefixId(b, id).append(NOTIFICATION_PREFIX).append(note).append(" on thread ")
+        .append(Thread.currentThread().getName()).append("\n");
+    prefixId(b, id).append(RESPONSE_PREFIX).append(Integer.toString(status)).append("\n");
   }
 
-  private void printPrefixedHeaders(final StringBuilder b,
-      final long id,
-      final String prefix,
+  private void printPrefixedHeaders(final StringBuilder b, final long id, final String prefix,
       final MultivaluedMap<String, String> headers) {
     for (final Map.Entry<String, List<String>> headerEntry : getSortedHeaders(headers.entrySet())) {
       final List<?> val = headerEntry.getValue();
@@ -197,8 +181,8 @@ public final class LoggingFilter implements ContainerRequestFilter, ClientReques
 
   private Set<Map.Entry<String, List<String>>> getSortedHeaders(
       final Set<Map.Entry<String, List<String>>> headers) {
-    final TreeSet<Map.Entry<String, List<String>>> sortedHeaders = new TreeSet<Map.Entry<String, List<String>>>(
-        COMPARATOR);
+    final TreeSet<Map.Entry<String, List<String>>> sortedHeaders =
+        new TreeSet<Map.Entry<String, List<String>>>(COMPARATOR);
     sortedHeaders.addAll(headers);
     return sortedHeaders;
   }
@@ -242,8 +226,7 @@ public final class LoggingFilter implements ContainerRequestFilter, ClientReques
 
   @Override
   public void filter(final ClientRequestContext requestContext,
-      final ClientResponseContext responseContext)
-      throws IOException {
+      final ClientResponseContext responseContext) throws IOException {
     final Object requestId = requestContext.getProperty(LOGGING_ID_PROPERTY);
     final long id = requestId != null ? (Long) requestId : _id.incrementAndGet();
 
@@ -253,8 +236,8 @@ public final class LoggingFilter implements ContainerRequestFilter, ClientReques
     printPrefixedHeaders(b, id, RESPONSE_PREFIX, responseContext.getHeaders());
 
     if (printEntity && responseContext.hasEntity()) {
-      responseContext.setEntityStream(logInboundEntity(b, responseContext.getEntityStream(),
-          Charset.defaultCharset()));
+      responseContext.setEntityStream(
+          logInboundEntity(b, responseContext.getEntityStream(), Charset.defaultCharset()));
     }
 
     log(b);
@@ -281,8 +264,7 @@ public final class LoggingFilter implements ContainerRequestFilter, ClientReques
 
   @Override
   public void filter(final ContainerRequestContext requestContext,
-      final ContainerResponseContext responseContext)
-      throws IOException {
+      final ContainerResponseContext responseContext) throws IOException {
     final Object requestId = requestContext.getProperty(LOGGING_ID_PROPERTY);
     final long id = requestId != null ? (Long) requestId : _id.incrementAndGet();
 
@@ -304,8 +286,8 @@ public final class LoggingFilter implements ContainerRequestFilter, ClientReques
   @Override
   public void aroundWriteTo(final WriterInterceptorContext writerInterceptorContext)
       throws IOException, WebApplicationException {
-    final LoggingStream stream = (LoggingStream) writerInterceptorContext.getProperty(
-        ENTITY_LOGGER_PROPERTY);
+    final LoggingStream stream =
+        (LoggingStream) writerInterceptorContext.getProperty(ENTITY_LOGGER_PROPERTY);
     writerInterceptorContext.proceed();
     if (stream != null) {
       log(stream.getStringBuilder(Charset.defaultCharset()));

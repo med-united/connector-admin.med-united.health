@@ -43,11 +43,9 @@ public class ConnectorManagement {
   @POST
   @Path("/{connectorType}/restart")
   @Consumes(MediaType.APPLICATION_JSON)
-  public void restart(
-      @PathParam("connectorType") String connectorType,
+  public void restart(@PathParam("connectorType") String connectorType,
       @QueryParam("connectorUrl") String connectorUrl,
-      ManagementCredentials managementCredentials
-  ) {
+      ManagementCredentials managementCredentials) {
 
     Connector connector = connectorMap.get(connectorType);
     if (connector == null) {
@@ -61,11 +59,9 @@ public class ConnectorManagement {
   @GET
   @Path("/{connectorType}/checkTIStatus")
   @Consumes(MediaType.APPLICATION_JSON)
-  public void checkTIStatus(
-      @PathParam("connectorType") String connectorType,
+  public void checkTIStatus(@PathParam("connectorType") String connectorType,
       @QueryParam("connectorUrl") String connectorUrl,
-      ManagementCredentials managementCredentials
-  ) {
+      ManagementCredentials managementCredentials) {
 
     Connector connector = connectorMap.get(connectorType);
     if (connector == null) {

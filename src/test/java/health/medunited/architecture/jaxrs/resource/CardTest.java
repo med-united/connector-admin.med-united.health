@@ -26,8 +26,7 @@ class CardTest {
         .header("X-Use-Certificate-Auth", runtimeConfig.getUseCertificateAuth())
         .header("X-Client-Certificate", runtimeConfig.getClientCertificate())
         .header("X-Client-Certificate-Password", runtimeConfig.getClientCertificatePassword())
-        .header("X-Host", runtimeConfig.getUrl())
-        .accept(MediaType.APPLICATION_JSON_TYPE)
+        .header("X-Host", runtimeConfig.getUrl()).accept(MediaType.APPLICATION_JSON_TYPE)
         .get(String.class);
 
     System.out.println(s);

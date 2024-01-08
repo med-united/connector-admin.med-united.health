@@ -46,8 +46,7 @@ public class RuntimeConfig {
 
   private String basicAuthPassword;
 
-  public RuntimeConfig() {
-  }
+  public RuntimeConfig() {}
 
   public RuntimeConfig(String userId, String url, String connectorBrand, String mandantId,
       String clientSystemId, String workplaceId, String username, String password,

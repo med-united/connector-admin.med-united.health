@@ -19,8 +19,7 @@ public class PkiIdentity {
     this.setUse(use);
   }
 
-  public PkiIdentity() {
-  }
+  public PkiIdentity() {}
 
   public X509Certificate getCertificate() {
     return certificate;

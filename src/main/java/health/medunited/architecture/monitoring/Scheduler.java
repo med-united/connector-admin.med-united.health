@@ -64,8 +64,7 @@ public class Scheduler {
     log.info("Scanning Connectors");
 
     TypedQuery<RuntimeConfig> query =
-        entityManager.createNamedQuery("RuntimeConfig.findAll",
-            RuntimeConfig.class);
+        entityManager.createNamedQuery("RuntimeConfig.findAll", RuntimeConfig.class);
 
     List<RuntimeConfig> runtimeConfigs = query.getResultList();
     for (RuntimeConfig runtimeConfig : runtimeConfigs) {
@@ -79,17 +78,16 @@ public class Scheduler {
           try {
             secretsManagerService.setUpSSLContext(
                 secretsManagerService.getKeyFromKeyStoreUri(keystore, keystorePassword));
-          } catch (KeyManagementException | NoSuchAlgorithmException | KeyStoreException |
-                   CertificateException
-                   | URISyntaxException | IOException e) {
+          } catch (KeyManagementException | NoSuchAlgorithmException | KeyStoreException
+              | CertificateException | URISyntaxException | IOException e) {
             log.log(Level.WARNING, "Could not create SSL context", e);
           }
         } else {
           secretsManagerService.acceptAllCertificates();
         }
 
-        EndpointDiscoveryService endpointDiscoveryService = new EndpointDiscoveryService(
-            secretsManagerService);
+        EndpointDiscoveryService endpointDiscoveryService =
+            new EndpointDiscoveryService(secretsManagerService);
         try {
           endpointDiscoveryService.obtainConfiguration(runtimeConfig.getUrl(),
               runtimeConfig.getBasicAuthUsername(), runtimeConfig.getBasicAuthPassword());
@@ -107,14 +105,16 @@ public class Scheduler {
         connectorServicesProducer.initializeCardServicePortType(
             runtimeConfig.getBasicAuthUsername(), runtimeConfig.getBasicAuthPassword());
 
-        EventServicePortType eventServicePortType = connectorServicesProducer.getEventServicePortType();
-        CardServicePortType cardServicePortType = connectorServicesProducer.getCardServicePortType();
+        EventServicePortType eventServicePortType =
+            connectorServicesProducer.getEventServicePortType();
+        CardServicePortType cardServicePortType =
+            connectorServicesProducer.getCardServicePortType();
 
         // register a new application scoped metric
-        Timer connectorResponseTime = applicationRegistry.timer(Metadata.builder()
-            .withName("connectorResponseTime_" + runtimeConfig.getUrl())
-            .withDescription("Timer for measuring response times for " + runtimeConfig.getUrl())
-            .build());
+        Timer connectorResponseTime = applicationRegistry
+            .timer(Metadata.builder().withName("connectorResponseTime_" + runtimeConfig.getUrl())
+                .withDescription("Timer for measuring response times for " + runtimeConfig.getUrl())
+                .build());
 
         addMetricTimeInSecondsUntilSMCKTCardExpires(connectorResponseTime, runtimeConfig,
             eventServicePortType);
@@ -144,25 +144,24 @@ public class Scheduler {
   private void addMetricTimeInSecondsUntilSMCKTCardExpires(Timer connectorResponseTime,
       RuntimeConfig runtimeConfig, EventServicePortType eventServicePortType) {
     try {
-      Callable<Long> secondsCallable = getTimeInSecondsUntilSMCKTCardExpires(runtimeConfig,
-          eventServicePortType);
+      Callable<Long> secondsCallable =
+          getTimeInSecondsUntilSMCKTCardExpires(runtimeConfig, eventServicePortType);
       Gauge<Long> timeInSecondsUntilSMCKTCardExpires = applicationRegistry.gauge(Metadata.builder()
           .withName("secondsDurationLeftUntilSMC_KTexpiry_" + runtimeConfig.getUrl())
           .withDescription(
               "duration of seconds until the SMC_KT card expires " + runtimeConfig.getUrl())
           .build(), () -> {
-        Long secondsDurationLeftUntilExpiryLng;
-        try {
-          secondsDurationLeftUntilExpiryLng = connectorResponseTime.time(secondsCallable);
-          log.info(
-              "Currently connected card expires in sec: " + secondsDurationLeftUntilExpiryLng + " "
-                  + runtimeConfig.getUrl());
-          return secondsDurationLeftUntilExpiryLng;
-        } catch (Exception e) {
-          log.log(Level.WARNING, "Cannot measure connector", e);
-        }
-        return null;
-      });
+            Long secondsDurationLeftUntilExpiryLng;
+            try {
+              secondsDurationLeftUntilExpiryLng = connectorResponseTime.time(secondsCallable);
+              log.info("Currently connected card expires in sec: "
+                  + secondsDurationLeftUntilExpiryLng + " " + runtimeConfig.getUrl());
+              return secondsDurationLeftUntilExpiryLng;
+            } catch (Exception e) {
+              log.log(Level.WARNING, "Cannot measure connector", e);
+            }
+            return null;
+          });
     } catch (Exception e) {
       log.log(Level.WARNING, "Cannot measure connector", e);
     }
@@ -199,7 +198,7 @@ public class Scheduler {
           return duration.toSeconds();
         }
       }
-      //unlikely to reach
+      // unlikely to reach
       return null;
     };
   }
@@ -208,21 +207,21 @@ public class Scheduler {
       RuntimeConfig runtimeConfig, EventServicePortType eventServicePortType) {
     try {
       Callable<Integer> callable = getCurrentlyConnectedCards(runtimeConfig, eventServicePortType);
-      Gauge<Integer> currentlyConnectedCards = applicationRegistry.gauge(Metadata.builder()
-          .withName("currentlyConnectedCards_" + runtimeConfig.getUrl())
-          .withDescription("Currently connected cards for " + runtimeConfig.getUrl())
-          .build(), () -> {
-        Integer currentlyConnectedCardsInt;
-        try {
-          currentlyConnectedCardsInt = connectorResponseTime.time(callable);
-          log.info("Currently connected cards: " + currentlyConnectedCardsInt + " "
-              + runtimeConfig.getUrl());
-          return currentlyConnectedCardsInt;
-        } catch (Exception e) {
-          log.log(Level.WARNING, "Cannot measure connector", e);
-        }
-        return null;
-      });
+      Gauge<Integer> currentlyConnectedCards = applicationRegistry.gauge(
+          Metadata.builder().withName("currentlyConnectedCards_" + runtimeConfig.getUrl())
+              .withDescription("Currently connected cards for " + runtimeConfig.getUrl()).build(),
+          () -> {
+            Integer currentlyConnectedCardsInt;
+            try {
+              currentlyConnectedCardsInt = connectorResponseTime.time(callable);
+              log.info("Currently connected cards: " + currentlyConnectedCardsInt + " "
+                  + runtimeConfig.getUrl());
+              return currentlyConnectedCardsInt;
+            } catch (Exception e) {
+              log.log(Level.WARNING, "Cannot measure connector", e);
+            }
+            return null;
+          });
     } catch (Exception e) {
       log.log(Level.WARNING, "Cannot measure connector", e);
     }
@@ -249,12 +248,11 @@ public class Scheduler {
     try {
       Callable<Integer> callable = getNrOfCardsWithStatus(typeOfStatus, runtimeConfig,
           eventServicePortType, cardServicePortType);
-      Gauge<Integer> metricPinStatusSMCB = applicationRegistry.gauge(
-          Metadata.builder()
-              .withName("pinStatus_SMC_B_" + typeOfStatus + "_" + runtimeConfig.getUrl())
-              .withDescription(
-                  "SMC_B cards with PinStatus " + typeOfStatus + " for " + runtimeConfig.getUrl())
-              .build(), () -> {
+      Gauge<Integer> metricPinStatusSMCB = applicationRegistry.gauge(Metadata.builder()
+          .withName("pinStatus_SMC_B_" + typeOfStatus + "_" + runtimeConfig.getUrl())
+          .withDescription(
+              "SMC_B cards with PinStatus " + typeOfStatus + " for " + runtimeConfig.getUrl())
+          .build(), () -> {
             Integer nrOfCardsWithStatus;
             try {
               nrOfCardsWithStatus = connectorResponseTime.time(callable);

@@ -51,10 +51,8 @@ public class SecretsManagerService {
         String keystore = request.getHeader("x-client-certificate");
         String keystorePassword = request.getHeader("x-client-certificate-password");
         setUpSSLContext(getKeyFromKeyStoreUri(keystore, keystorePassword));
-      } catch (KeyStoreException | NoSuchAlgorithmException | CertificateException |
-               URISyntaxException |
-               IOException
-               | KeyManagementException e) {
+      } catch (KeyStoreException | NoSuchAlgorithmException | CertificateException
+          | URISyntaxException | IOException | KeyManagementException e) {
         log.severe("There was a problem when unpacking key from ClientCertificateKeyStore: "
             + e.getMessage());
       }
@@ -72,8 +70,7 @@ public class SecretsManagerService {
   public void acceptAllCertificates() {
     try {
       sslContext = SSLContext.getInstance(SslContextType.TLS.getSslContextType());
-      sslContext.init(null, new TrustManager[]{new SSLUtilities.FakeX509TrustManager()},
-          null);
+      sslContext.init(null, new TrustManager[] {new SSLUtilities.FakeX509TrustManager()}, null);
     } catch (NoSuchAlgorithmException | KeyManagementException e) {
       log.severe("There was a problem when creating the SSLContext:");
       e.printStackTrace();
@@ -88,13 +85,13 @@ public class SecretsManagerService {
       throws NoSuchAlgorithmException, KeyManagementException {
     sslContext = SSLContext.getInstance(SslContextType.TLS.getSslContextType());
 
-    sslContext.init(new KeyManager[]{km},
-        new TrustManager[]{new SSLUtilities.FakeX509TrustManager()},
-        null);
+    sslContext.init(new KeyManager[] {km},
+        new TrustManager[] {new SSLUtilities.FakeX509TrustManager()}, null);
   }
 
   public KeyManager getKeyFromKeyStoreUri(String keystoreUri, String keystorePassword)
-      throws URISyntaxException, KeyStoreException, NoSuchAlgorithmException, CertificateException, IOException {
+      throws URISyntaxException, KeyStoreException, NoSuchAlgorithmException, CertificateException,
+      IOException {
     if (keystorePassword == null) {
       keystorePassword = "";
     }
@@ -113,8 +110,8 @@ public class SecretsManagerService {
         String encodingType = dataParts[0];
         if (encodingType.equalsIgnoreCase("base64")) {
           String keystoreBase64 = dataParts[1];
-          ByteArrayInputStream keystoreInputStream = new ByteArrayInputStream(
-              Base64.getDecoder().decode(keystoreBase64));
+          ByteArrayInputStream keystoreInputStream =
+              new ByteArrayInputStream(Base64.getDecoder().decode(keystoreBase64));
           store.load(keystoreInputStream, keystorePassword.toCharArray());
         }
       }

@@ -37,8 +37,8 @@ import health.medunited.architecture.odata.annotations.ODataCacheControl;
 
 public class ETagCacheControlODataJPAProcessor extends ODataJPADefaultProcessor {
 
-  private static final Logger log = Logger.getLogger(
-      ETagCacheControlODataJPAProcessor.class.getName());
+  private static final Logger log =
+      Logger.getLogger(ETagCacheControlODataJPAProcessor.class.getName());
 
   private static final String CACHE_CONTROL_HEADER = "Cache-Control";
 
@@ -48,8 +48,7 @@ public class ETagCacheControlODataJPAProcessor extends ODataJPADefaultProcessor 
 
   @Override
   public ODataResponse readEntitySet(final GetEntitySetUriInfo uriParserResultView,
-      final String contentType)
-      throws ODataException {
+      final String contentType) throws ODataException {
     ODataResponse oDataResponse = null;
     try {
       oDataJPAContext.setODataContext(getContext());
@@ -64,8 +63,7 @@ public class ETagCacheControlODataJPAProcessor extends ODataJPADefaultProcessor 
 
   @Override
   public ODataResponse countEntitySet(final GetEntitySetCountUriInfo uriParserResultView,
-      final String contentType)
-      throws ODataException {
+      final String contentType) throws ODataException {
     ODataResponse oDataResponse = null;
     try {
       oDataJPAContext.setODataContext(getContext());
@@ -94,15 +92,13 @@ public class ETagCacheControlODataJPAProcessor extends ODataJPADefaultProcessor 
    * @throws EdmException
    */
   ODataResponse processCacheControlHeader(final GetEntitySetUriInfo uriParserResultView,
-      ODataResponse oDataResponse)
-      throws EdmException {
+      ODataResponse oDataResponse) throws EdmException {
     EdmType edmType = uriParserResultView.getTargetType();
     return processCacheControlHeaderForType(oDataResponse, edmType);
   }
 
   private ODataResponse processCacheControlHeaderForType(ODataResponse oDataResponse,
-      EdmType edmType)
-      throws EdmException {
+      EdmType edmType) throws EdmException {
     if (edmType instanceof EdmEntityType) {
       EdmMapping edmMapping = ((EdmEntityType) edmType).getMapping();
       if (edmMapping instanceof JPAEdmMapping) {
@@ -119,19 +115,17 @@ public class ETagCacheControlODataJPAProcessor extends ODataJPADefaultProcessor 
 
   @Override
   public ODataResponse executeBatch(final BatchHandler handler, final String contentType,
-      final InputStream content)
-      throws ODataException {
+      final InputStream content) throws ODataException {
     try {
       oDataJPAContext.setODataContext(getContext());
 
       ODataResponse batchResponse;
       List<BatchResponsePart> batchResponseParts = new ArrayList<>();
       PathInfo pathInfo = getContext().getPathInfo();
-      EntityProviderBatchProperties batchProperties = EntityProviderBatchProperties.init()
-          .pathInfo(pathInfo)
-          .build();
-      List<BatchRequestPart> batchParts = EntityProvider.parseBatchRequest(contentType, content,
-          batchProperties);
+      EntityProviderBatchProperties batchProperties =
+          EntityProviderBatchProperties.init().pathInfo(pathInfo).build();
+      List<BatchRequestPart> batchParts =
+          EntityProvider.parseBatchRequest(contentType, content, batchProperties);
 
       for (BatchRequestPart batchPart : batchParts) {
         BatchResponsePart batchResponsePart = handler.handleBatchPart(batchPart);

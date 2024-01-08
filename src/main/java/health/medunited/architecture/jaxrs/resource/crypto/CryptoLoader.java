@@ -25,12 +25,10 @@ public class CryptoLoader {
 
   private static final BouncyCastleProvider BOUNCY_CASTLE_PROVIDER = new BouncyCastleProvider();
 
-  public static X509Certificate getCertificateFromP12(final byte[] crt,
-      final String p12Password)
+  public static X509Certificate getCertificateFromP12(final byte[] crt, final String p12Password)
       throws IdpCryptoException {
     try {
-      final KeyStore p12 = KeyStore.getInstance("pkcs12",
-          BOUNCY_CASTLE_PROVIDER);
+      final KeyStore p12 = KeyStore.getInstance("pkcs12", BOUNCY_CASTLE_PROVIDER);
       try (InputStream is = new ByteArrayInputStream(crt)) {
         p12.load(is, p12Password.toCharArray());
       }
@@ -42,8 +40,8 @@ public class CryptoLoader {
         return (X509Certificate) p12.getCertificate(alias);
       }
 
-    } catch (final IOException | KeyStoreException | NoSuchAlgorithmException |
-                   CertificateException e) {
+    } catch (final IOException | KeyStoreException | NoSuchAlgorithmException
+        | CertificateException e) {
       throw new IdpCryptoException(e);
     }
     throw new IdpCryptoException("Could not find certificate in P12-File");
@@ -51,13 +49,12 @@ public class CryptoLoader {
 
   public static X509Certificate getCertificateFromPem(final byte[] crt) {
     try {
-      final CertificateFactory certFactory = CertificateFactory.getInstance("X.509",
-          BOUNCY_CASTLE_PROVIDER);
+      final CertificateFactory certFactory =
+          CertificateFactory.getInstance("X.509", BOUNCY_CASTLE_PROVIDER);
       X509Certificate x509Certificate;
 
       try (InputStream in = new ByteArrayInputStream(crt)) {
-        x509Certificate = (X509Certificate)
-            certFactory.generateCertificate(in);
+        x509Certificate = (X509Certificate) certFactory.generateCertificate(in);
       }
 
       if (x509Certificate == null) {
@@ -75,14 +72,14 @@ public class CryptoLoader {
     X509Certificate x509Certificate;
 
     try (InputStream in = new ByteArrayInputStream(crt)) {
-      CertificateFactory certFactory = CertificateFactory.getInstance("X.509",
-          BOUNCY_CASTLE_PROVIDER);
+      CertificateFactory certFactory =
+          CertificateFactory.getInstance("X.509", BOUNCY_CASTLE_PROVIDER);
 
       x509Certificate = (X509Certificate) certFactory.generateCertificate(in);
 
       if (x509Certificate == null) {
-        throw new CryptoException("Error while creating certificate from bytes! Null " +
-            "value returned for X509Certificate.");
+        throw new CryptoException("Error while creating certificate from bytes! Null "
+            + "value returned for X509Certificate.");
       }
 
     } catch (IOException | CertificateException ex) {
@@ -108,7 +105,7 @@ public class CryptoLoader {
         return new PkiIdentity(certificate, privateKey, Optional.empty(), null);
       }
     } catch (final IOException | KeyStoreException | NoSuchAlgorithmException
-                   | UnrecoverableKeyException | CertificateException e) {
+        | UnrecoverableKeyException | CertificateException e) {
 
       throw new IdpCryptoException(e);
     }

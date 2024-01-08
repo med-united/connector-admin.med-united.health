@@ -71,10 +71,10 @@ public class Certificate {
 
   @GET
   @Path("{certificateType}/{cardHandle}")
-  public JsonArray getCertificate(
-      @PathParam("certificateType") String certificateType,
+  public JsonArray getCertificate(@PathParam("certificateType") String certificateType,
       @PathParam("cardHandle") String cardHandle)
-      throws de.gematik.ws.conn.certificateservice.wsdl.v6.FaultMessage, CertificateEncodingException, CryptoException, FaultMessage {
+      throws de.gematik.ws.conn.certificateservice.wsdl.v6.FaultMessage,
+      CertificateEncodingException, CryptoException, FaultMessage {
 
     CertRefList certificateTypes = new ReadCardCertificate.CertRefList();
     certificateTypes.getCertRef().add(CertRefEnum.valueOf(certificateType));
@@ -107,22 +107,23 @@ public class Certificate {
     }
 
     try {
-      ReadCardCertificateResponse response = getCertificatesFromCard(cardInfoType.getCardHandle(),
-          certificateTypes);
+      ReadCardCertificateResponse response =
+          getCertificatesFromCard(cardInfoType.getCardHandle(), certificateTypes);
       verifyAllEntry.setReadCardCertificateResponse(response);
 
       for (X509DataInfo x509DataInfo : response.getX509DataInfoList().getX509DataInfo()) {
         verifyAllEntry.getVerifyCertificateResponse().add(getCertificateVerification(x509DataInfo));
       }
-    } catch (de.gematik.ws.conn.certificateservice.wsdl.v6.FaultMessage |
-             DatatypeConfigurationException e) {
+    } catch (de.gematik.ws.conn.certificateservice.wsdl.v6.FaultMessage
+        | DatatypeConfigurationException e) {
       log.log(Level.SEVERE, "Could not read certificate", e);
     }
     return verifyAllEntry;
   }
 
   private VerifyCertificateResponse getCertificateVerification(X509DataInfo x509DataInfo)
-      throws DatatypeConfigurationException, de.gematik.ws.conn.certificateservice.wsdl.v6.FaultMessage {
+      throws DatatypeConfigurationException,
+      de.gematik.ws.conn.certificateservice.wsdl.v6.FaultMessage {
 
     byte[] encodedCertificate = x509DataInfo.getX509Data().getX509Certificate();
     XMLGregorianCalendar now = DatatypeFactory.newInstance()
@@ -131,13 +132,8 @@ public class Certificate {
     Holder<VerifyCertificateResponse.VerificationStatus> verificationStatus = new Holder<>();
     Holder<VerifyCertificateResponse.RoleList> roleList = new Holder<>();
 
-    certificateServicePortType.verifyCertificate(
-        copyValuesFromProxyIntoContextType(contextType),
-        encodedCertificate,
-        now,
-        status,
-        verificationStatus,
-        roleList);
+    certificateServicePortType.verifyCertificate(copyValuesFromProxyIntoContextType(contextType),
+        encodedCertificate, now, status, verificationStatus, roleList);
 
     VerifyCertificateResponse verifyCertificateResponse = new VerifyCertificateResponse();
     verifyCertificateResponse.setStatus(status.value);
@@ -171,13 +167,8 @@ public class Certificate {
       throws de.gematik.ws.conn.certificateservice.wsdl.v6.FaultMessage {
     Holder<Status> status = new Holder<>();
     Holder<X509DataInfoListType> certList = new Holder<>();
-    certificateServicePortType.readCardCertificate(
-        cardHandle,
-        copyValuesFromProxyIntoContextType(contextType),
-        certificateTypes,
-        status,
-        certList
-    );
+    certificateServicePortType.readCardCertificate(cardHandle,
+        copyValuesFromProxyIntoContextType(contextType), certificateTypes, status, certList);
     ReadCardCertificateResponse readCardCertificateResponse = new ReadCardCertificateResponse();
     readCardCertificateResponse.setStatus(status.value);
     readCardCertificateResponse.setX509DataInfoList(certList.value);
@@ -185,9 +176,10 @@ public class Certificate {
   }
 
   private JsonArray certSubjectToJSON(X509DataInfo xDataInfo)
-      throws de.gematik.ws.conn.certificateservice.wsdl.v6.FaultMessage, CryptoException, CertificateEncodingException, FaultMessage {
-    X509Certificate certificate = CryptoLoader.getCertificateFromAsn1DERCertBytes(
-        xDataInfo.getX509Data().getX509Certificate());
+      throws de.gematik.ws.conn.certificateservice.wsdl.v6.FaultMessage, CryptoException,
+      CertificateEncodingException, FaultMessage {
+    X509Certificate certificate = CryptoLoader
+        .getCertificateFromAsn1DERCertBytes(xDataInfo.getX509Data().getX509Certificate());
     X500Name x500subject = new JcaX509CertificateHolder(certificate).getSubject();
 
     // C=DE,L=Freiburg,PostalCode=79114,STREET=Sundgauallee 59,
@@ -196,9 +188,9 @@ public class Certificate {
     JsonArrayBuilder items = Json.createArrayBuilder();
     for (RDN rdn : x500subject.getRDNs()) {
       for (AttributeTypeAndValue tv : rdn.getTypesAndValues()) {
-        items.add(Json.createObjectBuilder()
-            .add("field", BCStyle.INSTANCE.oidToDisplayName(tv.getType()))
-            .add("value", tv.getValue().toString()));
+        items.add(
+            Json.createObjectBuilder().add("field", BCStyle.INSTANCE.oidToDisplayName(tv.getType()))
+                .add("value", tv.getValue().toString()));
       }
     }
     return items.build();

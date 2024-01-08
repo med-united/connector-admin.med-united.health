@@ -22,11 +22,9 @@ public class ConnectorSds {
       @HeaderParam("x-basic-auth-password") String basicAuthPassword) {
     try {
       return Response
-          .status(Response.Status.OK)
-          .entity(endpointDiscoveryService.obtainConfiguration(connectorUrl, basicAuthUsername,
-              basicAuthPassword))
-          .type(MediaType.APPLICATION_JSON_TYPE)
-          .build();
+          .status(Response.Status.OK).entity(endpointDiscoveryService
+              .obtainConfiguration(connectorUrl, basicAuthUsername, basicAuthPassword))
+          .type(MediaType.APPLICATION_JSON_TYPE).build();
     } catch (Exception e) {
       return Response.status(Response.Status.NOT_FOUND).build();
     }

@@ -121,13 +121,12 @@ public class ConnectorServicesProducer {
   private void configureBindingProvider(BindingProvider bindingProvider) {
     SSLContext sslContext = secretsManagerService.getSslContext();
     if (sslContext != null) {
-      bindingProvider.getRequestContext()
-          .put("com.sun.xml.ws.transport.https.client.SSLSocketFactory",
-              sslContext.getSocketFactory());
+      bindingProvider.getRequestContext().put(
+          "com.sun.xml.ws.transport.https.client.SSLSocketFactory", sslContext.getSocketFactory());
     }
-    bindingProvider.getRequestContext()
-        .put("com.sun.xml.ws.transport.https.client.hostname.verifier",
-            new SSLUtilities.FakeHostnameVerifier());
+    bindingProvider.getRequestContext().put(
+        "com.sun.xml.ws.transport.https.client.hostname.verifier",
+        new SSLUtilities.FakeHostnameVerifier());
   }
 
   @Produces

@@ -12,8 +12,8 @@ public class CORSFilter implements ContainerResponseFilter {
   public void filter(final ContainerRequestContext requestContext,
       final ContainerResponseContext responseContext) {
     responseContext.getHeaders().putSingle("Access-Control-Allow-Origin", "http://localhost:8081");
-    responseContext.getHeaders()
-        .putSingle("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+    responseContext.getHeaders().putSingle("Access-Control-Allow-Methods",
+        "GET, POST, PUT, DELETE");
     String reqHeader = requestContext.getHeaderString("Access-Control-Request-Headers");
 
     responseContext.getHeaders().putSingle("Access-Control-Allow-Headers", reqHeader);

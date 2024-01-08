@@ -83,10 +83,8 @@ public class Card {
     Holder<PinResultEnum> pinResultEnum = new Holder<>();
     Holder<BigInteger> leftTries = new Holder<>();
     try {
-      cardServicePortType.verifyPin(
-          copyValuesFromProxyIntoContextType(contextType), cardHandle, pinType, status,
-          pinResultEnum, leftTries
-      );
+      cardServicePortType.verifyPin(copyValuesFromProxyIntoContextType(contextType), cardHandle,
+          pinType, status, pinResultEnum, leftTries);
       return "PIN verification triggered:" + status.value.toString();
     } catch (FaultMessage e) {
       log.log(Level.SEVERE, e.getMessage());
@@ -115,18 +113,14 @@ public class Card {
             String statusCH = pinStatus.getStatus().substring(0, pos);
             String statusQES = pinStatus.getStatus().substring(pos + 1);
             String[] status = {statusCH, statusQES};
-            JsonObject value = Json.createObjectBuilder()
-                .add("cardHandle", pinStatus.getHandle())
-                .add("cardType", pinStatus.getType())
-                .add("pinType", pinTypes[i])
+            JsonObject value = Json.createObjectBuilder().add("cardHandle", pinStatus.getHandle())
+                .add("cardType", pinStatus.getType()).add("pinType", pinTypes[i])
                 .add("status", status[i]).build();
             items.add(value);
           }
         } else {
-          JsonObject value = Json.createObjectBuilder()
-              .add("cardHandle", pinStatus.getHandle())
-              .add("cardType", pinStatus.getType())
-              .add("pinType", pinStatus.getPINType())
+          JsonObject value = Json.createObjectBuilder().add("cardHandle", pinStatus.getHandle())
+              .add("cardType", pinStatus.getType()).add("pinType", pinStatus.getPINType())
               .add("status", pinStatus.getStatus()).build();
           items.add(value);
         }
@@ -150,24 +144,12 @@ public class Card {
     if (pinStatus.getType().equals("HBA")) {
       pinStatus.setPINType("PIN.CH");
       try {
-        cardServicePortType.getPinStatus(
-            copyValuesFromProxyIntoContextType(contextType),
-            cardInfoType.getCardHandle(),
-            pinStatus.getPINType(),
-            status,
-            pinStatusEnum,
-            leftTries
-        );
+        cardServicePortType.getPinStatus(copyValuesFromProxyIntoContextType(contextType),
+            cardInfoType.getCardHandle(), pinStatus.getPINType(), status, pinStatusEnum, leftTries);
         String statusCH = pinStatusEnum.value.toString();
         pinStatus.setPINType("PIN.QES");
-        cardServicePortType.getPinStatus(
-            copyValuesFromProxyIntoContextType(contextType),
-            cardInfoType.getCardHandle(),
-            pinStatus.getPINType(),
-            status,
-            pinStatusEnum,
-            leftTries
-        );
+        cardServicePortType.getPinStatus(copyValuesFromProxyIntoContextType(contextType),
+            cardInfoType.getCardHandle(), pinStatus.getPINType(), status, pinStatusEnum, leftTries);
         String statusQES = pinStatusEnum.value.toString();
         pinStatus.setStatus(statusCH + "/" + statusQES);
       } catch (FaultMessage e) {
@@ -181,14 +163,8 @@ public class Card {
       }
       pinStatus.setPINType(pinType);
       try {
-        cardServicePortType.getPinStatus(
-            copyValuesFromProxyIntoContextType(contextType),
-            cardInfoType.getCardHandle(),
-            pinStatus.getPINType(),
-            status,
-            pinStatusEnum,
-            leftTries
-        );
+        cardServicePortType.getPinStatus(copyValuesFromProxyIntoContextType(contextType),
+            cardInfoType.getCardHandle(), pinStatus.getPINType(), status, pinStatusEnum, leftTries);
         pinStatus.setStatus(pinStatusEnum.value.toString());
       } catch (FaultMessage e) {
         log.log(Level.SEVERE, e.getMessage());

@@ -35,18 +35,18 @@ public class JpaODataServiceFactory extends ODataJPAServiceFactory {
       initialContext = new InitialContext();
       // BeanManager beanManager = (BeanManager)
       // initialContext.lookup("java:comp/BeanManager");
-      EntityManager entityManager = (EntityManager) initialContext.lookup(
-          "java:/blueprintEntityManager");
+      EntityManager entityManager =
+          (EntityManager) initialContext.lookup("java:/blueprintEntityManager");
       oDataJPAContext.setEntityManager(entityManager);
-      EntityManagerFactory entityManagerFactory = (EntityManagerFactory) initialContext
-          .lookup("java:/blueprintEntityManagerFactory");
+      EntityManagerFactory entityManagerFactory =
+          (EntityManagerFactory) initialContext.lookup("java:/blueprintEntityManagerFactory");
       oDataJPAContext.setEntityManagerFactory(entityManagerFactory);
       oDataJPAContext.setPersistenceUnitName("dashboard");
       oDataJPAContext.setContainerManaged(true);
       oDataJPAContext.setODataProcessor(new ETagCacheControlODataJPAProcessor(oDataJPAContext));
       oDataJPAContext.setJPAEdmExtension(new ETagJPAEDMExtension());
-      final UserTransaction userTransaction = (UserTransaction) initialContext
-          .lookup("java:comp/UserTransaction");
+      final UserTransaction userTransaction =
+          (UserTransaction) initialContext.lookup("java:comp/UserTransaction");
       setODataJPATransaction(new ODataJPATransaction() {
 
         @Override
@@ -72,9 +72,8 @@ public class JpaODataServiceFactory extends ODataJPAServiceFactory {
         public void commit() {
           try {
             userTransaction.commit();
-          } catch (SecurityException | IllegalStateException | RollbackException |
-                   HeuristicMixedException
-                   | HeuristicRollbackException | SystemException e) {
+          } catch (SecurityException | IllegalStateException | RollbackException
+              | HeuristicMixedException | HeuristicRollbackException | SystemException e) {
             log.log(Level.SEVERE, "Problem with commit", e);
           }
         }
@@ -90,8 +89,8 @@ public class JpaODataServiceFactory extends ODataJPAServiceFactory {
       });
       return oDataJPAContext;
     } catch (NamingException e) {
-      throw ODataJPARuntimeException.throwException(
-          ODataJPARuntimeException.ENTITY_MANAGER_NOT_INITIALIZED, e);
+      throw ODataJPARuntimeException
+          .throwException(ODataJPARuntimeException.ENTITY_MANAGER_NOT_INITIALIZED, e);
     }
   }
 

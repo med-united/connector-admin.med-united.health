@@ -53,17 +53,16 @@ class EndpointDiscoveryServiceTest {
 
   @Test
   void parseSecunetExampleSDS() throws JAXBException {
-    InputStream inputStream = EndpointDiscoveryServiceTest.class.getResourceAsStream(
-        "/connectorSECUN5.53.0.sds");
-    assertEquals("5.53.0",
-        edService.parseInput(inputStream).getProductInformation().getProductTypeInformation()
-            .getProductTypeVersion());
+    InputStream inputStream =
+        EndpointDiscoveryServiceTest.class.getResourceAsStream("/connectorSECUN5.53.0.sds");
+    assertEquals("5.53.0", edService.parseInput(inputStream).getProductInformation()
+        .getProductTypeInformation().getProductTypeVersion());
   }
 
   @Test
   void parseKocoboxExampleSDS() throws JAXBException {
-    InputStream inputStream = EndpointDiscoveryServiceTest.class.getResourceAsStream(
-        "/connectorKOCOC4.80.3.sds");
+    InputStream inputStream =
+        EndpointDiscoveryServiceTest.class.getResourceAsStream("/connectorKOCOC4.80.3.sds");
     edService.parseInput(inputStream);
     assertEquals("https://192.168.50.147:443/service/cardservice",
         edService.getCardServiceEndpointAddress());
