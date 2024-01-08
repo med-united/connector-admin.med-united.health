@@ -1,39 +1,40 @@
 <core:FragmentDefinition
-	xmlns="sap.m"
-	xmlns:core="sap.ui.core">
-	<Popover
-		id="certPopover"
-		title="{VerifyAll>certRef}"
-		class="sapUiResponsivePadding--header sapUiResponsivePadding--footer"
-		contentWidth="20rem"
-		placement="Bottom"
-		initialFocus="popoverClose">
-		<footer>
-			<OverflowToolbar>
-				<ToolbarSpacer/>
-				<Button
-					id="popoverClose"
-					text="{i18n>Close}"
-					press="handlePopoverClosePress" />
-			</OverflowToolbar>
-		</footer>
-		<content>
-			<Table items="{CertSubject>/}" class="withGrid">
-				<columns>
-					<Column>
-						<Text text="{i18n>Field}" />
-					</Column>
-					<Column>
-						<Text text="{i18n>Value}" />
-					</Column>
-				</columns>
-				<items>
-					<ColumnListItem>
-						<Text text="{parts: [{value:'field'},{path:'CertSubject>field'}], formatter: '.translateTextWithPrefix'}" />
-						<Text text="{CertSubject>value}" />
-					</ColumnListItem>
-				</items>
-			</Table>
-		</content>
-	</Popover>
+  xmlns="sap.m"
+  xmlns:core="sap.ui.core">
+  <Popover
+    id="certPopover"
+    title="{VerifyAll>certRef}"
+    class="sapUiResponsivePadding--header sapUiResponsivePadding--footer"
+    contentWidth="20rem"
+    placement="Bottom"
+    initialFocus="popoverClose">
+    <footer>
+      <OverflowToolbar>
+        <ToolbarSpacer/>
+        <Button
+          id="popoverClose"
+          text="{i18n>Close}"
+          press="handlePopoverClosePress"/>
+      </OverflowToolbar>
+    </footer>
+    <content>
+      <Table items="{CertSubject>/}" class="withGrid">
+        <columns>
+          <Column>
+            <Text text="{i18n>Field}"/>
+          </Column>
+          <Column>
+            <Text text="{i18n>Value}"/>
+          </Column>
+        </columns>
+        <items>
+          <ColumnListItem>
+            <Text
+              text="{parts: [{value:'field'},{path:'CertSubject>field'}], formatter: '.translateTextWithPrefix'}"/>
+            <Text text="{CertSubject>value}"/>
+          </ColumnListItem>
+        </items>
+      </Table>
+    </content>
+  </Popover>
 </core:FragmentDefinition>

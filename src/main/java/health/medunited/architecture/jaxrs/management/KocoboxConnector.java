@@ -12,20 +12,22 @@ import health.medunited.architecture.model.ManagementCredentials;
 @Named("kocobox")
 public class KocoboxConnector extends AbstractConnector {
 
-    private static final Logger log = Logger.getLogger(KocoboxConnector.class.getName());
+  private static final Logger log = Logger.getLogger(KocoboxConnector.class.getName());
 
-    @Override
-    public void restart(String connectorUrl, ManagementCredentials managementCredentials) {
-        restart(connectorUrl, "8500", managementCredentials);
-    }
+  @Override
+  public void restart(String connectorUrl, ManagementCredentials managementCredentials) {
+    restart(connectorUrl, "8500", managementCredentials);
+  }
 
-    @Override
-    public void restart(String connectorUrl, String managementPort, ManagementCredentials managementCredentials) {
-        log.log(Level.INFO, "Restarting Kocobox connector");
-    }
+  @Override
+  public void restart(String connectorUrl, String managementPort,
+      ManagementCredentials managementCredentials) {
+    log.log(Level.INFO, "Restarting Kocobox connector");
+  }
 
-    @Override
-    public boolean isTIOnline(String connectorUrl, String managementPort, ManagementCredentials managementCredentials) {
-        return true;
-    }
+  @Override
+  public boolean isTIOnline(String connectorUrl, String managementPort,
+      ManagementCredentials managementCredentials) {
+    return true;
+  }
 }

@@ -8,32 +8,35 @@ import de.gematik.ws.conn.certificateservice.v6.ReadCardCertificateResponse;
 import de.gematik.ws.conn.certificateservice.v6.VerifyCertificateResponse;
 
 public class VerifyAllEntry {
-    CardInfoType cardInfoType;
-    ReadCardCertificateResponse readCardCertificateResponse;
-    List<VerifyCertificateResponse> verifyCertificateResponse = new ArrayList<>();
 
-    public CardInfoType getCardInfoType() {
-        return this.cardInfoType;
-    }
+  CardInfoType cardInfoType;
+  ReadCardCertificateResponse readCardCertificateResponse;
+  List<VerifyCertificateResponse> verifyCertificateResponse = new ArrayList<>();
 
-    public void setCardInfoType(CardInfoType cardInfoType) {
-        this.cardInfoType = cardInfoType;
-    }
+  public CardInfoType getCardInfoType() {
+    return this.cardInfoType;
+  }
 
-    public ReadCardCertificateResponse getReadCardCertificateResponse() {
-        return this.readCardCertificateResponse;
-    }
+  public void setCardInfoType(CardInfoType cardInfoType) {
+    this.cardInfoType = cardInfoType;
+  }
 
-    public void setReadCardCertificateResponse(ReadCardCertificateResponse readCardCertificateResponse) {
-        this.readCardCertificateResponse = readCardCertificateResponse;
-    }
+  public ReadCardCertificateResponse getReadCardCertificateResponse() {
+    return this.readCardCertificateResponse;
+  }
 
-    public List<VerifyCertificateResponse> getVerifyCertificateResponse() {
-        return this.verifyCertificateResponse;
-    }
+  public void setReadCardCertificateResponse(
+      ReadCardCertificateResponse readCardCertificateResponse) {
+    this.readCardCertificateResponse = readCardCertificateResponse;
+  }
 
-    public void setVerifyCertificateResponse(List<VerifyCertificateResponse> verifyCertificateResponse) {
-        this.verifyCertificateResponse = verifyCertificateResponse;
-    }
-    
+  public List<VerifyCertificateResponse> getVerifyCertificateResponse() {
+    return this.verifyCertificateResponse;
+  }
+
+  public void setVerifyCertificateResponse(
+      List<VerifyCertificateResponse> verifyCertificateResponse) {
+    this.verifyCertificateResponse = verifyCertificateResponse;
+  }
+
 }

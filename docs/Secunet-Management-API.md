@@ -395,6 +395,7 @@ https://192.168.178.42:8500/rest/mgmt/ak/dienste/status
 ```
 
 https://192.168.178.42:8500/rest/mgmt/nk/licence/features
+
 ```
 [{
 	"feature": "encservice",

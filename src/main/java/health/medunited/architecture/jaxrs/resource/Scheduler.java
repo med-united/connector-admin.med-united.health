@@ -7,12 +7,12 @@ import javax.ws.rs.Path;
 @Path("/scheduler")
 public class Scheduler {
 
-    @Inject
-    health.medunited.architecture.monitoring.Scheduler scheduler;
+  @Inject
+  health.medunited.architecture.monitoring.Scheduler scheduler;
 
-    @GET
-    @Path("/monitorConnectors")
-    public void monitorConnectors() {
-        scheduler.monitorConnectors();
-    }
+  @GET
+  @Path("/monitorConnectors")
+  public void monitorConnectors() {
+    scheduler.monitorConnectors();
+  }
 }

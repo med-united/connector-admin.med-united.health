@@ -1,40 +1,40 @@
 <!DOCTYPE html>
 <html style="height: 100%;" lang="de">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Konnektor Admin Tool</title>
-	<link rel="icon" type="image/x-icon" href="favicon.ico">
-    <script
-            id="sap-ui-bootstrap"
-            src="/webjars/openui5/1.115.0/resources/sap-ui-core.js"
-            data-sap-ui-theme="sap_horizon"
-			data-sap-ui-async="true"
-            data-sap-ui-libs="sap.m,sap.f,sap.ui.integration"
-            data-sap-ui-bindingSyntax="complex"
-            data-sap-ui-compatVersion="edge"
-            data-sap-ui-oninit="module:sap/ui/core/ComponentSupport"
-            data-sap-ui-resourceroots='{
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Konnektor Admin Tool</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <script
+      id="sap-ui-bootstrap"
+      src="/webjars/openui5/1.115.0/resources/sap-ui-core.js"
+      data-sap-ui-theme="sap_horizon"
+      data-sap-ui-async="true"
+      data-sap-ui-libs="sap.m,sap.f,sap.ui.integration"
+      data-sap-ui-bindingSyntax="complex"
+      data-sap-ui-compatVersion="edge"
+      data-sap-ui-oninit="module:sap/ui/core/ComponentSupport"
+      data-sap-ui-resourceroots='{
 					"sap.f.ShellBarWithFlexibleColumnLayout": "./dashboard"
 				}'>
-    </script>
-    <script>
-			sap.ui.getCore().attachInit(function () {
-				sap.ui.require([
-					"sap/ui/core/ComponentContainer"
-				], function (ComponentContainer) {
+  </script>
+  <script>
+    sap.ui.getCore().attachInit(function () {
+      sap.ui.require([
+        "sap/ui/core/ComponentContainer"
+      ], function (ComponentContainer) {
 
-					new ComponentContainer({
-						name : 'sap.f.ShellBarWithFlexibleColumnLayout',
-						height : "100%",
-						settings : {
-							id : "sap.f.ShellBarWithFlexibleColumnLayout"
-						}
-					}).placeAt('content');
-				});
-			});
-		</script>
-<link rel = "stylesheet" type="text/css" href="css/style.css">
+        new ComponentContainer({
+          name: 'sap.f.ShellBarWithFlexibleColumnLayout',
+          height: "100%",
+          settings: {
+            id: "sap.f.ShellBarWithFlexibleColumnLayout"
+          }
+        }).placeAt('content');
+      });
+    });
+  </script>
+  <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body class="sapUiBody sapUiSizeCompact" id="content">
 </body>

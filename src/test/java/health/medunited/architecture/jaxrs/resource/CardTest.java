@@ -12,25 +12,25 @@ import javax.ws.rs.core.MediaType;
 @Disabled
 class CardTest {
 
-    @Test
-    void testAllPinStatus() {
-        Client client = ClientBuilder.newClient();
+  @Test
+  void testAllPinStatus() {
+    Client client = ClientBuilder.newClient();
 
-        RuntimeConfig runtimeConfig = Bootstrap.getRuntimeConfigKops();
+    RuntimeConfig runtimeConfig = Bootstrap.getRuntimeConfigKops();
 
-        String s = client.target("http://localhost:8080/connector/card/pinStatus").request()
-                .header("X-Mandant-Id", runtimeConfig.getMandantId())
-                .header("X-Client-System-Id", runtimeConfig.getClientSystemId())
-                .header("X-Workplace-Id", runtimeConfig.getWorkplaceId())
-                .header("X-User-Id", runtimeConfig.getUserId())
-                .header("X-Use-Certificate-Auth", runtimeConfig.getUseCertificateAuth())
-                .header("X-Client-Certificate", runtimeConfig.getClientCertificate())
-                .header("X-Client-Certificate-Password", runtimeConfig.getClientCertificatePassword())
-                .header("X-Host", runtimeConfig.getUrl())
-                .accept(MediaType.APPLICATION_JSON_TYPE)
-                .get(String.class);
+    String s = client.target("http://localhost:8080/connector/card/pinStatus").request()
+        .header("X-Mandant-Id", runtimeConfig.getMandantId())
+        .header("X-Client-System-Id", runtimeConfig.getClientSystemId())
+        .header("X-Workplace-Id", runtimeConfig.getWorkplaceId())
+        .header("X-User-Id", runtimeConfig.getUserId())
+        .header("X-Use-Certificate-Auth", runtimeConfig.getUseCertificateAuth())
+        .header("X-Client-Certificate", runtimeConfig.getClientCertificate())
+        .header("X-Client-Certificate-Password", runtimeConfig.getClientCertificatePassword())
+        .header("X-Host", runtimeConfig.getUrl())
+        .accept(MediaType.APPLICATION_JSON_TYPE)
+        .get(String.class);
 
-        System.out.println(s);
-    }
+    System.out.println(s);
+  }
 
 }

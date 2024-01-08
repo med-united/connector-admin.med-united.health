@@ -1,17 +1,17 @@
 .withGrid .sapMListTblCell:not(:first-child) {
-    border-left: 2px solid #d5dadc;
+  border-left: 2px solid #d5dadc;
 }
 
 
 .forget {
-    visibility: hidden;
-	position:absolute !important;
-	top:9999;
-	left:0;
-	z-index:-50;
+  visibility: hidden;
+  position: absolute !important;
+  top: 9999;
+  left: 0;
+  z-index: -50;
 }
 
 #amDynamicPage {
-	margin:0;
-	padding:0;
+  margin: 0;
+  padding: 0;
 }

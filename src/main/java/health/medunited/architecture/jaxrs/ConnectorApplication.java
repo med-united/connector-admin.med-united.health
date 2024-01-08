@@ -16,16 +16,17 @@ import health.medunited.architecture.jaxrs.resource.Scheduler;
 
 @ApplicationPath("/connector")
 public class ConnectorApplication extends Application {
-    @Override
-	public Set<Class<?>> getClasses() {
-		Set<Class<?>> set = new HashSet<>();
-		set.add(Event.class);
-		set.add(Scheduler.class);
-		set.add(Metrics.class);
-		set.add(Certificate.class);
-		set.add(Card.class);
-		set.add(ConnectorSds.class);
-		set.add(ConnectorManagement.class);
-		return set;
-	}
+
+  @Override
+  public Set<Class<?>> getClasses() {
+    Set<Class<?>> set = new HashSet<>();
+    set.add(Event.class);
+    set.add(Scheduler.class);
+    set.add(Metrics.class);
+    set.add(Certificate.class);
+    set.add(Card.class);
+    set.add(ConnectorSds.class);
+    set.add(ConnectorManagement.class);
+    return set;
+  }
 }
