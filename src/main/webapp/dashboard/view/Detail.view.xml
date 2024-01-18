@@ -63,12 +63,17 @@
           </uxap:ObjectPageHeader>
         </uxap:headerTitle>
         <uxap:sections>
+
+          <!-- Über diesen Konnektor -->
           <uxap:ObjectPageSection
-            id="connectorVersion"
+            id="connectorVersionSection"
             title="{i18n>AboutThisConnector}"
           >
             <uxap:subSections>
-              <uxap:ObjectPageSubSection>
+              <uxap:ObjectPageSubSection
+                id="connectorVersionSubSection"
+                title="{i18n>AboutThisConnector}"
+              >
                 <uxap:blocks>
                   <Table
                     autoPopinMode="true"
@@ -77,27 +82,15 @@
                   >
                     <columns>
                       <Column importance="High">
-                        <Text text="{i18n>Product}"/>
+                        <Text text="{i18n>Product}" />
                       </Column>
                       <Column importance="Medium">
-                        <Text text="Hardware Version"/>
+                        <Text text="Hardware Version" />
                       </Column>
                       <Column importance="Medium">
-                        <Text text="Firmware Version"/>
+                        <Text text="Firmware Version" />
                       </Column>
                     </columns>
-                    <headerToolbar>
-                      <Toolbar>
-                        <Label text=""/>
-                        <ToolbarSpacer/>
-                        <Button
-                          id="buttonDownloadSDS"
-                          text="{i18n>DownloadSDS}"
-                          type="Emphasized"
-                          press="onDownloadSDS"
-                        />
-                      </Toolbar>
-                    </headerToolbar>
                     <items>
                       <ColumnListItem>
                         <Text
@@ -117,6 +110,71 @@
             </uxap:subSections>
           </uxap:ObjectPageSection>
 
+          <!-- Aktionen -->
+          <uxap:ObjectPageSection
+            id="connectorActionSection"
+            title="{i18n>ConnectorActions}"
+          >
+            <uxap:subSections>
+              <uxap:ObjectPageSubSection
+                id="connectorActionsSubSection"
+                title="{i18n>ConnectorActions}"
+              >
+                <uxap:blocks>
+                  <Button
+                    id="checkStatusButton"
+                    text="Status prüfen"
+                    type="Emphasized"
+                    press="restartConnector"
+                  />
+                  <Button
+                    id="restartButton"
+                    text="Konnektor neustarten"
+                    type="Emphasized"
+                    press="restartConnector"
+                  />
+                  <Button
+                    id="syncTimeButton"
+                    text="Zeit synchronisieren"
+                    type="Emphasized"
+                    press="restartConnector"
+                  />
+                  <Button
+                    id="renewTslButton"
+                    text="TSL Zertifikat erneuern"
+                    type="Emphasized"
+                    press="restartConnector"
+                  />
+                  <Button
+                    id="changeVpnButton"
+                    text="VPN wechseln"
+                    type="Emphasized"
+                    press="restartConnector"
+                  />
+                  <Button
+                    id="checkTiButton"
+                    text="TI Erreichbarkeit prüfen"
+                    type="Emphasized"
+                    press="restartConnector"
+                  />
+                  <Button
+                    id="checkFirewallButton"
+                    text="Firewall prüfen"
+                    type="Emphasized"
+                    press="restartConnector"
+                  />
+                  <Button
+                    id="buttonDownloadSDS"
+                    text="{i18n>DownloadSDS}"
+                    type="Emphasized"
+                    press="onDownloadSDS"
+                  />
+                </uxap:blocks>
+              </uxap:ObjectPageSubSection>
+            </uxap:subSections>
+          </uxap:ObjectPageSection>
+
+          <!-- Gesteckte Karten -->
           <uxap:ObjectPageSection
             id="cardSection"
             title="{i18n>InsertedCards}"
@@ -136,13 +194,13 @@
                   >
                     <columns>
                       <Column importance="Low">
-                        <Text text="Alias"/>
+                        <Text text="Alias" />
                       </Column>
                       <Column importance="High">
-                        <Text text="{i18n>CardOwner}"/>
+                        <Text text="{i18n>CardOwner}" />
                       </Column>
                       <Column importance="Medium">
-                        <Text text="{i18n>CardType}"/>
+                        <Text text="{i18n>CardType}" />
                       </Column>
                       <Column importance="High">
                         <Text
@@ -150,7 +208,7 @@
                         />
                       </Column>
                       <Column importance="Medium">
-                        <Text text="ICCSN"/>
+                        <Text text="ICCSN" />
                       </Column>
                       <Column importance="Low">
                         <Text
@@ -158,9 +216,9 @@
                         />
                       </Column>
                       <Column importance="Low">
-                        <Text text="{i18n>CardterminalSlotId}"/>
+                        <Text text="{i18n>CardterminalSlotId}" />
                       </Column>
-                      <Column/>
+                      <Column />
                     </columns>
                     <items>
                       <ColumnListItem>
@@ -170,15 +228,15 @@
                         <Text
                           text="{Cards>cardHolderName}"
                         />
-                        <Text text="{Cards>cardType}"/>
+                        <Text text="{Cards>cardType}" />
                         <Text
                           text="{path: 'Cards>certificateExpirationDate', formatter: '.formatter.formatDateAndTimeWithTimezone'}"
                         />
-                        <Text text="{Cards>iccsn}"/>
+                        <Text text="{Cards>iccsn}" />
                         <Text
                           text="{path: 'Cards>insertTime', formatter: '.formatter.formatDateAndTimeWithTimezone'}"
                         />
-                        <Text text="{Cards>cardTerminalSlotId}"/>
+                        <Text text="{Cards>cardTerminalSlotId}" />
                         <MenuButton
                           text="{i18n>Action...}"
                           visible="{Cards>option}"
@@ -219,6 +277,7 @@
             </uxap:subSections>
           </uxap:ObjectPageSection>
 
+          <!-- Zertifikate -->
           <uxap:ObjectPageSection
             id="certificatesSection"
             title="{i18n>Certificates}"
@@ -240,17 +299,17 @@
                         importance="Low"
                         mergeDuplicates="true"
                       >
-                        <Text text="Alias"/>
+                        <Text text="Alias" />
                       </Column>
                       <Column
                         importance="Medium"
                         mergeDuplicates="true"
                         mergeFunctionName="data#mergeKey"
                       >
-                        <Text text="{i18n>CardOwner}"/>
+                        <Text text="{i18n>CardOwner}" />
                       </Column>
                       <Column importance="High">
-                        <Text text="CertRef"/>
+                        <Text text="CertRef" />
                       </Column>
                       <Column importance="High">
                         <Text
@@ -299,6 +358,7 @@
             </uxap:subSections>
           </uxap:ObjectPageSection>
 
+          <!-- Pin Status -->
           <uxap:ObjectPageSection
             id="statusPinSection"
             title="PIN-Status"
@@ -315,19 +375,19 @@
                   >
                     <columns>
                       <Column mergeDuplicates="true">
-                        <Text text="Alias"/>
+                        <Text text="Alias" />
                       </Column>
                       <Column
                         mergeDuplicates="true"
                         mergeFunctionName="data#mergeKey"
                       >
-                        <Text text="{i18n>CardType}"/>
+                        <Text text="{i18n>CardType}" />
                       </Column>
                       <Column>
-                        <Text text="{i18n>PinType}"/>
+                        <Text text="{i18n>PinType}" />
                       </Column>
                       <Column>
-                        <Text text="PIN-Status"/>
+                        <Text text="PIN-Status" />
                       </Column>
                     </columns>
                     <items>
@@ -359,6 +419,7 @@
             </uxap:subSections>
           </uxap:ObjectPageSection>
 
+          <!-- Angeschlossene Kartenterminals -->
           <uxap:ObjectPageSection
             id="cardTerminalSection"
             title="{i18n>AvailableCardterminals}"
@@ -377,19 +438,19 @@
                   >
                     <columns>
                       <Column importance="High">
-                        <Text text="IP"/>
+                        <Text text="IP" />
                       </Column>
                       <Column importance="Low">
-                        <Text text="Name"/>
+                        <Text text="Name" />
                       </Column>
                       <Column importance="Medium">
-                        <Text text="Produkt"/>
+                        <Text text="Produkt" />
                       </Column>
                       <Column importance="High">
-                        <Text text="HW Version"/>
+                        <Text text="HW Version" />
                       </Column>
                       <Column importance="High">
-                        <Text text="FW Version"/>
+                        <Text text="FW Version" />
                       </Column>
                       <Column importance="High">
                         <Text
@@ -425,6 +486,7 @@
             </uxap:subSections>
           </uxap:ObjectPageSection>
 
+          <!-- Aktuelle Daten -->
           <uxap:ObjectPageSection
             id="metricsSection"
             title="{i18n>MetricsForThisConnector}"
@@ -442,22 +504,22 @@
                   >
                     <columns>
                       <Column importance="High">
-                        <Text text="{i18n>Metric}"/>
+                        <Text text="{i18n>Metric}" />
                       </Column>
                       <Column importance="High">
-                        <Text text="{i18n>Value}"/>
+                        <Text text="{i18n>Value}" />
                       </Column>
                       <Column importance="Medium">
-                        <Text text="{i18n>Count}"/>
+                        <Text text="{i18n>Count}" />
                       </Column>
                       <Column importance="Low">
-                        <Text text="Min"/>
+                        <Text text="Min" />
                       </Column>
                       <Column importance="Low">
-                        <Text text="Max"/>
+                        <Text text="Max" />
                       </Column>
                       <Column importance="Medium">
-                        <Text text="{i18n>Average}"/>
+                        <Text text="{i18n>Average}" />
                       </Column>
                     </columns>
                     <items>
@@ -465,7 +527,7 @@
                         <Text
                           text="{i18n>ConnectorResponseTime}"
                         />
-                        <Text text=""/>
+                        <Text text="" />
                         <Text
                           text="{Metrics>/connectorResponseTime/count}"
                         />
@@ -486,10 +548,10 @@
                         <Text
                           text="{Metrics>/currentlyConnectedCards}"
                         />
-                        <Text text=""/>
-                        <Text text=""/>
-                        <Text text=""/>
-                        <Text text=""/>
+                        <Text text="" />
+                        <Text text="" />
+                        <Text text="" />
+                        <Text text="" />
                       </ColumnListItem>
                     </items>
                   </Table>
