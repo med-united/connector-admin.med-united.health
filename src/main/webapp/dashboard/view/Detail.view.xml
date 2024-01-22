@@ -146,6 +146,18 @@
                     press="restartConnector"
                   />
                   <Button
+                    id="renewCrlButton"
+                    text="CRL (Zertifikats-Sperrliste) aktualisieren"
+                    type="Emphasized"
+                    press="restartConnector"
+                  />
+                  <Button
+                    id="renewBNetzAVLButton"
+                    text="CRL (Zertifikats-Sperrliste) aktualisieren"
+                    type="Emphasized"
+                    press="BNetzA-VL aktualisieren"
+                  />
+                  <Button
                     id="changeVpnButton"
                     text="VPN wechseln"
                     type="Emphasized"
